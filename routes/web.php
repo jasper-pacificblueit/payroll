@@ -16,3 +16,18 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/', 'HomeController@index');
 });
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/employee', 'EmployeeController@index');
+});
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/company', 'CompanyController@index');
+});
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/employee/add', 'EmployeeController@create');
+});

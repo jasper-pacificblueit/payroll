@@ -59,7 +59,18 @@
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
                 </li>
+                
+                <li class="{!! if_uri_pattern(array('/employee')) == 1 ? 'active' : '' !!}">
+                    <a href="/employee"><i class="fa fa-user"></i> <span class="nav-label">Employee</span></a>
+                </li>
+                <li class="{!! if_uri_pattern(array('/attendance')) == 1 ? 'active' : '' !!}">
+                    <a href="/employee"><i class="fa fa-calendar"></i> <span class="nav-label">Attendance</span></a>
+                </li>
 
+                <li class="{!! if_uri_pattern(array('/company')) == 1 ? 'active' : '' !!}">
+                    <a href="/company"><i class="fa fa-sitemap"></i> <span class="nav-label">Company</span></a>
+                </li>
+                
                 {{--side menus end--}}
 
             </ul>

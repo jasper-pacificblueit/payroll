@@ -64,7 +64,7 @@
                     <a href="/employee"><i class="fa fa-user"></i> <span class="nav-label">Employee</span></a>
                 </li>
                 <li class="{!! if_uri_pattern(array('/attendance')) == 1 ? 'active' : '' !!}">
-                    <a href="/employee"><i class="fa fa-calendar"></i> <span class="nav-label">Attendance</span></a>
+                    <a href="/employee"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
 
                 <li class="{!! if_uri_pattern(array('/company')) == 1 ? 'active' : '' !!}">

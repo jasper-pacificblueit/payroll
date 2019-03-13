@@ -31,3 +31,6 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/employee/add', 'EmployeeController@create');
 });
+
+
+Route::view('/profile', 'employee_contents.profile');

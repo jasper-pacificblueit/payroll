@@ -1,4 +1,4 @@
-@extends('layouts.head')
+@extends('layouts.app')
 @section('title','Login')
 @section('content')
     <div class="middle-box text-center loginscreen animated fadeInDown">

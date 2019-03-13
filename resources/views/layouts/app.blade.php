@@ -37,7 +37,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    E-legal
+                    Payroll
                 </a>
             </div>
 

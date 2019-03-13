@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta id="_token" value="{!! csrf_token() !!}">
 
-    <title>E-Legal | @yield('title')</title>
+    <title>@yield('title')</title>
     {{ Html::favicon( 'img/placeholder.jpg' ) }}
 
     {!! Html::style('css/bootstrap.min.css') !!}

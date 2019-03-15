@@ -6,80 +6,114 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
-            <h2>Manage Company</h2>
-           
+            <h2>Company</h2>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <a href="/">Dashboard</a>
+                </li>
+                <li>
+                    <a href="/employee"><strong>View Companies</strong></a>
+                </li>
+               
+            </ol>
         </div>
     </div>
     <br>
-    <div class="wrapper wrapper-content animated fadeInRight no-padding" >
+    <div class="wrapper wrapper-content animated fadeInRight no-padding">
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>FooTable with row toggler, sorting and pagination</h5>
-
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
+                   
                     <div class="ibox-content">
-
-                        <table class="footable table table-stripped toggle-arrow-tiny">
-                            <thead>
-                            <tr>
-
-                                <th data-toggle="true">Project</th>
-                                <th>Name</th>
-                                <th>Phone</th>
-                                <th data-hide="all">Company</th>
-                                <th data-hide="all">Completed</th>
-                                <th data-hide="all">Task</th>
-                                <th data-hide="all">Date</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                        <div class="row">
+                            <div class="col-sm-5 m-b-xs">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCompany">
+                                            Add Company
+                                    </button>
+                                    
+                                    <div class="modal inmodal fade" id="addCompany" tabindex="-1" role="dialog"  aria-hidden="true">
+                                            <div class="modal-dialog modal-sm">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                       <label>Add Company</label>
+                                                       
+                                                    </div>
+                                                    <div class="modal-body">
+                                                       <div class="row">
+                                                           <div class="col-lg-12">
+                                                                <form method="POST" action="/company">
+                                                                    {{ csrf_field() }}
+                                                                    <label>Company Name</label>
+                                                                    <input type="text" name="name" class="form-control" required>
+                                                                    <br>
+                                                                    <label>Address</label>
+                                                                    <input type="text" name="address" class="form-control" required>
+                                                                
+                                                           </div>
+                                                       </div>
+                                                    </div>
+            
+                                                    <div class="modal-footer">
+                                                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary" name="submit">Create</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
                             
-                            <tr>
-                                <td>Gamma project</td>
-                                <td>Anna Jordan</td>
-                                <td>(016977) 0648</td>
-                                <td>Tellus Ltd</td>
-                                <td><span class="pie">4,9</span></td>
-                                <td>18%</td>
-                                <td>Jul 22, 2013</td>
-                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                            </tr>
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="5">
-                                    <ul class="pagination pull-right"></ul>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
+                            <div class="col-sm-3 pull-right">
+                               
+                                <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Company ID</th>
+                                        <th>Company name</th>
+                                        <th>Address</th>
+                                        <th>No. of Deparments</th>
+                                        <th>No. of Employee</th>  
+                                        <th>Action</th>  
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if(count($companies) > 0)
+                                        @foreach ($companies as $company)
+                                        <tr>
+                                            <td>{{$company->id}}</td>
+                                            <td>{{$company->name}}</td>
+                                            <td>{{$company->address}}</td>
+                                            <td>{{$company->id}}</td>
+                                            <td>{{$company->id}}</td>
+                                            <td><a href="company/{{$company->id}}" class="btn btn-default btn-xs">Manage</a></td>
+                                            
+                                        </tr>    
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="6">No companies yet</td>
+                                        </tr>
+                                    @endif
+                                  
+                                </tbody>
+                            </table>
+                        </div>
 
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
-
+   
+        
 @endsection
 
 

@@ -14,7 +14,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('company_contents.index');
+        $companies = Company::orderBy('id' , 'desc') -> paginate(5);
+        return view('company_contents.index' ,compact('companies'));
     }
 
     /**
@@ -35,7 +36,14 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $company = new Company();
+
+        $company->name = request('name');
+        $company->address = request('address');
+        $company->save();
+
+        return redirect('/company');
+
     }
 
     /**
@@ -44,9 +52,11 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show($id)
     {
-        //
+        $company = Company::find($id);
+        
+        return view('company_contents.show' , compact('company'));
     }
 
     /**

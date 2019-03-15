@@ -22,6 +22,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/employee', 'EmployeeController@index');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/employee/add', 'EmployeeController@create');
+});
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/company', 'CompanyController@index');
@@ -29,8 +34,12 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/employee/add', 'EmployeeController@create');
+    Route::get('/dtr', 'DateTimeRecordController@index');
 });
 
+
+Route::resource('company' , 'CompanyController');
+
+Route::post('/company/{company}/department' , 'DepartmentController@store');
 
 Route::view('/profile', 'employee_contents.profile');

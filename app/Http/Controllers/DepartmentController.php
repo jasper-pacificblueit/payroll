@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Department;
+use App\Company;
+
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -33,9 +35,15 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Company $company)
     {
-        //
+        Department::create([
+            'company_id' => $company->id ,
+            'name' => request('name')
+
+        ]);
+        
+        return back();
     }
 
     /**

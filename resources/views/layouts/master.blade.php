@@ -14,6 +14,15 @@
     {!! Html::style('font-awesome/css/font-awesome.css') !!}
     {!! Html::style('css/animate.css') !!}
     {!! Html::style('css/style.css') !!}
+
+
+    {!! Html::style('css/plugins/dropzone/basic.css') !!}
+    {!! Html::style('css/plugins/dropzone/dropzone.css') !!}
+    {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
+    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
+    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
+    
+    
     {!! Html::style('css/elegal-style.css') !!}
     @yield('styles')
 
@@ -56,24 +65,37 @@
 
                 {{--side menus start--}}
 
-                <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
-                    <a href="/profile"><i class="fa fa-users"></i> <span class="nav-label">Profile</span></a>
-                </li>
+                
 
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
                 </li>
-                
-                <li class="{!! if_uri_pattern(array('/employee')) == 1 ? 'active' : '' !!}">
-                    <a href="/employee"><i class="fa fa-user"></i> <span class="nav-label">Employee</span></a>
+                <li>
+                        <a href="/employee"><i class="fa fa-user"></i> <span class="nav-label">Employee</span> <span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level collapse">
+                             <li><a href="/employee">View Employee</a></li>
+                             <li><a href="/employee/add">Add Employee</a></li>
+                         </ul>
                 </li>
+                
                 <li class="{!! if_uri_pattern(array('/attendance')) == 1 ? 'active' : '' !!}">
-                    <a href="/employee"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
+                    <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
 
-                <li class="{!! if_uri_pattern(array('/company')) == 1 ? 'active' : '' !!}">
-                    <a href="/company"><i class="fa fa-sitemap"></i> <span class="nav-label">Company</span></a>
+                <li>
+                        <a href="/company"><i class="fa fa-building-o"></i> <span class="nav-label">Manage Company</span> <span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level collapse">
+                             <li><a href="/company">View Companies</a></li>
+                             <li><a href="#">Manage Departments</a></li>
+                         </ul>
                 </li>
+                <li class="{!! if_uri_pattern(array('/profile')) == 5 ? 'active' : '' !!}">
+                    <a href="/profile"><i class="fa fa-users"></i> <span class="nav-label">Profile</span></a>
+                </li>
+                
+                               
+                               
+
                 
                 {{--side menus end--}}
 
@@ -119,16 +141,29 @@
 </form>
 
 <!-- Mainly scripts -->
-{!! Html::script('js/jquery-3.3.1.min.js') !!}
+
+{!! Html::script('js/jquery-3.1.1.min.js') !!}
 {!! Html::script('js/bootstrap.min.js') !!}
 {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!}
 {!! Html::script('js/plugins/slimscroll/jquery.slimscroll.min.js') !!}
 {!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
-
 <!-- Custom and plugin javascript -->
 {!! Html::script('js/inspinia.js') !!}
 {!! Html::script('js/plugins/pace/pace.min.js') !!}
 {!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
+{!! Html::script('js/plugins/pace/pace.min.js') !!}
+
+<!-- Jasny -->
+{!! Html::script('js/plugins/jasny/jasny-bootstrap.min.js') !!}
+
+<!-- DROPZONE -->
+{!! Html::script('js/plugins/dropzone/dropzone.js') !!}
+
+ <!-- CodeMirror -->
+ {!! Html::script('js/plugins/codemirror/codemirror.js') !!}
+ {!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!}
+ 
+
 @yield('scripts')
 
 </body>

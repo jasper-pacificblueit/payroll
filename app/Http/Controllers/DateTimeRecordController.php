@@ -14,7 +14,7 @@ class DateTimeRecordController extends Controller
      */
     public function index()
     {
-        //
+        return view('dtr_contents.index');
     }
 
     /**

@@ -8,14 +8,14 @@
         <div class="col-lg-8">
             <h2>Manage Employee</h2>
             <ol class="breadcrumb">
-                <li class="active">
-                    <a href="/employee">Manage Employee</a>
-                </li>
-                <li>
-                    <a href="/employee/add"><strong>Add Employee</strong></a>
-                </li>
-               
-            </ol>
+                    <li class="active">
+                        <a href="/">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="/employee/add"><strong>Add Employee</strong></a>
+                    </li>
+                   
+                </ol>
         </div>
     </div>
     <Br>

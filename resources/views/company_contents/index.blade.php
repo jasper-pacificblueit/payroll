@@ -19,7 +19,7 @@
         </div>
     </div>
     <br>
-    <div class="wrapper wrapper-content animated fadeInRight no-padding">
+    <div class="wrapper wrapper-content no-padding">
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -34,9 +34,9 @@
                                     <div class="modal inmodal fade" id="addCompany" tabindex="-1" role="dialog"  aria-hidden="true">
                                             <div class="modal-dialog modal-sm">
                                                 <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                       <label>Add Company</label>
+                                                    <div class="modal-header no-padding">
+                                                        <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                       <h4 style="padding:10px">Add Company</h4>
                                                        
                                                     </div>
                                                     <div class="modal-body">
@@ -77,8 +77,8 @@
                                         <th>Company ID</th>
                                         <th>Company name</th>
                                         <th>Address</th>
-                                        <th>No. of Deparments</th>
-                                        <th>No. of Employee</th>  
+                                        <th>Deparments</th>
+                                        <th>Employee/s</th>  
                                         <th>Action</th>  
                                         
                                     </tr>
@@ -90,7 +90,7 @@
                                             <td>{{$company->id}}</td>
                                             <td>{{$company->name}}</td>
                                             <td>{{$company->address}}</td>
-                                            <td>{{$company->id}}</td>
+                                            <td>{{count($company->departments)}}</td>
                                             <td>{{$company->id}}</td>
                                             <td><a href="company/{{$company->id}}" class="btn btn-default btn-xs">Manage</a></td>
                                             

@@ -70,26 +70,26 @@
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
                 </li>
-                <li>
+                <li class="{{ Request::path() == 'employee' || Request::path() == 'employee/add' ? 'active' : '' }}">
                         <a href="/employee"><i class="fa fa-user"></i> <span class="nav-label">Employee</span> <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level collapse">
-                             <li><a href="/employee">View Employee</a></li>
-                             <li><a href="/employee/add">Add Employee</a></li>
+                             <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
+                             <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
                          </ul>
                 </li>
                 
-                <li class="{!! if_uri_pattern(array('/attendance')) == 1 ? 'active' : '' !!}">
+                <li class="{{ Request::path() == 'dtr' ? 'active' : '' }}">
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
 
-                <li>
+                <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
                         <a href="/company"><i class="fa fa-building-o"></i> <span class="nav-label">Manage Company</span> <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level collapse">
-                             <li><a href="/company">View Companies</a></li>
+                             <li class="{{ Request::path() == 'company' ? 'active' : '' }}"><a href="/company">View Companies</a></li>
                              <li><a href="#">Manage Departments</a></li>
                          </ul>
                 </li>
-                <li class="{!! if_uri_pattern(array('/profile')) == 5 ? 'active' : '' !!}">
+                <li class="{{ Request::path() == 'profile' ? 'active' : '' }}">
                     <a href="/profile"><i class="fa fa-users"></i> <span class="nav-label">Profile</span></a>
                 </li>
                 

@@ -27,7 +27,18 @@
                     
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-sm-5 m-b-xs">
+                                <div class="col-sm-3 m-b-xs">
+                                    <h4>Select Company:</h4>
+                                    <select class="form-control">
+                                        @foreach ($companies as $company)
+                                            <option>{{$company->name}}</option>
+                                        @endforeach
+                                        
+                                    </select>
+                                </div>
+
+                               
+                                <div class="col-sm-3 m-b-xs">
                                     <h4>Import Attendance</h4>
                                     <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                             <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
@@ -35,14 +46,55 @@
                                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                                     </div>
                                 </div>
-                                
-                                <div class="col-sm-3">
+
+                                <div class="col-sm-3 pull-right">
                                     <h4>&nbsp;</h4>
-                                    <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+                                    <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                                   placeholder="Search in table">
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            @for ($i = 0; $i < 15; $i++)
+                                            <th>{{$i}}</th>
+                                            @endfor
+                                            
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Jose Rizal</td>
+                                                <td>I.T. Department</td>
+                                                @for ($i = 0; $i < 15; $i++)
+                                                <td>--</td>
+                                                @endfor
+                                            </tr>
+                                            <tr>
+                                                <td>Jose Rizal</td>
+                                                <td>I.T. Department</td>
+                                                @for ($i = 0; $i < 15; $i++)
+                                                <td>--</td>
+                                                @endfor
+                                            </tr>
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td colspan="17">
+                                                <ul class="pagination pull-right"></ul>
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+        
                                 </div>
                             </div>
-                          
 
                         </div>
                     </div>
@@ -57,11 +109,17 @@
 
 
 @section('scripts')
+{!! Html::script('js/plugins/footable/footable.all.min.js') !!}
+ 
 
-    <script>
-        $(document).ready(function() {
+<script>
+    $(document).ready(function() {
 
-        });
-    </script>
+        $('.footable').footable();
+        $('.footable2').footable();
+
+    });
+
+</script>
 
 @endsection

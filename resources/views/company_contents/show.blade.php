@@ -23,7 +23,7 @@
         </div>
     </div>
     <br>
-    <div class="wrapper wrapper-content animated fadeInRight no-padding">
+    <div class="wrapper wrapper-content no-padding">
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -38,9 +38,9 @@
                                 <div class="modal inmodal fade" id="addDepartment" tabindex="-1" role="dialog"  aria-hidden="true">
                                         <div class="modal-dialog modal-sm">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                   <label>Add Department</label>
+                                                <div class="modal-header no-padding">
+                                                    <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                   <h4 style="padding:10px">Add Department</h4>
                                                    
                                                 </div>
                                                 <div class="modal-body">

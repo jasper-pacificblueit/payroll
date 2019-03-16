@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DateTimeRecord;
+use App\Company;
+
 use Illuminate\Http\Request;
 
 class DateTimeRecordController extends Controller
@@ -14,7 +16,8 @@ class DateTimeRecordController extends Controller
      */
     public function index()
     {
-        return view('dtr_contents.index');
+        $companies = Company::all();
+        return view('dtr_contents.index' , compact('companies'));
     }
 
     /**

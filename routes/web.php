@@ -20,8 +20,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/employee/add', 'EmployeeController@create');
 	Route::post('/employee/keep', 'EmployeeController@store');
 
-	Route::get('/company', 'CompanyController@index');
-	Route::resource('company' , 'CompanyController');
+	Route::resource('company', 'CompanyController');
 
 
 	Route::get('/dtr', 'DateTimeRecordController@index');

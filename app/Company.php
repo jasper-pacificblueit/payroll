@@ -18,7 +18,7 @@ class Company extends Model
 		return $this->hasMany('App\Employee');
 	}
 
-	public function addDepartment($name) {
-		return name;
-	}
+	// public function addDepartment($name) {
+	// 	return name;
+	// }
 }

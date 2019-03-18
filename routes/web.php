@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| () Web Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -21,6 +21,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/employee/keep', 'EmployeeController@store');
 
 	Route::resource('company', 'CompanyController');
+
+
 	Route::get('/dtr', 'DateTimeRecordController@index');
 
 	Route::post('/company/{company}/department' , 'DepartmentController@store');

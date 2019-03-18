@@ -21,8 +21,6 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/employee/keep', 'EmployeeController@store');
 
 	Route::resource('company', 'CompanyController');
-
-
 	Route::get('/dtr', 'DateTimeRecordController@index');
 
 	Route::post('/company/{company}/department' , 'DepartmentController@store');

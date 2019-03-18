@@ -55,6 +55,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <!--fixed-->
                                     @foreach($company as $i)
                                         @foreach($i->employees as $j)
                                         <tr>

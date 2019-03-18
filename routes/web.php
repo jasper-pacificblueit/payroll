@@ -15,19 +15,26 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', 'HomeController@index');
+
+    Route::get('/employee', 'EmployeeController@index')->name('employee');
+	Route::get('/employee/add', 'EmployeeController@create');
+	Route::post('/employee/keep', 'EmployeeController@store');
+
+	Route::get('/company', 'CompanyController@index');
+	Route::resource('company' , 'CompanyController');
+
+
+	Route::get('/dtr', 'DateTimeRecordController@index');
+
+	Route::post('/company/{company}/department' , 'DepartmentController@store');
+
+
+	Route::view('/profile', 'employee_contents.profile');
 });
 
 
 
-Route::get('/employee', 'EmployeeController@index');
-Route::get('/employee/add', 'EmployeeController@create');
-
-Route::get('/company', 'CompanyController@index');
-Route::resource('company' , 'CompanyController');
 
 
-Route::get('/dtr', 'DateTimeRecordController@index');
-Route::post('/company/{company}/department' , 'DepartmentController@store');
 
 
-Route::view('/profile', 'employee_contents.profile');

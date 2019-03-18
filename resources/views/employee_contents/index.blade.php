@@ -29,17 +29,16 @@
                             <div class="col-sm-5 m-b-xs">
                                 <h4>Select Company</h4>
                                 <select class="input-sm form-control input-s-sm inline">
-                                    <option value="0">Option 1</option>
-                                    <option value="1">Option 2</option>
-                                    <option value="2">Option 3</option>
-                                    <option value="3">Option 4</option>
+                                    @foreach ($company as $i)
+                                        <option>{{$i->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             
                             <div class="col-sm-3">
                                 <h4>&nbsp;</h4>
                                 <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+                                    <button type="button" class="btn btn-sm btn-primary">Go!</button> </span></div>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -56,25 +55,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>0001</td>
-                                        <td>Jose Rizal</td>
-                                        <td>I.T. Department</td>
-                                        <td>rizal@gmail.com</td>
-                                        <td>Staff</td>
-                                        <td><button class="btn btn-primary btn-xs">Update</button></td>
-                                        
-                                    </tr>
-
-                                    <tr>
-                                            <td>0001</td>
-                                            <td>Jose Rizal</td>
-                                            <td>I.T. Department</td>
-                                            <td>rizal@gmail.com</td>
-                                            <td>Staff</td>
-                                            <td><button class="btn btn-primary btn-xs">Update</button></td>
-                                            
+                                    @foreach($company as $i)
+                                        @foreach($i->employees as $j)
+                                        <tr>
+                                            <td>{{ $j->id }}</td>
+                                            <td>{{ sprintf('%s %s %s', $j->firstname, $j->lastname, $j->middlename) }}</td>
+                                            <td>{{ $i->departments[$i->id-1]->name }}</td>
+                                            <td>{{ $j->email }}</td>
+                                            <td></td>
+                                            <td>
+                                                <button class='btn btn-primary btn-sm'>Action</button>
+                                            </td>
                                         </tr>
+                                        @endforeach
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

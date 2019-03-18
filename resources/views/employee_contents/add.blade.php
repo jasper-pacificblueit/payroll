@@ -25,51 +25,55 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Please fill up the form</h5>
-                    
                 </div>
                 <div class="ibox-content">
 
-                    <form>
+                    <form method="post" action="/employee/keep">
+                      {{ csrf_field() }}
                         <div class="row">
                             <div class="col-lg-6">
                                <label>First name</label>
-                               <input type="text" class="form-control">
+                               <input type="text" name="firstName" class="form-control">
                                <br>
     
                                <label>Last name</label>
-                               <input type="text" class="form-control">
+                               <input type="text" name="lastName" class="form-control">
                                <br>
     
                                <label>Middle name</label>
-                               <input type="text" class="form-control">
+                               <input type="text" name="middleName" class="form-control">
                                <br>
     
                                <label>E-mail</label>
-                               <input type="text" class="form-control">
+                               <input type="text" name="email" class="form-control">
                                <br>
     
                                <label>Phone number</label>
-                               <input type="text" class="form-control">
+                               <input type="text" name="phone" class="form-control">
                                <br>
                                 
                                <label>Mobile number</label>
-                               <input type="text" class="form-control">
+                               <input type="text" name="mobile" class="form-control">
                                <br>
-                              
-                               
-                                
+
                             </div>
     
                             <div class="col-lg-6">
                                 <label>Company name</label>
-                                <select class="form-control">
-                                    <option>--</option>
+                                <select class="form-control" name="company">
+                                    @foreach($company as $i)
+                                      <option value="{{ $i->id }}">{{ $i->name }}</option>
+                                    @endforeach
                                 </select>
                                 <br>
     
                                 <label>Department</label>
-                                <select class="form-control">
-                                    <option>--</option>
+                                <select class="form-control" name="department">
+                                    @foreach($company as $i)
+                                      @foreach($i->departments as $j)
+                                        <option value="{{ $j->id }}">[{{ $i->name }}] {{ $j->name }}</option>
+                                      @endforeach
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -81,14 +85,11 @@
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div >
-                                        
                                         <button class="btn btn-primary" type="submit">Submit</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                       
                     </form>
     
                         

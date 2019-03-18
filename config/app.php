@@ -179,7 +179,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
 
-	Spatie\Permission\PermissionServiceProvider::class,
+	   Spatie\Permission\PermissionServiceProvider::class,
+       Cyberduck\LaravelExcel\ExcelLegacyServiceProvider::class,
     ],
 
     /*

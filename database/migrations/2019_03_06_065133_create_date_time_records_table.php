@@ -15,12 +15,16 @@ class CreateDateTimeRecordsTable extends Migration
     {
         Schema::create('date_time_records', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
+            $table->integer('company_id')->unsigned();
 
-            $table->boolean('status');
-            $table->enum('type', ['regular', 'break', 'ot']);
+            $table->date('date');
+            $table->time('in_am');
+            $table->time('out_am');
+            $table->time('in_pm');
+            $table->time('out_pm');
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 

@@ -51,6 +51,10 @@
                                <label>Phone number</label>
                                <input type="text" name="phone" class="form-control">
                                <br>
+
+                               <label>Position</label>
+                               <input type="text" name="position" class="form-control">
+                               <br>
                                 
                                <label>Mobile number</label>
                                <input type="text" name="mobile" class="form-control">

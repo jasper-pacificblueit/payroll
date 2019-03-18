@@ -19,6 +19,7 @@ class CreateEmployeesTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('middlename');
+            $table->string('position');
             $table->string('email');
             $table->string('phone');
             $table->string('mobile');

@@ -48,6 +48,7 @@ class EmployeeController extends Controller
             'lastName' => 'required',
             'middleName' => 'required',
             'email' => 'required',
+            'position' => 'required',
             'phone' => 'required',
             'mobile' => 'required'
         ]);
@@ -58,6 +59,7 @@ class EmployeeController extends Controller
         $employee->lastname = $request->lastName;
         $employee->middlename = $request->middleName;
         $employee->email = $request->email;
+        $employee->position = $request->position;
         $employee->phone = $request->phone;
         $employee->mobile = $request->mobile;
         $employee->company_id = $request->company;

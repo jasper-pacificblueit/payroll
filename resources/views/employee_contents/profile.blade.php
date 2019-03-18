@@ -10,10 +10,10 @@
             </div>
             <div>
                 <div class="ibox-content no-padding border-left-right">
-                    <img alt="image" class="img-responsive" src="img/mars.jpg">
+                    <img alt="image" class="img-responsive" src="img/punks.jpg">
                 </div>
                 <div class="ibox-content profile-content">
-                    <h4><strong>John Denver</strong></h4>
+                    <h4><strong>Rey The Great</strong></h4>
                     <p><i class="fa fa-map-marker"></i> Riviera State 32/106</p>
                     <h5>
                         About me
@@ -23,14 +23,14 @@
                     </p>
                     <div class="row m-t-lg">
                         <div class="col-md-4">
-                            <h5><strong>Birthday :</strong> 11-10-1994</h5>
+                            <h5><strong>Birthday :</strong> 12/08/96</h5>
                         </div>
                         <div class="col-md-4">
                             <h5><strong>Gender :</strong> Male</h5>
                         </div>
                         
                         <div class="col-md-4">
-                            <h5><strong>Age :</strong> 24</h5>
+                            <h5><strong>Age :</strong> 22</h5>
                         </div>
 
                         <div class="col-md-4">

@@ -36,7 +36,7 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="/img/profile_small.jpg" style="width: 48px;" />
+                            <img alt="image" class="img-circle" src="/img/punks.jpg" style="width: 100px;" />
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">
@@ -48,15 +48,19 @@
                                     <b class="caret"></b></span>
                             </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-
-                            <li>
+                            <li class="{{ Request::path() == 'profile' ? 'active' : '' }}">
+                                <a href="/profile"><i class="fa fa-users"></i> <span class="nav-label">Profile</span></a>
+                                
+                            
                                 <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-                            </li>
-                        </ul>
+                                onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                              <i class="fa fa-sign-out"></i> <span class="nav-label">Sign-Out</span></a>
+                                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
+                                        
+                            </ul>
                     </div>
                     <div class="logo-element">
                         PMR
@@ -89,8 +93,7 @@
                              <li><a href="#">Manage Departments</a></li>
                          </ul>
                 </li>
-                <li class="{{ Request::path() == 'profile' ? 'active' : '' }}">
-                    <a href="/profile"><i class="fa fa-users"></i> <span class="nav-label">Profile</span></a>
+
                 </li>
                 
                                

@@ -14,9 +14,9 @@
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', 'HomeController@index');
+  Route::get('/', 'HomeController@index');
 
-    Route::get('/employee', 'EmployeeController@index')->name('employee');
+  Route::get('/employee', 'EmployeeController@index')->name('employee');
 	Route::get('/employee/add', 'EmployeeController@create');
 	Route::post('/employee/keep', 'EmployeeController@store');
 

@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
-use App\Company;
-use App\User;
+use App;
 
 use Illuminate\Http\Request;
 
@@ -18,8 +16,8 @@ class EmployeeController extends Controller
     public function index()
     {
         return view('employee_contents.index')->with([
-            'company' => Company::all(),
-            'employee' => Employee::all(),
+            'company' => App\Company::all(),
+            'employee' => App\Employee::all(),
         ]);
     }
 
@@ -31,7 +29,7 @@ class EmployeeController extends Controller
     public function create()
     {
         return view('employee_contents.add')->with([
-            'company' => Company::all(),
+            'company' => App\Company::all(),
         ]);
     }
 
@@ -44,6 +42,8 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
+            'user' => 'required',
+            'pass' => 'required',
             'firstName' => 'required',
             'lastName' => 'required',
             'middleName' => 'required',
@@ -53,20 +53,10 @@ class EmployeeController extends Controller
             'mobile' => 'required'
         ]);
 
-        $employee = new Employee;
-
-        $employee->firstname = $request->firstName;
-        $employee->lastname = $request->lastName;
-        $employee->middlename = $request->middleName;
-        $employee->email = $request->email;
-        $employee->position = $request->position;
-        $employee->phone = $request->phone;
-        $employee->mobile = $request->mobile;
-        $employee->company_id = $request->company;
-        $employee->department_id = $request->department;
-        $employee->user_id = User::where('email', $request->email)->first()['id'];
-
-        $employee->save();
+        $user = new App\User;
+        $contact = new App\Contact;
+        $profile = new App\Profile;
+        $employee = new App\Employee;
 
         return redirect()->route('employee');
     }

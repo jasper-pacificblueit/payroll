@@ -18,7 +18,8 @@
                 </ol>
         </div>
     </div>
-    <Br>
+    <br>
+
     <div class="wrapper wrapper-content animated fadeInRight no-padding" >
        <div class="row">
         <div class="col-lg-12">
@@ -27,61 +28,53 @@
                     <h5>Please fill up the form</h5>
                 </div>
                 <div class="ibox-content">
-
                     <form method="post" action="/employee/keep">
                       {{ csrf_field() }}
                         <div class="row">
                             <div class="col-lg-6">
                                <label>First name</label>
-                               <input type="text" name="firstName" class="form-control">
-                               <br>
+                               <input type="text" name="firstName" class="form-control p-2">
     
                                <label>Last name</label>
-                               <input type="text" name="lastName" class="form-control">
-                               <br>
+                               <input type="text" name="lastName" class="form-control p-2">
     
                                <label>Middle name</label>
-                               <input type="text" name="middleName" class="form-control">
-                               <br>
-    
+                               <input type="text" name="middleName" class="form-control p-2">
+
                                <label>E-mail</label>
-                               <input type="text" name="email" class="form-control">
-                               <br>
+                               <input type="text" name="email" class="form-control p-2">
+
+                               <label>Mobile number</label>
+                               <input type="text" name="mobile" class="form-control p-2">
     
                                <label>Phone number</label>
-                               <input type="text" name="phone" class="form-control">
-                               <br>
+                               <input type="text" name="phone" class="form-control p-2">
 
                                <label>Position</label>
-                               <input type="text" name="position" class="form-control">
-                               <br>
-                                
-                               <label>Mobile number</label>
-                               <input type="text" name="mobile" class="form-control">
-                               <br>
-
+                               <input type="text" name="position" class="form-control p-2">
                             </div>
     
                             <div class="col-lg-6">
+                                <label>Employee username</label>
+                                <input type="text" name="user" class="form-control">
+
+                                <label>Employee password</label>
+                                <input type="password" name="pass" class="form-control">
+
                                 <label>Company name</label>
-                                <select class="form-control" name="company">
-                                    @foreach($company as $i)
-                                      <option value="{{ $i->id }}">{{ $i->name }}</option>
-                                    @endforeach
+                                <select class="form-control" name="company" onchange="chdep()">
+                                  @foreach($company as $i)
+                                    <option value="{{ $i->id }}">{{ $i->name }}</option>
+                                  @endforeach
                                 </select>
-                                <br>
     
                                 <label>Department</label>
-                                <select class="form-control" name="department">
-                                    @foreach($company as $i)
-                                      @foreach($i->departments as $j)
-                                        <option value="{{ $j->id }}">[{{ $i->name }}] {{ $j->name }}</option>
-                                      @endforeach
-                                    @endforeach
+                                <select class="form-control company-dep" name="department">  
+                                  @foreach($company[0]->departments as $dep)
+                                    <option>{{$dep->name}}</option>
+                                  @endforeach       
                                 </select>
                             </div>
-
-                            
                         </div>
 
                         <div class="row">
@@ -103,9 +96,18 @@
             </div>
         </div>
      </div>
-    <Br>
+    <br>
 
+    @foreach($company as $i)
+      <template id="dep-option-{{ $i->id }}">
+      @foreach($i->departments as $dep)
+        <option>{{ $dep->name }}</option>
+      @endforeach
+      </template>
+    @endforeach
 @endsection
+
+
 
 
 @section('scripts')
@@ -114,6 +116,19 @@
         $(document).ready(function() {
 
         });
+
+        // event function to change department options when company changes.
+        let chdep = () => {
+          let depid = 'dep-option-' + document.getElementsByName('company')[0].value;
+
+          document.querySelector('.company-dep').innerHTML = "";  // reset
+
+          let dep = document.querySelector('#' + depid);
+          let clone = dep.content.cloneNode(1);
+
+          document.querySelector('.company-dep').appendChild(clone);
+        };
+
     </script>
 
 @endsection

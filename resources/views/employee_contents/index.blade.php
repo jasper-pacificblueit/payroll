@@ -57,17 +57,28 @@
                                 <tbody>
                                     <!--fixed-->
                                     @foreach($company as $i)
-                                        @foreach($i->employees as $j)
-                                        <tr>
-                                            <td>{{ $j->id }}</td>
-                                            <td>{{ sprintf('%s %s %s', $j->firstname, $j->lastname, $j->middlename) }}</td>
-                                            <td>{{ $i->departments[$i->id-1]->name }}</td>
-                                            <td>{{ $j->email }}</td>
-                                            <td></td>
-                                            <td>
-                                                <button class='btn btn-primary btn-sm'>Action</button>
-                                            </td>
-                                        </tr>
+                                        @foreach($i->employees as $em)
+                                            <tr>
+                                                <td>{{ $em->id }}</td>
+                                                <td>
+                                                {{  sprintf('%s %s %s',
+                                                        App\Profile::where('user_id', $em->user_id)->first()['fname'],
+                                                        App\Profile::where('user_id', $em->user_id)->first()['lname'],
+                                                        App\Profile::where('user_id', $em->user_id)->first()['mname']
+                                                    )
+                                                }}
+                                                </td>
+                                                <td>
+                                                    {{ App\Department::where('id', $em->department_id)->first()['name'] }}
+                                                </td>
+                                                <td>
+                                                    {{ App\Profile::where('user_id', $em->user_id)->first()['email'] }}
+                                                </td>
+                                                <td>
+                                                    {{ App\User::where('id', $em->user_id)->first()['position'] }}
+                                                </td>
+                                                <td><a href="#" class="btn btn-default btn-xs">Manage</a></td>
+                                            </tr>
                                         @endforeach
                                     @endforeach
                                 </tbody>

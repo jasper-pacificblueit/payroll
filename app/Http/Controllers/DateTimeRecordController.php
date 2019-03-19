@@ -132,7 +132,7 @@ class DateTimeRecordController extends Controller
             }
             fclose($handle);
         }
-
-        return view('dtr_contents.view' , compact('data'));
+      
+        return view('dtr_contents.index' , compact('data'));
     }
 }

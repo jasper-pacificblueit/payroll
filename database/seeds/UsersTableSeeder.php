@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
         $adminProfile = new App\Profile;
         $adminContact = new App\Contact;
 
-        $admin->user = 'pblue_admin';
+        $admin->user = 'admin';
         $admin->password = bcrypt('admin');
         $admin->email = 'legazpi@pblue.com';
         $admin->position = 'CEO';

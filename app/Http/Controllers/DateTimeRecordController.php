@@ -112,7 +112,7 @@ class DateTimeRecordController extends Controller
     {
         //
     }
-    public function records(Request $request){
+    public function records(Request $request) {
 
         $upload = $request->file('upload-file');
         
@@ -132,7 +132,6 @@ class DateTimeRecordController extends Controller
             }
             fclose($handle);
         }
-
 
         return view('dtr_contents.view' , compact('data'));
     }

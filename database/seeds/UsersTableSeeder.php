@@ -42,6 +42,5 @@ class UsersTableSeeder extends Seeder
         $adminContact->user_id = $admin->id;
 
         $adminContact->save();
-
     }
 }

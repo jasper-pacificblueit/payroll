@@ -125,11 +125,14 @@ class DateTimeRecordController extends Controller
         {
             while (($row = fgetcsv($handle, 1000)) !== false)
             {
-                if (!$header)
-                    $header = $row;
-                else
-                    $data[] = array_combine($header, $row);
+
+                array_push($data, $row);
+                // if (!$header)
+                //     $header = $row;
+                // else
+                //     $data[] = array_combine($header, $row);
             }
+            dd($data);
             fclose($handle);
         }
       

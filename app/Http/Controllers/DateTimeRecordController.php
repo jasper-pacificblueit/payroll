@@ -74,7 +74,10 @@ class DateTimeRecordController extends Controller
     public function show(DateTimeRecord $dateTimeRecord)
     {
         //
+
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -108,5 +111,29 @@ class DateTimeRecordController extends Controller
     public function destroy(DateTimeRecord $dateTimeRecord)
     {
         //
+    }
+    public function records(Request $request){
+
+        $upload = $request->file('upload-file');
+        
+        $filePath = $upload->getRealPath();
+
+        $header = null;
+        $data = array();
+
+        if (($handle = fopen($filePath, 'r')) !== false)
+        {
+            while (($row = fgetcsv($handle, 1000)) !== false)
+            {
+                if (!$header)
+                    $header = $row;
+                else
+                    $data[] = array_combine($header, $row);
+            }
+            fclose($handle);
+        }
+
+
+        return view('dtr_contents.view' , compact('data'));
     }
 }

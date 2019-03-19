@@ -12,7 +12,7 @@
                     <a href="/">Dashboard</a>
                 </li>
                 <li>
-                    <a href="/employee"><strong>View Attendance</strong></a>
+                    <a href="/employee"><strong>View File</strong></a>
                 </li>
                
             </ol>
@@ -29,29 +29,20 @@
                             <div class="row">
                                 
                                
-                                <div class="col-sm-3 m-b-xs">
-                                    <h4>Import Attendance</h4>
-                                    <form method="POST" action="/dtr/view" enctype="multipart/form-data">
-                                        {{ csrf_field() }}
-                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                            <span class="btn btn-default btn-file"><span class="fileinput-new">Select file</span>
-                                            <span class="fileinput-exists">Change</span><input type="file" name="upload-file"/></span>
-                                            <span class="fileinput-filename"></span>
-                                            <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">×</a>
-                                        </div> 
-                                        <button type="submit" class="form-control">View</button>
-                                    </form>
+                                
+                                <div class="col-sm-3 pull-right">
+                                    <h4>&nbsp;</h4>
+                                    <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                                   placeholder="Search in table">
                                 </div>
-
-                             
                                 
                             </div>
-                            <hr>
+                            <br>
                             <div class="row">
-                                <div class="col-lg-12" >
-                                    <p>Please import your csv file to view records</p>
-                                    
-        
+                                <div class="col-lg-12">
+                                    @foreach($data as $id)
+                                        <li>{{$id->user_id}}</li>
+                                    @endforeach
                                 </div>
                             </div>
 

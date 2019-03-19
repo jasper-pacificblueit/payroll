@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 	Route::resource('dtr', 'DateTimeRecordController');
+	Route::post('dtr/view' , 'DateTimeRecordController@records');
 
 
 	Route::post('/company/{company}/department' , 'DepartmentController@store');

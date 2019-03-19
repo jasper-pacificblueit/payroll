@@ -23,9 +23,11 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('company', 'CompanyController');
 
 
-	Route::get('/dtr', 'DateTimeRecordController@index');
+	Route::resource('dtr', 'DateTimeRecordController');
+
 
 	Route::post('/company/{company}/department' , 'DepartmentController@store');
+
 
 
 	Route::view('/profile', 'employee_contents.profile');

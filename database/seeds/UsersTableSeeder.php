@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
 
         foreach($userList as $data){
             $user = new User();
-            $user->name = $data[0];
+            $user->user = $data[0];
             $user->email = $data[1];
             $user->password = bcrypt($data[2]);
             $user->save();

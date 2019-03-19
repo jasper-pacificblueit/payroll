@@ -13,11 +13,11 @@
             <p>Please Log-In</p>
             <form class="m-t" role="form"  method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
-                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input id="email"  type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
-                    @if ($errors->has('email'))
+                <div class="form-group{{ $errors->has('user') ? ' has-error' : '' }}">
+                    <input id="user"  type="text" class="form-control" placeholder="Username" name="user" value="{{ old('user') }}" required autofocus>
+                    @if ($errors->has('user'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
+                            <strong>{{ $errors->first('user') }}</strong>
                         </span>
                     @endif
                 </div>

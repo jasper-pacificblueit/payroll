@@ -17,7 +17,6 @@ class EmployeeController extends Controller
     {
         return view('employee_contents.index')->with([
             'company' => App\Company::all(),
-            'employee' => App\Employee::all(),
         ]);
     }
 
@@ -44,6 +43,8 @@ class EmployeeController extends Controller
         $validate = $request->validate([
             'user' => 'required',
             'pass' => 'required',
+            'address' => 'required',
+            'birthdate' => 'required',
             'firstName' => 'required',
             'lastName' => 'required',
             'middleName' => 'required',
@@ -57,6 +58,39 @@ class EmployeeController extends Controller
         $contact = new App\Contact;
         $profile = new App\Profile;
         $employee = new App\Employee;
+
+        $user->user = $request->user;
+        $user->email = $request->email;
+        $user->position = $request->position;
+        $user->password = bcrypt($request->pass);
+
+        $user->save();
+
+        $contact->phone = $request->phone;
+        $contact->mobile = $request->mobile;
+        $contact->address = $request->address;
+        $contact->email = $user->email;
+        $contact->user_id = $user->id;
+
+        $contact->save();
+
+        $profile->fname = $request->firstName;
+        $profile->age = 0;
+        $profile->image = "";
+        $profile->lname = $request->lastName;
+        $profile->mname = $request->middleName;
+        $profile->birtdate = $request->birthdate;
+        $profile->user_id = $user->id;
+        $profile->email = $user->email;
+
+        $profile->save();
+
+        $employee->company_id = $request->company;
+        $employee->department_id = $request->department;
+        $employee->user_id = $user->id;
+
+        $employee->save();
+
 
         return redirect()->route('employee');
     }

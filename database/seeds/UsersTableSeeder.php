@@ -13,14 +13,15 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $userList = array(
-            array('Admin', 'admin@gmail.com', 'pacific')
+            array('admin', 'Administrator', 'admin@pblue.com', 'admin')
         );
 
         foreach($userList as $data){
             $user = new User();
-            $user->name = $data[0];
-            $user->email = $data[1];
-            $user->password = bcrypt($data[2]);
+            $user->user  = $data[0];
+            $user->position = $data[1];
+            $user->email = $data[2];
+            $user->password = bcrypt($data[3]);
             $user->save();
         }
     }

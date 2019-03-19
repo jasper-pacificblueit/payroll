@@ -55,6 +55,12 @@
                             </div>
     
                             <div class="col-lg-6">
+                                <label>Birthdate</label>
+                                <input type="date" name="birthdate" class="form-control">
+
+                                <label>Employee address</label>
+                                <input type="text" name="address" class="form-control">
+
                                 <label>Employee username</label>
                                 <input type="text" name="user" class="form-control">
 
@@ -71,7 +77,7 @@
                                 <label>Department</label>
                                 <select class="form-control company-dep" name="department">  
                                   @foreach($company[0]->departments as $dep)
-                                    <option>{{$dep->name}}</option>
+                                    <option value="{{ $dep->id }}">{{$dep->name}}</option>
                                   @endforeach       
                                 </select>
                             </div>
@@ -101,7 +107,7 @@
     @foreach($company as $i)
       <template id="dep-option-{{ $i->id }}">
       @foreach($i->departments as $dep)
-        <option>{{ $dep->name }}</option>
+        <option value="{{ $dep->id }}">{{ $dep->name }}</option>
       @endforeach
       </template>
     @endforeach

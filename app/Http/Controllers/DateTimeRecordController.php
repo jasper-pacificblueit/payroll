@@ -36,9 +36,33 @@ class DateTimeRecordController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+ 
     public function store(Request $request)
     {
-        //
+
+        $upload = $request->file('upload-file');
+        
+        $filePath = $upload->getRealPath();
+
+        $header = null;
+        $data = array();
+
+        if (($handle = fopen($filePath, 'r')) !== false)
+        {
+            while (($row = fgetcsv($handle, 1000)) !== false)
+            {
+                if (!$header)
+                    $header = $row;
+                else
+                    $data[] = array_combine($header, $row);
+            }
+            fclose($handle);
+        }
+        
+        DateTimeRecord::insert($data);
+
+        return back();
     }
 
     /**

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,17 +11,36 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $userList = array(
-            array('admin', 'Administrator', 'admin@pblue.com', 'admin')
-        );
+        // admin
+        $admin = new App\User;
+        $adminProfile = new App\Profile;
+        $adminContact = new App\Contact;
 
-        foreach($userList as $data){
-            $user = new User();
-            $user->user  = $data[0];
-            $user->position = $data[1];
-            $user->email = $data[2];
-            $user->password = bcrypt($data[3]);
-            $user->save();
-        }
+        $admin->user = 'pblue_admin';
+        $admin->password = bcrypt('admin');
+        $admin->email = 'legazpi@pblue.com';
+        $admin->position = 'CEO';
+
+        $admin->save();
+
+        $adminProfile->fname = "Si boss";
+        $adminProfile->lname = "na";
+        $adminProfile->mname = "magaling";
+        $adminProfile->age = 99;
+        $adminProfile->image = "";
+        $adminProfile->birtdate = new DateTime();
+
+        $adminProfile->user_id = $admin->id;
+        $adminProfile->email = $admin->email;
+
+        $adminProfile->save();
+
+        $adminContact->phone = "+99999999999";
+        $adminContact->mobile = "+99999999999";
+        $adminContact->email = $admin->email;
+        $adminContact->address = 'Legazpi City';
+        $adminContact->user_id = $admin->id;
+
+        $adminContact->save();
     }
 }

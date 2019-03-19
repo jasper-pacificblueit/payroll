@@ -27,31 +27,15 @@
                     
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-sm-3 m-b-xs">
-                                    <h4>Select Company:</h4>
-                                    <select class="form-control">
-                                        @foreach ($companies as $company)
-                                            <option>{{$company->name}}</option>
-                                        @endforeach
-                                        
-                                    </select>
-                                </div>
-
+                                
                                
-                                <div action="/dtr/preview" class="col-sm-3 m-b-xs" method="post">
-                                    {{ csrf_field() }}
+                                <div class="col-sm-3 m-b-xs">
                                     <h4>Import Attendance</h4>
-                                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                                        <div class="form-control" data-trigger="fileinput">
-                                            <i class="glyphicon glyphicon-file fileinput-exists"></i>
-                                            <span class="fileinput-filename"></span>
-                                        </div>
-                                        <span class="input-group-addon btn btn-default btn-file">
-                                        <span class="fileinput-new">Select file</span>
-                                        <span class="fileinput-exists">Change</span>
-                                        <input type="file" name="..."></span>
-                                        <a href="#" class="input-group-addon input-group-append btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                    </div>
+                                    <form method="POST" action="/dtr" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <input type="file" name="upload-file" class="form-control" required>
+                                        <input type="submit" name="submit" value="Save" class="form-control">
+                                    </form>
                                 </div>
 
                                 <div class="col-sm-3 pull-right">
@@ -61,6 +45,7 @@
                                 </div>
                                 
                             </div>
+                            <br>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>

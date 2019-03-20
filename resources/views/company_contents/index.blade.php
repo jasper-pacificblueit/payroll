@@ -27,9 +27,11 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-5 m-b-xs">
+                                    @can('company_write')
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCompany">
                                             Add Company
                                     </button>
+                                    @endcan
                                     
                                     <div class="modal inmodal fade" id="addCompany" tabindex="-1" role="dialog"  aria-hidden="true">
                                             <div class="modal-dialog modal-sm">

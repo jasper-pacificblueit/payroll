@@ -78,7 +78,7 @@
                                                     {{ App\Profile::where('user_id', $em->user_id)->first()['email'] }}
                                                 </td>
                                                 <td>
-                                                    {{ App\User::where('id', $em->user_id)->first()['position'] }}
+                                                    {{ App\User::$positions[App\User::where('id', $em->user_id)->first()['position']] }}
                                                 </td>
                                                 <td><a href="#" class="btn btn-default btn-xs">Manage</a></td>
                                             </tr>

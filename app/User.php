@@ -8,14 +8,15 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    /*
-        [HasRoles] This package allows for users to be associated with permissions and roles.
-
-        note that if you need to use HasRoles trait with another model 
-        ex.Page you will also need to add protected $guard_name = 'web'; 
-        as well to that model or you would get an error
-    */
     use Notifiable, HasRoles;
+
+    public static $positions = [
+
+        'admin' => 'Administrator',
+        'hr' => 'HR',
+        'employee' => 'Employee'
+
+    ];
 
     public $timestamps = false;
 

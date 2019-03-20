@@ -52,8 +52,8 @@
                                             <tbody>
                                             @if(count($data) > 0)
                                                
-                                               @foreach($data[0] as $obj)
-                                               <td>{{$obj['user_id']}}</td>
+                                               @foreach($data as $obj)
+                                               <td>{{ $data }}</td>
 
                                                @endforeach
 

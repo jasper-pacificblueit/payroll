@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DateTimeRecord;
 use App\Company;
-
+use App\Imports\UserImport;
+use Excel;
 use Illuminate\Http\Request;
 
 class DateTimeRecordController extends Controller
@@ -112,30 +113,57 @@ class DateTimeRecordController extends Controller
     {
         //
     }
-    public function records(Request $request) {
 
-        $upload = $request->file('upload-file');
-        
-        $filePath = $upload->getRealPath();
 
-        $header = null;
-        $data = array();
+    public function viewFile(Request $request){
 
-        if (($handle = fopen($filePath, 'r')) !== false)
-        {
-            while (($row = fgetcsv($handle, 1000)) !== false)
-            {
+        $data = Excel::toArray(new UserImport , $request->file('upload-file'));
 
-                array_push($data, $row);
-                // if (!$header)
-                //     $header = $row;
-                // else
-                //     $data[] = array_combine($header, $row);
-            }
-            dd($data);
-            fclose($handle);
-        }
-      
+
         return view('dtr_contents.index' , compact('data'));
     }
+
+
+    // public function records(Request $request) {
+
+    //     // if($request->hasfile('upload-file')){
+    //     //     Excel::load($request->file('upload-file')->getRealPath(), function ($reader) {
+    //     //         foreach ($reader->toArray() as $key => $row) {
+    //     //             $data['user_id'] = $row['user_id'];
+    //     //             $data['date'] = $row['date'];
+
+                   
+    //     //         }
+    //     //     });
+    //     // }
+    //     // else{
+    //     //     dd('q');
+    //     // }
+
+        
+    //     $upload = $request->file('upload-file');
+        
+    //     $filePath = $upload->getRealPath();
+
+    //     $header = null;
+    //     $data = array();
+
+    //     if (($handle = fopen($filePath, 'r')) !== false)
+    //     {
+    //         while (($row = fgetcsv($handle, 1000)) !== false)
+    //         {
+
+    //             array_push($data, $row);
+    //             if (!$header)
+    //                  $header = $row;
+    //             else
+    //                 $data[] = array_combine($header, $row);
+    //         }
+          
+    //         fclose($handle);
+    //     }
+
+           
+    //     return view('dtr_contents.index' , compact('data'));
+    // }
 }

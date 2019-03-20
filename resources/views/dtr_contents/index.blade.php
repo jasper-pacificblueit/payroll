@@ -28,7 +28,7 @@
                         <div class="ibox-content">
                             
                             @if(isset($data))
-                                <div class="row">'
+                                <div class="row">
                                     <div class="col-lg-12">
                                         <table class="table">
                                             <thead>
@@ -51,21 +51,22 @@
                                             </thead>
                                             <tbody>
                                             @if(count($data) > 0)
-                                                @foreach($data as $j)
+                                               
+                                               @foreach($data[0] as $obj)
+                                               <td>{{$obj['user_id']}}</td>
+
+                                               @endforeach
+
+                                               {{--  @foreach($data as $j)
                                                     <tr>
                                                         <td>{{ $j['user_id'] }}</td>
-                                                        <td>{{ $j['date'] }}</td>
                                                         <td style="text-align: center">{{ $j['in_am'] }}</td>
                                                         <td style="text-align: center">{{ $j['out_am'] }}</td>
                                                         <td style="text-align: center">{{ $j['in_pm'] }}</td>
                                                         <td style="text-align: center">{{ $j['out_pm'] }}</td>
-                                                        
-                                                        
-                                                        
-
                                                     </tr>
                                                        
-                                                @endforeach
+                                                @endforeach --}}
                                             @else
                                             <td>No Record</td>
                                             @endif

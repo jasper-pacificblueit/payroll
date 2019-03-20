@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder
         if ($this->command->confirm('Do you want to migrate:refresh? [y/N]'))
             $this->command->call('migrate:refresh');
 
+        $this->call(Permission::class);
+        $this->command->info('Added default permissions.');
+
         $this->command->info('Creating admin account...');
 
         $info = [

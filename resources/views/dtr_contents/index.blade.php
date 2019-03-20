@@ -29,47 +29,28 @@
                             
                             @if(isset($data))
                                 <div class="row">
+
                                     <div class="col-lg-12">
                                         <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <td>ID number</td>
-                                                <td>Date</td>
-                                                <td colspan="2" style="text-align: center">AM</td>
-                                                <td colspan="2" style="text-align: center">PM</td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>&nbsp;</td>
-                                                <td>&nbsp;</td>
-                                                <td style="text-align: center">IN</td>
-                                                <td style="text-align: center">OUT</td>
-                                                <td style="text-align: center">IN</td>
-                                                <td style="text-align: center">OUT</td>
-
-                                            </tr>
-                                            </thead>
+                                            
+                                            
                                             <tbody>
-                                            @if(count($data) > 0)
+                                                @foreach($data as $value)
                                                
-                                               @foreach($data[0] as $obj)
-                                               <td>{{$obj['user_id']}}</td>
+                                                    <?php
 
-                                               @endforeach
+                                                        for ($i=0; $i <count($value[0]) ; $i++) { 
+                                                            echo "<tr>";
+                                                            for ($j=0; $j < count($value[0]) ; $j++) { 
+                                                                echo "<td>".$value[$i][$j]."</td>";
+                                                            }
 
-                                               {{--  @foreach($data as $j)
-                                                    <tr>
-                                                        <td>{{ $j['user_id'] }}</td>
-                                                        <td style="text-align: center">{{ $j['in_am'] }}</td>
-                                                        <td style="text-align: center">{{ $j['out_am'] }}</td>
-                                                        <td style="text-align: center">{{ $j['in_pm'] }}</td>
-                                                        <td style="text-align: center">{{ $j['out_pm'] }}</td>
-                                                    </tr>
-                                                       
-                                                @endforeach --}}
-                                            @else
-                                            <td>No Record</td>
-                                            @endif
+                                                            echo "<tr>";
+
+                                                        }
+                                                    ?>
+
+                                                @endforeach
                                             </tbody>
                                         </table>
 

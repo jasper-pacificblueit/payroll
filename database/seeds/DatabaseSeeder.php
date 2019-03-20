@@ -11,31 +11,42 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        if ($this->command->confirm('Do you want to migrate:refresh? [y/N]'))
+            $this->command->call('migrate:refresh');
 
-		$this->call(UsersTableSeeder::class);
+        $this->command->info('Creating admin account...');
 
-	   	// factory(App\Company::class, 1)->create()->each(function($company) {
-	   	// 	$company->departments()->saveMany(factory(App\Department::class, 5)->make());
-	   	// });
+        $info = [
 
-        $defaultCompany = new App\Company;
+            'user' => 'admin',
+            'password' => bcrypt('admin'),
+            'email' => 'admin@example.com',
+            'position' => '',
 
-        $defaultCompany->name = 'Pacific Blue';
-        $defaultCompany->address = 'Puro, Legazpi City, Albay';
+            'fname' => '',
+            'lname' => '',
+            'mname' => '',
+            'age' => 99,
+            'image' => '',
+            'birthdate' => new DateTime(),
 
-        $defaultCompany->save();
+            'phone' => '',
+            'mobile' => '',
+            'email' => '',
+            'address' => '',
 
-        $departments = ['Pacific Blue IT', 'Pacific Blue DLAB'];
+        ];
 
-        foreach($departments as $dep) {
+        UsersTableSeeder::createAdmin((object)$info);
 
-            $defaultDepartment = new App\Department;
+        $this->command->info('Creating default company and departments...');
 
-            $defaultDepartment->company_id = $defaultCompany->id;
-            $defaultDepartment->name = $dep;
+        $address = $this->command->ask('Enter company address');
+        $name = $this->command->ask('Enter default company');
+        $depList = $this->command->ask('Enter departments (comma separated [i.e. Dep1, Dep2])');
 
-            $defaultDepartment->save();
-        }
+        $departments = explode(',', $depList);
 
+        UsersTableSeeder::default((object)['name' => $name, 'address' => $address], $departments);
     }
 }

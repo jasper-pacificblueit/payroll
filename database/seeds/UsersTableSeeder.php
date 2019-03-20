@@ -11,36 +11,62 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        // admin
+        
+    }
+
+    public static function createAdmin($adminInfo) {
+
         $admin = new App\User;
         $adminProfile = new App\Profile;
         $adminContact = new App\Contact;
 
-        $admin->user = 'admin';
-        $admin->password = bcrypt('admin');
-        $admin->email = 'legazpi@pblue.com';
-        $admin->position = 'CEO';
+        $admin->user = $adminInfo->user;
+        $admin->password = $adminInfo->password;
+        $admin->email = $adminInfo->email;
+        $admin->position = $adminInfo->position;
 
         $admin->save();
 
-        $adminProfile->fname = "Si boss";
-        $adminProfile->lname = "na";
-        $adminProfile->mname = "magaling";
-        $adminProfile->age = 99;
-        $adminProfile->image = "";
-        $adminProfile->birtdate = new DateTime();
+        $adminProfile->fname = $adminInfo->fname;
+        $adminProfile->lname = $adminInfo->lname;
+        $adminProfile->mname = $adminInfo->mname;
+        $adminProfile->age = $adminInfo->age;
+        $adminProfile->image = $adminInfo->image;
+        $adminProfile->birtdate = $adminInfo->birthdate;
 
         $adminProfile->user_id = $admin->id;
         $adminProfile->email = $admin->email;
 
         $adminProfile->save();
 
-        $adminContact->phone = "+99999999999";
-        $adminContact->mobile = "+99999999999";
+        $adminContact->phone = $adminInfo->phone;
+        $adminContact->mobile = $adminInfo->mobile;
         $adminContact->email = $admin->email;
-        $adminContact->address = 'Legazpi City';
+        $adminContact->address = $adminInfo->address;
         $adminContact->user_id = $admin->id;
 
         $adminContact->save();
+
+    }
+
+    public static function default($company, $departments) {
+
+        $defaultCompany = new App\Company;
+
+        $defaultCompany->name = $company->name;
+        $defaultCompany->address = $company->address;
+
+        $defaultCompany->save();
+
+        foreach($departments as $dep) {
+
+            $defaultDepartment = new App\Department;
+
+            $defaultDepartment->company_id = $defaultCompany->id;
+            $defaultDepartment->name = trim($dep);
+
+            $defaultDepartment->save();
+        }
+
     }
 }

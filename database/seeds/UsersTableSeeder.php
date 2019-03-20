@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -15,6 +18,8 @@ class UsersTableSeeder extends Seeder
     }
 
     public static function createAdmin($adminInfo) {
+
+
 
         $admin = new App\User;
         $adminProfile = new App\Profile;
@@ -47,6 +52,11 @@ class UsersTableSeeder extends Seeder
 
         $adminContact->save();
 
+        // Add role
+        $adminRole = Role::firstOrCreate(['name' => $admin->position]);
+
+        // Give all around access.
+        $adminRole->syncPermissions(Permission::all());
     }
 
     public static function default($company, $departments) {

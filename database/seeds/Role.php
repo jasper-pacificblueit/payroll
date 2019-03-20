@@ -4,6 +4,17 @@ use Illuminate\Database\Seeder;
 
 class Role extends Seeder
 {
+
+	public static function roles() {
+		return [
+			'admin',
+			'hr',
+			'employee',
+		];
+
+		
+	}
+
     /**
      * Run the database seeds.
      *
@@ -11,6 +22,6 @@ class Role extends Seeder
      */
     public function run()
     {
-    	
+
     }
 }

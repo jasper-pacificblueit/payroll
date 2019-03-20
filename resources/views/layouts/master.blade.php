@@ -86,13 +86,12 @@
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
 
+                
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
-                        <a href="/company"><i class="fa fa-building-o"></i> <span class="nav-label">Manage Company</span> <span class="fa arrow"></span></a>
-                         <ul class="nav nav-second-level collapse">
-                             <li class="{{ Request::path() == 'company' ? 'active' : '' }}"><a href="/company">View Companies</a></li>
-                             <li><a href="#">Manage Departments</a></li>
-                         </ul>
+                        <a href="/company"><i class="fa fa-building-o"></i> <span class="nav-label">Manage Company</span></a>
                 </li>
+
+
 
                 </li>
                 

@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
             $this->command->call('migrate:refresh');
 
         $this->call(Permission::class);
-        $this->command->info('Added default permissions.');
+        $this->call(Role::class);
+        $this->command->info('Added default roles & permissions.');
 
         $this->command->info('Creating admin account...');
 
@@ -24,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'user' => 'admin',
             'password' => bcrypt('admin'),
             'email' => 'admin@example.com',
-            'position' => '',
+            'position' => 'admin',
 
             'fname' => '',
             'lname' => '',
@@ -40,7 +41,7 @@ class DatabaseSeeder extends Seeder
 
         ];
 
-        UsersTableSeeder::createAdmin((object)$info);
+        UsersTableSeeder::create((object)$info);
 
         $this->command->info('Creating default company and departments...');
 

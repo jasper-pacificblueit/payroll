@@ -51,7 +51,13 @@
                                <input type="text" name="phone" class="form-control p-2">
 
                                <label>Position</label>
-                               <input type="text" name="position" class="form-control p-2">
+                               <select class='form-control company-dep' name='position'>
+                                  @foreach(App\User::$positions as $key => $pos)
+
+                                      <option value='{{$key}}'>{{ $pos }}</option>
+
+                                  @endforeach
+                               </select>
                             </div>
     
                             <div class="col-lg-6">

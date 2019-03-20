@@ -91,6 +91,8 @@ class EmployeeController extends Controller
 
         $employee->save();
 
+        // Add role and permissions
+        $user->assignRole($user->position);
 
         return redirect()->route('employee');
     }

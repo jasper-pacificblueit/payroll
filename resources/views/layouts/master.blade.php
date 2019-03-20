@@ -29,7 +29,6 @@
 </head>
 <body class="skin-3">
 {{--<body class="skin-3">--}}
-
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
@@ -49,8 +48,6 @@
                             </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li class="{{ Request::path() == 'profile' ? 'active' : '' }}">
-        
-                            
                                 <a href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
@@ -73,26 +70,35 @@
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
                 </li>
+
+                @can('company_read')
                 <li class="{{ Request::path() == 'employee' || Request::path() == 'employee/add' ? 'active' : '' }}">
                         <a href="/employee"><i class="fa fa-user"></i> <span class="nav-label">Employee</span> <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level collapse">
                              <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
-                             <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
+                             @can('employee_write')
+                                <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
+                             @endcan
                          </ul>
                 </li>
-                
+                @endcan
+
+                @can('date_time_record_read')
                 <li class="{{ Request::path() == 'dtr' ? 'active' : '' }}">
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
+                @endcan
 
-                
+                @can('company_read')
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
                         <a href="/company"><i class="fa fa-building-o"></i> <span class="nav-label">Manage Company</span></a>
                 </li>
+                @endcan
 
 
 
-                </li>
+
+                </li>   
                 
                                
                                
@@ -112,9 +118,6 @@
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
-                    <li>
-                        <span class="m-r-sm text-muted welcome-message">Welcome to PBIT Payroll System</span>
-                    </li>
 
                     <li>
                         <a href="{{ route('logout') }}"

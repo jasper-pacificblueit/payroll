@@ -40,7 +40,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    @foreach($data as $j)
+                                    @foreach($data[0] as $j)
                                         <li>{{ $j['user_id'] }}</li>
                                         <li>{{ $j['date'] }}</li>
                                     @endforeach

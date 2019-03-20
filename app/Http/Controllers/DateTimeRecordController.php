@@ -118,9 +118,16 @@ class DateTimeRecordController extends Controller
     public function viewFile(Request $request){
 
         $data = Excel::toArray(new UserImport , $request->file('upload-file'));
+<<<<<<< HEAD
         
     
         return view('dtr_contents.index')->with(compact('data'));
+=======
+
+        dd($data[0]);
+
+        return view('dtr_contents.index' , compact('data'));
+>>>>>>> e94c534d9fc6282b84475c1a28d748ee2981aee6
     }
 
 

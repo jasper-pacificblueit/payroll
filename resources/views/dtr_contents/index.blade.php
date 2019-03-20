@@ -37,6 +37,7 @@
                                             <tbody>
                                                 @foreach($data as $value)
                                                
+<<<<<<< HEAD
                                                     <?php
 
                                                         for ($i=0; $i <count($value[0]) ; $i++) { 
@@ -51,6 +52,26 @@
                                                     ?>
 
                                                 @endforeach
+=======
+                                               @foreach($data as $obj)
+                                               <td>{{ $data }}</td>
+
+                                               @endforeach
+
+                                               {{--  @foreach($data as $j)
+                                                    <tr>
+                                                        <td>{{ $j['user_id'] }}</td>
+                                                        <td style="text-align: center">{{ $j['in_am'] }}</td>
+                                                        <td style="text-align: center">{{ $j['out_am'] }}</td>
+                                                        <td style="text-align: center">{{ $j['in_pm'] }}</td>
+                                                        <td style="text-align: center">{{ $j['out_pm'] }}</td>
+                                                    </tr>
+                                                       
+                                                @endforeach --}}
+                                            @else
+                                            <td>No Record</td>
+                                            @endif
+>>>>>>> e94c534d9fc6282b84475c1a28d748ee2981aee6
                                             </tbody>
                                         </table>
 

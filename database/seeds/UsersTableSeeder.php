@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+
+
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -14,39 +16,42 @@ class UsersTableSeeder extends Seeder
         
     }
 
-    public static function createAdmin($adminInfo) {
+    public static function create($userInfo) {
 
-        $admin = new App\User;
-        $adminProfile = new App\Profile;
-        $adminContact = new App\Contact;
 
-        $admin->user = $adminInfo->user;
-        $admin->password = $adminInfo->password;
-        $admin->email = $adminInfo->email;
-        $admin->position = $adminInfo->position;
 
-        $admin->save();
+        $user = new App\User;
+        $userProfile = new App\Profile;
+        $userContact = new App\Contact;
 
-        $adminProfile->fname = $adminInfo->fname;
-        $adminProfile->lname = $adminInfo->lname;
-        $adminProfile->mname = $adminInfo->mname;
-        $adminProfile->age = $adminInfo->age;
-        $adminProfile->image = $adminInfo->image;
-        $adminProfile->birtdate = $adminInfo->birthdate;
+        $user->user = $userInfo->user;
+        $user->password = $userInfo->password;
+        $user->email = $userInfo->email;
+        $user->position = $userInfo->position;
 
-        $adminProfile->user_id = $admin->id;
-        $adminProfile->email = $admin->email;
+        $user->save();
 
-        $adminProfile->save();
+        $userProfile->fname = $userInfo->fname;
+        $userProfile->lname = $userInfo->lname;
+        $userProfile->mname = $userInfo->mname;
+        $userProfile->age = $userInfo->age;
+        $userProfile->image = $userInfo->image;
+        $userProfile->birtdate = $userInfo->birthdate;
 
-        $adminContact->phone = $adminInfo->phone;
-        $adminContact->mobile = $adminInfo->mobile;
-        $adminContact->email = $admin->email;
-        $adminContact->address = $adminInfo->address;
-        $adminContact->user_id = $admin->id;
+        $userProfile->user_id = $user->id;
+        $userProfile->email = $user->email;
 
-        $adminContact->save();
+        $userProfile->save();
 
+        $userContact->phone = $userInfo->phone;
+        $userContact->mobile = $userInfo->mobile;
+        $userContact->email = $user->email;
+        $userContact->address = $userInfo->address;
+        $userContact->user_id = $user->id;
+
+        $userContact->save();
+
+        $user->assignRole($user->position);
     }
 
     public static function default($company, $departments) {

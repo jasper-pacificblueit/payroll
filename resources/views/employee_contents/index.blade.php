@@ -46,6 +46,7 @@
                                 <thead>
                                     <tr>
                                         <th>Employee ID</th>
+                                        <th>Employee username</th>
                                         <th>Employee name</th>
                                         <th>Department</th>
                                         <th>E-mail</th>
@@ -60,6 +61,7 @@
                                         @foreach($i->employees as $em)
                                             <tr>
                                                 <td>{{ $em->id }}</td>
+                                                <td>{{ App\User::where('id', $em->user_id)->first()['user'] }}</td>
                                                 <td>
                                                 {{  sprintf('%s %s %s',
                                                         App\Profile::where('user_id', $em->user_id)->first()['fname'],
@@ -68,6 +70,7 @@
                                                     )
                                                 }}
                                                 </td>
+                                                
                                                 <td>
                                                     {{ App\Department::where('id', $em->department_id)->first()['name'] }}
                                                 </td>

@@ -11,31 +11,45 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        if ($this->command->confirm('Do you want to migrate:refresh? [y/N]'))
+            $this->command->call('migrate:refresh');
 
-		$this->call(UsersTableSeeder::class);
+        $this->call(Permission::class);
+        $this->command->info('Added default permissions.');
 
-	   	// factory(App\Company::class, 1)->create()->each(function($company) {
-	   	// 	$company->departments()->saveMany(factory(App\Department::class, 5)->make());
-	   	// });
+        $this->command->info('Creating admin account...');
 
-        $defaultCompany = new App\Company;
+        $info = [
 
-        $defaultCompany->name = 'Pacific Blue';
-        $defaultCompany->address = 'Puro, Legazpi City, Albay';
+            'user' => 'admin',
+            'password' => bcrypt('admin'),
+            'email' => 'admin@example.com',
+            'position' => '',
 
-        $defaultCompany->save();
+            'fname' => '',
+            'lname' => '',
+            'mname' => '',
+            'age' => 99,
+            'image' => '',
+            'birthdate' => new DateTime(),
 
-        $departments = ['Pacific Blue IT', 'Pacific Blue DLAB'];
+            'phone' => '',
+            'mobile' => '',
+            'email' => '',
+            'address' => '',
 
-        foreach($departments as $dep) {
+        ];
 
-            $defaultDepartment = new App\Department;
+        UsersTableSeeder::createAdmin((object)$info);
 
-            $defaultDepartment->company_id = $defaultCompany->id;
-            $defaultDepartment->name = $dep;
+        $this->command->info('Creating default company and departments...');
 
-            $defaultDepartment->save();
-        }
+        $address = $this->command->ask('Enter company address');
+        $name = $this->command->ask('Enter default company');
+        $depList = $this->command->ask('Enter departments (comma separated [i.e. Dep1, Dep2])');
 
+        $departments = explode(',', $depList);
+
+        UsersTableSeeder::default((object)['name' => $name, 'address' => $address], $departments);
     }
 }

@@ -77,7 +77,7 @@
                                         <th>Company ID</th>
                                         <th>Company name</th>
                                         <th>Address</th>
-                                        <th>Deparments</th>
+                                        <th>Departments</th>
                                         <th>Employee/s</th>  
                                         <th>Action</th>  
                                         
@@ -91,7 +91,7 @@
                                             <td>{{$company->name}}</td>
                                             <td>{{$company->address}}</td>
                                             <td>{{count($company->departments)}}</td>
-                                            <td>{{$company->id}}</td>
+                                            <td>{{count(App\Employee::all())}}</td>
                                             <td><a href="company/{{$company->id}}" class="btn btn-default btn-xs">Manage</a></td>
                                             
                                         </tr>    

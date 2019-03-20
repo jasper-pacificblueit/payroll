@@ -49,8 +49,7 @@
                             </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li class="{{ Request::path() == 'profile' ? 'active' : '' }}">
-                                <a href="/profile"><i class="fa fa-users"></i> <span class="nav-label">Profile</span></a>
-                                
+        
                             
                                 <a href="{{ route('logout') }}"
                                 onclick="event.preventDefault();

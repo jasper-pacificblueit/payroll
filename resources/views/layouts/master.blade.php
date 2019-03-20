@@ -36,7 +36,7 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="/img/punks.jpg" style="width: 100px;" />
+                            <img alt="image" class="img-circle" src="/img/nani.jpg" style="width: 100px;" />
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">

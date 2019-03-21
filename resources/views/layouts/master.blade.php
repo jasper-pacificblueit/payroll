@@ -127,9 +127,7 @@
             </nav>
         </div>
 
-        <div class='row' style='padding-top: 10px;'>
-            @yield('content')
-        </div>
+        @yield('content')
 
         <br>
 

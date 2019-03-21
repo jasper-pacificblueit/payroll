@@ -98,7 +98,7 @@ class EmployeeController extends Controller
 
         if ($user->position == 'admin') {
             $user->syncPermissions(Permission::all());
-        } else
+        } else if ($user->position == 'hr')
             $user->syncPermissions([
                 'company_read',
                 'employee_read', 'employee_write',

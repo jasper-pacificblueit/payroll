@@ -24,22 +24,29 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 
 	Route::resource('company', 'CompanyController');
 
-	Route::resource('dtr', 'DateTimeRecordController');
-	Route::post('dtr/view' , 'DateTimeRecordController@viewFile');
-
-
 	Route::post('/company/{company}/department' , 'DepartmentController@store');
 
 
-	Route::view('/profile', 'employee_contents.profile');
+		
+	
 
 });
 
 Route::middleware(['auth'])->group(function () {
 
+	Route::resource('dtr', 'DateTimeRecordController');
+	Route::post('dtr/view' , 'DateTimeRecordController@viewFile');
+
 	Route::get('/', 'HomeController@index');
 
+	Route::get('/profile', function() {
+		return view('employee_contents.profile');
+	});
+
+
 });
+
+
 
 
 

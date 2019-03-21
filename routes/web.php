@@ -43,11 +43,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('dtr/view' , 'DateTimeRecordController@viewFile');
 
 	Route::get('/', 'HomeController@index');
-
-	Route::get('/profile', function() {
-		return view('employee_contents.profile');
-	});
-
+	
 });
 
 

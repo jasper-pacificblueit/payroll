@@ -60,7 +60,7 @@
                             </ul>
                     </div>
                     <div class="logo-element">
-                        PMR
+                        PB
                     </div>
                 </li>
 
@@ -99,8 +99,6 @@
                 </li>   
                 
                                
-                               
-
                 
                 {{--side menus end--}}
 
@@ -129,7 +127,11 @@
             </nav>
         </div>
 
-        @yield('content')
+        <div class='row' style='padding-top: 10px;'>
+            @yield('content')
+        </div>
+
+        <br>
 
         <div class="footer">
             <div>

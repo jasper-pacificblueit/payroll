@@ -43,9 +43,10 @@
                                     <strong class="font-bold">{!! App\Profile::getFullName(Auth::user()->id) !!}</strong>
                                 </span>
                                 <span class="text-muted text-xs block">
-
-                                    <b class="caret"></b></span>
-                            </span> </a>
+                                    <b class="caret"></b>
+                                </span>
+                            </span>
+                        </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li class="{{ Request::path() == 'profile' ? 'active' : '' }}">
                                 <a href="{{ route('logout') }}"
@@ -66,7 +67,6 @@
                 {{--side menus start--}}
 
                 
-
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
                 </li>
@@ -83,11 +83,9 @@
                 </li>
                 @endcan
 
-                @can('date_time_record_read')
                 <li class="{{ Request::path() == 'dtr' ? 'active' : '' }}">
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
-                @endcan
 
                 @can('company_read')
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class EmployeeController extends Controller
 {
@@ -85,14 +86,24 @@ class EmployeeController extends Controller
 
         $profile->save();
 
-        $employee->company_id = $request->company;
-        $employee->department_id = $request->department;
-        $employee->user_id = $user->id;
-
-        $employee->save();
+        if ($user->position != 'admin') {
+            $employee->company_id = $request->company;
+            $employee->department_id = $request->department;
+            $employee->user_id = $user->id;
+            $employee->save();
+        }
 
         // Add role and permissions
         $user->assignRole($user->position);
+
+        if ($user->position == 'admin') {
+            $user->syncPermissions(Permission::all());
+        } else
+            $user->syncPermissions([
+                'company_read',
+                'employee_read', 'employee_write',
+                'department_read', 'department_write',
+            ]);
 
         return redirect()->route('employee');
     }

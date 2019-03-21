@@ -52,11 +52,13 @@
 
                                <label>Position</label>
                                <select class='form-control company-dep' name='position'>
-                                  @foreach(App\User::$positions as $key => $pos)
-
-                                      <option value='{{$key}}'>{{ $pos }}</option>
-
-                                  @endforeach
+                                  @if (auth()->user()->position == 'hr')
+                                    <option value='employee'>Employee</option>
+                                  @elseif (auth()->user()->position == 'admin')
+                                    @foreach(App\User::$positions as $key => $val)
+                                      <option value='{{ $key }}'>{{ $val }}</option>
+                                    @endforeach
+                                  @endif
                                </select>
                             </div>
     

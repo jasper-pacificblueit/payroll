@@ -52,6 +52,15 @@ class UsersTableSeeder extends Seeder
         $userContact->save();
 
         $user->assignRole($user->position);
+
+        if ($user->position == 'admin') {
+            $user->syncPermissions(Permission::getPerm());
+        } else
+            $user->syncPermissions([
+                'company_read',
+                'employee_read', 'employee_write',
+                'department_read', 'department_write',
+            ]);
     }
 
     public static function default($company, $departments) {

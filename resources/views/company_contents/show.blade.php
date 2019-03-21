@@ -50,9 +50,6 @@
                                                                 {{ csrf_field() }}
                                                                 <label>Department Name</label>
                                                                 <input type="text" name="name" class="form-control" required>
-                                                              
-                                                                
-                                                            
                                                        </div>
                                                    </div>
                                                 </div>

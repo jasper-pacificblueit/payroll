@@ -35,6 +35,8 @@
                                             
                                             
                                             <tbody>
+                                                
+                                                
                                                 @foreach($data as $value)
                                                
 
@@ -43,7 +45,21 @@
                                                         for ($i=0; $i <count($value) ; $i++) { 
                                                             echo "<tr>";
                                                             for ($j=0; $j < count($value[0]) ; $j++) { 
-                                                                echo "<td>".$value[$i][$j]." </td>";
+                                                                if($value[$i][$j] == $value[0][$j]){
+                                                                    echo "<th>".$value[$i][$j]." </th>";
+                                                                }
+                                                                else{
+                                                                    if($value[$i][$j] == $value[$i][1]){
+                                                                    echo "<td>".date("m/d/Y" , strtotime($value[$i][$j]))."</td>";
+                                                                    }
+                                                                    else{
+                                                                    echo "<td>".$value[$i][$j]." </td>";
+                                                                    
+                                                                    }
+                                                                    
+                                                                }
+                                                                
+
                                                             }
 
                                                             echo "<tr>";

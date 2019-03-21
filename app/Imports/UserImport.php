@@ -16,7 +16,7 @@ class UserImport implements ToModel
     {
         return new DateTimeRecord([
             'user_id' => $row[0],
-            'data' => $row[1],
+            'date' => $row[1],
             'comp_id' => $row[2],
         ]);
     }

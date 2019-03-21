@@ -16,18 +16,23 @@ Auth::routes();
 // admin routes
 Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 
-	Route::get('/employee', 'EmployeeController@index')->name('employee');
+
+	Route::middleware(['permission:employee_read'])->group(function() {
+		Route::get('/employee', 'EmployeeController@index')->name('employee');
+	});
 	
+	Route::middleware(['permission:employee_write'])->group(function() {
+		Route::get('/employee/add', 'EmployeeController@create');
+		Route::post('/employee/keep', 'EmployeeController@store');
+	});
 
-	Route::get('/employee/add', 'EmployeeController@create');
-	Route::post('/employee/keep', 'EmployeeController@store');
-
-	Route::resource('company', 'CompanyController');
-
-	Route::post('/company/{company}/department' , 'DepartmentController@store');
-
-
-		
+	Route::middleware(['permission:company_read'])->group(function() {
+		Route::get('/company', 'CompanyController@index');
+	});
+	
+	Route::middleware(['permission:department_write'])->group(function() {
+		Route::post('/company/{company}/department' , 'DepartmentController@store');
+	});
 	
 
 });
@@ -42,7 +47,6 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/profile', function() {
 		return view('employee_contents.profile');
 	});
-
 
 });
 

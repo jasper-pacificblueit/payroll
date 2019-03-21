@@ -63,6 +63,11 @@
                             </div>
     
                             <div class="col-lg-6">
+                                <label>Gender</label>
+                                <select class='form-control' name='gender'>
+                                  <option value='1'>Male</option>
+                                  <option value='0'>Female</option>
+                                </select>
                                 <label>Birthdate</label>
                                 <input type="date" name="birthdate" class="form-control">
 

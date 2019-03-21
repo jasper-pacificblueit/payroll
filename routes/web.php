@@ -11,11 +11,10 @@
 |
 */
 
-Auth::routes();
+Auth::routes(['except' => 'register']);
 
 // admin routes
 Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
-
 
 	Route::middleware(['permission:employee_read'])->group(function() {
 		Route::get('/employee', 'EmployeeController@index')->name('employee');
@@ -31,6 +30,7 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 	});
 	
 	Route::middleware(['permission:department_write'])->group(function() {
+		Route::get('/company/{id}', 'CompanyController@show');
 		Route::post('/company/{company}/department' , 'DepartmentController@store');
 	});
 	
@@ -39,11 +39,11 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 
 Route::middleware(['auth'])->group(function () {
 
-	Route::resource('dtr', 'DateTimeRecordController');
-	Route::post('dtr/view' , 'DateTimeRecordController@viewFile');
+	Route::resource('/dtr', 'DateTimeRecordController');
+	Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
 
 	Route::get('/', 'HomeController@index');
-	
+
 });
 
 

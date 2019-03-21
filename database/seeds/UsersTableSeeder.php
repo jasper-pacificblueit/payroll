@@ -31,6 +31,7 @@ class UsersTableSeeder extends Seeder
 
         $user->save();
 
+        $userProfile->gender = $userInfo->gender;
         $userProfile->fname = $userInfo->fname;
         $userProfile->lname = $userInfo->lname;
         $userProfile->mname = $userInfo->mname;

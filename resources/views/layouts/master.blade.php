@@ -71,7 +71,7 @@
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
                 </li>
 
-             
+                @can('company_read')
                 <li class="{{ Request::path() == 'employee' || Request::path() == 'employee/add' ? 'active' : '' }}">
                         <a href="/employee"><i class="fa fa-user"></i> <span class="nav-label">Employee</span> <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level collapse">
@@ -81,15 +81,20 @@
                              @endcan
                          </ul>
                 </li>
-           
+                @endcan
+
+                @can('date_time_record_read')
                 <li class="{{ Request::path() == 'dtr' ? 'active' : '' }}">
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
-            
+                @endcan
 
+                @can('company_read')
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
                         <a href="/company"><i class="fa fa-building-o"></i> <span class="nav-label">Manage Company</span></a>
                 </li>
+                @endcan
+
 
 
 

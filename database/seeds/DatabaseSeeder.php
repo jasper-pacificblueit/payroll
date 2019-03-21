@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@example.com',
             'position' => 'admin',
 
+            'gender' => 0,
             'fname' => '',
             'lname' => '',
             'mname' => '',

@@ -17,9 +17,6 @@ class Permission extends Seeder
             'employee_read',
             'employee_write',
 
-            'date_time_record_read',
-            'date_time_record_write',
-
         ];
     }
     /**
@@ -30,7 +27,8 @@ class Permission extends Seeder
     public function run()
     {
 
-        foreach(self::getPerm() as $perm) Spatie\Permission\Models\Permission::firstOrCreate(['name' => $perm]);
+        foreach(self::getPerm() as $perm) 
+            Spatie\Permission\Models\Permission::firstOrCreate(['name' => $perm]);
 
     }
 

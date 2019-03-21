@@ -63,12 +63,7 @@
                                                 <td>{{ $em->id }}</td>
                                                 <td>{{ App\User::where('id', $em->user_id)->first()['user'] }}</td>
                                                 <td>
-                                                {{  sprintf('%s %s %s',
-                                                        App\Profile::where('user_id', $em->user_id)->first()['fname'],
-                                                        App\Profile::where('user_id', $em->user_id)->first()['lname'],
-                                                        App\Profile::where('user_id', $em->user_id)->first()['mname']
-                                                    )
-                                                }}
+                                                {{ App\Profile::getFullName($em->user_id) }}
                                                 </td>
                                                 
                                                 <td>

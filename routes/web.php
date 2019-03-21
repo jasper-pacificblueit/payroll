@@ -13,27 +13,40 @@
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function () {
-	Route::get('/', 'HomeController@index');
+// admin routes
+Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 
-	Route::get('/employee', 'EmployeeController@index')->name('employee');
+
+	Route::middleware(['permission:employee_read'])->group(function() {
+		Route::get('/employee', 'EmployeeController@index')->name('employee');
+	});
 	
-	Route::get('/employee/add', 'EmployeeController@create');
-	Route::post('/employee/keep', 'EmployeeController@store');
+	Route::middleware(['permission:employee_write'])->group(function() {
+		Route::get('/employee/add', 'EmployeeController@create');
+		Route::post('/employee/keep', 'EmployeeController@store');
+	});
 
-	Route::resource('company', 'CompanyController');
+	Route::middleware(['permission:company_read'])->group(function() {
+		Route::get('/company', 'CompanyController@index');
+	});
+	
+	Route::middleware(['permission:department_write'])->group(function() {
+		Route::post('/company/{company}/department' , 'DepartmentController@store');
+	});
+	
 
+});
+
+Route::middleware(['auth'])->group(function () {
 
 	Route::resource('dtr', 'DateTimeRecordController');
 	Route::post('dtr/view' , 'DateTimeRecordController@viewFile');
 
-
-	Route::post('/company/{company}/department' , 'DepartmentController@store');
-
-
-
-	Route::view('/profile', 'employee_contents.profile');
+	Route::get('/', 'HomeController@index');
+	
 });
+
+
 
 
 

@@ -3,11 +3,9 @@
 @section('title','Login')
 @section('content')
     <div class="middle-box text-center loginscreen animated fadeInDown">
-        <div>
+        <div class='ibox-content'>
             <div>
-
                 <img src="/img/logo.png" width="100%" class="image-responsive" alt="">
-
             </div>
             <h3>Welcome to PBIT Payroll System</h3>
             <p>Please Log-In</p>
@@ -36,6 +34,7 @@
                 {{--<a class="btn btn-sm btn-white btn-block" href="{{ route('register') }}">Create an account</a>--}}
             </form>
             <p class="m-t"> <a href="#"><small>Powered by <strong>Pacific Blue IT</strong> &copy; {{Date("Y")}}</small></a> </p>
+            
         </div>
     </div>
 @endsection

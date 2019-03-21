@@ -76,6 +76,7 @@ class EmployeeController extends Controller
         $contact->save();
 
         $profile->fname = $request->firstName;
+        $profile->gender = $request->gender;
         $profile->age = 0;
         $profile->image = "";
         $profile->lname = $request->lastName;

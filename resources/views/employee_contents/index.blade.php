@@ -72,6 +72,7 @@
                                     <!--fixed-->
                                     @foreach(App\Employee::where('department_id', App\Department::where('company_id', 1)->orderBy('name', 'desc')->get()[0]->id)->get() as $em)
                                         @if (auth()->user()->id != $em->user_id)
+                                        @if (App\User::find($em->user_id)['position'] != auth()->user()->position)
                                         <tr>
                                             <td>{{ $em->user_id }}</td>
                                             <td>{{ App\Profile::getFullName($em->user_id) }}</td>
@@ -84,6 +85,7 @@
                                             </button>
                                             </td>
                                         </tr>
+                                        @endif
                                         @endif
                                     @endforeach
                                 </tbody>
@@ -105,19 +107,27 @@
         <div class="modal-content">
             <div class="modal-header no-padding">
                 <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-               <h4 style="padding:10px">Manage Employee</h4>
+               <h4 style="padding:10px">{{ App\Profile::getFullName($em->user_id) }}</h4>
                
             </div>
-            <form method="POST" action="">
+            <form method="POST" action="/employee/{{ $em->user_id }}">
             {{ csrf_field() }}
+            {{ method_field('PUT') }}
             <div class="modal-body">
                <div class="row">
                    <div class="col-lg-12">
-                            <label>Company Name</label>
-                            <input type="text" name="name" class="form-control" required>
-                            <br>
-                            <label>Address</label>
-                            <input type="text" name="address" class="form-control" required>
+                        <label>Change Position</label>
+                        <select class='form-control'>
+                            @if (auth()->user()->position == 'hr')
+                                <option value='employee'>Employee</option>
+                            @elseif (auth()->user()->position == 'admin')
+                                <option value='admin'>Administrator</option>
+                                <option value='hr'>HR</option>
+                                <option value='employee'>Employee</option>
+                            @endif
+                        </select>
+                        <label>Address</label>
+                        <input type="text" name="address" class="form-control" required>
                    </div>
                </div>
             </div>
@@ -139,6 +149,7 @@
     <template id='dep-id-{{ $dep->id }}'>
     @foreach(App\Employee::where('department_id', $dep->id)->get() as $em)
     @if (auth()->user()->id != $em->user_id)
+    @if (App\User::find($em->user_id)['position'] != auth()->user()->position)
         <tr>
             <td>{{ $em->user_id }}</td>
             <td>{{ App\Profile::getFullName($em->user_id) }}</td>
@@ -151,6 +162,7 @@
             </button>
             </td>
         </tr>
+    @endif
     @endif
     @endforeach
     </template>

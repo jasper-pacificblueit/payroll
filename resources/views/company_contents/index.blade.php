@@ -42,16 +42,16 @@
                                                        
                                                     </div>
                                                     <form method="POST" action="/company">
+                                                        {{ csrf_field() }}
                                                     <div class="modal-body">
                                                        <div class="row">
                                                            <div class="col-lg-12">
-                                                                
-                                                                    {{ csrf_field() }}
-                                                                    <label>Company Name</label>
-                                                                    <input type="text" name="name" class="form-control" required>
-                                                                    <br>
-                                                                    <label>Address</label>
-                                                                    <input type="text" name="address" class="form-control" required>
+                                                            <label>Company Name</label>
+                                                            <input type="text" name="name" class="form-control" required>
+                                                            <label>Department Name</label>
+                                                            <input type="text" name="department" class="form-control" required>
+                                                            <label>Address</label>
+                                                            <input type="text" name="address" class="form-control" required>
                                                            </div>
                                                        </div>
                                                     </div>
@@ -84,7 +84,6 @@
                                         <th>Departments</th>
                                         <th>Employee/s</th>  
                                         <th>Action</th>  
-                                        
                                     </tr>
                                 </thead>
                                 <tbody>

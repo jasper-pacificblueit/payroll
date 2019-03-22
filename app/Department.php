@@ -14,6 +14,12 @@ class Department extends Model
 		return $this->belongsTo('App\Company');
 	}
 
+	public function getEmployee() {
+
+		return Employee::where('department_id', $this->id)->get();
+
+	}
+
 	public function dateTimeRecords() {
 		return $this->hasMany('App\DateTimeRecord');
 	}

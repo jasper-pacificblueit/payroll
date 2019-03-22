@@ -7,6 +7,8 @@ use App;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 
+use App\Employee;
+
 class EmployeeController extends Controller
 {
     /**
@@ -28,6 +30,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+
         return view('employee_contents.add')->with([
             'company' => App\Company::all(),
         ]);
@@ -141,9 +144,13 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+
+
+
+        ]);
     }
 
     /**

@@ -33,7 +33,7 @@
                             <div class="col-sm-5 m-b-xs">
                                 <h4>{{$company -> name}}</h4>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDepartment">
-                                        Add Department
+                                    Add Department
                                 </button>
                                 <div class="modal inmodal fade" id="addDepartment" tabindex="-1" role="dialog"  aria-hidden="true">
                                         <div class="modal-dialog modal-sm">
@@ -41,7 +41,6 @@
                                                 <div class="modal-header no-padding">
                                                     <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                                    <h4 style="padding:10px">Add Department</h4>
-                                                   
                                                 </div>
                                                 <div class="modal-body">
                                                    <div class="row">
@@ -78,7 +77,6 @@
                                         <th>Department name</th>
                                         <th>No. of Employee</th>  
                                         <th>Action</th>  
-                                        
                                     </tr>
                                 </thead>
 
@@ -89,7 +87,7 @@
                                         <tr>
                                             <td>{{$department -> id}}</td>
                                             <td>{{$department -> name}}</td>
-                                            <td>--</td>
+                                            <td>{{count($department->getEmployee())}}</td>
                                             <td><button class="btn btn-default btn-xs">Details</button></td>
                                         </tr>
                                     @endforeach

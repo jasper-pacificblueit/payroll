@@ -18,8 +18,6 @@ class UsersTableSeeder extends Seeder
 
     public static function create($userInfo) {
 
-
-
         $user = new App\User;
         $userProfile = new App\Profile;
         $userContact = new App\Contact;

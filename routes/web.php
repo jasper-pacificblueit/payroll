@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 	});
 	
 	Route::middleware(['permission:employee_write'])->group(function() {
-		Route::get('/employee/add', 'EmployeeController@create');
+		Route::get('/employee/add', 'EmployeeController@create')->name('employee.add');
 		Route::post('/employee/keep', 'EmployeeController@store');
 	});
 

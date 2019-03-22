@@ -55,6 +55,9 @@ class EmployeeController extends Controller
             'mobile' => 'required'
         ]);
 
+        if (auth()->user()->position == $request->position)
+            return redirect()->route('employee.add');
+
         $user = new App\User;
         $contact = new App\Contact;
         $profile = new App\Profile;

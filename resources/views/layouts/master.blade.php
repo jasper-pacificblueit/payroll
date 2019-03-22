@@ -133,6 +133,8 @@
 
         @yield('content')
 
+
+        <br>
         <div class="footer">
             <div>
                 <strong>Powered By:</strong> <a href="https://www.pacificblueit.com" target="_blank" >Pacific Blue I.T. &copy; {{ Date('Y') }}</a>

@@ -87,11 +87,12 @@
                                 </select>
     
                                 <label>Department</label>
-                                <select class="form-control company-dep" name="department">  
+                                <select class="form-control company-dep" name="department">
                                   @foreach($company[0]->departments as $dep)
                                     <option value="{{ $dep->id }}">{{$dep->name}}</option>
                                   @endforeach       
                                 </select>
+                                
                             </div>
                         </div>
 
@@ -116,13 +117,13 @@
      </div>
     <br>
 
-    @foreach($company as $i)
-      <template id="dep-option-{{ $i->id }}">
-      @foreach($i->departments as $dep)
-        <option value="{{ $dep->id }}">{{ $dep->name }}</option>
-      @endforeach
-      </template>
+  @foreach($company as $i)
+    <template id="dep-option-{{ $i->id }}">
+    @foreach($i->departments as $dep)
+      <option value="{{ $dep->id }}">{{ $dep->name }}</option>
     @endforeach
+    </template>
+  @endforeach
 @endsection
 
 

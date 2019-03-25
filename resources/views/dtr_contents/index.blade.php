@@ -32,17 +32,8 @@
 
                                     <div class="col-lg-12">
                                         <table class="table">
-                                            
-                                            
                                             <tbody>
-                                                
-                                                
                                                 @foreach($data as $value)
-                                               
-<<<<<<< HEAD
-=======
-
->>>>>>> 48c59d26522754a4f0c74c9969198e3354db7d5d
                                                     <?php
 
                                                         for ($i=0; $i <count($value) ; $i++) { 
@@ -64,14 +55,11 @@
                                                                 
 
                                                             }
-
                                                             echo "<tr>";
-
                                                         }
                                                     ?>
 
-                                                @endforeach
-<<<<<<< HEAD
+                                               @endforeach
                                                @foreach($data as $obj)
                                                <td>{{ $data }}</td>
 
@@ -90,11 +78,6 @@
                                             @else
                                             <td>No Record</td>
                                             @endif
-=======
-
-                                              
-                                         
->>>>>>> 48c59d26522754a4f0c74c9969198e3354db7d5d
                                             </tbody>
                                         </table>
 

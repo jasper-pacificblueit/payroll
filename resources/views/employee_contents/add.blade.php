@@ -42,7 +42,7 @@
                                <input type="text" name="middleName" class="form-control p-2">
 
                                <label>E-mail</label>
-                               <input type="text" name="email" class="form-control p-2">
+                               <input type="email" name="email" class="form-control p-2">
 
                                <label>Mobile number</label>
                                <input type="text" name="mobile" class="form-control p-2">
@@ -51,16 +51,22 @@
                                <input type="text" name="phone" class="form-control p-2">
 
                                <label>Position</label>
-                               <select class='form-control company-dep' name='position'>
-                                  @foreach(App\User::$positions as $key => $pos)
-
-                                      <option value='{{$key}}'>{{ $pos }}</option>
-
-                                  @endforeach
+                               <select class='form-control' name='position'>
+                                  @if (auth()->user()->position == 'hr')
+                                    <option value='employee'>Employee</option>
+                                  @elseif (auth()->user()->position == 'admin')
+                                    <option value='hr'>HR</option>
+                                    <option value='employee'>Employee</option>
+                                  @endif
                                </select>
                             </div>
     
                             <div class="col-lg-6">
+                                <label>Gender</label>
+                                <select class='form-control' name='gender'>
+                                  <option value='1'>Male</option>
+                                  <option value='0'>Female</option>
+                                </select>
                                 <label>Birthdate</label>
                                 <input type="date" name="birthdate" class="form-control">
 

@@ -11,7 +11,11 @@ class Employee extends Model
 		return $this->belongsTo('App\User');
 	}
 
+  public function getProfile() {
+    return Profile::where('user_id', $this->user_id)->first();
+  }
+
 	public function dateTimeRecord() {
-		return $this->hasMany('App\DateTimeRecord');
+		return $this->hasOne('App\DateTimeRecord');
 	}
 }

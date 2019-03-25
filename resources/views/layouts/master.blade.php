@@ -83,11 +83,11 @@
                 </li>
                 @endcan
 
-                @can('date_time_record_read')
+          
                 <li class="{{ Request::path() == 'dtr' ? 'active' : '' }}">
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
-                @endcan
+             
 
                 @can('company_read')
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
@@ -133,6 +133,8 @@
 
         @yield('content')
 
+
+        <br>
         <div class="footer">
             <div>
                 <strong>Powered By:</strong> <a href="https://www.pacificblueit.com" target="_blank" >Pacific Blue I.T. &copy; {{ Date('Y') }}</a>

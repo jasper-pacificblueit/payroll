@@ -40,7 +40,6 @@ class DepartmentController extends Controller
         Department::create([
             'company_id' => $company->id ,
             'name' => request('name')
-
         ]);
         
         return back();

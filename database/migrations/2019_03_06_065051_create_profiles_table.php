@@ -17,6 +17,7 @@ class CreateProfilesTable extends Migration
             $table->integer('user_id')->unsigned(); 
             $table->string('email')->index();
 
+            $table->boolean('gender');
             $table->string('fname');
             $table->string('lname');
             $table->string('mname');

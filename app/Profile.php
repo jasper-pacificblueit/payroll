@@ -13,7 +13,7 @@ class Profile extends Model
   }
 
   public static function getFullName($id) {
-  	if (User::find($id)['position'] == 'admin') sprintf('Administrator');
+  	if (User::find($id)['position'] == 'admin') return sprintf('Administrator');
     
     $user = Profile::where('user_id', $id)->first();
 

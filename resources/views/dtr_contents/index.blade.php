@@ -35,14 +35,34 @@
                                             
                                             
                                             <tbody>
+                                                
+                                                
                                                 @foreach($data as $value)
                                                
+<<<<<<< HEAD
+=======
+
+>>>>>>> 48c59d26522754a4f0c74c9969198e3354db7d5d
                                                     <?php
 
-                                                        for ($i=0; $i <count($value[0]) ; $i++) { 
+                                                        for ($i=0; $i <count($value) ; $i++) { 
                                                             echo "<tr>";
                                                             for ($j=0; $j < count($value[0]) ; $j++) { 
-                                                                echo "<td>".$value[$i][$j]."</td>";
+                                                                if($value[$i][$j] == $value[0][$j]){
+                                                                    echo "<th>".$value[$i][$j]." </th>";
+                                                                }
+                                                                else{
+                                                                    if($value[$i][$j] == $value[$i][1]){
+                                                                    echo "<td>".date("m/d/Y" , strtotime($value[$i][$j]))."</td>";
+                                                                    }
+                                                                    else{
+                                                                    echo "<td>".$value[$i][$j]." </td>";
+                                                                    
+                                                                    }
+                                                                    
+                                                                }
+                                                                
+
                                                             }
 
                                                             echo "<tr>";
@@ -51,6 +71,7 @@
                                                     ?>
 
                                                 @endforeach
+<<<<<<< HEAD
                                                @foreach($data as $obj)
                                                <td>{{ $data }}</td>
 
@@ -69,6 +90,11 @@
                                             @else
                                             <td>No Record</td>
                                             @endif
+=======
+
+                                              
+                                         
+>>>>>>> 48c59d26522754a4f0c74c9969198e3354db7d5d
                                             </tbody>
                                         </table>
 
@@ -106,7 +132,7 @@
             
                                     </div>
                                 </div>
-                                @endif
+                            @endif
 
 
                             </div>

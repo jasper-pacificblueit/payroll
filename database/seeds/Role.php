@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use Spatie\Permission\Models\Permission;
+
 class Role extends Seeder
 {
 
@@ -11,8 +13,6 @@ class Role extends Seeder
 			'hr',
 			'employee',
 		];
-
-		
 	}
 
     /**
@@ -22,6 +22,8 @@ class Role extends Seeder
      */
     public function run()
     {
-
+    	foreach(self::roles() as $r) {
+            $role = Spatie\Permission\Models\Role::create(['name' => $r]);
+        }
     }
 }

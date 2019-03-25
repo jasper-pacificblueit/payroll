@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Department;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -36,11 +37,22 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'department' => 'required'
+        ]);
+
         $company = new Company();
 
         $company->name = request('name');
         $company->address = request('address');
         $company->save();
+
+        Department::create([
+            'company_id' => $company->id ,
+            'name' => request('department')
+        ]);
 
         return redirect('/company');
 
@@ -55,7 +67,6 @@ class CompanyController extends Controller
     public function show($id)
     {
         $company = Company::find($id);
-        
         return view('company_contents.show' , compact('company'));
     }
 

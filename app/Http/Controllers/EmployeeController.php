@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
+
+use App\Employee;
 
 class EmployeeController extends Controller
 {
@@ -27,6 +30,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+
         return view('employee_contents.add')->with([
             'company' => App\Company::all(),
         ]);
@@ -54,6 +58,9 @@ class EmployeeController extends Controller
             'mobile' => 'required'
         ]);
 
+        if (auth()->user()->position == $request->position)
+            return redirect()->route('employee.add');
+
         $user = new App\User;
         $contact = new App\Contact;
         $profile = new App\Profile;
@@ -75,6 +82,7 @@ class EmployeeController extends Controller
         $contact->save();
 
         $profile->fname = $request->firstName;
+        $profile->gender = $request->gender;
         $profile->age = 0;
         $profile->image = "";
         $profile->lname = $request->lastName;
@@ -85,12 +93,24 @@ class EmployeeController extends Controller
 
         $profile->save();
 
-        $employee->company_id = $request->company;
-        $employee->department_id = $request->department;
-        $employee->user_id = $user->id;
+        if ($user->position != 'admin') {
+            $employee->company_id = $request->company;
+            $employee->department_id = $request->department;
+            $employee->user_id = $user->id;
+            $employee->save();
+        }
 
-        $employee->save();
+        // Add role and permissions
+        $user->assignRole($user->position);
 
+        if ($user->position == 'admin') {
+            $user->syncPermissions(Permission::all());
+        } else if ($user->position == 'hr')
+            $user->syncPermissions([
+                'company_read',
+                'employee_read', 'employee_write',
+                'department_read', 'department_write',
+            ]);
 
         return redirect()->route('employee');
     }
@@ -124,9 +144,13 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+
+
+
+        ]);
     }
 
     /**

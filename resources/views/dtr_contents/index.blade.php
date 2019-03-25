@@ -29,31 +29,39 @@
                             
                             @if(isset($data))
                                 <div class="row">
+
                                     <div class="col-lg-12">
                                         <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <td>ID number</td>
-                                                <td>Date</td>
-                                                <td colspan="2" style="text-align: center">AM</td>
-                                                <td colspan="2" style="text-align: center">PM</td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>&nbsp;</td>
-                                                <td>&nbsp;</td>
-                                                <td style="text-align: center">IN</td>
-                                                <td style="text-align: center">OUT</td>
-                                                <td style="text-align: center">IN</td>
-                                                <td style="text-align: center">OUT</td>
-
-                                            </tr>
-                                            </thead>
                                             <tbody>
-                                            @if(count($data) > 0)
-                                               
-                                               @foreach($data[0] as $obj)
-                                               <td>{{$obj['user_id']}}</td>
+                                                @foreach($data as $value)
+                                                    <?php
+
+                                                        for ($i=0; $i <count($value) ; $i++) { 
+                                                            echo "<tr>";
+                                                            for ($j=0; $j < count($value[0]) ; $j++) { 
+                                                                if($value[$i][$j] == $value[0][$j]){
+                                                                    echo "<th>".$value[$i][$j]." </th>";
+                                                                }
+                                                                else{
+                                                                    if($value[$i][$j] == $value[$i][1]){
+                                                                    echo "<td>".date("m/d/Y" , strtotime($value[$i][$j]))."</td>";
+                                                                    }
+                                                                    else{
+                                                                    echo "<td>".$value[$i][$j]." </td>";
+                                                                    
+                                                                    }
+                                                                    
+                                                                }
+                                                                
+
+                                                            }
+                                                            echo "<tr>";
+                                                        }
+                                                    ?>
+
+                                               @endforeach
+                                               @foreach($data as $obj)
+                                               <td>{{ $data }}</td>
 
                                                @endforeach
 
@@ -107,7 +115,7 @@
             
                                     </div>
                                 </div>
-                                @endif
+                            @endif
 
 
                             </div>

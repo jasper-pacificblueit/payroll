@@ -27,9 +27,11 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-5 m-b-xs">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCompany">
-                                            Add Company
-                                    </button>
+                                    @can('company_write')
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCompany">
+                                                Add Company
+                                        </button>
+                                    @endcan
                                     
                                     <div class="modal inmodal fade" id="addCompany" tabindex="-1" role="dialog"  aria-hidden="true">
                                             <div class="modal-dialog modal-sm">
@@ -39,17 +41,17 @@
                                                        <h4 style="padding:10px">Add Company</h4>
                                                        
                                                     </div>
+                                                    <form method="POST" action="/company">
+                                                        {{ csrf_field() }}
                                                     <div class="modal-body">
                                                        <div class="row">
                                                            <div class="col-lg-12">
-                                                                <form method="POST" action="/company">
-                                                                    {{ csrf_field() }}
-                                                                    <label>Company Name</label>
-                                                                    <input type="text" name="name" class="form-control" required>
-                                                                    <br>
-                                                                    <label>Address</label>
-                                                                    <input type="text" name="address" class="form-control" required>
-                                                                
+                                                            <label>Company Name</label>
+                                                            <input type="text" name="name" class="form-control" required>
+                                                            <label>Department Name</label>
+                                                            <input type="text" name="department" class="form-control" required>
+                                                            <label>Address</label>
+                                                            <input type="text" name="address" class="form-control" required>
                                                            </div>
                                                        </div>
                                                     </div>
@@ -57,11 +59,13 @@
                                                     <div class="modal-footer">
                                                             <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-primary" name="submit">Create</button>
-                                                        </form>
+                                                        
                                                     </div>
+                                                    </form>
                                                 </div>
+
                                             </div>
-                                        </div>
+                                    </div>
                             </div>
                             
                             <div class="col-sm-3 pull-right">
@@ -80,7 +84,6 @@
                                         <th>Departments</th>
                                         <th>Employee/s</th>  
                                         <th>Action</th>  
-                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,7 +94,7 @@
                                             <td>{{$company->name}}</td>
                                             <td>{{$company->address}}</td>
                                             <td>{{count($company->departments)}}</td>
-                                            <td>{{count(App\Employee::all())}}</td>
+                                            <td>{{count(App\Employee::where('company_id', '=', $company->id)->get())}}</td>
                                             <td><a href="company/{{$company->id}}" class="btn btn-default btn-xs">Manage</a></td>
                                             
                                         </tr>    

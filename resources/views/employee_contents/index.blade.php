@@ -116,18 +116,29 @@
             <div class="modal-body">
                <div class="row">
                    <div class="col-lg-12">
+                    @hasrole('admin')
                         <label>Change Position</label>
                         <select class='form-control'>
-                            @if (auth()->user()->position == 'hr')
-                                <option value='employee'>Employee</option>
-                            @elseif (auth()->user()->position == 'admin')
-                                <option value='admin'>Administrator</option>
-                                <option value='hr'>HR</option>
-                                <option value='employee'>Employee</option>
-                            @endif
+                            <option value='admin'>Administrator</option>
+                            <option value='hr'>HR</option>
+                            <option value='employee'>Employee</option>
                         </select>
-                        <label>Address</label>
-                        <input type="text" name="address" class="form-control" required>
+                    @endhasrole
+                    @hasrole('admin|hr')
+                        <label>Change Permissions</label>
+                        <br>
+                        <label>Company</label>
+                        <div class=''>read</div>
+                        <div class=''>write</div>
+                        <label>Department</label>
+                        <div class='input-group'>
+                            <div class=''>read</div>
+                            <div class=''>write</div>
+                        </div>
+                        <label>Employee</label>
+                        <div class=''>read</div>
+                        <div class=''>write</div>
+                    @endhasrole
                    </div>
                </div>
             </div>

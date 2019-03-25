@@ -37,7 +37,6 @@
                                             <tbody>
                                                 @foreach($data as $value)
                                                
-<<<<<<< HEAD
                                                     <?php
 
                                                         for ($i=0; $i <count($value[0]) ; $i++) { 
@@ -52,7 +51,6 @@
                                                     ?>
 
                                                 @endforeach
-=======
                                                @foreach($data as $obj)
                                                <td>{{ $data }}</td>
 
@@ -71,7 +69,6 @@
                                             @else
                                             <td>No Record</td>
                                             @endif
->>>>>>> e94c534d9fc6282b84475c1a28d748ee2981aee6
                                             </tbody>
                                         </table>
 

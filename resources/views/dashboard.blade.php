@@ -3,39 +3,48 @@
 @section('title', 'Dashboard')
 
 @section('content')
+@php
 
-<div class="col-md-5">
+  $profile = App\Profile::where('user_id', auth()->user()->id)->first();
+  $contact = App\Contact::where('user_id', auth()->user()->id)->first();
+
+@endphp
+<div class='col-md-4 col-lg-4 col-sm-4'>
   <div class="ibox float-e-margins">
       <div class="ibox-title">
           <h5>User Information</h5>
       </div>
       <div>
           <div class="ibox-content no-padding border-left-right">
-              <img alt="image" class="img-responsive" src="img/nani.jpg">
+            @if ($profile->image != '')
+              <img alt="image" class="img-responsive" src="{{ $profile->image }}">
+            @else
+              <img class='img-responsive' src='/img/landing/avatar_anonymous.png'>
+            @endif
           </div>
           <div class="ibox-content profile-content">
-              <h4><strong>Nani Sinuka</strong></h4>
-              <p><i class="fa fa-map-marker"></i> Riviera State 32/106</p>
+              <h4><strong>{{ App\Profile::getFullName(auth()->user()->id) }}</strong></h4>
+              <p><i class="fa fa-map-marker"></i> {{ $contact->address }}</p>
               <h5>
-                  About me
+                  About Me
               </h5>
               <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
+                  {{ ($profile->about ? $profile->about : 'Write something about yourself.') }}
               </p>
               <div class="row m-t-lg">
                   <div class="col-md-4">
-                      <h5><strong>Birthday :</strong> 14 A.D</h5>
+                      <h5><strong>Birthday : </strong>{{ $profile->birthdate }}</h5>
                   </div>
                   <div class="col-md-4">
-                      <h5><strong>Gender :</strong> SheMale</h5>
+                      <h5><strong>Gender : </strong>{{ ($profile->gender?'Male' : 'Female') }}</h5>
                   </div>
                   
                   <div class="col-md-4">
-                      <h5><strong>Age :</strong> Unknown</h5>
+                      <h5><strong>Age : </strong> {{ ($profile->age? $profile->age : 'How old are you?') }}</h5>
                   </div>
 
                   <div class="col-md-4">
-                          <h5><strong>Contact :</strong> 09000000001</h5>
+                          <h5><strong>Contact :</strong> {{ $contact->phone }}</h5>
                       </div>
               </div>
               <div class="user-button">

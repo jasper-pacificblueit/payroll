@@ -28,24 +28,37 @@
 
 </head>
 <body class="skin-3">
+@php
+    
+    $profile = App\Profile::where('user_id', auth()->user()->id)->first();
+
+
+@endphp
 {{--<body class="skin-3">--}}
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
-                    <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="/img/nani.jpg" style="width: 100px;" />
-                             </span>
+                    <div class="dropdown profile-element">
+                        <span>
+                            @if ($profile->image != '')
+                              <img alt="image" class="img-circle" src="{{ $profile->image }}" style='max-width: 100px'/>
+                            @else
+                              <img class='img-circle' style='max-width: 100px' src='/img/landing/avatar_anonymous.png'>
+                            @endif
+                        </span>
+
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">
                                 <span class="block m-t-xs">
-                                    <strong class="font-bold">{!! App\Profile::getFullName(Auth::user()->id) !!}</strong>
+                                    <strong class="font-bold">{!! App\User::$positions[auth()->user()->position] !!}</strong>
                                 </span>
                                 <span class="text-muted text-xs block">
 
                                     <b class="caret"></b></span>
-                            </span> </a>
+                            </span>
+                        </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li class="{{ Request::path() == 'profile' ? 'active' : '' }}">
                                 <a href="{{ route('logout') }}"
@@ -95,9 +108,6 @@
                 </li>
                 @endcan
 
-
-
-
                 </li>   
                 
                                
@@ -131,8 +141,9 @@
             </nav>
         </div>
 
-        @yield('content')
-
+        <div class='row' style='margin-top: 5px'>
+            @yield('content')
+        </div>
 
         <br>
         <div class="footer">

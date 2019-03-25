@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info('Creating admin account...');
 
+        // admin info
         $info = [
 
             'user' => 'admin',
@@ -27,18 +28,18 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@example.com',
             'position' => 'admin',
 
-            'gender' => 0,
-            'fname' => '',
-            'lname' => '',
-            'mname' => '',
-            'age' => 99,
-            'image' => '',
-            'birthdate' => new DateTime(),
+            'gender' => 1,
+            'fname' => 'Rom',
+            'lname' => 'Villanueva',
+            'mname' => 'Vales',
+            'age' => 19,
+            'image' => 'https://res.cloudinary.com/teepublic/image/private/s--1Sd8Sjas--/t_Preview/b_rgb:191919,c_limit,f_jpg,h_630,q_90,w_630/v1512484579/production/designs/2143028_1.jpg',
+            'birthdate' => new DateTime('1999-07-26'),
 
-            'phone' => '',
-            'mobile' => '',
-            'email' => '',
-            'address' => '',
+            'phone' => '09182639024',
+            'mobile' => '09182639024',
+            'email' => 'romdevmod@gmail.com',
+            'address' => 'San Rafael St., Sto. Domingo, Albay',
 
         ];
 

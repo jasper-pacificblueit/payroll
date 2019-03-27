@@ -26,6 +26,16 @@
     {!! Html::style('css/elegal-style.css') !!}
     @yield('styles')
 
+    <style scoped>
+
+        .container {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+
+    </style>
+
 </head>
 <body class="skin-3">
 @php
@@ -141,7 +151,7 @@
             </nav>
         </div>
 
-        <div class='row' style='margin-top: 5px'>
+        <div class='container' style='margin-top: 5px;'>
             @yield('content')
         </div>
 
@@ -151,6 +161,8 @@
                 <strong>Powered By:</strong> <a href="https://www.pacificblueit.com" target="_blank" >Pacific Blue I.T. &copy; {{ Date('Y') }}</a>
             </div>
         </div>
+
+
     </div>
 </div>
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -169,6 +181,7 @@
 {!! Html::script('js/plugins/pace/pace.min.js') !!}
 {!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
 {!! Html::script('js/plugins/pace/pace.min.js') !!}
+{!! Html::script('js/plugins/footable/footable.all.min.js') !!}
 
 <!-- Jasny -->
 {!! Html::script('js/plugins/jasny/jasny-bootstrap.min.js') !!}
@@ -178,7 +191,9 @@
 
  <!-- CodeMirror -->
  {!! Html::script('js/plugins/codemirror/codemirror.js') !!}
- {!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!}
+ 
+
+ 
  
 
 @yield('scripts')

@@ -3,6 +3,11 @@
 @section('title', 'Attendance Report')
 
 @section('content')
+@if(isset($csv_info))
+@php
+    // dd($csv_info);
+@endphp
+@endif
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
@@ -26,71 +31,42 @@
                     <div class="ibox float-e-margins">
                     
                         <div class="ibox-content">
-                            
-                            @if(isset($data))
-                                <div class="row">
+    
+                            @if(isset($csv_info))
+                                <h1 align='center'>Attendance Report</h1>
+                                <label>Period : </label> {{ $csv_info->period }}
+                                <br>
+                                <label>Printed : </label> {{ $csv_info->printed }}
+                                <br>
+                                <table class="table table-striped table-bordered table-hover dataTables-example dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" role="grid" style='margin-top: 15px'>
+                    <thead>
+                    <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 95px;">Biometric ID
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Employee Name
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Department
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 100px;">Date
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 93px;">
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+{{----}}
+@foreach($csv_info->employees as $emrec)
+<tr>
+    <td>{{ $emrec->bio_id }}</td>
+    <td>{{ ucwords(strtolower($emrec->name)) }}</td>
+    <td>{{ $emrec->dep }}</td>
+    <td>{{ $emrec->date }}</td>
+</tr>
+@endforeach
+{{----}}
+                    </tbody>
+                    </table>
 
-                                    <div class="col-lg-12">
-                                        <table class="table">
-                                            <tbody>
-                                                @foreach($data as $value)
-                                                    <?php
-
-                                                        for ($i=0; $i <count($value) ; $i++) { 
-                                                            echo "<tr>";
-                                                            for ($j=0; $j < count($value[0]) ; $j++) { 
-                                                                if($value[$i][$j] == $value[0][$j]){
-                                                                    echo "<th>".$value[$i][$j]." </th>";
-                                                                }
-                                                                else{
-                                                                    if($value[$i][$j] == $value[$i][1]){
-                                                                    echo "<td>".date("m/d/Y" , strtotime($value[$i][$j]))."</td>";
-                                                                    }
-                                                                    else{
-                                                                    echo "<td>".$value[$i][$j]." </td>";
-                                                                    
-                                                                    }
-                                                                    
-                                                                }
-                                                                
-
-                                                            }
-                                                            echo "<tr>";
-                                                        }
-                                                    ?>
-
-                                               @endforeach
-                                               @foreach($data as $obj)
-                                               <td>{{ $data }}</td>
-
-                                               @endforeach
-
-                                               {{--  @foreach($data as $j)
-                                                    <tr>
-                                                        <td>{{ $j['user_id'] }}</td>
-                                                        <td style="text-align: center">{{ $j['in_am'] }}</td>
-                                                        <td style="text-align: center">{{ $j['out_am'] }}</td>
-                                                        <td style="text-align: center">{{ $j['in_pm'] }}</td>
-                                                        <td style="text-align: center">{{ $j['out_pm'] }}</td>
-                                                    </tr>
-                                                       
-                                                @endforeach --}}
-                                            @else
-                                            <td>No Record</td>
-                                            @endif
-                                            </tbody>
-                                        </table>
-
-                                        <hr>
-                                        <a href="/dtr" class="btn btn-default">Cancel</a>  
-
-
-                                    </div>
-                                    
-
-                                </div>
-
-                              
                             @else
                                 <div class="row">
                                     <div class="col-sm-3 m-b-xs">
@@ -116,23 +92,18 @@
                                     </div>
                                 </div>
                             @endif
-
-
-                            </div>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
-   
-            
 @endsection
 
-
 @section('scripts')
-{!! Html::script('js/plugins/footable/footable.all.min.js') !!}
- 
+
+{!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!} 
 
 <script>
     $(document).ready(function() {

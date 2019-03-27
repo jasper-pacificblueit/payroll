@@ -44,7 +44,7 @@
                             <div class="col-lg-3 m-b-xs">
                                 <h4>Select Department</h4>
                                 <select class="input-sm form-control input-s-sm inline cur-dep" onchange="changedep()">
-                                    @foreach (App\Department::where('company_id', 1)->orderBy('name', 'desc')->get() as $i)
+                                    @foreach (App\Department::where('company_id', 1)->orderBy('name', 'asc')->get() as $i)
                                         <option value={{ $i->id }}>{{$i->name}}</option>
                                     @endforeach
                                 </select>
@@ -70,7 +70,7 @@
                                 </thead>
                                 <tbody class='usertables'>
                                     <!--fixed-->
-                                    @foreach(App\Employee::where('department_id', App\Department::where('company_id', 1)->orderBy('name', 'desc')->get()[0]->id)->get() as $em)
+                                    @foreach(App\Employee::where('department_id', App\Department::where('company_id', 1)->orderBy('name', 'asc')->get()[0]->id)->get() as $em)
                                         @if (auth()->user()->id != $em->user_id)
                                         @if (App\User::find($em->user_id)['position'] != auth()->user()->position)
                                         <tr>

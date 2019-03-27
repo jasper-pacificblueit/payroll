@@ -134,6 +134,9 @@ class DateTimeRecordController extends Controller
 
     public function viewFile(Request $request) {
 
+        $start = $request->start;
+        $end = $request->end;
+        
         $data = Excel::toArray(new DateTimeRecord, $request->file('upload-file'))[0];
         
         // return view('dtr_contents.index')->with(compact('data'));
@@ -238,9 +241,8 @@ class DateTimeRecordController extends Controller
                 ]);
             }
         }
-        
-
-        return view('dtr_contents.index')->with(['csv_info' => (object)$csv_info]);
+      
+        return view('dtr_contents.index')->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
     }
 
 

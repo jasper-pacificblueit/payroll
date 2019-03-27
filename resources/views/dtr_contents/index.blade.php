@@ -4,11 +4,7 @@
 
 
 @section('content')
-@if(isset($csv_info))
-@php
-    dd($csv_info);
-@endphp
-@endif
+
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
@@ -32,41 +28,37 @@
                     <div class="ibox float-e-margins">
                     
                         <div class="ibox-content">
-    
+                            
                             @if(isset($csv_info))
-                                <h1 align='center'>Attendance Report</h1>
-                                <label>Period : </label> {{ $csv_info->period }}
+                             
+                                <label>Period : {{date("M d" , strtotime($start))}} - {{date("M d Y" , strtotime($end))}}</label>
                                 <br>
                                 <label>Printed : </label> {{ $csv_info->printed }}
                                 <br>
-                                <table class="table table-striped table-bordered table-hover dataTables-example dataTable" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" role="grid" style='margin-top: 15px'>
-                    <thead>
-                    <tr role="row">
-                        <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 95px;">Biometric ID
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Employee Name
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Department
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 100px;">Date
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 93px;">
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-{{----}}
-@foreach($csv_info->employees as $emrec)
-<tr>
-    <td>{{ $emrec->bio_id }}</td>
-    <td>{{ ucwords(strtolower($emrec->name)) }}</td>
-    <td>{{ $emrec->dep }}</td>
-    <td>{{ $emrec->date }}</td>
-</tr>
-@endforeach
-{{----}}
-                    </tbody>
-                    </table>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                       <th>Employee</th>
+                                        <?php
+                                            $days = GetDays($start , $end);
+                                        ?>
+
+                                        @foreach ($days as $day)
+                                            <th>{{date("d/D" , strtotime($day))}}<th>
+                                            
+                                        @endforeach
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($csv_info->employees as $employee)
+                                            <tr>
+                                                <td>{{ucwords(strtolower($employee->name))}}</td>
+                                               
+
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             @else
                                 <div class="row">
                                     <div class="col-sm-3 m-b-xs">
@@ -121,6 +113,36 @@
             </div>
         </div>
     </div>
+    <?php
+        function GetDays($sStartDate, $sEndDate){  
+                // Firstly, format the provided dates.  
+                // This function works best with YYYY-MM-DD  
+                // but other date formats will work thanks  
+                // to strtotime().  
+                $sStartDate = gmdate("Y-m-d", strtotime($sStartDate));  
+                $sEndDate = gmdate("Y-m-d", strtotime($sEndDate));  
+
+                // Start the variable off with the start date  
+                $aDays[] = $sStartDate;  
+
+                // Set a 'temp' variable, sCurrentDate, with  
+                // the start date - before beginning the loop  
+                $sCurrentDate = $sStartDate;  
+
+                // While the current date is less than the end date  
+                while($sCurrentDate < $sEndDate){  
+                // Add a day to the current date  
+                $sCurrentDate = gmdate("Y-m-d", strtotime("+1 day", strtotime($sCurrentDate)));  
+
+                // Add this new day to the aDays array  
+                $aDays[] = $sCurrentDate;  
+                }  
+
+                // Once the loop has finished, return the  
+                // array of days.  
+                return $aDays;  
+       }  
+    ?>
 @endsection
 
 {!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!} 

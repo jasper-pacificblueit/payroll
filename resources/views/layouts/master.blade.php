@@ -150,10 +150,9 @@
             </nav>
         </div>
 
-        <div class='container' style='margin-top: 5px;'>
+      
             @yield('content')
-        </div>
-
+     
         <br>
         <div class="footer">
             <div>

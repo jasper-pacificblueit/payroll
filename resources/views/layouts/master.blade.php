@@ -42,7 +42,6 @@
     
     $profile = App\Profile::where('user_id', auth()->user()->id)->first();
 
-
 @endphp
 {{--<body class="skin-3">--}}
 <div id="wrapper">
@@ -191,9 +190,6 @@
 
  <!-- CodeMirror -->
  {!! Html::script('js/plugins/codemirror/codemirror.js') !!}
- 
-
- 
  
 
 @yield('scripts')

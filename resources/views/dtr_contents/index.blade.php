@@ -2,10 +2,11 @@
 
 @section('title', 'Attendance Report')
 
+
 @section('content')
 @if(isset($csv_info))
 @php
-    // dd($csv_info);
+    dd($csv_info);
 @endphp
 @endif
 
@@ -66,7 +67,6 @@
 {{----}}
                     </tbody>
                     </table>
-
                             @else
                                 <div class="row">
                                     <div class="col-sm-3 m-b-xs">
@@ -79,7 +79,27 @@
                                                 <span class="fileinput-filename"></span>
                                                 <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">×</a>
                                             </div> 
-                                            <button type="submit" class="form-control">View</button>
+                                            
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 m-b-xs">
+                                        <h4>Please input date</h4>
+                                        <div class="form-group" id="data_5">
+                                            <div class="input-daterange input-group" id="datepicker">
+
+                                                <?php $initStart = date("Y-m-d");?>
+                                                <?php $initEnd = date('Y-m-d', strtotime($initStart. ' + 14 day'));?>
+                                                <input type="date" class="input-sm form-control" name="start" value="{{$initStart}}" />
+                                                <span class="input-group-addon">to</span>
+                                                <input type="date" class="input-sm form-control" name="end" value="{{$initEnd}}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <button type="submit" class="form-control">View</button>
                                         </form>
                                     </div>
                                 </div>
@@ -88,9 +108,11 @@
                                     <div class="col-lg-12" >
                                         
                                         <p>Please import your csv file to view records</p>
-            
+
                                     </div>
+
                                 </div>
+                                
                             @endif
                         </div>
                     </div>
@@ -101,9 +123,9 @@
     </div>
 @endsection
 
-@section('scripts')
-
 {!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!} 
+
+@section('scripts')
 
 <script>
     $(document).ready(function() {
@@ -111,8 +133,7 @@
         $('.footable').footable();
         $('.footable2').footable();
 
+
     });
-
 </script>
-
 @endsection

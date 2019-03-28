@@ -54,11 +54,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <span>
-                            @if ($profile->image != '')
-                              <img alt="image" class="img-circle" src="{{ $profile->image }}" style='max-width: 100px'/>
-                            @else
-                              <img class='img-circle' style='max-width: 100px' src='/img/landing/avatar_anonymous.png'>
-                            @endif
+                            <img alt="image" class="img-circle" src="{{ $profile->image }}" style='max-width: 100px'/>
                         </span>
 
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -121,11 +117,7 @@
                 @endcan
 
                 </li>   
-                
-                               
-                               
 
-                
                 {{--side menus end--}}
 
             </ul>

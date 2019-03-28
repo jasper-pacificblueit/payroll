@@ -29,15 +29,18 @@
     <style scoped>
 
         .container {
+            margin-top: 5px;
             padding-left: 0px;
             padding-right: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
         }
 
 
     </style>
 
 </head>
-<body class="skin-3">
+<body class="skin-1">
 @php
     
     $profile = App\Profile::where('user_id', auth()->user()->id)->first();
@@ -150,9 +153,11 @@
             </nav>
         </div>
 
-      
+
+        <div class='container'>
             @yield('content')
-     
+        </div>
+
         <br>
         <div class="footer">
             <div>

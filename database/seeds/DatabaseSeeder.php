@@ -33,12 +33,11 @@ class DatabaseSeeder extends Seeder
             'lname' => 'Villanueva',
             'mname' => 'Vales',
             'age' => 19,
-            'image' => 'https://res.cloudinary.com/teepublic/image/private/s--1Sd8Sjas--/t_Preview/b_rgb:191919,c_limit,f_jpg,h_630,q_90,w_630/v1512484579/production/designs/2143028_1.jpg',
+            'image' => '/img/landing/avatar_anonymous.png',
             'birthdate' => '1999-07-26',
 
             'phone' => '09182639024',
             'mobile' => '09182639024',
-            'email' => 'romdevmod@gmail.com',
             'address' => 'San Rafael St., Sto. Domingo, Albay',
 
         ];

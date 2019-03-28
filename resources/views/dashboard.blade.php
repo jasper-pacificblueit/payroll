@@ -19,11 +19,7 @@
       </div>
       <div>
           <div class="ibox-content no-padding border-left-right">
-            @if ($profile->image != '')
-              <img alt="image" class="img-responsive" src="{{ $profile->image }}">
-            @else
-              <img class='img-responsive' src='/img/landing/avatar_anonymous.png'>
-            @endif
+            <img alt="image" class="img-responsive" src="{{ $profile->image }}">
           </div>
           <div class="ibox-content profile-content">
               <h4><strong>{{ App\Profile::getFullName(auth()->user()->id) }}</strong></h4>
@@ -52,11 +48,9 @@
               </div>
               <div class="user-button">
                   <div class="row">
+                      <div class='col-md-6'></div>
                       <div class="col-md-6">
-                          <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-cog"></i> Edit</button>
-                      </div>
-                      <div class="col-md-6">
-                          <button type="button" class="btn btn-default btn-sm btn-block"><i class="fa fa-comment"></i> Send a message</button>
+                          <a href="/editprofile/{{ auth()->user()->id }}" type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-cog"></i>Edit</a>
                       </div>
                   </div>
               </div>

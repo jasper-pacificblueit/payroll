@@ -35,7 +35,7 @@
                     <h5><strong>Birthdate : </strong>{{ (new Carbon($profile->birthdate))->toFormattedDateString() }}</h5>
                     <h5><strong>Gender : </strong>{{ ($profile->gender? 'Male' : 'Female') }}</h5>
                     <h5><strong>Age : </strong> {{ ($profile->age? $profile->age : 'How old are you?') }}</h5>
-                    <h5><strong>Contact :</strong> {{ $contact->phone }} / {{ $contact->mobile }}</h5>
+                    <h5><strong>Contact : </strong> {{ $contact->phone }} / {{ $contact->mobile }}</h5>
                     <h5><strong>Email :</strong> {{ $contact->email }}</h5>
                   </div>
               </div>

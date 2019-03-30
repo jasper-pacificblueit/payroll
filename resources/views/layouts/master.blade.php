@@ -16,16 +16,8 @@
     {!! Html::style('css/style.css') !!}
 
 
-    {!! Html::style('css/plugins/dropzone/basic.css') !!}
-    {!! Html::style('css/plugins/dropzone/dropzone.css') !!}
-    {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
-    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
-    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
-    
-    
-    {!! Html::style('css/elegal-style.css') !!}
     @yield('styles')
-
+{{-- 
     <style scoped>
 
         .container {
@@ -37,7 +29,7 @@
         }
 
 
-    </style>
+    </style> --}}
 
 </head>
 <body class="skin-1">
@@ -105,7 +97,7 @@
                 @endcan
 
           
-                <li class="{{ Request::path() == 'dtr' ? 'active' : '' }}">
+                <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
              
@@ -146,7 +138,7 @@
         </div>
 
 
-        <div class='container'>
+        <div>
             @yield('content')
         </div>
 

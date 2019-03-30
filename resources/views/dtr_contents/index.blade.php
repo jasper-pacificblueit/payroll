@@ -2,6 +2,15 @@
 
 @section('title', 'Attendance Report')
 
+@section('styles')
+
+{!! Html::style('css/plugins/dropzone/basic.css') !!}
+{!! Html::style('css/plugins/dropzone/dropzone.css') !!}
+{!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
+{!! Html::style('css/plugins/codemirror/codemirror.css') !!}
+{!! Html::style('css/plugins/codemirror/codemirror.css') !!}
+
+@endsection
 
 @section('content')
 
@@ -14,7 +23,7 @@
                     <a href="/">Dashboard</a>
                 </li>
                 <li>
-                    <a href="/employee"><strong>View Attendance</strong></a>
+                    <a href="/employee"><strong>Import Attendance</strong></a>
                 </li>
                
             </ol>
@@ -31,34 +40,78 @@
                             
                             @if(isset($csv_info))
                              
-                                <label>Period : {{date("M d" , strtotime($start))}} - {{date("M d Y" , strtotime($end))}}</label>
+                                <label>Period : {{ $csv_info->period}}</label>
                                 <br>
                                 <label>Printed : </label> {{ $csv_info->printed }}
                                 <br>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                       <th>Employee</th>
-                                        <?php
-                                            $days = GetDays($start , $end);
-                                        ?>
+                                <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                <th>Employee</th>
+                                                    <?php
+                                                        $days = GetDays($start , $end);
+                                                    ?>
 
-                                        @foreach ($days as $day)
-                                            <th>{{date("d/D" , strtotime($day))}}<th>
-                                            
-                                        @endforeach
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($csv_info->employees as $employee)
-                                            <tr>
-                                                <td>{{ucwords(strtolower($employee->name))}}</td>
+                                                    @foreach ($csv_info->employees[0]->attendance as $attendance)
+                                                    <td>{{$attendance->ddww}}</td> 
+                                                    @endforeach
+
+                                                <th>Total Hrs</th>
+                                                </tr>
                                                
+                                            </thead>
+                                             <tbody>
+                                                @foreach ($csv_info->employees as $employee)
+                                                    <tr>
+                                                        <td>{{ucwords(strtolower($employee->name))}}</td>
+                                                        
+                                                        <?php $totalHrs = 0; $diff = array();?>
+                                                        @foreach ($employee->attendance as $attendance)
+                                                    
+                                                            @if($attendance->absent)
+                                                            <td><b style="color:red;">A</b></td>
+                                                            @else
+                                                            <?php
+                                                              
+                                                                if(empty($attendance->am['out']) && empty($attendance->pm['out'])){
+                                                                    $diff = "<b style='color:orange;'>W</b>";
+                                                                }
+                                                                else if(empty($attendance->am['out'])){
+                                                                    $am_in = strtotime($attendance->am['in']);
+                                                                    $pm_out = strtotime($attendance->pm['out']);
+                                                                    $diff = round(abs($am_in - $pm_out) / 3600 , 1);
+                                                                }
+                                                                
+                                                               
+                                                                else if(empty($attendance->pm['out'])){
+                                                                    $am_in = strtotime($attendance->am['in']);
+                                                                    $am_out = strtotime($attendance->am['out']);
+                                                                    $diff = round(abs($am_in - $am_out) / 3600 , 1);
+                                                                }
 
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                            ?>
+                                                            
+                                                         
+                                                            <td><?php echo $diff; ?></td>
+                                                         
+                                                            @endif
+                                                         
+                                                            
+                                                        @endforeach
+                                                        <td>{{$totalHrs}}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <Br>
+                                    <a href="/dtr" class="btn btn-default">Cancel</a>
+                                    <a href="/dtr" class="btn btn-success pull-right">Save</a>
+                                    
+        
+                              
+                               
                             @else
                                 <div class="row">
                                     <div class="col-sm-3 m-b-xs">
@@ -67,7 +120,7 @@
                                             {{ csrf_field() }}
                                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                                 <span class="btn btn-default btn-file"><span class="fileinput-new">Select file</span>
-                                                <span class="fileinput-exists">Change</span><input type="file" name="upload-file"/></span>
+                                                <span class="fileinput-exists">Change</span><input type="file" name="upload-file" required/></span>
                                                 <span class="fileinput-filename"></span>
                                                 <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">×</a>
                                             </div> 
@@ -142,12 +195,14 @@
                 // array of days.  
                 return $aDays;  
        }  
+            
+      
     ?>
 @endsection
 
-{!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!} 
-
 @section('scripts')
+
+{!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!} 
 
 <script>
     $(document).ready(function() {

@@ -43,7 +43,7 @@
                       <div class="row">
                           <div class='col-md-6'></div>
                           <div class="col-md-6">
-                              <a href="/editprofile" type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-cog"></i> Edit</a>
+                              <a href="/editprofile" type="button" class="btn btn-success btn-sm btn-block"><i class="fa fa-cog"></i> Edit</a>
                           </div>
                       </div>
                   </div>

@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-sm-5 m-b-xs">
                                     @can('company_write')
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCompany">
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCompany">
                                                 Add Company
                                         </button>
                                     @endcan
@@ -57,8 +57,8 @@
                                                     </div>
             
                                                     <div class="modal-footer">
-                                                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary" name="submit">Create</button>
+                                                            <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-success" name="submit">Create</button>
                                                         
                                                     </div>
                                                     </form>
@@ -71,7 +71,7 @@
                             <div class="col-sm-3 pull-right">
                                
                                 <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+                                    <button type="button" class="btn btn-sm btn-success"> Go!</button> </span></div>
                             </div>
                         </div>
                         <div class="table-responsive">

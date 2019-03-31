@@ -116,8 +116,8 @@
 															<br>
 															<div class='text-right'>
 																<div class='btn-group'>
-																	<a class='btn btn-primary' href='/'>Discard</a>
-																	<input class='btn btn-primary' type='submit' value='Save'>
+																	<a class='btn btn-success' href='/'>Discard</a>
+																	<input class='btn btn-success' type='submit' value='Save'>
 																</div>
 															</div>
 

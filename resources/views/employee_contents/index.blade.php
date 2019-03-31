@@ -53,7 +53,7 @@
                             <div class="col-lg-5">
                                 <span class='hidden-md hidden-sm hidden-xs'><h4>&nbsp;</h4></span>
                                 <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-primary">Go!</button> </span></div>
+                                    <button type="button" class="btn btn-sm btn-success">Go!</button> </span></div>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -131,8 +131,10 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="submit">Create</button>
+                <div class='btn-group'>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success" name="submit">Create</button>
+            </div>
             </div>
             </form>
         </div>

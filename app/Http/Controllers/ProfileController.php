@@ -76,7 +76,14 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        //
+        $profile = Profile::where('user_id', auth()->user()->id)->first();
+        $contact = Contact::where('user_id', auth()->user()->id)->first();
+
+        $profile->email = $request->email;
+        $profile->image = $request->image;
+        $profile->age   = $request->age;
+
+        $profile->save();
     }
 
     /**

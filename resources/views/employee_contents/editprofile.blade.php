@@ -11,10 +11,17 @@
 @endphp
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-8">
-        <h2>Manage Attendance</h2>
+        <h2>Edit Profile</h2>
+        <ol class="breadcrumb">
+		        <li class="active">
+		            <a href="/">Dashboard</a>
+		        </li>
+		        <li>
+		            <a href="#"><strong>Edit Profile</strong></a>
+		        </li>
+		    </ol>
     </div>
 </div>
-<br>
 <div class="wrapper wrapper-content animated fadeInRight no-padding">
     <div class="wrapper wrapper-content animated fadeInRight no-padding">
         <div class="row">
@@ -35,7 +42,8 @@
                             <h5></h5>
                         </div>
                         <div class="ibox-content">
-                            <form class="form-horizontal" id='profile-form'>
+                            <form method="post" class="form-horizontal" id='profile-form' action="/editprofile">
+                            	{{ csrf_field() }}
                                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
 															    <div class="form-control" data-trigger="fileinput">
 															    		<span class="fileinput-new">Upload a Profile Picture</span>
@@ -47,6 +55,8 @@
 															        <span class="fileinput-new">Upload</span>
 															        <span class="fileinput-exists">Change</span>
 															    </span>
+                            	}
+                            	}
 															</div>
 
 															<label>Age</label>
@@ -54,36 +64,6 @@
 																document.getElementById('age').innerHTML = '<strong>Age : </strong>' + 
 																(e.value != '' ? e.value : 'How old are you?');
 															})(this)" placeholder="Age">
-
-															<label>First name</label>
-															<input class='form-control' name='fname' type='text' placeholder="First Name" onchange="(function(e) {
-
-																document.getElementById('firstName').innerHTML = e.value.charAt(0).toUpperCase() + e.value.slice(1);
-
-															})(this)">
-
-															<label>Last name</label>
-															<input class='form-control' name='lname' type='text' placeholder="Last Name" onchange="(function(e) {
-
-																document.getElementById('lastName').innerHTML = e.value.charAt(0).toUpperCase() + e.value.slice(1);
-
-															})(this)">
-
-															<label>Middle name</label>
-															<input class='form-control' name='mname' type='text' placeholder="Middle Name" onchange="(function(e) {
-
-																document.getElementById('middleName').innerHTML = e.value.charAt(0).toUpperCase() + e.value.slice(1);
-
-																if (document.querySelector('#firstName').innerHTML == '' &&
-																		document.querySelector('#middleName').innerHTML == '' &&
-																		document.querySelector('#lastName').innerHTML == '') {
-																	document.querySelector('#firstName').innerHTML = 'What is your name?';
-																	document.querySelector('#middleName').innerHTML = '';
-																	document.querySelector('#lastName').innerHTML = '';
-																}
-																	
-
-															})(this)">
 															<br>
 															<br>
 															<label>Address</label>
@@ -135,7 +115,10 @@
 															})(this)"></textarea>
 															<br>
 															<div class='text-right'>
-																<input class='btn btn-primary' type='submit' value='Save'>
+																<div class='btn-group'>
+																	<a class='btn btn-primary' href='/'>Discard</a>
+																	<input class='btn btn-primary' type='submit' value='Save'>
+																</div>
 															</div>
 
                             </form>

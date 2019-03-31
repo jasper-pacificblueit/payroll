@@ -56,33 +56,87 @@
 															})(this)" placeholder="Age">
 
 															<label>First name</label>
-															<input class='form-control' name='fname' type='text' placeholder="First Name">
+															<input class='form-control' name='fname' type='text' placeholder="First Name" onchange="(function(e) {
+
+																document.getElementById('firstName').innerHTML = e.value.charAt(0).toUpperCase() + e.value.slice(1);
+
+															})(this)">
 
 															<label>Last name</label>
-															<input class='form-control' name='lname' type='text' placeholder="Last Name">
+															<input class='form-control' name='lname' type='text' placeholder="Last Name" onchange="(function(e) {
+
+																document.getElementById('lastName').innerHTML = e.value.charAt(0).toUpperCase() + e.value.slice(1);
+
+															})(this)">
 
 															<label>Middle name</label>
-															<input class='form-control' name='mname' type='text' placeholder="Middle Name">
-															<br>
-															<br>
-															<label>State/Province</label>
-															<input class='form-control' name='state' type='text' placeholder="State">
-															<label>City</label>
-															<input class='form-control' name='city' type='text' placeholder="City">
-															<label>Address</label>
-															<input class='form-control' name='address' type='text' placeholder="Address">
-															<label>Phone</label>
-															<input class='form-control' name='phone' type='text' placeholder="Phone">
-															<label>Mobile</label>
-															<input class='form-control' name='mobile' type='text' placeholder="Mobile">
-															<label>Email</label>
-															<input class='form-control' name='email' type='email' placeholder="Email">
+															<input class='form-control' name='mname' type='text' placeholder="Middle Name" onchange="(function(e) {
 
+																document.getElementById('middleName').innerHTML = e.value.charAt(0).toUpperCase() + e.value.slice(1);
+
+																if (document.querySelector('#firstName').innerHTML == '' &&
+																		document.querySelector('#middleName').innerHTML == '' &&
+																		document.querySelector('#lastName').innerHTML == '') {
+																	document.querySelector('#firstName').innerHTML = 'What is your name?';
+																	document.querySelector('#middleName').innerHTML = '';
+																	document.querySelector('#lastName').innerHTML = '';
+																}
+																	
+
+															})(this)">
+															<br>
+															<br>
+															<label>Address</label>
+															<input class='form-control' name='address' type='text' placeholder="Address" onchange="(function(e) {
+
+
+																if (e.value == '')
+																	document.getElementById('_address').innerHTML = 'Where do you live?';
+																else
+																	document.getElementById('_address').innerHTML = e.value;
+
+
+
+															})(this)">
+															<label>Phone</label>
+															<input class='form-control' name='phone' type='text' placeholder="Phone" onchange="(function(e) {
+
+																document.getElementById('phoneNumber').innerHTML = e.value;
+
+
+															})(this)">
+															<label>Mobile</label>
+															<input class='form-control' name='mobile' type='text' placeholder="Mobile" onchange="(function(e) {
+
+																document.getElementById('mobileNumber').innerHTML = e.value;
+
+															})(this)">
+															<label>Email</label>
+															<input class='form-control' name='email' type='email' placeholder="Email" onchange="(function(e) {
+
+																if (e.value == '')
+																	document.getElementById('emailAddress').innerHTML = 'What is your email?';
+																else
+																	document.getElementById('emailAddress').innerHTML = e.value;
+
+
+															})(this)">
 															<br>
 															<br>
 
 															<label>About yourself?</label>
-															<textarea class='form-control' name='about'></textarea>
+															<textarea class='form-control' id='aboutEmployee' name='about' onchange="(function(e) {
+
+																	if (e.value == '')
+																		document.getElementById('aboutMe').innerHTML = 'Write something about yourself.';
+																	else
+																		document.getElementById('aboutMe').innerHTML = e.value;
+
+															})(this)"></textarea>
+															<br>
+															<div class='text-right'>
+																<input class='btn btn-primary' type='submit' value='Save'>
+															</div>
 
                             </form>
                         </div>
@@ -101,21 +155,29 @@
 	          <img alt="image" class="img-responsive" id="user-image" style='margin: auto' src="{{ $profile->image }}">
 	        </div>
 	        <div class="ibox-content profile-content">
-	            <h4><strong>{{ App\Profile::getFullName(auth()->user()->id) }}</strong></h4>
-	            <p><i class="fa fa-map-marker"></i> {{ $contact->address }}</p>
+	            <h4 id='fullName'><strong>
+	            	
+	            	<span id='firstName'>{{ $profile->fname }}</span> 
+	            	<span id='middleName'>{{ $profile->mname }}</span> 
+	            	<span id='lastName'>{{ $profile->lname }}</span>
+
+	            </strong></h4>
+	            <p><i class="fa fa-map-marker"></i> 
+	            	<span id='_address'>{{ $contact->address }}</span>
+	            </p>
 	            <h5>
 	                About Me
 	            </h5>
 	            <p>
-	                {{ ($profile->about ? $profile->about : 'Write something about yourself.') }}
+	                <span id='aboutMe'>{{ ($profile->about ? $profile->about : 'Write something about yourself.') }}</span>
 	            </p>
 	            <div class="row m-t-lg">
 	                <div class="col-md-12">
 	                  <h5><strong>Birthdate : </strong>{{ (new Carbon($profile->birthdate))->toFormattedDateString() }}</h5>
 	                  <h5><strong>Gender : </strong>{{ ($profile->gender? 'Male' : 'Female') }}</h5>
 	                  <h5 id='age'><strong>Age : </strong>{{ ($profile->age? $profile->age : 'How old are you?') }}</h5>
-	                  <h5><strong>Contact :</strong> {{ $contact->phone }} / {{ $contact->mobile }}</h5>
-	                  <h5><strong>Email :</strong> {{ $contact->email }}</h5>
+	                  <h5><strong>Contact :</strong> <span id='phoneNumber'>{{ $contact->phone }}</span> / <span id='mobileNumber'>{{ $contact->mobile }}</span></h5>
+	                  <h5><strong>Email :</strong> <span id='emailAddress'>{{ $contact->email }}</span></h5>
 	                </div>
 	            </div>
 	        </div>
@@ -145,6 +207,8 @@
 			rdr.readAsDataURL(document.getElementsByName('image')[0].files[0]);
 		} else
 			document.getElementById('user-image').src = "/img/landing/avatar_anonymous.png";
+
+
 
 	}
 

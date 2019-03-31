@@ -107,7 +107,7 @@
         <div class="modal-content">
             <div class="modal-header no-padding">
                 <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-               <h4 style="padding:10px">{{ App\Profile::getFullName($em->user_id) }}</h4>
+               <h4 style="padding:10px">Edit '{{ App\User::find($em->user_id)['user'] }}'</h4>
                
             </div>
             <form method="POST" action="/employee/{{ $em->user_id }}">
@@ -126,8 +126,6 @@
                                 <option value='employee'>Employee</option>
                             @endif
                         </select>
-                        <label>Address</label>
-                        <input type="text" name="address" class="form-control" required>
                    </div>
                </div>
             </div>

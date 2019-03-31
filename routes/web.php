@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-	Route::get("/editprofile/{uid}", "ProfileController@edit");
+	Route::get("/editprofile", "ProfileController@edit");
 
 	Route::resource('/dtr', 'DateTimeRecordController');
 	Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');

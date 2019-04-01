@@ -28,6 +28,8 @@
     
     $profile = App\Profile::where('user_id', auth()->user()->id)->first();
 
+    $profile->image = (array)json_decode($profile->image);
+
 @endphp
 {{--<body class="skin-3">--}}
 <div id="wrapper">
@@ -37,7 +39,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <span>
-                            <img alt="image" class="img-circle" src="{{ $profile->image }}" style='max-width: 100px'/>
+                            <img alt="image" class="img-circle" src="{{ $profile->image['data'] }}" style='max-width: 75px'/>
                         </span>
 
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">

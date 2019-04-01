@@ -33,7 +33,10 @@ class DatabaseSeeder extends Seeder
             'lname' => 'Denver',
             'mname' => 'M.',
             'age' => 19,
-            'image' => '/img/landing/avatar_anonymous.png',
+            'image' => [
+                'data' => '/img/landing/avatar_anonymous.png',
+                'path' => '/img/landing/avatar_anonymous.png',
+            ],
             'birthdate' => '1999-07-26',
 
             'phone' => '09182639024',
@@ -44,14 +47,56 @@ class DatabaseSeeder extends Seeder
 
         UsersTableSeeder::create((object)$info);
 
-        $this->command->info('Creating default company and departments...');
 
-        $address = $this->command->ask('Enter company address');
-        $name = $this->command->ask('Enter default company');
-        $depList = $this->command->ask('Enter departments (comma separated [i.e. Dep1, Dep2])');
+        if (!$this->command->confirm('Use DatabaseSeeder::default to create default company and departments? ')) {
+            $this->command->info('Creating default company and departments...');
 
-        $departments = explode(',', $depList);
+            $address = $this->command->ask('Enter company address');
+            $name = $this->command->ask('Enter default company');
+            $depList = $this->command->ask('Enter departments (comma separated [i.e. Dep1, Dep2])');
 
-        UsersTableSeeder::default((object)['name' => $name, 'address' => $address], $departments);
+            $departments = explode(',', $depList);
+
+            UsersTableSeeder::default((object)['name' => $name, 'address' => $address], $departments);
+        } else
+            self::default();
+        
+    }
+
+    public static function default() {
+
+        $company = (object)[
+
+            'name' => 'Pacific Blue Co. Ltd.',
+            'address' => 'Puro, Legazpi City, Albay',
+
+        ];
+
+        $departments = [
+
+            'Pacific Blue Dive Center',
+            'Pacific Blue IT',
+            'Pacific Blue DLAB'
+
+        ];
+
+        $defaultCompany = new App\Company;
+
+        $defaultCompany->name = $company->name;
+        $defaultCompany->address = $company->address;
+
+        $defaultCompany->save();
+
+        foreach($departments as $dep) {
+
+            $defaultDepartment = new App\Department;
+
+            $defaultDepartment->company_id = $defaultCompany->id;
+            $defaultDepartment->name = trim($dep);
+
+            $defaultDepartment->save();
+        }
+
+
     }
 }

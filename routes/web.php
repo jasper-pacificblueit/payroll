@@ -58,13 +58,12 @@ Route::middleware(['auth'])->group(function () {
 	Route::post("/editprofile", "ProfileController@update");
 	
 	Route::get('/', 'HomeController@index')->name('dashboard');
-<<<<<<< HEAD
-    Route::view('/profile', 'employee_contents.profile')->name('profile');
-=======
+
+  Route::view('/profile', 'employee_contents.profile')->name('profile');
 
 
->>>>>>> 17f8835dd463afa2ab53f6dbe672199f895a795f
-});
+
+
 
 
 

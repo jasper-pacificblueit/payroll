@@ -61,14 +61,7 @@ Route::middleware(['auth'])->group(function () {
 
   Route::view('/profile', 'employee_contents.profile')->name('profile');
 
-
-
-
-
-
-
-
-
+});
 
 
 

@@ -27,7 +27,6 @@
 @php
     
     $profile = App\Profile::where('user_id', auth()->user()->id)->first();
-
     $profile->image = (array)json_decode($profile->image);
 
 @endphp
@@ -77,6 +76,10 @@
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
                 </li>
 
+                <li class="{{ Request::path() == 'profile' || Request::path() == 'profile' ? 'active' : '' }}">
+                    <a href="/profile"><i class="fa fa-th-large"></i> <span class="nav-label">Profile</span></a>
+                </li>
+
                 @can('company_read')
                 <li class="{{ Request::path() == 'employee' || Request::path() == 'employee/add' ? 'active' : '' }}">
                         <a href="/employee"><i class="fa fa-user"></i> <span class="nav-label">Employee</span> <span class="fa arrow"></span></a>
@@ -94,16 +97,8 @@
                 <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
-<<<<<<< HEAD
-
-                <li class="{{ Request::path() == 'profile' || Request::path() == 'profile' ? 'active' : '' }}">
-                    <a href="/profile"><i class="fa fa-th-large"></i> <span class="nav-label">My Profile</span></a>
-                </li>
-             
-=======
                 @endcan
                 @endcan
->>>>>>> 17f8835dd463afa2ab53f6dbe672199f895a795f
 
                 @can('company_read')
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">

@@ -10,16 +10,18 @@
   $profile = App\Profile::where('user_id', auth()->user()->id)->first();
   $contact = App\Contact::where('user_id', auth()->user()->id)->first();
 
+  $profile->image = (array)json_decode($profile->image);
+
 @endphp
   <div class='row'>
-    <div class='col-lg-4 col-md-5 col-4 col-xs-12 col-sm-12'>
+    <div class='col-lg-5 col-md-5 col-sm-12 col-xs-12 col-sm-12'>
       <div class="ibox float-e-margins">
           <div class="ibox-title">
               <h5>User Information</h5>
           </div>
           <div>
               <div class="ibox-content no-padding border-left-right text-center">
-                <img alt="image" class="img-responsive" src="{{ $profile->image }}" style='margin: auto'>
+                <img alt="image" class="img-responsive" src="{{ $profile->image['data'] }}" style='margin: auto;'>
               </div>
               <div class="ibox-content profile-content">
                   <h4><strong>{{ App\Profile::getFullName(auth()->user()->id) }}</strong></h4>

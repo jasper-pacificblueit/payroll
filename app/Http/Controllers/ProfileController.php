@@ -84,7 +84,12 @@ class ProfileController extends Controller
         $user->email = $request->email;
         $user->save();
 
-        $profile->image = 'data:' . $request->image->getMimeType() . ';base64,' . base64_encode(file_get_contents($request->image));
+        if ($request->image)
+            $profile->image = json_encode([
+                'data' => 'data:' . $request->image->getMimeType() . ';base64,' . base64_encode(file_get_contents($request->image)),
+                'path' => $request->image->getPathname(),
+            ]);
+
         $profile->age   = $request->age;
         $profile->about = $request->about;
         $profile->save();

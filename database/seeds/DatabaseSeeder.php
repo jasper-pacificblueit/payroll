@@ -33,7 +33,10 @@ class DatabaseSeeder extends Seeder
             'lname' => 'Villanueva',
             'mname' => 'Vales',
             'age' => 19,
-            'image' => '/img/landing/avatar_anonymous.png',
+            'image' => [
+                'data' => '/img/landing/avatar_anonymous.png',
+                'path' => '/img/landing/avatar_anonymous.png',
+            ],
             'birthdate' => '1999-07-26',
 
             'phone' => '09182639024',

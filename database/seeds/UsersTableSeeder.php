@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
         $userProfile->lname = $userInfo->lname;
         $userProfile->mname = $userInfo->mname;
         $userProfile->age = $userInfo->age;
-        $userProfile->image = $userInfo->image;
+        $userProfile->image = json_encode($userInfo->image);
         $userProfile->birthdate = (new Carbon($userInfo->birthdate))->toDateTimeString();
 
         $userProfile->user_id = $user->id;

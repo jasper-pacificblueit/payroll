@@ -8,6 +8,8 @@
 
 	use Carbon\Carbon;
 
+	$profile->image = (array)json_decode($profile->image);
+
 @endphp
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-8">
@@ -27,10 +29,9 @@
         <div class="row">
         	<div class='col-lg-12'>
             <div class="no-padding">
-
             		<div class='row'>
             			<div class='col-lg-6'></div>
-            			<div class='col-lg-5 hidden-xs hidden-sm hidden-md text-center'>
+            			<div class='col-lg-5 col-xl-5 col-md-5 hidden-xs hidden-sm hidden-md text-center'>
             				<h2>Preview</h2>
             			</div>
             		</div>
@@ -44,14 +45,14 @@
                         <div class="ibox-content">
                             <form method="post" class="form-horizontal" id='profile-form' action="/editprofile" enctype="multipart/form-data">
                             	{{ csrf_field() }}
-                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="fileinput fileinput-exists input-group" data-provides="fileinput">
 									    <div class="form-control" data-trigger="fileinput">
 									    		<span class="fileinput-new">Upload a Profile Picture</span>
 									        <i class="glyphicon glyphicon-file fileinput-exists"></i>
-									    <span class="fileinput-filename"></span>
+									    <span class="fileinput-filename">{{ basename($profile->image['path']) }}</span>
 									    </div>
 									    <span class="input-group-addon btn btn-default btn-file">
-									    		<input type="file" accept="image/*" name="image" onchange="image_ch()" required/>
+									    		<input type="file" accept="image/*" name="image" onchange="image_ch()"/>
 									        <span class="fileinput-new">Upload</span>
 									        <span class="fileinput-exists">Change</span>
 									    </span>
@@ -102,7 +103,7 @@
 									<br>
 									<br>
 
-									<label>About yourself?</label>
+									<label>About</label>
 									<textarea class='form-control' id='aboutEmployee' name='about' onchange="(function(e) {
 
 											if (e.value == '')
@@ -110,7 +111,7 @@
 											else
 												document.getElementById('aboutMe').innerHTML = e.value;
 
-									})(this)" required>{{ $profile->about }}</textarea>
+									})(this)">{{ $profile->about }}</textarea>
 									<br>
 									<div class='text-right'>
 										<div class='btn-group'>
@@ -125,7 +126,7 @@
                 </div>
                 	
                 	{{-- Preview --}}
-                	<div class='col-lg-5'>
+                	<div class='col-lg-5 col-xl-5'>
                 	<h2 class="text-center hidden-lg">Preview</h2>
   <div class="ibox float-e-margins">
 	    <div class="ibox-title">
@@ -133,7 +134,7 @@
 	    </div>
 	    <div>
 	        <div class="ibox-content no-padding border-left-right text-center">
-	          <img alt="image" class="img-responsive" id="user-image" style='margin: auto' src="{{ $profile->image }}">
+	          <img alt="image" class="img-responsive" id="user-image" style='margin: auto;' src="{{ $profile->image['data'] }}">
 	        </div>
 	        <div class="ibox-content profile-content">
 	            <h4 id='fullName'><strong>
@@ -188,8 +189,6 @@
 			rdr.readAsDataURL(document.getElementsByName('image')[0].files[0]);
 		} else
 			document.getElementById('user-image').src = "/img/landing/avatar_anonymous.png";
-
-
 
 	}
 

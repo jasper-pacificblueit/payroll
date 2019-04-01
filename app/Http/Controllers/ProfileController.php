@@ -100,7 +100,7 @@ class ProfileController extends Controller
         $contact->mobile = $request->mobile;
         $contact->save();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('profile');
     }
 
     /**

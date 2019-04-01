@@ -115,7 +115,7 @@
 									<br>
 									<div class='text-right'>
 										<div class='btn-group'>
-											<a class='btn btn-success' href='/'>Discard</a>
+											<a class='btn btn-success' href='{{ route('profile') }}'>Discard</a>
 											<input class='btn btn-success' type='submit' value='Save'>
 										</div>
 									</div>

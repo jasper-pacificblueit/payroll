@@ -3,8 +3,9 @@
 @section('title', 'Dashboard')
 
 @section('content')
-@php
 
+<<<<<<< HEAD
+=======
   use Carbon\Carbon;
 
   $profile = App\Profile::where('user_id', auth()->user()->id)->first();
@@ -56,3 +57,4 @@
   </div>
 
 @endsection
+>>>>>>> 17f8835dd463afa2ab53f6dbe672199f895a795f

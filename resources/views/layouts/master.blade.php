@@ -89,11 +89,21 @@
                 </li>
                 @endcan
 
-          
+                @can('dtr_read')
+                @can('dtr_write')
                 <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
+<<<<<<< HEAD
+
+                <li class="{{ Request::path() == 'profile' || Request::path() == 'profile' ? 'active' : '' }}">
+                    <a href="/profile"><i class="fa fa-th-large"></i> <span class="nav-label">My Profile</span></a>
+                </li>
              
+=======
+                @endcan
+                @endcan
+>>>>>>> 17f8835dd463afa2ab53f6dbe672199f895a795f
 
                 @can('company_read')
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">

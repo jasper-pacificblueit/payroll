@@ -41,8 +41,13 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		Route::get('/company/{id}', 'CompanyController@show');
 		Route::post('/company/{company}/department' , 'DepartmentController@store');
 	});
-	
 
+	Route::middleware(['permission:dtr_read|dtr_write'])->group(function() {
+		Route::resource('/dtr', 'DateTimeRecordController');
+		Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
+		Route::get('/dtr-records' , 'DateTimeRecordController@records');
+	});
+	
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -51,15 +56,14 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::get("/editprofile", "ProfileController@edit");
 	Route::post("/editprofile", "ProfileController@update");
-
-	Route::resource('/dtr', 'DateTimeRecordController');
-	Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
 	
-
 	Route::get('/', 'HomeController@index')->name('dashboard');
-	Route::get("/dtr/records", "DateTimeRecordController@records");
 
-});
+  Route::view('/profile', 'employee_contents.profile')->name('profile');
+
+
+
+
 
 
 

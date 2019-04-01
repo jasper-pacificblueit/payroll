@@ -85,12 +85,15 @@ class EmployeeController extends Controller
         $profile->fname = $request->firstName;
         $profile->gender = $request->gender;
         $profile->age = 0;
-        $profile->image = "/img/landing/avatar_anonymous.png";
+        $profile->image = json_encode([
+            'data' => "/img/landing/avatar_anonymous.png",
+            'path' => "/img/landing/avatar_anonymous.png",
+        ]);
+        
         $profile->lname = $request->lastName;
         $profile->mname = $request->middleName;
         $profile->birthdate = (new Carbon($request->birthdate))->toDateTimeString();
         $profile->user_id = $user->id;
-        $profile->email = $user->email;
 
         $profile->save();
 

@@ -57,9 +57,6 @@ Route::middleware(['auth'])->group(function () {
 	Route::get("/editprofile", "ProfileController@edit");
 	Route::post("/editprofile", "ProfileController@update");
 	
-	Route::get('/', 'HomeController@index');
-	Route::get('/', 'HomeController@index')->name('dashboard');
-
 	Route::get('/', 'HomeController@index')->name('dashboard');
 
 

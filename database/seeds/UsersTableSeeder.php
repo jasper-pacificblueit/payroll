@@ -39,7 +39,6 @@ class UsersTableSeeder extends Seeder
         $userProfile->birthdate = (new Carbon($userInfo->birthdate))->toDateTimeString();
 
         $userProfile->user_id = $user->id;
-        $userProfile->email = $user->email;
 
         $userProfile->save();
 

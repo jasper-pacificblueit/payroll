@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Profile;
 use App\Contact;
 use Illuminate\Http\Request;
@@ -76,14 +77,25 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
+        $user = User::find(auth()->user()->id);
         $profile = Profile::where('user_id', auth()->user()->id)->first();
         $contact = Contact::where('user_id', auth()->user()->id)->first();
 
-        $profile->email = $request->email;
-        $profile->image = $request->image;
-        $profile->age   = $request->age;
+        $user->email = $request->email;
+        $user->save();
 
+        $profile->image = 'data:' . $request->image->getMimeType() . ';base64,' . base64_encode(file_get_contents($request->image));
+        $profile->age   = $request->age;
+        $profile->about = $request->about;
         $profile->save();
+
+        $contact->address = $request->address;
+        $contact->phone = $request->phone;
+        $contact->email = $user->email;
+        $contact->mobile = $request->mobile;
+        $contact->save();
+
+        return redirect()->route('dashboard');
     }
 
     /**

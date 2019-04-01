@@ -8,6 +8,8 @@ class Profile extends Model
 {
 	public $timestamps = false;
 	
+	protected $primaryKey = 'user_id';
+	
   public function user() {
   	return $this->belongsTo('App\User');
   }
@@ -16,7 +18,7 @@ class Profile extends Model
     
     $user = Profile::where('user_id', $id)->first();
 
-  	return sprintf('%s %s %s', $user->fname, $user->lname, $user->mname);	
+  	return sprintf('%s %s %s', $user->fname, $user->lname, $user->mname);
   }	
 
 }

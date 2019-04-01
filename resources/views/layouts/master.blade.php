@@ -21,9 +21,6 @@
     {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
     {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
 
-
-
-
     @yield('styles')
 </head>
 <body class="skin-1">

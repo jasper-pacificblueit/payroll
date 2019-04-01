@@ -30,8 +30,8 @@
         </div>
     </div>
     <br>
-    <div class="wrapper wrapper-content animated fadeInRight no-padding">
-        <div class="wrapper wrapper-content animated fadeInRight no-padding">
+    <div class="wrapper wrapper-content no-padding">
+        <div class="wrapper wrapper-content no-padding">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
@@ -107,9 +107,9 @@
                                     </div>
                                     <Br>
                                     <a href="/dtr" class="btn btn-default">Cancel</a>
-                                    <a href="/dtr" class="btn btn-success pull-right">Save</a>
+                                    <a class="btn btn-success pull-right" data-toggle="modal" data-target="#showWarning">Save</a>
                                     
-        
+                                        
                               
                                
                             @else
@@ -166,6 +166,8 @@
             </div>
         </div>
     </div>
+    
+
     <?php
         function GetDays($sStartDate, $sEndDate){  
                 // Firstly, format the provided dates.  
@@ -198,6 +200,29 @@
             
       
     ?>
+    <div class="modal inmodal fade" id="showWarning" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Set Value for Warnings</h4>
+                        <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                            <div class="col-lg-12">
+                                
+                            </div>
+                      </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection
 
 @section('scripts')

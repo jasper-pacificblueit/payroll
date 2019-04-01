@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Profile;
+use App\Contact;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -57,7 +58,13 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
-        //
+        
+        return view('employee_contents/editprofile')->with([
+
+            'profile' => Profile::where('user_id', auth()->user()->id)->first(),
+            'contact' => Contact::where('user_id', auth()->user()->id)->first(),
+
+        ]);
     }
 
     /**
@@ -69,7 +76,14 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        //
+        $profile = Profile::where('user_id', auth()->user()->id)->first();
+        $contact = Contact::where('user_id', auth()->user()->id)->first();
+
+        $profile->email = $request->email;
+        $profile->image = $request->image;
+        $profile->age   = $request->age;
+
+        $profile->save();
     }
 
     /**

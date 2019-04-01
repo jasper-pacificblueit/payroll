@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
+use Carbon\Carbon;
 
 
 class UsersTableSeeder extends Seeder
@@ -35,7 +36,7 @@ class UsersTableSeeder extends Seeder
         $userProfile->mname = $userInfo->mname;
         $userProfile->age = $userInfo->age;
         $userProfile->image = $userInfo->image;
-        $userProfile->birtdate = $userInfo->birthdate;
+        $userProfile->birthdate = (new Carbon($userInfo->birthdate))->toDateTimeString();
 
         $userProfile->user_id = $user->id;
         $userProfile->email = $user->email;

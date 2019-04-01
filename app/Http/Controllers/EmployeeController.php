@@ -6,6 +6,7 @@ use App;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Carbon\Carbon;
 
 use App\Employee;
 
@@ -84,10 +85,10 @@ class EmployeeController extends Controller
         $profile->fname = $request->firstName;
         $profile->gender = $request->gender;
         $profile->age = 0;
-        $profile->image = "";
+        $profile->image = "/img/landing/avatar_anonymous.png";
         $profile->lname = $request->lastName;
         $profile->mname = $request->middleName;
-        $profile->birtdate = $request->birthdate;
+        $profile->birthdate = (new Carbon($request->birthdate))->toDateTimeString();
         $profile->user_id = $user->id;
         $profile->email = $user->email;
 

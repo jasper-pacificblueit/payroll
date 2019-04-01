@@ -21,7 +21,7 @@ class CreateProfilesTable extends Migration
             $table->string('fname');
             $table->string('lname');
             $table->string('mname');
-            $table->date('birtdate');
+            $table->date('birthdate');
             $table->integer('age');
             $table->longText('image');
 

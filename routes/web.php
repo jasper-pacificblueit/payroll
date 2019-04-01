@@ -49,6 +49,9 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
+	Route::get("/editprofile", "ProfileController@edit");
+	Route::post("/editprofile", "ProfileController@update");
+
 	Route::resource('/dtr', 'DateTimeRecordController');
 	Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
 

@@ -5,9 +5,15 @@
     <div class="middle-box text-center loginscreen animated fadeInDown">
         <div class='ibox-content'>
             <div>
-                <img src="/img/logo.png" width="100%" class="image-responsive" alt="">
+
+                    
+                    
+                    <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-box" src="/img/pacific.jpg" style="width: 100%;" /> 
+                        
+                
             </div>
-            <h3>Welcome to PBIT Payroll System</h3>
+            <h2 align="center"><b style="font-size: 18px; color: white;">Welcome to PBIT Payroll</b></h2>
             <p>Please Log-In</p>
             <form class="m-t" role="form"  method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
@@ -27,7 +33,7 @@
                         </span>
                     @endif
                 </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+                <button type="submit" class="btn btn-success block full-width m-b">Login</button>
 
                 {{--<a href="{{ route('password.request') }}"><small>Forgot password?</small></a>--}}
                 {{--<p class="text-muted text-center"><small>Do not have an account?</small></p>--}}

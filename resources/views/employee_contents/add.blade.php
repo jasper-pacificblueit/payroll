@@ -99,9 +99,9 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="hr-line-dashed"></div>
-                                <div class="form-group">
+                                <div class="form-group text-right">
                                     <div >
-                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                        <button class="btn btn-success" type="submit">Submit</button>
                                     </div>
                                 </div>
                             </div>

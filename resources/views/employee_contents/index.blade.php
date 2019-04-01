@@ -44,7 +44,7 @@
                             <div class="col-lg-3 m-b-xs">
                                 <h4>Select Department</h4>
                                 <select class="input-sm form-control input-s-sm inline cur-dep" onchange="changedep()">
-                                    @foreach (App\Department::where('company_id', 1)->orderBy('name', 'desc')->get() as $i)
+                                    @foreach (App\Department::where('company_id', 1)->orderBy('name', 'asc')->get() as $i)
                                         <option value={{ $i->id }}>{{$i->name}}</option>
                                     @endforeach
                                 </select>
@@ -53,7 +53,7 @@
                             <div class="col-lg-5">
                                 <span class='hidden-md hidden-sm hidden-xs'><h4>&nbsp;</h4></span>
                                 <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-primary">Go!</button> </span></div>
+                                    <button type="button" class="btn btn-sm btn-success">Go!</button> </span></div>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -70,7 +70,7 @@
                                 </thead>
                                 <tbody class='usertables'>
                                     <!--fixed-->
-                                    @foreach(App\Employee::where('department_id', App\Department::where('company_id', 1)->orderBy('name', 'desc')->get()[0]->id)->get() as $em)
+                                    @foreach(App\Employee::where('department_id', App\Department::where('company_id', 1)->orderBy('name', 'asc')->get()[0]->id)->get() as $em)
                                         @if (auth()->user()->id != $em->user_id)
                                         @if (App\User::find($em->user_id)['position'] != auth()->user()->position)
                                         <tr>
@@ -107,7 +107,7 @@
         <div class="modal-content">
             <div class="modal-header no-padding">
                 <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-               <h4 style="padding:10px">{{ App\Profile::getFullName($em->user_id) }}</h4>
+               <h4 style="padding:10px">Edit '{{ App\User::find($em->user_id)['user'] }}'</h4>
                
             </div>
             <form method="POST" action="/employee/{{ $em->user_id }}">
@@ -123,6 +123,7 @@
                             <option value='hr'>HR</option>
                             <option value='employee'>Employee</option>
                         </select>
+<<<<<<< HEAD
                     @endhasrole
                     @hasrole('admin|hr')
                         <label>Change Permissions</label>
@@ -139,13 +140,17 @@
                         <div class=''>read</div>
                         <div class=''>write</div>
                     @endhasrole
+=======
+>>>>>>> 91079b549c4a5c700f463ca0eb7074a181b92a64
                    </div>
                </div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="submit">Create</button>
+                <div class='btn-group'>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success" name="submit">Create</button>
+            </div>
             </div>
             </form>
         </div>

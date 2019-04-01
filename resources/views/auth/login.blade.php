@@ -33,7 +33,7 @@
                         </span>
                     @endif
                 </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+                <button type="submit" class="btn btn-success block full-width m-b">Login</button>
 
                 {{--<a href="{{ route('password.request') }}"><small>Forgot password?</small></a>--}}
                 {{--<p class="text-muted text-center"><small>Do not have an account?</small></p>--}}

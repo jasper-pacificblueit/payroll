@@ -53,7 +53,7 @@
                             <div class="col-lg-5">
                                 <span class='hidden-md hidden-sm hidden-xs'><h4>&nbsp;</h4></span>
                                 <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-primary">Go!</button> </span></div>
+                                    <button type="button" class="btn btn-sm btn-success">Go!</button> </span></div>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -107,7 +107,7 @@
         <div class="modal-content">
             <div class="modal-header no-padding">
                 <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-               <h4 style="padding:10px">{{ App\Profile::getFullName($em->user_id) }}</h4>
+               <h4 style="padding:10px">Edit '{{ App\User::find($em->user_id)['user'] }}'</h4>
                
             </div>
             <form method="POST" action="/employee/{{ $em->user_id }}">
@@ -116,25 +116,41 @@
             <div class="modal-body">
                <div class="row">
                    <div class="col-lg-12">
+                    @hasrole('admin')
                         <label>Change Position</label>
                         <select class='form-control'>
-                            @if (auth()->user()->position == 'hr')
-                                <option value='employee'>Employee</option>
-                            @elseif (auth()->user()->position == 'admin')
-                                <option value='admin'>Administrator</option>
-                                <option value='hr'>HR</option>
-                                <option value='employee'>Employee</option>
-                            @endif
+                            <option value='admin'>Administrator</option>
+                            <option value='hr'>HR</option>
+                            <option value='employee'>Employee</option>
                         </select>
-                        <label>Address</label>
-                        <input type="text" name="address" class="form-control" required>
+<<<<<<< HEAD
+                    @endhasrole
+                    @hasrole('admin|hr')
+                        <label>Change Permissions</label>
+                        <br>
+                        <label>Company</label>
+                        <div class=''>read</div>
+                        <div class=''>write</div>
+                        <label>Department</label>
+                        <div class='input-group'>
+                            <div class=''>read</div>
+                            <div class=''>write</div>
+                        </div>
+                        <label>Employee</label>
+                        <div class=''>read</div>
+                        <div class=''>write</div>
+                    @endhasrole
+=======
+>>>>>>> 91079b549c4a5c700f463ca0eb7074a181b92a64
                    </div>
                </div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="submit">Create</button>
+                <div class='btn-group'>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success" name="submit">Create</button>
+            </div>
             </div>
             </form>
         </div>

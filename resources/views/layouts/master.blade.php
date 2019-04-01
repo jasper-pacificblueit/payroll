@@ -15,22 +15,16 @@
     {!! Html::style('css/animate.css') !!}
     {!! Html::style('css/style.css') !!}
 
+    {!! Html::style('css/plugins/dropzone/basic.css') !!}
+    {!! Html::style('css/plugins/dropzone/dropzone.css') !!}
+    {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
+    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
+    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
+
+
+
 
     @yield('styles')
-{{-- 
-    <style scoped>
-
-        .container {
-            margin-top: 5px;
-            padding-left: 0px;
-            padding-right: 0px;
-            margin-left: 0px;
-            margin-right: 0px;
-        }
-
-
-    </style> --}}
-
 </head>
 <body class="skin-1">
 @php
@@ -64,10 +58,10 @@
                                 <a href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
-                                              <i class="fa fa-sign-out"></i> <span class="nav-label">Sign-Out</span></a>
-                                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                {{ csrf_field() }}
-                                            </form>
+                                              <i class="fa fa-sign-out"></i> <span class="nav-label">Logout</span></a>
+                                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
                                         
                             </ul>
                     </div>
@@ -121,15 +115,14 @@
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#"><i class="fa fa-bars"></i></a>
                 </div>
-                <ul class="nav navbar-top-links navbar-right">
-
+                <ul class="nav navbar-top-links navbar-right text-right">
                     <li>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                            <i class="fa fa-sign-out"></i> Log out
+                            <i class="fa fa-sign-out"></i> Logout
                         </a>
                     </li>
                 </ul>
@@ -138,7 +131,7 @@
         </div>
 
 
-        <div>
+        <div style='margin-top: 5px'>
             @yield('content')
         </div>
         
@@ -146,7 +139,7 @@
 
         <br>
         <div class="footer">
-            <div>
+            <div class='text-right'>
                 <strong>Powered By:</strong> <a href="https://www.pacificblueit.com" target="_blank" >Pacific Blue I.T. &copy; {{ Date('Y') }}</a>
             </div>
         </div>

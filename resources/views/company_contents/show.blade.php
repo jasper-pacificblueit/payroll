@@ -13,7 +13,7 @@
                 </li>
 
                 <li>
-                        <a href="/company">View Companies</a>
+                    <a href="/company">View Companies</a>
                 </li>
                 <li>
                     <a href="#"><strong>Manage Company</strong></a>
@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="col-sm-5 m-b-xs">
                                 <h4>{{$company -> name}}</h4>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDepartment">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDepartment">
                                     Add Department
                                 </button>
                                 <div class="modal inmodal fade" id="addDepartment" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -54,8 +54,8 @@
                                                 </div>
         
                                                 <div class="modal-footer">
-                                                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary" name="submit">Create</button>
+                                                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-success" name="submit">Create</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -66,7 +66,7 @@
                             <div class="col-sm-3 pull-right">
                                 <h4>&nbsp;</h4>
                                 <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+                                    <button type="button" class="btn btn-sm btn-success"> Go!</button> </span></div>
                             </div>
                         </div>
                         <div class="table-responsive">

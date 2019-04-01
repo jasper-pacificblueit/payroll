@@ -45,11 +45,8 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 	Route::middleware(['permission:dtr_read|dtr_write'])->group(function() {
 		Route::resource('/dtr', 'DateTimeRecordController');
 		Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
-<<<<<<< HEAD
 		Route::get("/dtr-records", "DateTimeRecordController@records");
-=======
 		Route::get('/dtr-records' , 'DateTimeRecordController@records');
->>>>>>> f900b4dc08cc533532d5b11376f1ac33b564a733
 	});
 	
 });
@@ -60,21 +57,13 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::get("/editprofile", "ProfileController@edit");
 	Route::post("/editprofile", "ProfileController@update");
-<<<<<<< HEAD
 	
 	Route::get('/', 'HomeController@index');
 	Route::get('/', 'HomeController@index')->name('dashboard');
 	
 	Route::get('/', 'HomeController@index')->name('dashboard');
 	
-});
-
-
-
-=======
-	
 	Route::get('/', 'HomeController@index')->name('dashboard');
->>>>>>> f900b4dc08cc533532d5b11376f1ac33b564a733
 
   Route::view('/profile', 'employee_contents.profile')->name('profile');
 

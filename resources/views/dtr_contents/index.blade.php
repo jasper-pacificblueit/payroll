@@ -2,16 +2,6 @@
 
 @section('title', 'Attendance Report')
 
-@section('styles')
-
-{!! Html::style('css/plugins/dropzone/basic.css') !!}
-{!! Html::style('css/plugins/dropzone/dropzone.css') !!}
-{!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
-{!! Html::style('css/plugins/codemirror/codemirror.css') !!}
-{!! Html::style('css/plugins/codemirror/codemirror.css') !!}
-
-@endsection
-
 @section('content')
 
 

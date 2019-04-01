@@ -55,8 +55,6 @@
 															        <span class="fileinput-new">Upload</span>
 															        <span class="fileinput-exists">Change</span>
 															    </span>
-                            	}
-                            	}
 															</div>
 
 															<label>Age</label>

@@ -15,14 +15,16 @@
     {!! Html::style('css/animate.css') !!}
     {!! Html::style('css/style.css') !!}
 
+    {!! Html::style('css/plugins/dropzone/basic.css') !!}
+    {!! Html::style('css/plugins/dropzone/dropzone.css') !!}
+    {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
+    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
+    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
+
+
+
 
     @yield('styles')
-
-    <style scoped>
-
-
-    </style>
-
 </head>
 <body class="skin-1">
 @php

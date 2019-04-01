@@ -56,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
 
 	Route::get('/', 'HomeController@index')->name('dashboard');
-
+    Route::view('/profile', 'employee_contents.profile')->name('profile');
 });
 
 

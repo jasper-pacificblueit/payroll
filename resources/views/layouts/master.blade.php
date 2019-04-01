@@ -91,6 +91,10 @@
                 <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
+
+                <li class="{{ Request::path() == 'profile' || Request::path() == 'profile' ? 'active' : '' }}">
+                    <a href="/profile"><i class="fa fa-th-large"></i> <span class="nav-label">My Profile</span></a>
+                </li>
              
 
                 @can('company_read')

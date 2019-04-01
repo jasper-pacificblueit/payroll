@@ -89,11 +89,13 @@
                 </li>
                 @endcan
 
-          
+                @can('dtr_read')
+                @can('dtr_write')
                 <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
-             
+                @endcan
+                @endcan
 
                 @can('company_read')
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">

@@ -182,7 +182,7 @@
 		rdr.addEventListener('load', async function(e) {
 			var out = document.getElementById('user-image');
 			out.src = e.target.result;
-		});
+		}); 
 
 		if (document.getElementsByName('image')[0].files) {
 			rdr.readAsDataURL(document.getElementsByName('image')[0].files[0]);

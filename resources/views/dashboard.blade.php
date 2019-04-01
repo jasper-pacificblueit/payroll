@@ -27,7 +27,7 @@
                   <h5>
                       About Me
                   </h5>
-                  <p>
+                  <p style='word-wrap: break-word;'>
                       {{ ($profile->about ? $profile->about : 'Write something about yourself.') }}
                   </p>
                   <div class="row m-t-lg">

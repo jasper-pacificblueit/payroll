@@ -20,9 +20,9 @@ class CreateUsersTable extends Migration
             // imbis na su pangaran kan user ang isaray digdi
             // su username nalng.
             $table->string('user', 50);
+            $table->string('email')->unique();
             $table->string('position', 50);
 
-            $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
         });

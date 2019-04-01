@@ -3,12 +3,7 @@
 @section('title', 'Attendance Report')
 
 @section('styles')
-
-{!! Html::style('css/plugins/dropzone/basic.css') !!}
-{!! Html::style('css/plugins/dropzone/dropzone.css') !!}
-{!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
-{!! Html::style('css/plugins/codemirror/codemirror.css') !!}
-{!! Html::style('css/plugins/codemirror/codemirror.css') !!}
+{!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
 
 @endsection
 
@@ -22,6 +17,10 @@
                 <li class="active">
                     <a href="/">Dashboard</a>
                 </li>
+                <li>
+                    <a href="/dtr">Daily Time Records</a>
+                </li>
+                
                 <li>
                     <a href="/employee"><strong>Import Attendance</strong></a>
                 </li>
@@ -37,7 +36,7 @@
                         <div class="tabs-container">
                             <ul class="nav nav-tabs">
                                 <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}"><a href="/dtr"> Import Attendance</a></li>
-                                <li class="{{Request::path() == 'dtr/records' ? 'active' : '' }}"><a href="/records">Records</a></li>
+                                <li class="{{Request::path() == 'dtr-records' ? 'active' : '' }}"><a href="/dtr-records">Records</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div id="import" class="tab-pane {{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
@@ -45,15 +44,9 @@
                                         @include('dtr_contents.import')
                                     </div>
                                 </div>
-                                <div id="tab-2" class="tab-pane">
+                                <div id="tab-2" class="tab-pane {{ Request::path() == 'dtr-records' ? 'active' : '' }} ">
                                     <div class="panel-body">
-                                        <strong>Donec quam felis</strong>
-    
-                                        <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-                                            and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
-    
-                                        <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                                            sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.</p>
+                                        @include('dtr_contents.records')
                                     </div>
                                 </div>
                             </div>
@@ -125,15 +118,42 @@
 
 @section('scripts')
 
-{!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!} 
+
+{!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
+{!! Html::script('js/inspinia.js') !!}
+{!! Html::script('js/plugins/pace/pace.min.js') !!}
+ <!-- CodeMirror -->
+ <script src="js/plugins/codemirror/codemirror.js"></script>
+ <script src="js/plugins/codemirror/mode/xml/xml.js"></script>
 
 <script>
-    $(document).ready(function() {
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                pageLength: 10,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
 
-        $('.footable').footable();
-        $('.footable2').footable();
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
 
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
 
-    });
-</script>
+            });
+
+        });
+
+    </script>
+
 @endsection

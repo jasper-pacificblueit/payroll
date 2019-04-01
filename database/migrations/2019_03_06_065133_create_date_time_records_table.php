@@ -15,7 +15,9 @@ class CreateDateTimeRecordsTable extends Migration
     {
         Schema::create('date_time_records', function (Blueprint $table) {
             $table->increments('id');
+
             $table->integer('user_id')->unsigned();
+
             $table->date('date');
             $table->time('in_am');
             $table->time('out_am');
@@ -23,8 +25,8 @@ class CreateDateTimeRecordsTable extends Migration
             $table->time('out_pm');
             $table->integer('comp_id');
 
-           
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

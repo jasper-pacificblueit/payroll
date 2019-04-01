@@ -2,15 +2,36 @@
 @if (isset($csv_info))
 <div class="row">
         <div class="col-lg-12">
-           
-                    
-                    @if(isset($csv_info))
+                  @if(isset($csv_info))
                      
-                        <label>Period : {{ $csv_info->period}}</label>
-                        <br>
-                        <label>Printed : </label> {{ $csv_info->printed }}
+                        <h4>Period : {{ $csv_info->period}}</h4>
+                       
                         <br>
                         <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                    <thead>
+                    <tr>
+                        <th>Rendering engine</th>
+                        <th>Browser</th>
+                        <th>Platform(s)</th>
+                        <th>Engine version</th>
+                        <th>CSS grade</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Rendering engine</th>
+                        <th>Browser</th>
+                        <th>Platform(s)</th>
+                        <th>Engine version</th>
+                        <th>CSS grade</th>
+                    </tr>
+                    </tfoot>
+                    </table>    
+
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -28,6 +49,7 @@
                                        
                                     </thead>
                                      <tbody>
+                                      
                                         @foreach ($csv_info->employees as $employee)
                                             <tr>
                                                 <td>{{ucwords(strtolower($employee->name))}}</td>
@@ -58,13 +80,17 @@
 
                                                     ?>
                                                     
-                                                 
+                                                    <?php $totalHrs += (float)$diff; ?>
                                                     <td><?php echo $diff; ?></td>
-                                                 
+                                                   
+                                                    
+
                                                     @endif
-                                                 
+                                                    
                                                     
                                                 @endforeach
+
+                                                
                                                 <td>{{$totalHrs}}</td>
                                             </tr>
                                         @endforeach
@@ -86,49 +112,95 @@
     </div>
 
 @else
-<div class="row">
-        <div class="col-sm-3 m-b-xs">
-            <h4>Import Attendance</h4>
-            <form method="POST" action="/dtr/view" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <div class="fileinput fileinput-new" data-provides="fileinput">
-                    <span class="btn btn-default btn-file"><span class="fileinput-new">Select file</span>
-                    <span class="fileinput-exists">Change</span><input type="file" name="upload-file" required/></span>
-                    <span class="fileinput-filename"></span>
-                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">×</a>
-                </div> 
-                
-        </div>
-       
-    </div>
     <div class="row">
-            <div class="col-sm-4 m-b-xs">
-                <h4>Please input date</h4>
-                <div class="form-group" id="data_5">
-                    <div class="input-daterange input-group" id="datepicker">
+        
 
-                        <?php $initStart = date("Y-m-d");?>
-                        <?php $initEnd = date('Y-m-d', strtotime($initStart. ' + 14 day'));?>
-                        <input type="date" class="input-sm form-control" name="start" value="{{$initStart}}" />
-                        <span class="input-group-addon">to</span>
-                        <input type="date" class="input-sm form-control" name="end" value="{{$initEnd}}" />
-                    </div>
+        <div class="col-lg-6">
+           
+            <div class="row">
+                <div class="col-sm-12 m-b-xs">
+                    <h4>Import Attendance</h4>
+                    <form method="POST" action="/dtr/view" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                            <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                            <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" name="upload-file" required></span>
+                            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                        </div>
+                       
+                        
+                </div>
+               
+            </div>
+           
+            <div class="row">
+                <div class="col-lg-2">
+                    <button type="submit" class="form-control">View</button>
+                    </form>
                 </div>
             </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-2">
-            <button type="submit" class="form-control">View</button>
-            </form>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-lg-12" >
-            
-            <p>Please import your csv file to view records</p>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12 m-b-xs">
+                    <h4>Export File Format</h4>
+                    <div class="btn-group">
+                        <button class="btn btn-white" type="button">xlsx</button>
+                        <button class="btn btn-white" type="button">csv</button>
+                        <button class="btn btn-white" type="button">xls</button>
+                    </div>
 
+
+                </div>
+           </div>
+           
+       
         </div>
 
+        <div class="col-lg-6">
+         
+            <div class="row">
+                <div class="col-lg-12" >
+                    
+                    <p>Recent Upload File</p>
+                    <div class="row">
+                        <div class="col-sm-12 m-b-xs">
+                         
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>ID number</th>
+                                    <th>Full name</th>
+                                    <th>Department</th>
+                                    <th>Total Rendered Hours</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Larry</td>
+                                    <td>the Bird</td>
+                                    <td>@twitter</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <a href="#">See more details</a>
+                        </div>
+                   </div>
+                </div>
+        
+            </div>
+        </div>
     </div>
 @endif

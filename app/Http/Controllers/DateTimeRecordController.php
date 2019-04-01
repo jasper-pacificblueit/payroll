@@ -27,6 +27,12 @@ class Employee {
 
 class DateTimeRecordController extends Controller
 {
+
+    public function records(Request $request)
+    {
+      
+       return view('dtr_contents.index');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -242,7 +248,8 @@ class DateTimeRecordController extends Controller
             }
         }
         
-        //dd($csv_info);
+
+
         return view('dtr_contents.index')->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
     }
 

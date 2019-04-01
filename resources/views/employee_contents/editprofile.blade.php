@@ -42,85 +42,85 @@
                             <h5></h5>
                         </div>
                         <div class="ibox-content">
-                            <form method="post" class="form-horizontal" id='profile-form' action="/editprofile">
+                            <form method="post" class="form-horizontal" id='profile-form' action="/editprofile" enctype="multipart/form-data">
                             	{{ csrf_field() }}
                                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-															    <div class="form-control" data-trigger="fileinput">
-															    		<span class="fileinput-new">Upload a Profile Picture</span>
-															        <i class="glyphicon glyphicon-file fileinput-exists"></i>
-															    <span class="fileinput-filename"></span>
-															    </div>
-															    <span class="input-group-addon btn btn-default btn-file">
-															    		<input type="file" accept="image/*" name="image" onchange="image_ch()"/>
-															        <span class="fileinput-new">Upload</span>
-															        <span class="fileinput-exists">Change</span>
-															    </span>
-															</div>
+									    <div class="form-control" data-trigger="fileinput">
+									    		<span class="fileinput-new">Upload a Profile Picture</span>
+									        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+									    <span class="fileinput-filename"></span>
+									    </div>
+									    <span class="input-group-addon btn btn-default btn-file">
+									    		<input type="file" accept="image/*" name="image" onchange="image_ch()" required/>
+									        <span class="fileinput-new">Upload</span>
+									        <span class="fileinput-exists">Change</span>
+									    </span>
+									</div>
 
-															<label>Age</label>
-															<input class='form-control' name='fname' type='text' onchange="(function(e) {
-																document.getElementById('age').innerHTML = '<strong>Age : </strong>' + 
-																(e.value != '' ? e.value : 'How old are you?');
-															})(this)" placeholder="Age">
-															<br>
-															<br>
-															<label>Address</label>
-															<input class='form-control' name='address' type='text' placeholder="Address" onchange="(function(e) {
-
-
-																if (e.value == '')
-																	document.getElementById('_address').innerHTML = 'Where do you live?';
-																else
-																	document.getElementById('_address').innerHTML = e.value;
+									<label>Age</label>
+									<input class='form-control' name='age' type='text' onchange="(function(e) {
+										document.getElementById('age').innerHTML = '<strong>Age : </strong>' + 
+										(e.value != '' ? e.value : 'How old are you?');
+									})(this)" placeholder="Age" value="{{ $profile->age }}" required>
+									<br>
+									<br>
+									<label>Address</label>
+									<input class='form-control' name='address' type='text' placeholder="Address" onchange="(function(e) {
 
 
-
-															})(this)">
-															<label>Phone</label>
-															<input class='form-control' name='phone' type='text' placeholder="Phone" onchange="(function(e) {
-
-																document.getElementById('phoneNumber').innerHTML = e.value;
+										if (e.value == '')
+											document.getElementById('_address').innerHTML = 'Where do you live?';
+										else
+											document.getElementById('_address').innerHTML = e.value;
 
 
-															})(this)">
-															<label>Mobile</label>
-															<input class='form-control' name='mobile' type='text' placeholder="Mobile" onchange="(function(e) {
 
-																document.getElementById('mobileNumber').innerHTML = e.value;
+									})(this)" value="{{ $contact->address }}">
+									<label>Phone</label>
+									<input class='form-control' name='phone' type='text' placeholder="Phone" onchange="(function(e) {
 
-															})(this)">
-															<label>Email</label>
-															<input class='form-control' name='email' type='email' placeholder="Email" onchange="(function(e) {
-
-																if (e.value == '')
-																	document.getElementById('emailAddress').innerHTML = 'What is your email?';
-																else
-																	document.getElementById('emailAddress').innerHTML = e.value;
+										document.getElementById('phoneNumber').innerHTML = e.value;
 
 
-															})(this)">
-															<br>
-															<br>
+									})(this)"  value="{{ $contact->phone }}" required>
+									<label>Mobile</label>
+									<input class='form-control' name='mobile' type='text' placeholder="Mobile" onchange="(function(e) {
 
-															<label>About yourself?</label>
-															<textarea class='form-control' id='aboutEmployee' name='about' onchange="(function(e) {
+										document.getElementById('mobileNumber').innerHTML = e.value;
 
-																	if (e.value == '')
-																		document.getElementById('aboutMe').innerHTML = 'Write something about yourself.';
-																	else
-																		document.getElementById('aboutMe').innerHTML = e.value;
+									})(this)" value="{{ $contact->mobile }}" required>
+									<label>Email</label>
+									<input class='form-control' name='email' type='email' placeholder="Email" onchange="(function(e) {
 
-															})(this)"></textarea>
-															<br>
-															<div class='text-right'>
-																<div class='btn-group'>
-																	<a class='btn btn-success' href='/'>Discard</a>
-																	<input class='btn btn-success' type='submit' value='Save'>
-																</div>
-															</div>
+										if (e.value == '')
+											document.getElementById('emailAddress').innerHTML = 'What is your email?';
+										else
+											document.getElementById('emailAddress').innerHTML = e.value;
+
+
+									})(this)" value="{{ $contact->email }}" required>
+									<br>
+									<br>
+
+									<label>About yourself?</label>
+									<textarea class='form-control' id='aboutEmployee' name='about' onchange="(function(e) {
+
+											if (e.value == '')
+												document.getElementById('aboutMe').innerHTML = 'Write something about yourself.';
+											else
+												document.getElementById('aboutMe').innerHTML = e.value;
+
+									})(this)" required>{{ $profile->about }}</textarea>
+									<br>
+									<div class='text-right'>
+										<div class='btn-group'>
+											<a class='btn btn-success' href='/'>Discard</a>
+											<input class='btn btn-success' type='submit' value='Save'>
+										</div>
+									</div>
 
                             </form>
-                        </div>
+                        </div>	
                     </div>
                 </div>
                 	
@@ -149,7 +149,7 @@
 	            <h5>
 	                About Me
 	            </h5>
-	            <p>
+	            <p style='word-wrap: break-word;'>
 	                <span id='aboutMe'>{{ ($profile->about ? $profile->about : 'Write something about yourself.') }}</span>
 	            </p>
 	            <div class="row m-t-lg">

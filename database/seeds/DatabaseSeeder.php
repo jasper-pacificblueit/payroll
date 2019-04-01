@@ -60,8 +60,6 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::default((object)['name' => $name, 'address' => $address], $departments);
         } else
             self::default();
-
-
         
     }
 

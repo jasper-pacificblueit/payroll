@@ -17,6 +17,9 @@ class Permission extends Seeder
             'employee_read',
             'employee_write',
 
+            'dtr_read',
+            'dtr_write'
+
         ];
     }
     /**

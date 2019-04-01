@@ -111,6 +111,7 @@ class EmployeeController extends Controller
                 'company_read',
                 'employee_read', 'employee_write',
                 'department_read', 'department_write',
+                'dtr_read', 'dtr_write',
             ]);
 
         return redirect()->route('employee');

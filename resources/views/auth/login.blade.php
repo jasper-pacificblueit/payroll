@@ -3,15 +3,12 @@
 @section('title','Login')
 @section('content')
     <div class="middle-box text-center loginscreen animated fadeInDown">
-        <div class='ibox-content'>
+        <div class='ibox-content' style='border-radius: 3px'>
             <div>
 
-                    
-                    
-                    <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-box" src="/img/pacific.jpg" style="width: 100%;" /> 
+    <div class="dropdown profile-element"> <span>
+            <img alt="image" class="img-box" src="/img/pacific.jpg" style="width: 100%;" /> 
                         
-                
             </div>
             <h2 align="center"><b style="font-size: 18px; color: white;">Welcome to PBIT Payroll</b></h2>
             <p>Please Log-In</p>

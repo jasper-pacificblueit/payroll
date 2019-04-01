@@ -54,7 +54,10 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::resource('/dtr', 'DateTimeRecordController');
 	Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
+	
 
+	Route::get("/dtr/records", "DateTimeRecordController@records");
+	
 	Route::get('/', 'HomeController@index');
 
 });

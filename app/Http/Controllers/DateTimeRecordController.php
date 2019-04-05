@@ -7,12 +7,11 @@ use App\Company;
 use App\Imports\UserImport;
 use Excel;
 use Illuminate\Http\Request;
-
 class Employee {
 
     public $bio_id, $dep, $name, $date;
 
-    public $absence, $leave, $btrip, $io_pp;
+    public $absence, $leave, $btrip, $io_pp , $totalHrs;
 
     public $over = [], $tardiness = [], $early_leave = [];
 
@@ -65,29 +64,17 @@ class DateTimeRecordController extends Controller
  
     public function store(Request $request)
     {
-
-        $upload = $request->file('upload-file');
-        
-        $filePath = $upload->getRealPath();
-
-        $header = null;
-        $data = array();
-
-        if (($handle = fopen($filePath, 'r')) !== false)
-        {
-            while (($row = fgetcsv($handle, 1000)) !== false)
-            {
-                if (!$header)
-                    $header = $row;
-                else
-                    $data[] = array_combine($header, $row);
-            }
-            fclose($handle);
+        $csv_info = json_decode($request->info, true);
+        dd($csv_info);
+        foreach($csv_info['employees'] as $employee){
+           foreach($employee['attendance'] as $attendance){
+               echo $attendance['am']->in;
+           }
         }
-        
-        DateTimeRecord::insert($data);
+       
+    
+       
 
-        return back();
     }
 
     /**
@@ -245,12 +232,14 @@ class DateTimeRecordController extends Controller
                         'out' => $data[$i][$j+12],
                     ],
 
+                 
+                
+
                 ]);
             }
         }
         
-     //dd($csv_info);
-
+     //dd($csv_info);   
         return view('dtr_contents.index')->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
     }
 

@@ -1,5 +1,7 @@
 
 @if (isset($csv_info))
+<form action="/dtr" method="POST">
+    {{ csrf_field() }}
 <div class="row">
         <div class="col-lg-12">
                   @if(isset($csv_info))
@@ -106,7 +108,7 @@
     
  @foreach ($csv_info->employees as $employee)
  <div class="modal inmodal fade" id="showDetails-{{$employee->bio_id}}" tabindex="-1" role="dialog"  aria-hidden="true">
-        <div class="modal-dialog modal-md">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -116,57 +118,79 @@
                 <div class="modal-body">
                   <div class="row">
                         <div class="col-lg-12">
-                            <ul class="list-group clear-list m-t">
-                                        <li class="list-group-item fist-item">
-                                            <label class="pull-right">Rendered Hours/Status</label>
-                                            <label>{{$csv_info->period}}</label>
-                                        </li>
+                                <div class="table-responsive">
+                                        <table class="table">
+                                                <thead>
+                                                <tr>
+                                                   <th>{{$csv_info->period}}</th>
+                                                   <th>Time in</th>
+                                                   <th>Time out</th>
+                                                   <th>Rendered Hours</th>
+                                                    
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($employee->attendance as $attendance)
+                                                        <tr>
+                                                            @if($attendance->absent)
+                                                              
+                                                                <td>{{$attendance->ddww}}</td>
+                                                                <td>--</td>
+                                                                <td>--</td>   
+                                                                <td><b style="color:red">Absent</b></td>
+                                                               
+                                                                
+                                                            @else
 
-                                 <?php $totalHrs = 0; $diff = array();?>
-                                 @foreach ($employee->attendance as $attendance)
-                                    @if($attendance->absent)
-                                        <li class="list-group-item">
-                                            <span class="pull-right"><b style="color:red">Absent</b></span>
-                                            <span>{{$attendance->ddww}}</span>
-                                        </li>
-                                    @else
+                                                            <?php
+                                                                            
+                                                                if(empty($attendance->am['out']) && empty($attendance->pm['out'])){
+                                                                    $diff = "<b style='color:orange;'>Warning</b>";
+                                                                    $out = '--';
+                                                                }
+                                                                else if(empty($attendance->am['out'])){
+                                                                    $am_in = strtotime($attendance->am['in']);
+                                                                    $pm_out = strtotime($attendance->pm['out']);
+                                                                    $diff = round(abs($am_in - $pm_out) / 3600 , 1);
+                                                                    $in = $attendance->am['in'];
+                                                                    $out = $attendance->pm['out'];
+                                                                    
+                                                                }
+                                                                
+                                                            
+                                                                else if(empty($attendance->pm['out'])){
+                                                                    $am_in = strtotime($attendance->am['in']);
+                                                                    $am_out = strtotime($attendance->am['out']);
+                                                                    $diff = round(abs($am_in - $am_out) / 3600 , 1);
+                                                                    $in = $attendance->am['in'];
+                                                                    $out = $attendance->am['out'];
+                                                                }
 
-                                    <?php
-                                                      
-                                        if(empty($attendance->am['out']) && empty($attendance->pm['out'])){
-                                            $diff = "<b style='color:orange;'>Warning</b>";
-                                        }
-                                        else if(empty($attendance->am['out'])){
-                                            $am_in = strtotime($attendance->am['in']);
-                                            $pm_out = strtotime($attendance->pm['out']);
-                                            $diff = round(abs($am_in - $pm_out) / 3600 , 1);
-                                        }
-                                        
-                                    
-                                        else if(empty($attendance->pm['out'])){
-                                            $am_in = strtotime($attendance->am['in']);
-                                            $am_out = strtotime($attendance->am['out']);
-                                            $diff = round(abs($am_in - $am_out) / 3600 , 1);
-                                        }
-
-                                    ?>
-                                
-                                        <li class="list-group-item">
-                                            <span class="pull-right"><?php echo $diff; ?></span>
-                                            <span>{{$attendance->ddww}}</span>
-                                        </li>
-                                        <?php $totalHrs += (float)$diff; ?>
-                                    @endif
-                                    
-                                
-                                  @endforeach
-
-                                        <li class="list-group-item">
-                                            <label class="pull-right">{{$totalHrs}}</label>
-                                            <label>Total Hours</label>
-                                        </li>
-                            </ul>
-                             
+                                                            ?>
+                                                            
+                                                            <?php $totalHrs += (float)$diff; ?>
+                                                                <td>{{$attendance->ddww}}</td>
+                                                                <td>{{$in}}</td>
+                                                                <td>{{$out}}</td>
+                                                                <td><?php echo $diff; ?></td>
+                                                                <input type="number" name="totalHours[{{$employee->bio_id}}][]" value="{{$diff}}">
+                                                               
+                                                            @endif
+                                                            
+                                                        </tr>
+                                                        @endforeach
+                                                        <tr>
+                                                            <th>Total Hours</th>
+                                                            <th>&nbsp;</th>
+                                                            <th>&nbsp;</th>
+                                                            <th>{{$totalHrs}}</th>
+                                                            
+                                                            <Br>
+                                                        </tr>
+                                                </tbody>
+                                            </table>
+                                  </div>
+                            
                         </div>
                   </div>
                 </div>
@@ -217,10 +241,10 @@
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
                                                                 @if(!empty($attendance->am['in']))
-                                                                     <input type="time" value="{{$attendance->am['in']}}" class="form-control" style="background:transparent" readonly>
-                                                                     <br>
+                                                                    <input type="time" value="{{$attendance->am['in']}}" class="form-control" style="background:transparent" name="warningTimeIn[]" readonly>
+                                                                    <br>
                                                                 @elseif(!empty($attendance->pm['in']))
-                                                                 <input type="time" value="{{$attendance->pm['in']}}" class="form-control" style="background:transparent" readonly>
+                                                                     <input type="time" value="{{$attendance->pm['in']}}" class="form-control" style="background:transparent" name="warningTimeIn[]" readonly>
                                                                      <br>
                                                                 @endif
                                                             @endif
@@ -237,7 +261,7 @@
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
                                                               <div class="input-group clockpicker" data-autoclose="true">
-                                                                    <input type="time" class="form-control" value="18:00">
+                                                                    <input type="time" class="form-control" value="18:00" name="warningTimeOut[{{$employee->bio_id}}][]">
                                                                     <span class="input-group-addon">
                                                                         <span class="fa fa-clock-o"></span>
                                                                     </span>    
@@ -265,13 +289,16 @@
                                                 @endforeach
                                                 </td>
                                                 <td>
+                                                    @php( $EmployeeInfos = \App\Profile::all() )
+
                                                     <select name="" id="" class="form-control">
-                                                        <option value="">--</option>
+                                                        @foreach ($EmployeeInfos as $EmployeInfo)
+                                                            <option>{{$EmployeInfo->fname}} {{$EmployeInfo->lname}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </td>
                                             </tr>
                                         @endforeach
-                                      
                                       
                                         </tbody>
                                     </table>
@@ -281,16 +308,17 @@
                         </div>
                   </div>
                 </div>
-
+                {!! Form::hidden('info', json_encode($csv_info)) !!}
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary" name="ImportData">Save</button>
                 </div>
             </div>
         </div>
  </div>
  <input type="button" name="" id="Notif1"  class="btn btn-success btn-sm demo2" style="display:none;">
  
+</form>
 @else
     <div class="row">
         

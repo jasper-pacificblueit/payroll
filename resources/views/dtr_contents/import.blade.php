@@ -5,8 +5,33 @@
 <div class="row">
         <div class="col-lg-12">
                   @if(isset($csv_info))
-                     
-                    <h4>Payroll Date : {{ $csv_info->period}}</h4>
+                      @php
+                        $period = $csv_info->period;
+                        $year1 = "{$period[0]}{$period[1]}{$period[2]}{$period[3]}";
+                        if(isset($period[20])){
+                            $year2 = 'adasd';
+                        }
+                        else{
+                            $year2 = $year1;
+                        }
+                        $startMonth = "{$period[5]}{$period[6]}";
+                        $startDay = "{$period[8]}{$period[9]}";
+
+                        $endMonth = "{$period[13]}{$period[14]}";
+                        $endDay = "{$period[16]}{$period[17]}";
+                        
+                        $payrollDate1 = "{$year1}/{$startMonth}/{$startDay}";
+                        $payrollDate2 = "{$year2}/{$endMonth}/{$endDay}";
+                        
+                      @endphp
+                       <?php
+                       $days = GetDays($payrollDate1 , $payrollDate2);
+
+                      
+                       ?>
+                    <h4>Payroll Date : {{date("M d Y" , strtotime($payrollDate1))}} - {{$payrollDate2}}</h4>
+                   
+                   
                         
                     <br>
                     <div class="table-responsive">
@@ -23,17 +48,26 @@
                         </tr>
                         </thead>
                         <tbody>
-                                        
+                               
+                                   
+
+
+                            
                                 @foreach ($csv_info->employees as $employee)
                                     <tr>
                                         <td>{{$employee->bio_id}}</td>
+                                        <input type="text" name="bio_id[]" value="{{$employee->bio_id}}" hidden>
                                         <td>{{ucwords(strtolower($employee->name))}}</td>
                                         <td>{{$employee->dep}}</td>
 
-                                        <?php $totalHrs = 0; $diff = array(); $TotalWarning = array();$Warning = 0;?>
-                                        <?php $totalDays = 0; ?>
-
+                                     
+                                        @php
+                                            $totalHrs = 0; $diff = array(); $TotalWarning = array();$Warning = 0;
+                                            $totalDays = 0;
+                                          
+                                        @endphp
                                             @foreach ($employee->attendance as $attendance)
+                                                
                                                 
                                                 @if($attendance->absent)
                                                     <?php 
@@ -130,11 +164,14 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
+                                                
+                                                    <?php $dayCount = 0; ?>
                                                     @foreach ($employee->attendance as $attendance)
+                                                    
                                                         <tr>
                                                             @if($attendance->absent)
                                                               
-                                                                <td>{{$attendance->ddww}}</td>
+                                                                <td>{{date("M d Y" , strtotime($days[$dayCount]))}}</td>
                                                                 <td>--</td>
                                                                 <td>--</td>   
                                                                 <td><b style="color:red">Absent</b></td>
@@ -169,15 +206,23 @@
                                                             ?>
                                                             
                                                             <?php $totalHrs += (float)$diff; ?>
-                                                                <td>{{$attendance->ddww}}</td>
+                                                            
+                                                                <td>{{date("M d Y" , strtotime($days[$dayCount]))}}</td>
+                                                                <input type="text" name="date[{{$employee->bio_id}}][]" value="{{$attendance->ddww}}" hidden>
+                                                                <input type="time" name="in[{{$employee->bio_id}}][]" value="{{$in}}" hidden>
+                                                                <input type="time" name="out[{{$employee->bio_id}}][]" value="{{$out}}" hidden>
+                                                                
+                                                                
+                                                                
                                                                 <td>{{$in}}</td>
                                                                 <td>{{$out}}</td>
                                                                 <td><?php echo $diff; ?></td>
-                                                                <input type="number" name="totalHours[{{$employee->bio_id}}][]" value="{{$diff}}">
+                                                                <input type="number" name="totalHours[{{$employee->bio_id}}][]" value="{{$diff}}" hidden>
                                                                
                                                             @endif
                                                             
                                                         </tr>
+                                                        <?php $dayCount++; ?>
                                                         @endforeach
                                                         <tr>
                                                             <th>Total Hours</th>
@@ -290,12 +335,13 @@
                                                 </td>
                                                 <td>
                                                     @php( $EmployeeInfos = \App\Profile::all() )
-
-                                                    <select name="" id="" class="form-control">
+                                                    
+                                                    <select name="UserID[{{$employee->bio_id}}][]" id="" class="form-control">
                                                         @foreach ($EmployeeInfos as $EmployeInfo)
-                                                            <option>{{$EmployeInfo->fname}} {{$EmployeInfo->lname}}</option>
+                                                            <option value="{{$EmployeInfo->user_id}}">{{$EmployeInfo->fname}} {{$EmployeInfo->lname}}</option>
                                                         @endforeach
                                                     </select>
+                                                    
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -309,7 +355,14 @@
                   </div>
                 </div>
                 {!! Form::hidden('info', json_encode($csv_info)) !!}
-                <div class="modal-footer">
+                {!! Form::hidden('days', json_encode($days)) !!}
+                
+
+                <input type="date" name="payrollDate1" value="{{date("Y-m-d" , strtotime($payrollDate1))}}">
+                <input type="date" name="payrollDate2" value="{{date("Y-m-d" , strtotime($payrollDate2))}}">
+                
+
+                <div class="modal-footer">  
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" name="ImportData">Save</button>
                 </div>
@@ -319,6 +372,8 @@
  <input type="button" name="" id="Notif1"  class="btn btn-success btn-sm demo2" style="display:none;">
  
 </form>
+
+  
 @else
     <div class="row">
         

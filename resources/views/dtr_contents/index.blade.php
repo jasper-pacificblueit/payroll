@@ -42,6 +42,7 @@
                             <div class="tab-content">
                                 <div id="import" class="tab-pane {{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
                                     <div class="panel-body">
+                                       
                                         @include('dtr_contents.import')
                                     </div>
                                 </div>

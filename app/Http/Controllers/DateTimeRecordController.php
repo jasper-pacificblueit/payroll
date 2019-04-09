@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App;
 use App\DateTimeRecord;
 use App\Company;
 use App\Imports\UserImport;
 use Excel;
 use Illuminate\Http\Request;
+
+use Carbon\Carbon;
 class Employee {
 
     public $bio_id, $dep, $name, $date;
@@ -65,16 +67,68 @@ class DateTimeRecordController extends Controller
     public function store(Request $request)
     {
         $csv_info = json_decode($request->info, true);
-        dd($csv_info);
-        foreach($csv_info['employees'] as $employee){
-           foreach($employee['attendance'] as $attendance){
-               echo $attendance['am']->in;
-           }
-        }
-       
-    
-       
 
+        $days = json_decode($request->days, true);
+        $records = (object)$csv_info;
+       
+       //dd($days , $request->warningTimeOut);
+        //dd($request->payrollDate1);
+    
+       $empCount = 0;
+       //dd($request->warningTimeOut);
+        foreach($csv_info['employees'] as $employee){
+            
+            
+            $count = 0;
+            $dayCount = 0;
+            foreach($employee['attendance'] as $attendance){
+               
+                if(!$attendance['absent']){
+                  
+                    $dtr = new App\DateTimeRecord;
+                   
+                    $in_am = date("H:i" , strtotime($attendance['am']['in']));
+                    $out_am = date("H:i" , strtotime($attendance['am']['out']));
+                    $in_pm = date("H:i" , strtotime($attendance['pm']['in']));
+                    $out_pm = date("H:i" , strtotime($attendance['pm']['out']));
+                   
+                    
+                   $dtr->user_id = $request->UserID[$employee['bio_id']][$empCount];
+                   $dtr->date = date("Y-m-d" , strtotime($days[$dayCount]));
+                   $dtr->in_am = $attendance['am']['in'];
+                   $dtr->in_pm = $attendance['pm']['in'];
+                   if(empty($attendance['am']['out']) && empty($attendance['pm']['out'])){
+                    $dtr->out_pm = $request->warningTimeOut[$employee['bio_id']][$count];
+
+                    $count++;
+                    
+                   }
+                   else{
+                    $dtr->out_am = $attendance['am']['out'];
+                    $dtr->out_pm = $attendance['pm']['out'];
+                    
+                   }
+                   
+                   
+                    
+                       
+                       
+                    $dtr->save(); 
+                 
+                }
+              
+                
+               $dayCount++;
+            }
+            
+        }
+        $empCount++;
+        $payrolldate = new App\PayrollDate;
+        $payrolldate->start = $request->payrollDate1;
+        $payrolldate->end = $request->payrollDate2;
+        $payrolldate->save();
+        
+        return redirect('dtr-records');
     }
 
     /**

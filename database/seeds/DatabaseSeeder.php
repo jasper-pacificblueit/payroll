@@ -29,9 +29,9 @@ class DatabaseSeeder extends Seeder
             'position' => 'admin',
 
             'gender' => 1,
-            'fname' => 'Rom',
-            'lname' => 'Villanueva',
-            'mname' => 'Vales',
+            'fname' => 'John',
+            'lname' => 'Denver',
+            'mname' => 'M.',
             'age' => 19,
             'image' => [
                 'data' => '/img/landing/avatar_anonymous.png',

@@ -45,8 +45,11 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 	Route::middleware(['permission:dtr_read|dtr_write'])->group(function() {
 		Route::resource('/dtr', 'DateTimeRecordController');
 		Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
+		
 		Route::get("/dtr-records", "DateTimeRecordController@records");
-		Route::get('/dtr-records' , 'DateTimeRecordController@records');		
+		Route::post("/dtr-records", "DateTimeRecordController@selectDate");
+		
+				
 	});
 	
 });

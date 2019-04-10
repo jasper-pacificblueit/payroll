@@ -31,14 +31,14 @@ class DateTimeRecordController extends Controller
 {
     public function selectDate(Request $request){
         
-        $data = PayrollDate::select('id' , 'start' , 'end')->where('id' , $request->id)->take(100)->get();
-        
-    
+       $date = \App\PayrollDate::find($request->DateSelector);
+       
+       return view('dtr_contents.index' , compact('date'));
     }
 
     public function records(Request $request)
     {
-      
+       
        return view('dtr_contents.index');
     }
     /**
@@ -73,6 +73,7 @@ class DateTimeRecordController extends Controller
  
     public function store(Request $request)
     {
+     
         $csv_info = json_decode($request->info, true);
 
         $days = json_decode($request->days, true);
@@ -134,6 +135,10 @@ class DateTimeRecordController extends Controller
         $payrolldate->start = $request->payrollDate1;
         $payrolldate->end = $request->payrollDate2;
         $payrolldate->save();
+        
+
+        $date = App\PayrollDate::orderBy('id' , 'desc')->first();
+
         
         return redirect('dtr-records');
     }

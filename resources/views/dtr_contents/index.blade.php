@@ -143,6 +143,8 @@
                 type: "success"
             });
         });
+
+      
         });
 
     </script>
@@ -153,18 +155,13 @@
         jQuery('#Notif1').click();
         });
     </script> --}}
-
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $(document).on('change', '#DateSelector' , function() {
-                var cat_id = $(this).val();
-                
-                console.log(cat_id);
-               
-            });
+    <script>
         
-
-        });
-
+            
+      
+       
+        function DateSelectSubmit() {
+            document.getElementById("selectDateForm").submit();
+        }
     </script>
 @endsection

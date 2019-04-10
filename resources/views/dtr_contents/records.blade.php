@@ -2,8 +2,9 @@
     <div class="col-lg-3">
         @php( $payrollDates = \App\PayrollDate::all() )
         <h4>Payroll Date:</h4>
-        
-        <select name="" id="" class="form-control">
+     
+        <select name="selectDate" id="DateSelector" class="form-control">
+            <option value="">--</option>
             @foreach ($payrollDates as $payrollDate)
             <option value="{{$payrollDate->id}}">{{date("M d" , strtotime($payrollDate->start))}} - {{date("M d Y" , strtotime($payrollDate->end))}}</option>                
             @endforeach

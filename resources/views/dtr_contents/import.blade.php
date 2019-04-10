@@ -29,7 +29,7 @@
 
                       
                        ?>
-                    <h4>Payroll Date : {{date("M d Y" , strtotime($payrollDate1))}} - {{$payrollDate2}}</h4>
+                    <h4>Payroll Date : {{date("M d Y" , strtotime($payrollDate1))}} -  {{date("M d Y" , strtotime($payrollDate2))}}</h4>
                    
                    
                         

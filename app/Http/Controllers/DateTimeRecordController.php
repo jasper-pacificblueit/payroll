@@ -7,6 +7,7 @@ use App\Company;
 use App\Imports\UserImport;
 use Excel;
 use Illuminate\Http\Request;
+use App\PayrollDate;
 
 use Carbon\Carbon;
 class Employee {
@@ -28,6 +29,12 @@ class Employee {
 
 class DateTimeRecordController extends Controller
 {
+    public function selectDate(Request $request){
+        
+        $data = PayrollDate::select('id' , 'start' , 'end')->where('id' , $request->id)->take(100)->get();
+        
+    
+    }
 
     public function records(Request $request)
     {

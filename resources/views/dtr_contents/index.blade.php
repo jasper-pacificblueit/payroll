@@ -4,6 +4,7 @@
 
 @section('styles')
 {!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
+{!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
 
 @endsection
 
@@ -41,6 +42,7 @@
                             <div class="tab-content">
                                 <div id="import" class="tab-pane {{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
                                     <div class="panel-body">
+                                       
                                         @include('dtr_contents.import')
                                     </div>
                                 </div>
@@ -91,29 +93,7 @@
             
       
     ?>
-    <div class="modal inmodal fade" id="showWarning" tabindex="-1" role="dialog"  aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title">Set Value for Warnings</h4>
-                        <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                    </div>
-                    <div class="modal-body">
-                      <div class="row">
-                            <div class="col-lg-12">
-                                
-                            </div>
-                      </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
 @endsection
 
 @section('scripts')
@@ -122,12 +102,15 @@
 {!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
 {!! Html::script('js/inspinia.js') !!}
 {!! Html::script('js/plugins/pace/pace.min.js') !!}
- <!-- CodeMirror -->
- <script src="js/plugins/codemirror/codemirror.js"></script>
- <script src="js/plugins/codemirror/mode/xml/xml.js"></script>
+{!! Html::script('js/plugins/codemirror/codemirror.js') !!}
+{!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!}
+
+{!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
 
 <script>
         $(document).ready(function(){
+            
+           
             $('.dataTables-example').DataTable({
                 pageLength: 10,
                 responsive: true,
@@ -152,8 +135,22 @@
 
             });
 
+           
+            $('.demo2').click(function(){
+            swal({
+                title: "Good job!",
+                text: "You clicked the button!",
+                type: "success"
+            });
+        });
         });
 
     </script>
 
+{{-- 
+    <script>
+        jQuery(function(){
+        jQuery('#Notif1').click();
+        });
+    </script> --}}
 @endsection

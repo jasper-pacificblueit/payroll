@@ -106,6 +106,10 @@
                 </li>
                 @endcan
 
+                <li class="{{ Request::path() == '' ? 'active' : '' }}">
+                    <a href=""><i class="fa fa-building-o"></i> <span class="nav-label">Payroll</span></a>
+                </li>
+
                 </li>   
 
                 {{--side menus end--}}

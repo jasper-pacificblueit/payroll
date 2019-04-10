@@ -77,12 +77,12 @@
                 </li>
 
                 <li class="{{ Request::path() == 'profile' || Request::path() == 'profile' ? 'active' : '' }}">
-                    <a href="/profile"><i class="fa fa-th-large"></i> <span class="nav-label">Profile</span></a>
+                    <a href="/profile"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a>
                 </li>
 
                 @can('company_read')
                 <li class="{{ Request::path() == 'employee' || Request::path() == 'employee/add' ? 'active' : '' }}">
-                        <a href="/employee"><i class="fa fa-user"></i> <span class="nav-label">Employee</span> <span class="fa arrow"></span></a>
+                        <a href="/employee"><i class="fa fa-users"></i> <span class="nav-label">Employee</span> <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level collapse">
                              <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
                              @can('employee_write')
@@ -107,9 +107,9 @@
                 @endcan
 
                 <li class="{{ Request::path() == '' ? 'active' : '' }}">
-                    <a href=""><i class="fa fa-building-o"></i> <span class="nav-label">Payroll</span></a>
+                    <a href=""><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
                 </li>
-
+                
                 </li>   
 
                 {{--side menus end--}}

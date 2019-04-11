@@ -15,12 +15,6 @@
     {!! Html::style('css/animate.css') !!}
     {!! Html::style('css/style.css') !!}
 
-    {!! Html::style('css/plugins/dropzone/basic.css') !!}
-    {!! Html::style('css/plugins/dropzone/dropzone.css') !!}
-    {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
-    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
-    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
-
     @yield('styles')
 </head>
 <body class="skin-1">
@@ -173,14 +167,7 @@
 {!! Html::script('js/plugins/pace/pace.min.js') !!}
 {!! Html::script('js/plugins/footable/footable.all.min.js') !!}
 
-<!-- Jasny -->
-{!! Html::script('js/plugins/jasny/jasny-bootstrap.min.js') !!}
 
-<!-- DROPZONE -->
-{!! Html::script('js/plugins/dropzone/dropzone.js') !!}
-
- <!-- CodeMirror -->
- {!! Html::script('js/plugins/codemirror/codemirror.js') !!}
  
 
 @yield('scripts')

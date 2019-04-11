@@ -22,6 +22,8 @@
                         
                         $payrollDate1 = "{$year1}/{$startMonth}/{$startDay}";
                         $payrollDate2 = "{$year2}/{$endMonth}/{$endDay}";
+
+
                         
                       @endphp
                        <?php
@@ -425,10 +427,14 @@
                 <div class="col-lg-12" >
                     
                     <p>Recent Upload File</p>
+                    @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->get())
+
+                  
+
                     <div class="row">
                         <div class="col-sm-12 m-b-xs">
-                         
-                            <table class="table table-bordered">
+                           @if (count($checkPayroll) > 0)
+                           <table class="table table-bordered">
                                 <thead>
                                 <tr>
                                     <th>ID number</th>
@@ -458,6 +464,10 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            @else
+                            <p>No file uploaded</p>
+                            @endif
+                            
                             <a href="#">See more details</a>
                         </div>
                    </div>

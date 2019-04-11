@@ -6,6 +6,7 @@
 {!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
 {!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
 
+{!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
 @endsection
 
 @section('content')
@@ -42,7 +43,11 @@
                             <div class="tab-content">
                                 <div id="import" class="tab-pane {{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
                                     <div class="panel-body">
-                                       
+                                        @if (isset($result))
+                                        <div class="alert alert-danger">
+                                            File already imported <a class="alert-link" href="#">Alert Link</a>.
+                                        </div>
+                                        @endif
                                         @include('dtr_contents.import')
                                     </div>
                                 </div>
@@ -98,6 +103,8 @@
 
 @section('scripts')
 
+<!-- Jasny -->
+{!! Html::script('js/plugins/jasny/jasny-bootstrap.min.js') !!}
 
 {!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
 {!! Html::script('js/inspinia.js') !!}
@@ -144,7 +151,7 @@
             });
         });
 
-      
+        
         });
 
     </script>

@@ -441,7 +441,9 @@
                              <th>Total Hours</th>     
                             </tr>
                         </thead>
+                        <?php $totalHours = 0; $dayCount = 0;?>
                         @php( $employeeList = \App\DateTimeRecord::distinct()->get(['user_id']))
+                    
                         @foreach ($employeeList as $employee)
                             <tr>
                                  @php( $profile = \App\Profile::find($employee->user_id))
@@ -449,7 +451,7 @@
                                  <td>--</td>
                                  <td>--</td>
                                  @php( $attendances = \App\DateTimeRecord::all()->where('user_id' , '=' , $employee->user_id , 'AND' , 'date', '>=' , $checkPayroll->start , 'date' , '<=' , $checkPayroll->end))
-                                 <?php $dayCount = 0; $totalHours = 0; $totalWarning = 0;?>
+                               
                                  @foreach ($attendances as $attendance)
                                      <?php
                                          $dayCount++;

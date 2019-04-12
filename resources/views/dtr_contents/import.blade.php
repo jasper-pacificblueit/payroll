@@ -167,7 +167,7 @@
                                                 </thead>
                                                 <tbody>
                                                 
-                                                    <?php $dayCount = 0; ?>
+                                                    <?php $dayCount = 0; $totalHrs = 0;?>
                                                     @foreach ($employee->attendance as $attendance)
                                                     
                                                         <tr>

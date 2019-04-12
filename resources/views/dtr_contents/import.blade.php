@@ -32,7 +32,6 @@
                     <h4>Payroll Date : {{date("M d Y" , strtotime($payrollDate1))}} -  {{date("M d Y" , strtotime($payrollDate2))}}</h4>
                    
                    
-                        
                     <br>
                     <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover dataTables-example" >
@@ -230,7 +229,7 @@
                                                             <th>&nbsp;</th>
                                                             <th>{{$totalHrs}}</th>
                                                             
-                                                            <Br>
+                                                            <br>
                                                         </tr>
                                                 </tbody>
                                             </table>
@@ -248,7 +247,6 @@
         </div>
  </div> 
  @endforeach
-
  <div class="modal inmodal fade" id="showWarning" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -376,8 +374,6 @@
   
 @else
     <div class="row">
-        
-
         <div class="col-lg-6">
            
             <div class="row">
@@ -390,7 +386,6 @@
                             <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" name="upload-file" required></span>
                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                         </div>
-                       
                         
                 </div>
                
@@ -398,25 +393,11 @@
            
             <div class="row">
                 <div class="col-lg-2">
-                    <button type="submit" class="form-control">View</button>
+                    <button type="submit" class="btn btn-success">View</button>
                     </form>
                 </div>
             </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-12 m-b-xs">
-                    <h4>Export File Format</h4>
-                    <div class="btn-group">
-                        <button class="btn btn-white" type="button">xlsx</button>
-                        <button class="btn btn-white" type="button">csv</button>
-                        <button class="btn btn-white" type="button">xls</button>
-                    </div>
 
-
-                </div>
-           </div>
-           
-       
         </div>
 
         <div class="col-lg-6">

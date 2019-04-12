@@ -123,7 +123,6 @@
                             <option value='hr'>HR</option>
                             <option value='employee'>Employee</option>
                         </select>
-<<<<<<< HEAD
                     @endhasrole
                     @hasrole('admin|hr')
                         <label>Change Permissions</label>
@@ -140,8 +139,6 @@
                         <div class=''>read</div>
                         <div class=''>write</div>
                     @endhasrole
-=======
->>>>>>> 91079b549c4a5c700f463ca0eb7074a181b92a64
                    </div>
                </div>
             </div>

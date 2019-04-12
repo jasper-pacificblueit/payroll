@@ -48,8 +48,6 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		
 		Route::get("/dtr-records", "DateTimeRecordController@records");
 		Route::post("/dtr-records", "DateTimeRecordController@selectDate");
-		
-				
 	});
 	
 });
@@ -61,14 +59,9 @@ Route::middleware(['auth'])->group(function () {
 	Route::get("/editprofile", "ProfileController@edit");
 	Route::post("/editprofile", "ProfileController@update");
 	
-	Route::get('/', 'HomeController@index');
-	Route::get('/', 'HomeController@index')->name('dashboard');
-	
-	Route::get('/', 'HomeController@index')->name('dashboard');
-	
 	Route::get('/', 'HomeController@index')->name('dashboard');
 
-  Route::view('/profile', 'employee_contents.profile')->name('profile');
+  Route::get('/profile', 'ProfileController@index')->name('profile');
 
 });
 

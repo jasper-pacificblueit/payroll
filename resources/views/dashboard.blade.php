@@ -3,7 +3,6 @@
 @section('title', 'Dashboard')
 
 @section('content')
-</div>
 <div class="wrapper wrapper-content">
 <div class="row">
         <div class="col-lg-3">
@@ -143,7 +142,6 @@
                                     </td>
                                 <td class="text-center small">16 Jun 2014</td>
                                 <td class="text-center"><span class="label label-primary">$483.00</span></td>
-
                             </tr>
                             <tr>
                                 <td class="text-center">2</td>
@@ -151,7 +149,6 @@
                                 </td>
                                 <td class="text-center small">10 Jun 2014</td>
                                 <td class="text-center"><span class="label label-primary">$327.00</span></td>
-
                             </tr>
                             <tr>
                                 <td class="text-center">3</td>
@@ -196,9 +193,10 @@
 </div>
 </div>
 <div class="footer">
-  @endsection
 </div>
 </div>
+@endsection
+
   
 
 

@@ -469,8 +469,6 @@
                   
                     <div class="row">
                         <div class="col-sm-12 m-b-xs">
-                            <span>{{$checkPayroll->start}}</span>
-                            
                             <a href="#">See more details</a>
                         </div>
                    </div>

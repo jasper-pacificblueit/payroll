@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Attendance Report')
+@section('title', 'Payroll')
 
 @section('styles')
 

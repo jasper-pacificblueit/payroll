@@ -24,7 +24,8 @@ class CreateDateTimeRecordsTable extends Migration
             $table->time('in_pm')->nullable();
             $table->time('out_pm')->nullable();
             $table->integer('comp_id')->nullable();
-
+            $table->float('total_hours')->nullable();
+            
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

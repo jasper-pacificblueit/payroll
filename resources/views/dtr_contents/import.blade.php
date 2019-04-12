@@ -429,6 +429,7 @@
                     <div class="hr-line-dashed"></div>
                     @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->first())
                     @if (App\PayrollDate::orderBy('id' , 'DESC')->count() > 0)
+
                     <h4>Payroll Date: {{date("M d" , strtotime($checkPayroll->start))}} - {{date("M d Y" , strtotime($checkPayroll->end))}}</h4>
                     <table class="table table-bordered">
                         <thead>
@@ -469,8 +470,7 @@
                   
                     <div class="row">
                         <div class="col-sm-12 m-b-xs">
-                            <span>{{$checkPayroll->start}}</span>
-                            
+                         
                             <a href="#">See more details</a>
                         </div>
                    </div>

@@ -472,7 +472,10 @@
                   
                     <div class="row">
                         <div class="col-sm-12 m-b-xs">
+<<<<<<< HEAD
+=======
                          
+>>>>>>> 849b4e517aec78b4d4a98df9c351418f4775d335
                             <a href="#">See more details</a>
                         </div>
                    </div>

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Payroll')
+@section('title', 'Attendance Report')
 
 @section('styles')
 
@@ -30,23 +30,14 @@
                         <div class="tabs-container">
                             <ul class="nav nav-tabs">
                                 <li class="{{Request::path() == 'payroll' ? 'active' : '' }}"><a href="/payroll">Compensation</a></li>
-                                <li class="{{Request::path() == 'holiday' ? 'active' : '' }}"><a href="/holiday">Holiday Pay</a></li>
+                               
                             </ul>
-
-                          
-
                             <div class="tab-content">
                                 <div id="compensation" class="tab-pane {{ Request::path() == 'payroll' ? 'active' : '' }}">
                                     <div class="panel-body">
                                         @include('payroll_contents.compensation')
                                     </div>
                                 </div>
-                                <div id="compensation" class="tab-pane {{ Request::path() == 'holiday' ? 'active' : '' }}">
-                                    <div class="panel-body">
-                                        @include('payroll_contents.holiday')
-                                    </div>
-                                </div>
-
                                
                             </div>
     

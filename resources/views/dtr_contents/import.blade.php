@@ -433,44 +433,7 @@
 
                     <div class="row">
                         <div class="col-sm-12 m-b-xs">
-                           @if (count($checkPayroll) > 0)
-                           <h4>Payroll Date: {{date("M d" , strtotime($checkPayroll->start))}} - {{date("M d Y" , strtotime($checkPayroll->end))}}</h4>
-                           <table class="table table-bordered">
-                               <thead>
-                                   <tr>
-                                    <th>Employee</th>
-                                    <th>Department</th>
-                                    <th>Position</th>
-                                    <th>Total Days</th>
-                                    <th>Total Hours</th>     
-                                   </tr>
-                               </thead>
-                               @php( $employeeList = \App\DateTimeRecord::distinct()->get(['user_id']))
-                               @foreach ($employeeList as $employee)
-                                   <tr>
-                                        @php( $profile = \App\Profile::find($employee->user_id))
-                                        <td>{{$profile->fname}} {{$profile->lname}}</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                        @php( $attendances = \App\DateTimeRecord::all()->where('user_id' , '=' , $employee->user_id , 'AND' , 'date', '>=' , $checkPayroll->start , 'date' , '<=' , $checkPayroll->end))
-                                        <?php $dayCount = 0; $totalHours = 0; $totalWarning = 0;?>
-                                        @foreach ($attendances as $attendance)
-                                            <?php
-                                                $dayCount++;
-                                                $totalHours += $attendance->total_hours;
-                                            ?>
-                                        @endforeach
-                                        <td>{{$dayCount}}</td>
-                                        <td>{{$totalHours}}</td>
-                                    
-                                    
-                                        
-                                   </tr>
-                               @endforeach
-                            </table>
-                            @else
-                            <p>No file uploaded</p>
-                            @endif
+                         
                             
                             <a href="#">See more details</a>
                         </div>

@@ -12,6 +12,12 @@ class PayrollController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function holiday()
+    {
+        return view('payroll_contents.index');
+    }
+
+
     public function index()
     {
         return view('payroll_contents.index');

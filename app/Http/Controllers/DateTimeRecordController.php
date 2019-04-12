@@ -87,8 +87,7 @@ class DateTimeRecordController extends Controller
        //dd($request->warningTimeOut);
        
        $checkAttendance = App\PayrollDate::where('start', '=' , $request->payrollDate1, 'AND' , 'end' , '=' , $request->payrollDate2)->get();
-
-       if(count($checkAttendance) > 0){
+       if(!count($checkAttendance) > 0){
             foreach($csv_info['employees'] as $employee){
             
             

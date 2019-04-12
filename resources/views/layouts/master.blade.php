@@ -69,11 +69,12 @@
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
                 </li>
-
-                <li class="{{ Request::path() == 'profile' || Request::path() == 'profile' ? 'active' : '' }}">
-                    <a href="/profile"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a>
+                <li class="{{ Request::path() == '' ? 'active' : '' }}">
+                    <a href="/payroll"><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
                 </li>
 
+                
+                
                 @can('company_read')
                 <li class="{{ Request::path() == 'employee' || Request::path() == 'employee/add' ? 'active' : '' }}">
                         <a href="/employee"><i class="fa fa-users"></i> <span class="nav-label">Employee</span> <span class="fa arrow"></span></a>
@@ -99,12 +100,12 @@
                         <a href="/company"><i class="fa fa-building-o"></i> <span class="nav-label">Manage Company</span></a>
                 </li>
                 @endcan
-
-                <li class="{{ Request::path() == '' ? 'active' : '' }}">
-                    <a href=""><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
+                <li class="{{ Request::path() == 'profile' || Request::path() == 'profile' ? 'active' : '' }}">
+                    <a href="/profile"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a>
                 </li>
+               
                 
-                </li>   
+              
 
                 {{--side menus end--}}
 

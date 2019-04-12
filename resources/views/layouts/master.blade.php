@@ -120,7 +120,9 @@
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#"><i class="fa fa-bars"></i></a>
                 </div>
+                
                 <ul class="nav navbar-top-links navbar-right text-right">
+                    
                     <li>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -161,15 +163,7 @@
 {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!}
 {!! Html::script('js/plugins/slimscroll/jquery.slimscroll.min.js') !!}
 {!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
-<!-- Custom and plugin javascript -->
-{!! Html::script('js/inspinia.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/footable/footable.all.min.js') !!}
 
-
- 
 
 @yield('scripts')
 

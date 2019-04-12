@@ -427,13 +427,13 @@
                 <div class="col-lg-12" >
                     <label>Recent file uploaded</label>
                     <div class="hr-line-dashed"></div>
-                    @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->first())
+                    @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->count())
 
                   
 
                     <div class="row">
                         <div class="col-sm-12 m-b-xs">
-                         
+                            <span>{{$checkPayroll}}</span>
                             
                             <a href="#">See more details</a>
                         </div>

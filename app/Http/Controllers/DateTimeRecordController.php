@@ -73,7 +73,8 @@ class DateTimeRecordController extends Controller
  
     public function store(Request $request)
     {
-     
+        
+        //dd($request->totalHours);
         $csv_info = json_decode($request->info, true);
 
         $days = json_decode($request->days, true);
@@ -84,7 +85,10 @@ class DateTimeRecordController extends Controller
     
        $empCount = 0;
        //dd($request->warningTimeOut);
-        foreach($csv_info['employees'] as $employee){
+       
+       $checkAttendance = App\PayrollDate::where('start', '=' , $request->payrollDate1, 'AND' , 'end' , '=' , $request->payrollDate2)->get();
+       if(!count($checkAttendance) > 0){
+            foreach($csv_info['employees'] as $employee){
             
             
             $count = 0;
@@ -118,7 +122,7 @@ class DateTimeRecordController extends Controller
                    }
                    
                    
-                    
+                    $dtr->total_hours = $request->totalHours[$employee['bio_id']][$count];
                        
                        
                     $dtr->save(); 
@@ -131,6 +135,7 @@ class DateTimeRecordController extends Controller
             
         }
         $empCount++;
+        
         $payrolldate = new App\PayrollDate;
         $payrolldate->start = $request->payrollDate1;
         $payrolldate->end = $request->payrollDate2;
@@ -141,6 +146,13 @@ class DateTimeRecordController extends Controller
 
         
         return redirect('dtr-records');
+       }
+       else{
+
+          $result = 'danger';
+           return view('dtr_contents.index' , compact('result'));
+       }
+        
     }
 
     /**
@@ -200,7 +212,7 @@ class DateTimeRecordController extends Controller
         $data = Excel::toArray(new DateTimeRecord, $request->file('upload-file'))[0];
         
         // return view('dtr_contents.index')->with(compact('data'));
-
+        
         $csv_info = [
 
             'period' => $data[1][3],
@@ -305,7 +317,9 @@ class DateTimeRecordController extends Controller
             }
         }
         
-     //dd($csv_info);   
+      
+
+     
         return view('dtr_contents.index')->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
     }
 

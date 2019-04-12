@@ -48,6 +48,9 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		
 		Route::get("/dtr-records", "DateTimeRecordController@records");
 		Route::post("/dtr-records", "DateTimeRecordController@selectDate");
+		
+		Route::resource('/payroll', 'PayrollController');
+		Route::get("/holiday", "PayrollController@holiday");
 	});
 	
 });

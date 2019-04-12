@@ -16,12 +16,6 @@
     {!! Html::style('css/animate.css') !!}
     {!! Html::style('css/style.css') !!}
 
-    {!! Html::style('css/plugins/dropzone/basic.css') !!}
-    {!! Html::style('css/plugins/dropzone/dropzone.css') !!}
-    {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
-    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
-    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
-
     @yield('styles')
 </head>
 <body class="skin-1">
@@ -71,11 +65,12 @@
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
-
-                <li class="{{ Request::path() == 'profile' || Request::path() == 'profile' ? 'active' : '' }}">
-                    <a href="/profile"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a>
+                <li class="{{ Request::path() == '' ? 'active' : '' }}">
+                    <a href="/payroll"><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
                 </li>
 
+                
+                
                 @can('company_read')
                 <li class="{{ Request::path() == 'employee' || Request::path() == 'employee/add' ? 'active' : '' }}">
                         <a href="/employee"><i class="fa fa-users"></i> <span class="nav-label">Employee</span> <span class="fa arrow"></span></a>
@@ -101,12 +96,12 @@
                         <a href="/company"><i class="fa fa-building-o"></i> <span class="nav-label">Manage Company</span></a>
                 </li>
                 @endcan
-
-                <li class="{{ Request::path() == '' ? 'active' : '' }}">
-                    <a href=""><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
+                <li class="{{ Request::path() == 'profile' || Request::path() == 'profile' ? 'active' : '' }}">
+                    <a href="/profile"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a>
                 </li>
+               
                 
-                </li>   
+              
 
                 {{--side menus end--}}
 
@@ -121,7 +116,9 @@
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#"><i class="fa fa-bars"></i></a>
                 </div>
+                
                 <ul class="nav navbar-top-links navbar-right text-right">
+                    
                     <li>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -160,22 +157,7 @@
 {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!}
 {!! Html::script('js/plugins/slimscroll/jquery.slimscroll.min.js') !!}
 {!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
-<!-- Custom and plugin javascript -->
-{!! Html::script('js/inspinia.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/footable/footable.all.min.js') !!}
 
-<!-- Jasny -->
-{!! Html::script('js/plugins/jasny/jasny-bootstrap.min.js') !!}
-
-<!-- DROPZONE -->
-{!! Html::script('js/plugins/dropzone/dropzone.js') !!}
-
- <!-- CodeMirror -->
- {!! Html::script('js/plugins/codemirror/codemirror.js') !!}
- 
 
 @yield('scripts')
 

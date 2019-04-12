@@ -22,6 +22,8 @@
                         
                         $payrollDate1 = "{$year1}/{$startMonth}/{$startDay}";
                         $payrollDate2 = "{$year2}/{$endMonth}/{$endDay}";
+
+
                         
                       @endphp
                        <?php
@@ -164,7 +166,7 @@
                                                 </thead>
                                                 <tbody>
                                                 
-                                                    <?php $dayCount = 0; ?>
+                                                    <?php $dayCount = 0; $totalHrs = 0;?>
                                                     @foreach ($employee->attendance as $attendance)
                                                     
                                                         <tr>
@@ -404,41 +406,53 @@
          
             <div class="row">
                 <div class="col-lg-12" >
+                    <label>Recent file uploaded</label>
+                    <div class="hr-line-dashed"></div>
+                    @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->first())
+                    @if (App\PayrollDate::orderBy('id' , 'DESC')->count() > 0)
+
+                    <h4>Payroll Date: {{date("M d" , strtotime($checkPayroll->start))}} - {{date("M d Y" , strtotime($checkPayroll->end))}}</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                             <th>Employee</th>
+                             <th>Department</th>
+                             <th>Position</th>
+                             <th>Total Days</th>
+                             <th>Total Hours</th>     
+                            </tr>
+                        </thead>
+                        <?php $totalHours = 0; $dayCount = 0;?>
+                        @php( $employeeList = \App\DateTimeRecord::distinct()->get(['user_id']))
                     
-                    <p>Recent Upload File</p>
+                        @foreach ($employeeList as $employee)
+                            <tr>
+                                 @php( $profile = \App\Profile::find($employee->user_id))
+                                 <td>{{$profile->fname}} {{$profile->lname}}</td>
+                                 <td>--</td>
+                                 <td>--</td>
+                                 @php( $attendances = \App\DateTimeRecord::all()->where('user_id' , '=' , $employee->user_id , 'AND' , 'date', '>=' , $checkPayroll->start , 'date' , '<=' , $checkPayroll->end))
+                               
+                                 @foreach ($attendances as $attendance)
+                                     <?php
+                                         $dayCount++;
+                                         $totalHours += $attendance->total_hours;
+                                     ?>
+                                 @endforeach
+                                 <td>{{$dayCount}}</td>
+                                 <td>{{$totalHours}}</td>
+                             
+                             
+                                 
+                            </tr>
+                        @endforeach
+                     </table>
+                     @else
+                     <p>No file uploaded</p>
+                     @endif
+                  
                     <div class="row">
                         <div class="col-sm-12 m-b-xs">
-                         
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>ID number</th>
-                                    <th>Full name</th>
-                                    <th>Department</th>
-                                    <th>Total Rendered Hours</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
-                                </tbody>
-                            </table>
                             <a href="#">See more details</a>
                         </div>
                    </div>

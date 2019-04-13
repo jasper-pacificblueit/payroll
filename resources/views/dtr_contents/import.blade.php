@@ -177,7 +177,6 @@
                                                                 <td>--</td>   
                                                                 <td><b style="color:red">Absent</b></td>
                                                                
-                                                                
                                                             @else
 
                                                             <?php

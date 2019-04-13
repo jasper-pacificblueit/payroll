@@ -220,8 +220,6 @@ class DateTimeRecordController extends Controller
             'printed' => $data[1][18],
             'employees' => [],
 
-            'tmp' => [],
-
         ];
 
         $period = new DateTime($csv_info['printed']);
@@ -291,12 +289,57 @@ class DateTimeRecordController extends Controller
             }
 
             // employee attendance [row]
+            foreach (array_slice($data, $i+9, $days) as $att) {
 
+                for ($j = 0, $uindex = $em; $j < count($att); $j += 15, ++$uindex) {
+                    $val = implode('', array_slice($att, $j+1, 13));
 
+                    if ($val == "" || $val == "Absence" || $val == "absence") {
+                        array_push($csv_info['employees'][$uindex]->attendance, (object)[
+                            'ddww' => $att[$j],
+                            'absent' => true,
+                        ]);
+                        continue;
+                    }
+
+                    array_push($csv_info["employees"][$uindex]->attendance, (object)[
+                        'ddww' => $att[$j],
+                        'absent' => false,
+
+                        'am' => [
+                            'in' => $att[$j+1],
+                            'out' => $att[$j+3],
+                        ],
+
+                        'pm' => [
+                            'in' => $att[$j+6],
+                            'out' => $att[$j+8],
+                        ],
+
+                        'over' => [
+                            'in' => $att[$j+10],
+                            'out' => $att[$j+12],
+                        ],
+                    ]);
+
+                }
+            }
 
             $em = $uindex;
         }
+
+        $employees = [];
+
+        // [cleanup] remove any null employee records.
+        for ($j = 0; $j < count($csv_info["employees"]); ++$j)
+            if ($csv_info["employees"][$j]->name != "")
+                array_push($employees, $csv_info["employees"][$j]);
+
+        $csv_info["employees"] = $employees;
+
         dd($csv_info);
+
+        return view('dtr_contents.index')->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
 
         // employee detail
         for ($i = 2; $i < 7; ++$i) { // row
@@ -364,11 +407,8 @@ class DateTimeRecordController extends Controller
                     continue;
                 }
 
-
                 array_push($csv_info['employees'][$uindex]->attendance, (object)[
-
                     'ddww' => $data[$i][$j],
-
                     'absent' => false,
 
                     'am' => [
@@ -385,17 +425,10 @@ class DateTimeRecordController extends Controller
                         'in' => $data[$i][$j+10],
                         'out' => $data[$i][$j+12],
                     ],
-
-                 
-                
-
                 ]);
             }
         }
         
-      
-
-     
         return view('dtr_contents.index')->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
     }
 

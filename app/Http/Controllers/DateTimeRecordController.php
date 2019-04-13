@@ -8,8 +8,9 @@ use App\Imports\UserImport;
 use Excel;
 use Illuminate\Http\Request;
 use App\PayrollDate;
-
 use Carbon\Carbon;
+use DateTime;
+
 class Employee {
 
     public $bio_id, $dep, $name, $date;
@@ -217,10 +218,85 @@ class DateTimeRecordController extends Controller
 
             'period' => $data[1][3],
             'printed' => $data[1][18],
-
             'employees' => [],
 
+            'tmp' => [],
+
         ];
+
+        $period = new DateTime($csv_info['printed']);
+
+        $is_leap;
+        $days;
+
+        if (!((int)$period->format('Y') % 4)) $is_leap = false;
+        else if (!((int)$period->format('Y') % 400)) $is_leap = false;
+        else if (!((int)$period->format('Y') % 100)) $is_leap = true;
+        else $is_leap = true;
+
+        switch ((int)$period->format('m')) {
+        case 2: $days = 27+$is_leap; break;     // february should have 28 days.
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            $days = 30;
+            break;
+        default:
+            $days = 31; 
+        }
+
+        // traverses every dtr info in the standard spreadsheet file.
+        for ($i = 2, $em = 0; $i < count($data); $i += $days+10) {
+            // employee detail [row]
+            foreach (array_slice($data, $i, 5) as $k => $ems) {
+                for ($j = 0, $uindex = $em; $j < count($ems); $j += 15) {
+                    switch ($k) {
+                    case 0:
+                        array_push($csv_info["employees"], new Employee([
+                            'dep' => $ems[$j+1],
+                            'name' => $ems[$j+9],
+                        ]));
+                        break;
+                    case 1:
+                        $csv_info["employees"][$uindex]->date = $ems[$j+1];
+                        $csv_info["employees"][$uindex]->bio_id = $ems[$j+9];
+
+                        ++$uindex;
+                        break;
+                    case 4:
+                        $csv_info["employees"][$uindex]->absence = $ems[$j];
+                        $csv_info['employees'][$uindex]->leave = $ems[$j+1];
+                        $csv_info['employees'][$uindex]->btrip = $ems[$j+2];
+                        $csv_info['employees'][$uindex]->io_pp = $ems[$j+4];
+                        $csv_info['employees'][$uindex]->over = [
+                            'regular' => $ems[$j+5],
+                            'special' => $ems[$j+7],
+                        ];
+
+                        $csv_info['employees'][$uindex]->tardiness = [
+                            'ts' => $ems[$j+8],
+                            'mm' => $ems[$j+9],
+                        ];
+
+                        $csv_info['employees'][$uindex]->early_leave = [
+                            'ts' => $ems[$j+11],
+                            'mm' => $ems[$j+13],
+                        ];
+
+                        ++$uindex;
+                        break;
+                    }
+                }
+            }
+
+            // employee attendance [row]
+
+
+
+            $em = $uindex;
+        }
+        dd($csv_info);
 
         // employee detail
         for ($i = 2; $i < 7; ++$i) { // row
@@ -323,47 +399,4 @@ class DateTimeRecordController extends Controller
         return view('dtr_contents.index')->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
     }
 
-
-    // public function records(Request $request) {
-
-    //     // if($request->hasfile('upload-file')){
-    //     //     Excel::load($request->file('upload-file')->getRealPath(), function ($reader) {
-    //     //         foreach ($reader->toArray() as $key => $row) {
-    //     //             $data['user_id'] = $row['user_id'];
-    //     //             $data['date'] = $row['date'];
-
-                   
-    //     //         }
-    //     //     });
-    //     // }
-    //     // else{
-    //     //     dd('q');
-    //     // }
-
-        
-    //     $upload = $request->file('upload-file');
-        
-    //     $filePath = $upload->getRealPath();
-
-    //     $header = null;
-    //     $data = array();
-
-    //     if (($handle = fopen($filePath, 'r')) !== false)
-    //     {
-    //         while (($row = fgetcsv($handle, 1000)) !== false)
-    //         {
-
-    //             array_push($data, $row);
-    //             if (!$header)
-    //                  $header = $row;
-    //             else
-    //                 $data[] = array_combine($header, $row);
-    //         }
-          
-    //         fclose($handle);
-    //     }
-
-           
-    //     return view('dtr_contents.index' , compact('data'));
-    // }
 }

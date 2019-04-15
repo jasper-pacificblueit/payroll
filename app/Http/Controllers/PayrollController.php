@@ -30,7 +30,12 @@ class PayrollController extends Controller
      */
     public function create()
     {
-        //
+        dd('hello');
+    }
+
+    public function makePayroll(Request $request)
+    {
+        dd($request->start);
     }
 
     /**

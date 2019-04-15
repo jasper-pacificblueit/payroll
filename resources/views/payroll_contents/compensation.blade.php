@@ -16,26 +16,69 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
             Create Payroll
         </button>
-        <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content animated flipInY">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                
                         <h4 class="modal-title">Create Payroll</h4>
-                        <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+                        
                     </div>
+                    <form method="POST" action="payroll/makePayroll">
+                        {{ csrf_field() }}
                     <div class="modal-body">
+                       
                         <div class="row">
                             <div class="col-lg-12">
-                                asdasdsad
+                                <div class="form-group" id="data_5">
+                                    <label class="font-normal">Date range select</label>
+                                    @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->first())
+                                    <?php
+                                        $start = date("m/d/Y" , strtotime($checkPayroll->start));
+                                        $end = date("m/d/Y" , strtotime($checkPayroll->end));
+                                    ?>
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <input type="text" class="input-sm form-control" name="start" value="{{$start}}">
+                                        <span class="input-group-addon">to</span>
+                                        <input type="text" class="input-sm form-control" name="end"  value="{{$end}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label class="font-normal">Select Employees</label>
+                                @php( $employeeList = \App\DateTimeRecord::distinct()->get(['user_id']))
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Department</th>
+                                        <th>Position</th>
+                                        <th>Total Hours</th>
+                                        <th>Total Days</th>
+                                        <th>Warning</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($employeeList as $employee)
+                                        <tr>
+                                            @php( $profile = \App\Profile::find($employee->user_id))
+                                            <td>{{$profile->fname}} {{$profile->lname}}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
                     </div>
+                </form>
                 </div>
             </div>
         </div>

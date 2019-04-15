@@ -1,11 +1,13 @@
 @extends('layouts.master')
 
-@section('title', 'Attendance Report')
+@section('title', 'Payroll')
 
 @section('styles')
 
 {!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
 {!! Html::style('css/plugins/select2/select2.min.css') !!}
+{!! Html::style('css/plugins/daterangepicker/daterangepicker-bs3.css') !!}
+{!! Html::style('css/plugins/datapicker/datepicker3.css') !!}
 
 @endsection
 @section('content')
@@ -68,6 +70,9 @@
 
 {!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
 {!! Html::script('js/plugins/select2/select2.full.min.js') !!}
+{!! Html::script('js/plugins/daterangepicker/daterangepicker.js') !!}
+{!! Html::script('js/plugins/datapicker/bootstrap-datepicker.js') !!}
+
 
 <script>
     $(document).ready(function(){
@@ -100,7 +105,14 @@
                 placeholder: "Select a state",
                 allowClear: true
             });
+           
+            $('#data_5 .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
 
+       
 
     });
 

@@ -8,7 +8,8 @@
     <meta id="_token" value="{!! csrf_token() !!}">
 
     <title>@yield('title')</title>
-    {{ Html::favicon( 'img/placeholder.jpg' ) }}
+
+    {{ Html::favicon('img/placeholder.jpg') }}
 
     {!! Html::style('css/bootstrap.min.css') !!}
     {!! Html::style('font-awesome/css/font-awesome.css') !!}
@@ -24,7 +25,6 @@
     $profile->image = (array)json_decode($profile->image);
 
 @endphp
-{{--<body class="skin-3">--}}
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
@@ -41,21 +41,19 @@
                                     <strong class="font-bold">{!! App\User::$positions[auth()->user()->position] !!}</strong>
                                 </span>
                                 <span class="text-muted text-xs block">
-
-                                    <b class="caret"></b></span>
+                                    <b class="caret"></b>
+                                </span>
                             </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li class="{{ Request::path() == 'profile' ? 'active' : '' }}">
-                                <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                              document.getElementById('logout-form').submit();">
-                                              <i class="fa fa-sign-out"></i> <span class="nav-label">Logout</span></a>
-                                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                                        
-                            </ul>
+                            <li>
+                                <a onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                  <i class="fa fa-sign-out"></i>
+                                  <span class="nav-label">Logout</span>
+                                </a>
+                            </li>  
+                        </ul>
                     </div>
                     <div class="logo-element">
                         PMR
@@ -64,10 +62,8 @@
 
                 {{--side menus start--}}
 
-                
-
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
-                    <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
+                    <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
                 <li class="{{ Request::path() == '' ? 'active' : '' }}">
                     <a href="/payroll"><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
@@ -127,7 +123,7 @@
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                            <i class="fa fa-sign-out"></i> Logout
+                            <i class="fa fa-sign-out"></i>Logout
                         </a>
                     </li>
                 </ul>
@@ -135,22 +131,17 @@
             </nav>
         </div>
 
-
      
             @yield('content')
-     
 
-
-        <br>
         <div class="footer">
             <div class='text-right'>
                 <strong>Powered By:</strong> <a href="https://www.pacificblueit.com" target="_blank" >Pacific Blue I.T. &copy; {{ Date('Y') }}</a>
             </div>
         </div>
-
-
     </div>
 </div>
+
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
     {{ csrf_field() }}
 </form>
@@ -167,5 +158,4 @@
 @yield('scripts')
 
 </body>
-
 </html>

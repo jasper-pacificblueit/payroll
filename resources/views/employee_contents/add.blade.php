@@ -3,7 +3,6 @@
 @section('title', 'Employee')
 
 @section('content')
-
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
             <h2>Manage Employee</h2>

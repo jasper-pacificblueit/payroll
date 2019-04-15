@@ -18,7 +18,7 @@
             <!-- Pre-Load JS's -->
     <!-- <script src="main.js"></script> -->
 </head>
-<body style='background-color: rgb(14, 154, 239, .2)'>
+<body class='skin-1'>
 
 @yield('content')
 

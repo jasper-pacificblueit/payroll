@@ -427,51 +427,14 @@
                 <div class="col-lg-12" >
                     <label>Recent file uploaded</label>
                     <div class="hr-line-dashed"></div>
-                    @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->first())
-                    @if (App\PayrollDate::orderBy('id' , 'DESC')->count() > 0)
+                    @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->count())
 
-                    <h4>Payroll Date: {{date("M d" , strtotime($checkPayroll->start))}} - {{date("M d Y" , strtotime($checkPayroll->end))}}</h4>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                             <th>Employee</th>
-                             <th>Department</th>
-                             <th>Position</th>
-                             <th>Total Days</th>
-                             <th>Total Hours</th>     
-                            </tr>
-                        </thead>
-                        <?php $totalHours = 0; $dayCount = 0;?>
-                        @php( $employeeList = \App\DateTimeRecord::distinct()->get(['user_id']))
-                    
-                        @foreach ($employeeList as $employee)
-                            <tr>
-                                 @php( $profile = \App\Profile::find($employee->user_id))
-                                 <td>{{$profile->fname}} {{$profile->lname}}</td>
-                                 <td>--</td>
-                                 <td>--</td>
-                                 @php( $attendances = \App\DateTimeRecord::all()->where('user_id' , '=' , $employee->user_id , 'AND' , 'date', '>=' , $checkPayroll->start , 'date' , '<=' , $checkPayroll->end))
-                               
-                                 @foreach ($attendances as $attendance)
-                                     <?php
-                                         $dayCount++;
-                                         $totalHours += $attendance->total_hours;
-                                     ?>
-                                 @endforeach
-                                 <td>{{$dayCount}}</td>
-                                 <td>{{$totalHours}}</td>
-                             
-                             
-                                 
-                            </tr>
-                        @endforeach
-                     </table>
-                     @else
-                     <p>No file uploaded</p>
-                     @endif
                   
+
                     <div class="row">
                         <div class="col-sm-12 m-b-xs">
+                            <span>{{$checkPayroll}}</span>
+                            
                             <a href="#">See more details</a>
                         </div>
                    </div>

@@ -136,10 +136,9 @@
         </div>
 
 
-        <div style='margin-top: 5px'>
+     
             @yield('content')
-        </div>
-        
+     
 
 
         <br>

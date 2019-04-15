@@ -337,7 +337,6 @@ class DateTimeRecordController extends Controller
 
         $csv_info["employees"] = $employees;
 
-        dd($csv_info);
 
         return view('dtr_contents.index')->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
 

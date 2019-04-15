@@ -34,6 +34,7 @@
                     <h4>Payroll Date : {{date("M d Y" , strtotime($payrollDate1))}} -  {{date("M d Y" , strtotime($payrollDate2))}}</h4>
                    
                    
+                        
                     <br>
                     <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover dataTables-example" >
@@ -177,6 +178,7 @@
                                                                 <td>--</td>   
                                                                 <td><b style="color:red">Absent</b></td>
                                                                
+                                                                
                                                             @else
 
                                                             <?php
@@ -230,7 +232,7 @@
                                                             <th>&nbsp;</th>
                                                             <th>{{$totalHrs}}</th>
                                                             
-                                                            <br>
+                                                            <Br>
                                                         </tr>
                                                 </tbody>
                                             </table>
@@ -248,6 +250,7 @@
         </div>
  </div> 
  @endforeach
+
  <div class="modal inmodal fade" id="showWarning" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -375,6 +378,8 @@
   
 @else
     <div class="row">
+        
+
         <div class="col-lg-6">
            
             <div class="row">
@@ -387,6 +392,7 @@
                             <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" name="upload-file" required></span>
                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                         </div>
+                       
                         
                 </div>
                
@@ -394,11 +400,25 @@
            
             <div class="row">
                 <div class="col-lg-2">
-                    <button type="submit" class="btn btn-success">View</button>
+                    <button type="submit" class="form-control">View</button>
                     </form>
                 </div>
             </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12 m-b-xs">
+                    <h4>Export File Format</h4>
+                    <div class="btn-group">
+                        <button class="btn btn-white" type="button">xlsx</button>
+                        <button class="btn btn-white" type="button">csv</button>
+                        <button class="btn btn-white" type="button">xls</button>
+                    </div>
 
+
+                </div>
+           </div>
+           
+       
         </div>
 
         <div class="col-lg-6">
@@ -407,51 +427,14 @@
                 <div class="col-lg-12" >
                     <label>Recent file uploaded</label>
                     <div class="hr-line-dashed"></div>
-                    @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->first())
-                    @if (App\PayrollDate::orderBy('id' , 'DESC')->count() > 0)
+                    @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->count())
 
-                    <h4>Payroll Date: {{date("M d" , strtotime($checkPayroll->start))}} - {{date("M d Y" , strtotime($checkPayroll->end))}}</h4>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                             <th>Employee</th>
-                             <th>Department</th>
-                             <th>Position</th>
-                             <th>Total Days</th>
-                             <th>Total Hours</th>     
-                            </tr>
-                        </thead>
-                        <?php $totalHours = 0; $dayCount = 0;?>
-                        @php( $employeeList = \App\DateTimeRecord::distinct()->get(['user_id']))
-                    
-                        @foreach ($employeeList as $employee)
-                            <tr>
-                                 @php( $profile = \App\Profile::find($employee->user_id))
-                                 <td>{{$profile->fname}} {{$profile->lname}}</td>
-                                 <td>--</td>
-                                 <td>--</td>
-                                 @php( $attendances = \App\DateTimeRecord::all()->where('user_id' , '=' , $employee->user_id , 'AND' , 'date', '>=' , $checkPayroll->start , 'date' , '<=' , $checkPayroll->end))
-                               
-                                 @foreach ($attendances as $attendance)
-                                     <?php
-                                         $dayCount++;
-                                         $totalHours += $attendance->total_hours;
-                                     ?>
-                                 @endforeach
-                                 <td>{{$dayCount}}</td>
-                                 <td>{{$totalHours}}</td>
-                             
-                             
-                                 
-                            </tr>
-                        @endforeach
-                     </table>
-                     @else
-                     <p>No file uploaded</p>
-                     @endif
                   
+
                     <div class="row">
                         <div class="col-sm-12 m-b-xs">
+                            <span>{{$checkPayroll}}</span>
+                            
                             <a href="#">See more details</a>
                         </div>
                    </div>

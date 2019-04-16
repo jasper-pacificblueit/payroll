@@ -22,12 +22,17 @@ class PayrollController extends Controller
     public function index(Request $request)
     {
         $payrollDate = \App\Payroll::orderBy('id' , 'DESC')->first();
-
+        
         if(isset($request->selectDate)){
             $payroll_id = $request->selectDate;
         }
         else{
-            $payroll_id = $payrollDate->id;
+           if(count($payrollDate) > 0){
+             $payroll_id = $payrollDate->id;
+           }
+           else{
+             $payroll_id = NULL;
+           }
         }
 
         return view('payroll_contents.index' , compact('payroll_id'));

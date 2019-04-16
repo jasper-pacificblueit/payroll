@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		
 		Route::resource('/payroll', 'PayrollController');
 		Route::post('/payroll/makePayroll', 'PayrollController@makePayroll');
+		Route::post('/viewPayroll', 'PayrollController@viewPayroll');
 		
 		Route::get("/holiday", "PayrollController@holiday");
 	});

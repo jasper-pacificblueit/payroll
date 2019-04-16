@@ -73,8 +73,8 @@
 {!! Html::script('js/plugins/daterangepicker/daterangepicker.js') !!}
 {!! Html::script('js/plugins/datapicker/bootstrap-datepicker.js') !!}
 
-
 <script>
+    
     $(document).ready(function(){
         $('.dataTables-example').DataTable({
             pageLength: 10,
@@ -116,8 +116,7 @@
 
     });
 
+    document.getElementById('selectDate').value = {{$payroll_id}};
+    
 </script>
-
-
-
 @endsection

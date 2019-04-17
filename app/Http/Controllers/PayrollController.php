@@ -27,14 +27,15 @@ class PayrollController extends Controller
             $payroll_id = $request->selectDate;
         }
         else{
-           if(count($payrollDate) > 0){
+            $row = Payroll::orderBy('id' , 'DESC')->count();
+           if($row > 0){
              $payroll_id = $payrollDate->id;
            }
            else{
              $payroll_id = NULL;
            }
         }
-
+        dd($payroll_id);
         return view('payroll_contents.index' , compact('payroll_id'));
     }
 

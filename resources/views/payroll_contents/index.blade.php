@@ -1,9 +1,15 @@
 @extends('layouts.master')
 
-@section('title', 'Attendance Report')
+@section('title', 'Payroll')
 
 @section('styles')
 
+{!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
+{!! Html::style('css/plugins/select2/select2.min.css') !!}
+{!! Html::style('css/plugins/daterangepicker/daterangepicker-bs3.css') !!}
+{!! Html::style('css/plugins/datapicker/datepicker3.css') !!}
+
+@endsection
 @section('content')
 
 
@@ -26,25 +32,27 @@
     <div class="wrapper wrapper-content no-padding">
         <div class="wrapper wrapper-content no-padding">
 
+             <div class="row">
                 <div class="col-lg-12">
-                        <div class="tabs-container">
-                            <ul class="nav nav-tabs">
-                                <li class="{{Request::path() == 'payroll' ? 'active' : '' }}"><a href="/payroll">Compensation</a></li>
-                               
-                            </ul>
-                            <div class="tab-content">
-                                <div id="compensation" class="tab-pane {{ Request::path() == 'payroll' ? 'active' : '' }}">
-                                    <div class="panel-body">
-                                        @include('payroll_contents.compensation')
-                                    </div>
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="{{Request::path() == 'payroll' ? 'active' : '' }}"><a href="/payroll">Compensation</a></li>
+                           
+                        </ul>
+                        <div class="tab-content">
+                            <div id="compensation" class="tab-pane {{ Request::path() == 'payroll' ? 'active' : '' }}">
+                                <div class="panel-body">
+                                    @include('payroll_contents.compensation')
                                 </div>
-                               
                             </div>
-    
-    
+                           
                         </div>
+
+
                     </div>
-           
+                </div>
+       
+             </div>
         </div>
     </div>
     
@@ -60,14 +68,55 @@
 {!! Html::script('js/plugins/pace/pace.min.js') !!}
 {!! Html::script('js/plugins/footable/footable.all.min.js') !!}
 
+{!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
+{!! Html::script('js/plugins/select2/select2.full.min.js') !!}
+{!! Html::script('js/plugins/daterangepicker/daterangepicker.js') !!}
+{!! Html::script('js/plugins/datapicker/bootstrap-datepicker.js') !!}
 
- 
 <script>
-        $(document).ready(function(){
-            
-         
+    
+    $(document).ready(function(){
+        $('.dataTables-example').DataTable({
+            pageLength: 10,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel', title: 'ExampleFile'},
+                {extend: 'pdf', title: 'ExampleFile'},
+
+                {extend: 'print',
+                 customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                }
+                }
+            ]
+
         });
+        $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Select a state",
+                allowClear: true
+            });
+           
+            $('#data_5 .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
 
-    </script>
+       
 
+    });
+
+    document.getElementById('selectDate').value = {{$payroll_id}};
+    
+</script>
 @endsection

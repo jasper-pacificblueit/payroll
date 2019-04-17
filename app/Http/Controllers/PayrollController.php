@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Payroll;
 
 class PayrollController extends Controller
 {
@@ -18,9 +19,23 @@ class PayrollController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('payroll_contents.index');
+        $payrollDate = \App\Payroll::orderBy('id' , 'DESC')->first();
+        
+        if(isset($request->selectDate)){
+            $payroll_id = $request->selectDate;
+        }
+        else{
+           if(count($payrollDate) > 0){
+             $payroll_id = $payrollDate->id;
+           }
+           else{
+             $payroll_id = NULL;
+           }
+        }
+
+        return view('payroll_contents.index' , compact('payroll_id'));
     }
 
     /**
@@ -30,7 +45,21 @@ class PayrollController extends Controller
      */
     public function create()
     {
-        //
+       
+    }
+
+    public function makePayroll(Request $request)
+    {
+        $payroll = new Payroll;
+        $payroll->start = date("Y-m-d", strtotime($request->start));
+        $payroll->end = date("Y-m-d", strtotime($request->end));
+        $payroll->save();
+        return redirect('payroll');
+    }
+
+    public function viewPayroll(Request $request)
+    {
+       return view('payroll_contents.index');
     }
 
     /**

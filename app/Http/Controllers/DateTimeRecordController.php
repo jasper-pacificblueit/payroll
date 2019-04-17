@@ -338,8 +338,67 @@ class DateTimeRecordController extends Controller
 
         $csv_info["employees"] = $employees;
 
+<<<<<<< HEAD
         return view('dtr_contents.index')
           ->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
+=======
+
+        return view('dtr_contents.index')->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
+
+        // employee detail
+        for ($i = 2; $i < 7; ++$i) { // row
+
+            $uindex = 0;
+
+            for ($j = 0; $j < count($data[$i]); $j += 15) {
+                switch ($i) {
+                case 2:
+                    array_push($csv_info['employees'], new Employee([
+                        'dep' => $data[$i][$j+1],
+                        'name' => $data[$i][$j+9]
+                    ]));
+                    break;
+                case 3:
+                    $csv_info['employees'][$uindex]->date = $data[$i][$j+1];
+                    $csv_info['employees'][$uindex]->bio_id = $data[$i][$j+9];
+
+                    ++$uindex;
+                    break;
+                case 6:
+                    $csv_info['employees'][$uindex]->absence = $data[$i][$j];
+                    $csv_info['employees'][$uindex]->leave = $data[$i][$j+1];
+                    $csv_info['employees'][$uindex]->btrip = $data[$i][$j+2];
+                    $csv_info['employees'][$uindex]->io_pp = $data[$i][$j+4];
+                    $csv_info['employees'][$uindex]->over = [
+                        'regular' => $data[$i][$j+5],
+                        'special' => $data[$i][$j+7],
+                    ];
+
+                    $csv_info['employees'][$uindex]->tardiness = [
+                        'ts' => $data[$i][$j+8],
+                        'mm' => $data[$i][$j+9],
+                    ];
+
+                    $csv_info['employees'][$uindex]->early_leave = [
+                        'ts' => $data[$i][$j+11],
+                        'mm' => $data[$i][$j+13],
+                    ];
+                    ++$uindex;
+                    break;
+
+                }
+            }
+        }
+
+        // attendance table
+        for ($i = 11; $i < count($data); ++$i) {
+
+            if (!$data[$i][0]) break;
+
+            $uindex = 0;
+
+            for ($j = 0; $j < count($data[$i]); $j += 15, ++$uindex) {
+>>>>>>> 4ec2c2d6dd81e8dc7222f754acaa62ddad866d82
 
     }
 

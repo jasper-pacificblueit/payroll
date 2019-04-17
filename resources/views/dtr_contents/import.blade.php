@@ -14,6 +14,7 @@
                         else{
                             $year2 = $year1;
                         }
+                        
                         $startMonth = "{$period[5]}{$period[6]}";
                         $startDay = "{$period[8]}{$period[9]}";
 
@@ -23,14 +24,9 @@
                         $payrollDate1 = "{$year1}/{$startMonth}/{$startDay}";
                         $payrollDate2 = "{$year2}/{$endMonth}/{$endDay}";
 
-
+                        $days = GetDays($payrollDate1 , $payrollDate2);
                         
                       @endphp
-                       <?php
-                       $days = GetDays($payrollDate1 , $payrollDate2);
-
-                      
-                       ?>
                     <h4>Payroll Date : {{date("M d Y" , strtotime($payrollDate1))}} -  {{date("M d Y" , strtotime($payrollDate2))}}</h4>
                    
                    
@@ -49,11 +45,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                               
-                                   
-
-
-                            
                                 @foreach ($csv_info->employees as $employee)
                                     <tr>
                                         <td>{{$employee->bio_id}}</td>

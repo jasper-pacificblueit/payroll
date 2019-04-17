@@ -1,12 +1,66 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
 use Carbon\Carbon;
 
 
 class UsersTableSeeder extends Seeder
 {
+    protected static function dummy() {
+
+        // random employee
+        factory(App\User::class, 16)->create()->each(function ($user) {
+            $faker = Faker\Factory::create();
+            
+            // profile
+            $user->profile()->save(new App\Profile([
+                'user_id' => $user->id,
+                'fname' => $faker->unique()->firstName,
+                'gender' => $faker->boolean,
+                'lname' => $faker->unique()->lastName,
+                'mname' => $faker->unique()->lastName,
+                'birthdate' => now(),
+                'age' => rand(1, 40),
+                'image' => json_encode([
+                      'data' => "/img/landing/avatar_anonymous.png",
+                      'path' => "/img/landing/avatar_anonymous.png",
+                ]),
+            ]));
+
+            // contact
+            $user->contacts()->save(new App\Contact([
+                'address' => $faker->address,
+                'user_id' => $user->id,
+                'phone' => rand(1, 1e10),
+                'mobile' => rand(1, 1e10),
+                'email' => $user->email,
+            ]));
+
+            // user's employee detail
+            $user->employee()->save(new App\Employee([
+                'user_id' => $user->id,
+                'company_id' => 1,
+                'department_id' => 
+                    $faker->randomElement(App\Department::find(1)->pluck('id')->toArray()),
+            ]));
+        });
+
+        foreach(DatabaseSeeder::employees() as $em) {
+
+            $user = new App\User($em->users);
+
+            $user->save();
+
+            $em->employees["user_id"] = $user->id;
+            $em->profiles["user_id"] = $user->id;
+            $em->contacts["user_id"] = $user->id;
+
+            (new App\Employee($em->employees))->save();
+            (new App\Profile($em->profiles))->save();
+            (new App\Contact($em->contacts))->save();
+        }
+    }
+
     /**
      * Run the database seeds.
      *
@@ -14,7 +68,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+        self::dummy();
     }
 
     public static function create($userInfo) {

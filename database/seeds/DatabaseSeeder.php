@@ -63,6 +63,92 @@ class DatabaseSeeder extends Seeder
         
     }
 
+    public static function employees() {
+        return [
+            (object)[
+                'users' => [
+                    'user' => 'jasper',
+                    'position' => 'employee',
+                    'email' => 'example@example1.com',
+                    'password' => bcrypt('jasper')
+                ],
+                'contacts' => [
+                    'phone' => '',
+                    'mobile' => '',
+                    'address' => '',
+                    'email' => 'example@example1.com',
+                ],
+                'profiles' => [
+                    'gender' => 1,
+                    'fname' => 'Jasper',
+                    'lname' => 'Garcera',
+                    'mname' => '',
+                    'age' => 0,
+                    'birthdate' => now(),
+                ],
+                'employees' => [
+                    'company_id' => 1,
+                    'department_id' => 2,
+                ]
+
+            ],
+            (object)[
+                'users' => [
+                    'user' => 'angie',
+                    'position' => 'employee',
+                    'email' => 'example@example2.com',
+                    'password' => bcrypt('angie')
+                ],
+                'contacts' => [
+                    'phone' => '',
+                    'mobile' => '',
+                    'address' => '',
+                    'email' => 'example@example2.com',
+                ],
+                'profiles' => [
+                    'gender' => 0,
+                    'fname' => 'Angelie',
+                    'lname' => 'Orosco',
+                    'mname' => '',
+                    'age' => 0,
+                    'birthdate' => now(),
+                ],
+                'employees' => [
+                    'company_id' => 1,
+                    'department_id' => 2,
+                ]
+
+            ],
+            (object)[
+                'users' => [
+                    'user' => 'saturnino',
+                    'position' => 'employee',
+                    'email' => 'example@example3.com',
+                    'password' => bcrypt('saturnino')
+                ],
+                'contacts' => [
+                    'phone' => '',
+                    'mobile' => '',
+                    'address' => '',
+                    'email' => 'example@example3.com',
+                ],
+                'profiles' => [
+                    'gender' => 1,
+                    'fname' => 'Saturnino',
+                    'lname' => 'Adral',
+                    'mname' => '',
+                    'age' => 0,
+                    'birthdate' => now(),
+                ],
+                'employees' => [
+                    'company_id' => 1,
+                    'department_id' => 2,
+                ]
+
+            ]
+        ];
+    }
+
     public static function default() {
 
         $company = (object)[
@@ -96,7 +182,6 @@ class DatabaseSeeder extends Seeder
 
             $defaultDepartment->save();
         }
-
 
     }
 }

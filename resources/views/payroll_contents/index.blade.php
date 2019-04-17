@@ -40,7 +40,6 @@
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
                             <li class="{{Request::path() == 'payroll' ? 'active' : '' }}"><a href="/payroll">Compensation</a></li>
-                           
                         </ul>
                         <div class="tab-content">
                             <div id="compensation" class="tab-pane {{ Request::path() == 'payroll' ? 'active' : '' }}">

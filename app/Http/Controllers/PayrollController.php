@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Payroll;
-
 class PayrollController extends Controller
 {
     /**
@@ -21,6 +20,7 @@ class PayrollController extends Controller
 
     public function index(Request $request)
     {
+        
         $payrollDate = \App\Payroll::orderBy('id' , 'DESC')->first();
         
         if(isset($request->selectDate)){
@@ -50,11 +50,9 @@ class PayrollController extends Controller
 
     public function makePayroll(Request $request)
     {
-        $payroll = new Payroll;
-        $payroll->start = date("Y-m-d", strtotime($request->start));
-        $payroll->end = date("Y-m-d", strtotime($request->end));
-        $payroll->save();
-        return redirect('payroll');
+
+      
+        
     }
 
     public function viewPayroll(Request $request)
@@ -69,8 +67,36 @@ class PayrollController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    { 
+
+         $attendances = \App\DateTimeRecord::all()->where('date', '>=' , date("Y-m-d" , strtotime($request->start)) ,'AND', 'date' , '<=' , date("Y-m-d", strtotime($request->end)));
+        
+
+      
+        if(count($attendances) > 0 && count($request->employee)){
+            $payroll = new Payroll;
+            $payroll->start = date("Y-m-d", strtotime($request->start));
+            $payroll->end = date("Y-m-d", strtotime($request->end));
+            $payroll->save();
+        }
+        else{
+            $status = 'danger';
+        }
+      
+        $payrollDate = \App\Payroll::orderBy('id' , 'DESC')->first();
+        
+        if(isset($request->selectDate)){
+            $payroll_id = $request->selectDate;
+        }
+        else{
+           if(count($payrollDate) > 0){
+             $payroll_id = $payrollDate->id;
+           }
+           else{
+             $payroll_id = NULL;
+           }
+        }
+        return view('payroll_contents.index' ,compact('payroll_id' , 'status'));
     }
 
     /**

@@ -327,9 +327,10 @@
                                                 @endforeach
                                                 </td>
                                                 <td>
-                                                    @php( $EmployeeInfos = \App\Profile::all() )
+                                                    @php( $EmployeeInfos = \App\Profile::all())
                                                     
                                                     <select name="UserID[{{$employee->bio_id}}][]" id="" class="form-control">
+                                                      
                                                         @foreach ($EmployeeInfos as $EmployeInfo)
                                                             <option value="{{$EmployeInfo->user_id}}">{{$EmployeInfo->fname}} {{$EmployeInfo->lname}}</option>
                                                         @endforeach
@@ -351,8 +352,8 @@
                 {!! Form::hidden('days', json_encode($days)) !!}
                 
 
-                <input type="date" name="payrollDate1" value="{{date("Y-m-d" , strtotime($payrollDate1))}}">
-                <input type="date" name="payrollDate2" value="{{date("Y-m-d" , strtotime($payrollDate2))}}">
+                <input type="date" name="payrollDate1" value="{{date("Y-m-d" , strtotime($payrollDate1))}}" hidden>
+                <input type="date" name="payrollDate2" value="{{date("Y-m-d" , strtotime($payrollDate2))}}" hidden>
                 
 
                 <div class="modal-footer">  

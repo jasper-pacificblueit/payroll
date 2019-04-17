@@ -19,6 +19,8 @@ class CreateEmployeesTable extends Migration
             $table->integer('company_id')->unsigned();
             $table->integer('department_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->integer('bio_id')->nullable();
+            
 
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');

@@ -8,6 +8,9 @@
 {!! Html::style('css/plugins/select2/select2.min.css') !!}
 {!! Html::style('css/plugins/daterangepicker/daterangepicker-bs3.css') !!}
 {!! Html::style('css/plugins/datapicker/datepicker3.css') !!}
+{!! Html::style('css/plugins/iCheck/custom.css') !!}
+
+
 
 @endsection
 @section('content')
@@ -42,6 +45,11 @@
                         <div class="tab-content">
                             <div id="compensation" class="tab-pane {{ Request::path() == 'payroll' ? 'active' : '' }}">
                                 <div class="panel-body">
+                                        @if (isset($status))
+                                        <div class="alert alert-{{$status}}">
+                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea similique dolore assumenda magnam minus quae consequatur deserunt! Illum iusto odit officia alias cumque ratione ad voluptatem iure? Omnis, quaerat excepturi.
+                                        </div>
+                                        @endif
                                     @include('payroll_contents.compensation')
                                 </div>
                             </div>
@@ -72,10 +80,12 @@
 {!! Html::script('js/plugins/select2/select2.full.min.js') !!}
 {!! Html::script('js/plugins/daterangepicker/daterangepicker.js') !!}
 {!! Html::script('js/plugins/datapicker/bootstrap-datepicker.js') !!}
+{!! Html::script('js/plugins/iCheck/icheck.min.js') !!}
 
 <script>
     
     $(document).ready(function(){
+
         $('.dataTables-example').DataTable({
             pageLength: 10,
             responsive: true,
@@ -116,7 +126,7 @@
 
     });
 
-    document.getElementById('selectDate').value = {{$payroll_id}};
+   
     
 </script>
 @endsection

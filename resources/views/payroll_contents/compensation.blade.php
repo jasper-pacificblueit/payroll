@@ -18,7 +18,9 @@
             </select>
             
         </form>
-        
+        <script>
+            document.getElementById('selectDate').value = {{$payroll_id}};
+        </script>
     </div>
 
     <div class="col-lg-1">
@@ -35,7 +37,7 @@
                         <h4 class="modal-title">Create Payroll</h4>
                         
                     </div>
-                    <form method="POST" action="payroll/makePayroll">
+                    <form method="POST" action="payroll">
                         {{ csrf_field() }}
                     <div class="modal-body">
                         @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->first())
@@ -66,6 +68,7 @@
                                     <table class="table">
                                         <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Employee</th>
                                             <th>Department</th>
                                             <th>Position</th>
@@ -78,6 +81,8 @@
                                         <tbody>
                                         @foreach ($employeeList as $employee)
                                             <tr>
+                                                <td><input type="checkbox" class="i-checks" name="employee[]" value="{{$employee->user_id}}"></td>
+
                                                 @php( $profile = \App\Profile::find($employee->user_id))
                                                 <td>{{$profile->fname}} {{$profile->lname}}</td>
 
@@ -89,14 +94,29 @@
                                 </div>
                             </div>   
                         @else
-                            <h4>No attendance available <Br><Br> Please import your daily time record first :(</h4>
+                        <div class="ibox-content">
+                            <h4>No Available Data</h4>
+                            <Br>
+                            <p>Lorem ipsum <strong>eget urna mollis</strong> ornare vel eu leo. <em>Cum sociisnatoque penatibus</em> et magnis dis parturient montes, <code>code</code> nascetur
+                                ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed euismod aliquet sapien consequat tincidunt.</p>
+            
+                            <p>Vivamus sagittis lacus vel augue laoreet <abbr title="" data-original-title="Sample abbreviation">rutrum faucibus dolor auctor</abbr>. Duis mollis, est non commodo
+                                luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec sed odio dui. Sed euismod aliquet sapien consequat tincidunt.</p>
+            
+                            <p>
+                                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual.
+                            </p>
+                        </div>
                         @endif
                         
                         
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        @if (count($checkPayroll) > 0)
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        @endif
+                        
                     </div>
                 </form>
                 </div>
@@ -107,43 +127,28 @@
 </div>
 <Br>
 <div class="row">
-   
-    <div class="col-lg-12">
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dataTables-example" >
-            <thead>
-            <tr>
-                <th>Employee</th>
-                <th>Department</th>
-                <th>Position</th>
-                <th>Income</th>
-                <th>Deduction</th>
-                <th>Net Pay</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-                @php( $date = \App\Payroll::find($payroll_id))
 
-                @php( $employees = \App\DateTimeRecord::distinct()->get(['user_id']))
-                
-                @foreach ($employees as $employee)
-                    <tr>
-                        @php( $profile = \App\Profile::find($employee->user_id))
-                        <td>{{$profile->fname}} {{$profile->lname}}</td>
-                        <td><small>(incomplete module)</small></td>
-                        <td><small>(incomplete module)</small></td>
-                        <td><small>(rate module inc)</small></td>
-                        <td><small>(deduction module inc)</small></td>
-                        <td>--</td>
-                        <td><button class="btn btn-default btn-sm">Full Details</button></td>
-                        
-                    </tr>
-                @endforeach
-               
-            </tbody>
-            <tfoot>
-            <tr>
+    @if ($payroll_id == NULL)
+        <div class="col-lg-12">
+            <div class="ibox-content">
+                <p>Lorem ipsum <strong>eget urna mollis</strong> ornare vel eu leo. <em>Cum sociisnatoque penatibus</em> et magnis dis parturient montes, <code>code</code> nascetur
+                    ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed euismod aliquet sapien consequat tincidunt.</p>
+
+                <p>Vivamus sagittis lacus vel augue laoreet <abbr title="" data-original-title="Sample abbreviation">rutrum faucibus dolor auctor</abbr>. Duis mollis, est non commodo
+                    luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec sed odio dui. Sed euismod aliquet sapien consequat tincidunt.</p>
+
+                <p>
+                    But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual.
+                </p>
+            </div>
+
+        </div>
+    @else
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                <thead>
+                <tr>
                     <th>Employee</th>
                     <th>Department</th>
                     <th>Position</th>
@@ -151,10 +156,43 @@
                     <th>Deduction</th>
                     <th>Net Pay</th>
                     <th>Action</th>
-            </tr>
-            </tfoot>
-            </table>
-        </div>
+                </tr>
+                </thead>
+                <tbody>
+                    @php( $date = \App\Payroll::find($payroll_id))
 
-    </div>
+                    @php( $employees = \App\DateTimeRecord::distinct()->get(['user_id']))
+                    
+                    @foreach ($employees as $employee)
+                        <tr>
+                            @php( $profile = \App\Profile::find($employee->user_id))
+                            <td>{{$profile->fname}} {{$profile->lname}}</td>
+                            <td><small>({{$date->start}})</small></td>
+                            <td><small>(incomplete module)</small></td>
+                            <td><small>(rate module inc)</small></td>
+                            <td><small>(deduction module inc)</small></td>
+                            <td>--</td>
+                            <td><button class="btn btn-default btn-sm">Full Details</button></td>
+                            
+                        </tr>
+                    @endforeach
+                
+                </tbody>
+                <tfoot>
+                <tr>
+                        <th>Employee</th>
+                        <th>Department</th>
+                        <th>Position</th>
+                        <th>Income</th>
+                        <th>Deduction</th>
+                        <th>Net Pay</th>
+                        <th>Action</th>
+                </tr>
+                </tfoot>
+                </table>
+            </div>
+
+        </div>
+    @endif
+    
 </div>

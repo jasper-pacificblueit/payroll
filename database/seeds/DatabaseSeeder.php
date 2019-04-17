@@ -85,6 +85,10 @@ class DatabaseSeeder extends Seeder
                     'mname' => '',
                     'age' => 0,
                     'birthdate' => now(),
+                    'image' => json_encode([
+                      'data' => "/img/landing/avatar_anonymous.png",
+                      'path' => "/img/landing/avatar_anonymous.png",
+                    ]),
                 ],
                 'employees' => [
                     'company_id' => 1,
@@ -112,6 +116,10 @@ class DatabaseSeeder extends Seeder
                     'mname' => '',
                     'age' => 0,
                     'birthdate' => now(),
+                    'image' => json_encode([
+                      'data' => "/img/landing/avatar_anonymous.png",
+                      'path' => "/img/landing/avatar_anonymous.png",
+                    ]),
                 ],
                 'employees' => [
                     'company_id' => 1,
@@ -139,6 +147,10 @@ class DatabaseSeeder extends Seeder
                     'mname' => '',
                     'age' => 0,
                     'birthdate' => now(),
+                    'image' => json_encode([
+                      'data' => "/img/landing/avatar_anonymous.png",
+                      'path' => "/img/landing/avatar_anonymous.png",
+                    ]),
                 ],
                 'employees' => [
                     'company_id' => 1,

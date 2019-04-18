@@ -13,8 +13,17 @@
 
     {!! Html::style('css/bootstrap.min.css') !!}
     {!! Html::style('font-awesome/css/font-awesome.css') !!}
+    {!! Html::style('css/plugins/iCheck/custom.css') !!}
     {!! Html::style('css/animate.css') !!}
     {!! Html::style('css/style.css') !!}
+    {!! Html::style('css/elegal-style.css') !!}
+    {!! Html::style('css/plugins/steps/jquery.steps.css') !!}
+    {!! Html::style('css/plugins/dropzone/basic.css') !!}
+    {!! Html::style('css/plugins/dropzone/dropzone.css') !!}
+    {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
+    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
+    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
+
 
     @yield('styles')
 </head>

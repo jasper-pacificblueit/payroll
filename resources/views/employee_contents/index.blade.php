@@ -99,84 +99,71 @@
         </div>
     </div>
 
-<!-- manage employees modal -->
-@foreach ($company as $j)
-@foreach ($j->employees as $em)
-<div class="modal inmodal fade" id="manageEmployee-{{ $em->user_id }}" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header no-padding">
-                <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-               <h4 style="padding:10px">Edit '{{ App\User::find($em->user_id)['user'] }}'</h4>
-               
-            </div>
-            <form method="POST" action="/employee/{{ $em->user_id }}">
-            {{ csrf_field() }}
-            {{ method_field('PUT') }}
-            <div class="modal-body">
-               <div class="row">
-                   <div class="col-lg-12">
-                    @hasrole('admin')
-                        <label>Change Position</label>
-                        <select class='form-control'>
-                            <option value='admin'>Administrator</option>
-                            <option value='hr'>HR</option>
-                            <option value='employee'>Employee</option>
-                        </select>
-                    @endhasrole
-                    @hasrole('admin|hr')
-                        <label>Change Permissions</label>
-                        <br>
-                        <label>Company</label>
-                        <div class=''>read</div>
-                        <div class=''>write</div>
-                        <label>Department</label>
-                        <div class='input-group'>
-                            <div class=''>read</div>
-                            <div class=''>write</div>
-                        </div>
-                        <label>Employee</label>
-                        <div class=''>read</div>
-                        <div class=''>write</div>
-                    @endhasrole
+@can('employee_write')
+    <!-- manage employees modal -->
+    @foreach ($company as $j)
+    @foreach ($j->employees as $em)
+    <div class="modal inmodal fade" id="manageEmployee-{{ $em->user_id }}" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header no-padding">
+                    <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                   <h4 style="padding:10px">Edit '{{ App\User::find($em->user_id)['user'] }}'</h4>
+                   
+                </div>
+                <form method="POST" action="/employee/{{ $em->user_id }}">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
+                <div class="modal-body">
+                   <div class="row">
+                       <div class="col-lg-12">
+                        @can('employee_write')
+                            <label>Change Position</label>
+                            <select class='form-control'>
+                                <option value='admin'>Administrator</option>
+                                <option value='hr'>HR</option>
+                                <option value='employee'>Employee</option>
+                            </select>
+                        @endcan
+                       </div>
                    </div>
-               </div>
-            </div>
+                </div>
 
-            <div class="modal-footer">
-                <div class='btn-group'>
-                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-success" name="submit">Create</button>
+                <div class="modal-footer">
+                    <div class='btn-group'>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success" name="submit">Create</button>
+                </div>
+                </div>
+                </form>
             </div>
-            </div>
-            </form>
         </div>
     </div>
-</div>
-@endforeach
-@endforeach
+    @endforeach
+    @endforeach
+@endcan
 
 <!-- usertables lists -->
 @foreach(App\Company::all() as $com)
 @foreach($com->departments as $dep)
     <template id='dep-id-{{ $dep->id }}'>
     @foreach(App\Employee::where('department_id', $dep->id)->get() as $em)
-    @if (auth()->user()->id != $em->user_id)
-    @if (App\User::find($em->user_id)['position'] != auth()->user()->position)
-        <tr>
-            <td>{{ $em->user_id }}</td>
-            <td>{{ App\Profile::getFullName($em->user_id) }}</td>
-            <td>{{ $dep->name }}</td>
-            <td>{{ App\User::find($em->user_id)['email'] }}</td>
-            <td>{{ App\User::$positions[App\User::find($em->user_id)['position']] }}</td>
-            <td>
-            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#manageEmployee-{{ $em->user_id }}">
-                Manage
-            </button>
-            </td>
-        </tr>
-    @endif
-    @endif
+        @if (auth()->user()->id != $em->user_id)
+            @if (App\User::find($em->user_id)['position'] != auth()->user()->position)
+                <tr>
+                    <td>{{ $em->id }}</td>
+                    <td>{{ App\Profile::getFullName($em->user_id) }}</td>
+                    <td>{{ $dep->name }}</td>
+                    <td>{{ App\User::find($em->user_id)['email'] }}</td>
+                    <td>{{ App\User::$positions[App\User::find($em->user_id)['position']] }}</td>
+                    <td>
+                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#manageEmployee-{{ $em->user_id }}">
+                        Manage
+                    </button>
+                    </td>
+                </tr>
+            @endif
+        @endif
     @endforeach
     </template>
 @endforeach
@@ -195,7 +182,6 @@
 {!! Html::script('js/plugins/footable/footable.all.min.js') !!}
 
 
- 
     <script>
         $(document).ready(function() {
 

@@ -18,6 +18,7 @@
     {!! Html::style('css/style.css') !!}
     {!! Html::style('css/elegal-style.css') !!}
     {!! Html::style('css/plugins/steps/jquery.steps.css') !!}
+
     {!! Html::style('css/plugins/dropzone/basic.css') !!}
     {!! Html::style('css/plugins/dropzone/dropzone.css') !!}
     {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
@@ -162,7 +163,6 @@
 {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!}
 {!! Html::script('js/plugins/slimscroll/jquery.slimscroll.min.js') !!}
 {!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
-
 
 @yield('scripts')
 

@@ -62,12 +62,13 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-	Route::get("/editprofile", "ProfileController@edit");
+	Route::get("/editprofile", "ProfileController@edit")->name('editprofile');
 	Route::post("/editprofile", "ProfileController@update");
 	
 	Route::get('/', 'HomeController@index')->name('dashboard');
 
   Route::get('/profile', 'ProfileController@index')->name('profile');
+  Route::match(['put', 'update'], '/editprofile/chpasswd', 'ProfileController@chpasswd');
 
 });
 

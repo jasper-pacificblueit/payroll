@@ -22,7 +22,6 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
-                   
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-lg-4 m-b-xs">
@@ -72,20 +71,20 @@
                                     <!--fixed-->
                                     @foreach(App\Employee::where('department_id', App\Department::where('company_id', 1)->orderBy('name', 'asc')->get()[0]->id)->get() as $em)
                                         @if (auth()->user()->id != $em->user_id)
-                                        @if (App\User::find($em->user_id)['position'] != auth()->user()->position)
-                                        <tr>
-                                            <td>{{ $em->user_id }}</td>
-                                            <td>{{ App\Profile::getFullName($em->user_id) }}</td>
-                                            <td>{{ App\Department::find($em->department_id)->name }}</td>
-                                            <td>{{ App\Profile::where('user_id', $em->user_id)->first()['email'] }}</td>
-                                            <td>{{ App\User::$positions[App\User::find($em->user_id)['position']] }}</td>
-                                            <td>
-                                            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#manageEmployee-{{ $em->user_id }}">
-                                                Manage
-                                            </button>
-                                            </td>
-                                        </tr>
-                                        @endif
+                                            @if (App\User::find($em->user_id)['position'] != auth()->user()->position)
+                                            <tr>
+                                                <td>{{ $em->user_id }}</td>
+                                                <td>{{ App\Profile::getFullName($em->user_id) }}</td>
+                                                <td>{{ App\Department::find($em->department_id)->name }}</td>
+                                                <td>{{ App\Profile::where('user_id', $em->user_id)->first()['email'] }}</td>
+                                                <td>{{ App\User::$positions[App\User::find($em->user_id)['position']] }}</td>
+                                                <td>
+                                                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#manageEmployee-{{ $em->user_id }}">
+                                                    Manage
+                                                </button>
+                                                </td>
+                                            </tr>
+                                            @endif
                                         @endif
                                     @endforeach
                                 </tbody>
@@ -218,5 +217,4 @@
 
         };
     </script>
-
 @endsection

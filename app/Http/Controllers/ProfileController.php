@@ -103,6 +103,36 @@ class ProfileController extends Controller
         return redirect()->route('profile');
     }
 
+    public function chpasswd(Request $request) {
+
+        $request->validate([
+            'current' => 'required',
+            'newpasswd' => 'required|min:5',
+            'repasswd' => 'required',
+        ]);
+
+
+        if (password_verify($request->current, auth()->user()->password)) {
+            if ($request->newpasswd != $request->repasswd)
+                return redirect()->route('profile')->withErrors([
+                    'notmatch' => 'Password did not match',
+                ]);
+
+            $user = auth()->user();
+            $user->password = bcrypt($request->newpasswd);
+            $user->save();
+
+            return redirect()->route('profile');
+        }
+
+
+        return redirect()->route('profile')->withErrors([
+            'invalid-curpasswd' => 'Invalid current password',
+
+        ]);
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *

@@ -69,7 +69,7 @@ class PayrollController extends Controller
     public function store(Request $request)
     { 
 
-         $attendances = \App\DateTimeRecord::all()->where('date', '>=' , date("Y-m-d" , strtotime($request->start)) ,'AND', 'date' , '<=' , date("Y-m-d", strtotime($request->end)));
+        $attendances = \App\DateTimeRecord::all()->where('date', '>=' , date("Y-m-d" , strtotime($request->start)) ,'AND', 'date' , '<=' , date("Y-m-d", strtotime($request->end)));
         
 
       

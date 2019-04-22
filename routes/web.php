@@ -47,7 +47,7 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
 		
 		Route::get("/dtr-records", "DateTimeRecordController@records");
-		Route::post("/dtr-records", "DateTimeRecordController@selectDate");
+		Route::get("/selectDate", "DateTimeRecordController@selectDate");
 		
 		Route::resource('/payroll', 'PayrollController');
 		Route::post('/payroll/makePayroll', 'PayrollController@makePayroll');
@@ -55,6 +55,9 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		
 		Route::get("/holiday", "PayrollController@holiday");
 	});
+
+	Route::get('view-employee', 'EmployeeController@viewEmployee');
+	Route::get('get-employee', 'EmployeeController@getEmployee');
 	
 });
 

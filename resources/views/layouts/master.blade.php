@@ -16,7 +16,7 @@
     {!! Html::style('css/plugins/iCheck/custom.css') !!}
     {!! Html::style('css/animate.css') !!}
     {!! Html::style('css/style.css') !!}
-    {!! Html::style('css/elegal-style.css') !!}
+   
     {!! Html::style('css/plugins/steps/jquery.steps.css') !!}
 
     {!! Html::style('css/plugins/dropzone/basic.css') !!}

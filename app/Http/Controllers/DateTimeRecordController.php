@@ -37,8 +37,9 @@ class DateTimeRecordController extends Controller
     public function selectDate(Request $request){
         
        $data = \App\PayrollDate::find($request->input('q'));
-       
         
+      
+
        return view('dtr_contents.tableBody' , compact('data'));
     }
 

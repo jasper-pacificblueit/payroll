@@ -18,7 +18,7 @@
 </div>
 
 <br>
-<div class="row" id="RecordContent" >
+<div class="row" >
     <div class="col-lg-12">
     
       <div class="table-responsive">
@@ -30,7 +30,6 @@
                         <th>Position</th>
                         <th>Total Hours</th>
                         <th>Total Days</th>
-                        <th>Warning</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -42,9 +41,7 @@
                         <th>Department</th>
                         <th>Position</th>
                         <th>Total Hours</th>
-                        <th>Total Days</th>
-                        <th>Warning</th>
-                        <th>Action</th>
+                        <th>Total Days</th><th>Action</th>
                     </tfoot>
                     </table>  
         </div>

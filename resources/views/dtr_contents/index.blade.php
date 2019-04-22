@@ -66,40 +66,43 @@
         </div>
     </div>
     <br>
-    <div class="wrapper wrapper-content no-padding">
-        <div class="wrapper wrapper-content no-padding">
+   <div class="row">
 
-                <div class="col-lg-12">
-                        <div class="tabs-container">
-                            <ul class="nav nav-tabs">
-                                <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}"><a href="/dtr"> Import Attendance</a></li>
-                                <li class="{{Request::path() == 'dtr-records' ? 'active' : '' }}"><a href="/dtr-records">Records</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div id="import" class="tab-pane {{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
-                                    <div class="panel-body">
-                                        @if (isset($result))
-                                        <div class="alert alert-danger">
-                                            File already imported <a class="alert-link" href="#">Alert Link</a>.
+        <div class="wrapper wrapper-content no-padding">
+                <div class="wrapper wrapper-content no-padding">
+        
+                        <div class="col-lg-12">
+                                <div class="tabs-container">
+                                    <ul class="nav nav-tabs">
+                                        <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}"><a href="/dtr"> Import Attendance</a></li>
+                                        <li class="{{Request::path() == 'dtr-records' ? 'active' : '' }}"><a href="/dtr-records">Records</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="import" class="tab-pane {{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
+                                            <div class="panel-body">
+                                                @if (isset($result))
+                                                <div class="alert alert-danger">
+                                                    File already imported <a class="alert-link" href="#">Alert Link</a>.
+                                                </div>
+                                                @endif
+                                                @include('dtr_contents.import')
+                                            </div>
                                         </div>
-                                        @endif
-                                        @include('dtr_contents.import')
+                                        <div id="tab-2" class="tab-pane {{ Request::path() == 'dtr-records' ? 'active' : '' }} ">
+                                            <div class="panel-body">
+                                                @include('dtr_contents.records')
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div id="tab-2" class="tab-pane {{ Request::path() == 'dtr-records' ? 'active' : '' }} ">
-                                    <div class="panel-body">
-                                        @include('dtr_contents.records')
-                                    </div>
+            
+            
                                 </div>
                             </div>
-    
-    
-                        </div>
-                    </div>
-           
-        </div>
-    </div>
-    
+                   
+                </div>
+            </div>
+            
+   </div>
 @endsection
 
 @section('scripts')

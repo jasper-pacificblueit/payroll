@@ -181,7 +181,7 @@
                                                                 else if(empty($attendance->am['out'])){
                                                                     $am_in = strtotime($attendance->am['in']);
                                                                     $pm_out = strtotime($attendance->pm['out']);
-                                                                    $diff = round(abs($am_in - $pm_out) / 3600 , 1);
+                                                                    $diff = round(abs($am_in - $pm_out) / 3600, 1);
                                                                     $in = $attendance->am['in'];
                                                                     $out = $attendance->pm['out'];
                                                                     
@@ -271,35 +271,39 @@
 
                                         @foreach ($csv_info->employees as $employee)
                                             <tr>
-                                                <td>{{$employee->bio_id}}</td>
-                                                <td>{{ucwords(strtolower($employee->name))}}</td>
+                                                <td>{{ $employee->bio_id }}</td>
+                                                <td>{{ ucwords(strtolower($employee->name)) }}</td>
                                                 <td>
+                                                    @php
+                                                        $count = 0;
+                                                    @endphp
                                                     @foreach ($employee->attendance as $attendance)
-                                                       
+                                                        
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
                                                                 @if(!empty($attendance->am['in']))
-                                                                    <input type="time" value="{{$attendance->am['in']}}" class="form-control" style="background:transparent" name="warningTimeIn[]" readonly>
+                                                                    <input type="time" value="{{$attendance->am['in']}}" class="form-control" style="background:transparent" name="warningTimeOut[{{$employee->bio_id}}][{{ $count++ }}]" id="in" readonly>
                                                                     <br>
                                                                 @elseif(!empty($attendance->pm['in']))
-                                                                     <input type="time" value="{{$attendance->pm['in']}}" class="form-control" style="background:transparent" name="warningTimeIn[]" readonly>
+                                                                     <input type="time" value="{{$attendance->pm['in']}}" class="form-control" style="background:transparent" name="warningTimeOut[{{$employee->bio_id}}][{{ $count++ }}]" id="in" readonly>
                                                                      <br>
                                                                 @endif
                                                             @endif
                                                         @endif
-                                                          
-                                                       
 
                                                     @endforeach
                                                 </td>
 
                                                 <td>
+                                                    @php
+                                                        $count = 0;
+                                                    @endphp
                                                     @foreach ($employee->attendance as $attendance)
                                                        
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
                                                               <div class="input-group clockpicker" data-autoclose="true">
-                                                                    <input type="time" class="form-control" value="18:00" name="warningTimeOut[{{$employee->bio_id}}][]">
+                                                                    <input type="time" class="form-control" value="18:00:00" onchange="calchour(this)" name="warningTimeOut[{{$employee->bio_id}}][{{  $count++ }}]" id="out">
                                                                     <span class="input-group-addon">
                                                                         <span class="fa fa-clock-o"></span>
                                                                     </span>    
@@ -307,24 +311,22 @@
                                                                 <br>
                                                             @endif
                                                         @endif
-                                                          
-                                                       
-
                                                     @endforeach
                                                 </td>
                                                 <td>
+                                                    @php
+                                                        $count = 0;
+                                                    @endphp
                                                     @foreach ($employee->attendance as $attendance)
                                                        
                                                     @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                         @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
-                                                            <input type="text" value="--" class="form-control"style="background:transparent;" readonly>
+                                                            <input type="text" value="--" name="warningTimeOut[{{$employee->bio_id}}][{{ $count++ }}]" class="form-control" style="background:transparent;" readonly>
                                                             <br>
                                                         @endif
                                                     @endif
-                                                      
-                                                   
-
-                                                @endforeach
+                                                    
+                                                    @endforeach
                                                 </td>
                                                 <td>
                                                     @php( $EmployeeInfos = \App\Profile::all())
@@ -436,3 +438,13 @@
         </div>
     </div>
 @endif
+
+<script>
+
+    // l306
+    function calchour(obj) {
+        var intime = document.getElementsByName(obj.name)[0].value;
+
+        console.log(new Date(intime) - new Date(obj.value));
+    }
+</script>

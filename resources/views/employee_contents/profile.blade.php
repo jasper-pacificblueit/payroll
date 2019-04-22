@@ -22,7 +22,7 @@
         </div>
         <div class="ibox-content no-padding border-left-right text-center">
           <img alt="image" class="img-responsive" 
-                    src="{{ $profile->image['data'] }}" style='margin: auto'>
+                    src="{{ $profile->image['data'] }}" style='margin: auto; min-height: 350px; min-width: auto;'>
         </div>
         <div class="ibox-content profile-content">
             <h4><strong>{{ App\Profile::getFullName(auth()->user()->id) }}</strong></h4>
@@ -92,16 +92,6 @@
   </div>
 </div>
 </div>  
-@endsection
-
-
-@section('scripts')
-<!-- Custom and plugin javascript -->
-{!! Html::script('js/inspinia.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/footable/footable.all.min.js') !!} 
 @endsection
 
 

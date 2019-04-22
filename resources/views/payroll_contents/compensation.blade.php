@@ -7,7 +7,7 @@
             <select class="form-control select2_demo_1" id="selectDate" name="selectDate" onchange="this.form.submit()">
                 @php( $payrollDates = \App\Payroll::orderBy('id' , 'DESC')->get())
 
-                @if (count($payrollDates) > 0)
+                @if (\App\PayrollDate::orderBy('id' , 'DESC')->count() > 0)
                 
                     @foreach ($payrollDates as $payrollDate)
                     <option value="{{$payrollDate->id}}">{{date("M d" , strtotime($payrollDate->start))}} - {{date("M d Y" , strtotime($payrollDate->end))}}</option>
@@ -41,8 +41,9 @@
                         {{ csrf_field() }}
                     <div class="modal-body">
                         @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->first())
-                        @if (count($checkPayroll) > 0)
-
+                      
+                        @if (\App\PayrollDate::orderBy('id' , 'DESC')->count() > 0)
+                       
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group" id="data_5">

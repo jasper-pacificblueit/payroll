@@ -138,10 +138,8 @@
             </nav>
         </div>
 
-        <div class="row" style='margin-top: 5px'>
             @yield('content')
-        </div>
-
+      
         <br>
         <br>
         

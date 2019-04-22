@@ -46,7 +46,7 @@
                                 <div class="panel-body">
                                         @if (isset($status))
                                         <div class="alert alert-{{$status}}">
-                                            ?
+                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea similique dolore assumenda magnam minus quae consequatur deserunt! Illum iusto odit officia alias cumque ratione ad voluptatem iure? Omnis, quaerat excepturi.
                                         </div>
                                         @endif
                                     @include('payroll_contents.compensation')

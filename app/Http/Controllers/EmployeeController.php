@@ -164,4 +164,14 @@ class EmployeeController extends Controller
     {
         //
     }
+
+    public function viewEmployee(Request $request){
+        return view('sample');
+    }
+
+    public function getEmployee(Request $request){
+        $data = Employee::with('getProfile')->find($request->input('id'));
+
+        return response()->json($data);
+    }
 }

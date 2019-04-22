@@ -149,9 +149,29 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        
+
+        $user = App\User::findOrFail($id);
+
+        $user->position = $request->position;
+
+        $user->removeRole($user->position);
+        $user->revokePermissionTo($user->getAllPermissions());
+
+        $user->assignRole($request->position);
+
+        if ($user->hasRole('hr'))
+            $user->syncPermissions([
+                'company_read',
+                'employee_read', 'employee_write',
+                'department_read', 'department_write',
+                'dtr_read', 'dtr_write',
+            ]);
+
+        $user->save();
+
+        return back();
     }
 
     /**

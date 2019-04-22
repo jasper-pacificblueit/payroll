@@ -13,6 +13,7 @@
   $profile->image = (array)json_decode($profile->image);
 
 @endphp
+<div class="wrapper wrapper-content">
 <div class='row'>
   <div class='col-lg-4 col-md-5 col-4 col-xs-12 col-sm-12'>
     <div class="ibox float-e-margins">
@@ -57,7 +58,6 @@
   </div>
 </div>
 
-
 <div class="modal inmodal fade" id="chpasswd" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm">
       <div class="modal-content">
@@ -91,11 +91,18 @@
       </div>
   </div>
 </div>
+</div>  
 @endsection
 
 
 @section('scripts')
-
+<!-- Custom and plugin javascript -->
+{!! Html::script('js/inspinia.js') !!}
+{!! Html::script('js/plugins/pace/pace.min.js') !!}
+{!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
+{!! Html::script('js/plugins/pace/pace.min.js') !!}
+{!! Html::script('js/plugins/footable/footable.all.min.js') !!} 
 @endsection
 
 
+  

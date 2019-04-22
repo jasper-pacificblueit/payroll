@@ -51,7 +51,7 @@
                             
                             <div class="col-lg-5">
                                 <span class='hidden-md hidden-sm hidden-xs'><h4>&nbsp;</h4></span>
-                                <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control" oninput="search(this)"><span class="input-group-btn">
                                     <button type="button" class="btn btn-sm btn-success">Go!</button> </span></div>
                             </div>
                         </div>
@@ -111,29 +111,28 @@
                    
                 </div>
                 <form method="POST" action="/employee/{{ $em->user_id }}">
-                {{ csrf_field() }}
-                {{ method_field('PUT') }}
-                <div class="modal-body">
-                   <div class="row">
-                       <div class="col-lg-12">
-                        @can('employee_write')
-                            <label>Change Position</label>
-                            <select class='form-control'>
-                                <option value='admin'>Administrator</option>
-                                <option value='hr'>HR</option>
-                                <option value='employee'>Employee</option>
-                            </select>
-                        @endcan
+                    {{ csrf_field() }}
+                    {{ method_field('PUT') }}
+                    <div class="modal-body">
+                       <div class="row">
+                           <div class="col-lg-12">
+                            @can('employee_write')
+                                <label>Change Position</label>
+                                <select class='form-control' name="position">
+                                    <option value='hr'>HR</option>
+                                    <option value='employee'>Employee</option>
+                                </select>
+                            @endcan
+                           </div>
                        </div>
-                   </div>
-                </div>
+                    </div>
 
-                <div class="modal-footer">
-                    <div class='btn-group'>
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" name="submit">Create</button>
-                </div>
-                </div>
+                    <div class="modal-footer">
+                        <div class='btn-group'>
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success" name="submit">Save</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -142,7 +141,7 @@
     @endforeach
 @endcan
 
-<!-- usertables lists -->
+<!-- usertables lists -->   
 @foreach(App\Company::all() as $com)
 @foreach($com->departments as $dep)
     <template id='dep-id-{{ $dep->id }}'>
@@ -167,10 +166,7 @@
     </template>
 @endforeach
 @endforeach
-
-    
 @endsection
-
 
 @section('scripts')
 <!-- Custom and plugin javascript -->
@@ -180,41 +176,60 @@
 {!! Html::script('js/plugins/pace/pace.min.js') !!}
 {!! Html::script('js/plugins/footable/footable.all.min.js') !!}
 
+<script>
+    $(document).ready(function() {
 
-    <script>
-        $(document).ready(function() {
-
-        });
+    });
 
 
-        let changecom = () => {
+    let changecom = () => {
 
-            let com_id = '#company-id-' + document.querySelector('.cur-company').value;
-            let clone = document.querySelector(com_id).content.cloneNode(1);
+        let com_id = '#company-id-' + document.querySelector('.cur-company').value;
+        let clone = document.querySelector(com_id).content.cloneNode(1);
 
-            document.querySelector('.cur-dep').innerHTML = "";
-            document.querySelector('.cur-dep').appendChild(clone);
+        document.querySelector('.cur-dep').innerHTML = "";
+        document.querySelector('.cur-dep').appendChild(clone);
 
-            document.querySelector('.usertables').innerHTML = "";
-            
-            let dep_data_clone = 
-                document.querySelector('#dep-id-' + document.querySelector('.cur-dep').value)
-                    .content.cloneNode(1);
+        document.querySelector('.usertables').innerHTML = "";
+        
+        let dep_data_clone = 
+            document.querySelector('#dep-id-' + document.querySelector('.cur-dep').value)
+                .content.cloneNode(1);
 
-            document.querySelector('.usertables').appendChild(dep_data_clone);
+        document.querySelector('.usertables').appendChild(dep_data_clone);
 
-        };
+    };
 
-        let changedep = () => {
+    let changedep = () => {
 
-            document.querySelector('.usertables').innerHTML = "";
-            
-            let dep_data_clone = 
-                document.querySelector('#dep-id-' + document.querySelector('.cur-dep').value)
-                    .content.cloneNode(1);
+        document.querySelector('.usertables').innerHTML = "";
+        
+        let dep_data_clone = 
+            document.querySelector('#dep-id-' + document.querySelector('.cur-dep').value)
+                .content.cloneNode(1);
 
-            document.querySelector('.usertables').appendChild(dep_data_clone);
+        document.querySelector('.usertables').appendChild(dep_data_clone);
 
-        };
-    </script>
+    };
+
+    var o;
+    function search(obj) {
+        clearTimeout(o);
+        o = setTimeout(function() {
+            var result = document.createElement("span"),
+                utb = Object.values(document.querySelector(".usertables").rows);
+
+            utb.forEach(function(k) {
+                if (obj.value.toLowerCase().trim() == k.children[1].innerText.toLowerCase() ||
+                    k.children[1].innerText.toLowerCase().includes(obj.value.toLowerCase().trim()))
+                    result.appendChild(k);
+            }); 
+
+            document.querySelector(".usertables").innerHTML = "";
+            document.querySelector(".usertables").innerHTML = result.innerHTML; 
+
+            if (obj.value == "") changedep();
+        }, 500);
+    }
+</script>
 @endsection

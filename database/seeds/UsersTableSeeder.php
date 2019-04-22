@@ -11,6 +11,20 @@ class UsersTableSeeder extends Seeder
         // random employee
         factory(App\User::class, 16)->create()->each(function ($user) {
             $faker = Faker\Factory::create();
+
+            $user->assignRole($user->position);
+
+            switch ($user->position) {
+            case 'hr':
+                $user->syncPermissions([
+                    'company_read',
+                    'employee_read', 'employee_write',
+                    'department_read', 'department_write',
+                    'dtr_read', 'dtr_write',
+                ]);
+                break;
+            }
+
             
             // profile
             $user->profile()->save(new App\Profile([

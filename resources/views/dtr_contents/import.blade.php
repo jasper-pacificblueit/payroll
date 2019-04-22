@@ -298,7 +298,7 @@
                                                        
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
-                                                              <div class="input-group clockpicker" data-autoclose="true">
+                                                              <div class="input-group clockpicker" data-autoclosez="true">
                                                                     <input type="time" class="form-control" value="18:00" name="warningTimeOut[{{$employee->bio_id}}][]">
                                                                     <span class="input-group-addon">
                                                                         <span class="fa fa-clock-o"></span>

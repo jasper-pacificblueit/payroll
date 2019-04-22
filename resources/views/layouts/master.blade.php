@@ -6,25 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta id="_token" value="{!! csrf_token() !!}">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>@yield('title')</title>
 
     {{ Html::favicon('img/placeholder.jpg') }}
 
     {!! Html::style('css/bootstrap.min.css') !!}
     {!! Html::style('font-awesome/css/font-awesome.css') !!}
-    {!! Html::style('css/plugins/iCheck/custom.css') !!}
     {!! Html::style('css/animate.css') !!}
     {!! Html::style('css/style.css') !!}
-    {!! Html::style('css/elegal-style.css') !!}
-    {!! Html::style('css/plugins/steps/jquery.steps.css') !!}
-
-    {!! Html::style('css/plugins/dropzone/basic.css') !!}
-    {!! Html::style('css/plugins/dropzone/dropzone.css') !!}
-    {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
-    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
-    {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
-
 
     @yield('styles')
 </head>
@@ -75,7 +65,7 @@
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
-                <li class="{{ Request::path() == 'payroll' ? 'active' : '' }}">
+                <li class="{{ Request::path() == '' ? 'active' : '' }}">
                     <a href="/payroll"><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
                 </li>
 
@@ -141,9 +131,13 @@
             </nav>
         </div>
 
-     
+        <div class="row" style='margin-top: 5px'>
             @yield('content')
+        </div>
 
+        <br>
+        <br>
+        
         <div class="footer">
             <div class='text-right'>
                 <strong>Powered By:</strong> <a href="https://www.pacificblueit.com" target="_blank" >Pacific Blue I.T. &copy; {{ Date('Y') }}</a>
@@ -163,6 +157,7 @@
 {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!}
 {!! Html::script('js/plugins/slimscroll/jquery.slimscroll.min.js') !!}
 {!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
+
 
 @yield('scripts')
 

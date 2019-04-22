@@ -30,11 +30,15 @@ class Employee {
 
 class DateTimeRecordController extends Controller
 {
+    public function getEmployee(Request $request){
+        $data = Employee::with('getProfile')->find($request->input('id'));
+        return response()->json($data);
+    }
     public function selectDate(Request $request){
         
-       $date = \App\PayrollDate::find($request->DateSelector);
+       $data = \App\PayrollDate::find($request->input('q'));
        
-       return view('dtr_contents.index' , compact('date'));
+       return view('dtr_contents.tableBody' , compact('data'));
     }
 
     public function records(Request $request)

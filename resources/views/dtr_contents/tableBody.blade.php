@@ -6,7 +6,7 @@
     <td>--</td>
     <td>--</td>
    
-    @php( $attendances = \App\DateTimeRecord::all()->where('user_id' , '=' , $record->user_id , 'AND' , 'date', '>=' , $data->start , 'date' , '<=' , $data->end))
+    @php( $attendances = \App\DateTimeRecord::all()->where('user_id' , '=' , $record->user_id , 'AND' , 'date', '>=' , $data->start , 'AND','date' , '<=' , $data->end))
     <?php $dayCount = 0; $total_hours = 0;?>
       @foreach ($attendances as $attendance)
       <?php
@@ -16,7 +16,7 @@
       @endforeach
     <td>{{$total_hours}}</td>
     <td>{{$dayCount}}</td>
-    <td>--</td>
+    <td>{{$data->start}}</td>
    
     <td><button class="btn btn-default btn-xs">Details</button></td>
   

@@ -38,6 +38,7 @@ class DateTimeRecordController extends Controller
         
        $data = \App\PayrollDate::find($request->input('q'));
        
+        
        return view('dtr_contents.tableBody' , compact('data'));
     }
 

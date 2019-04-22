@@ -15,9 +15,6 @@
     {!! Html::style('font-awesome/css/font-awesome.css') !!}
     {!! Html::style('css/animate.css') !!}
     {!! Html::style('css/style.css') !!}
-<<<<<<< HEAD
-=======
-   
     {!! Html::style('css/plugins/steps/jquery.steps.css') !!}
 
     {!! Html::style('css/plugins/dropzone/basic.css') !!}
@@ -25,8 +22,6 @@
     {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
     {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
     {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
-
->>>>>>> ee61204161bd4e0f0e730eb92b955ce9d82bdc22
 
     @yield('styles')
 </head>

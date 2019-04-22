@@ -111,7 +111,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                        @if (count($checkPayroll) > 0)
+                        @if (\App\PayrollDate::orderBy('id' , 'DESC')->count() > 0)
                             <button type="submit" class="btn btn-primary">Create</button>
                         @endif
                         

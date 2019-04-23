@@ -216,7 +216,7 @@
     function search(obj) {
         clearTimeout(o);
 
-        o = setTimeout(function() {
+        o = setTimeout( function() {
             var result = document.createElement("span"),
                 utb = Object.values(document.querySelector(".usertables").rows);
 
@@ -232,8 +232,6 @@
             if (obj.value == "") changedep();
             else if (document.querySelector(".usertables").innerHTML == "") changedep();
         }, 500);
-
-        
     }
 </script>
 @endsection

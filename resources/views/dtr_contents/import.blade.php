@@ -304,8 +304,6 @@
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
                                                               <div class="input-group clockpicker" data-autoclose="true">
                                                                     <input type="time" class="form-control" value="18:00:00" onchange="calchour(this)" name="warningTimeOut[{{$employee->bio_id}}][{{  $count++ }}]" id="out">
-                                                              <div class="input-group clockpicker" data-autoclosez="true">
-                                                                    <input type="time" class="form-control" value="18:00" name="warningTimeOut[{{$employee->bio_id}}][]">
                                                                     <span class="input-group-addon">
                                                                         <span class="fa fa-clock-o"></span>
                                                                     </span>    

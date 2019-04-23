@@ -235,7 +235,6 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                 
                 </div>
             </div>
         </div>
@@ -368,8 +367,6 @@
  <input type="button" name="" id="Notif1"  class="btn btn-success btn-sm demo2" style="display:none;">
  
 </form>
-
-  
 @else
     <div class="row">
         

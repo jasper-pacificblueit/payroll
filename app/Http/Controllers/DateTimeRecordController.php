@@ -157,7 +157,7 @@ class DateTimeRecordController extends Controller
        }
        else{
 
-          $result = 'danger';
+           $result = 'danger';
            return view('dtr_contents.index' , compact('result'));
        }
         

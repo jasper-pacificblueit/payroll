@@ -72,7 +72,7 @@
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
-                <li class="{{ Request::path() == '' ? 'active' : '' }}">
+                <li class="{{ Request::path() == 'payroll' ? 'active' : '' }}">
                     <a href="/payroll"><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
                 </li>
 

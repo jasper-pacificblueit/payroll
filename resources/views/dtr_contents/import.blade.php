@@ -280,10 +280,10 @@
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
                                                                 @if(!empty($attendance->am['in']))
-                                                                    <input type="time" value="{{$attendance->am['in']}}" class="form-control" style="background:transparent" name="warningTimeOut[{{$employee->bio_id}}][{{ $count++ }}]" id="in" readonly>
+                                                                    <input type="time" value="{{$attendance->am['in']}}" class="warningTimeIn form-control" style="background:transparent" name="warningTimeIn[{{$employee->bio_id}}][]" id="in" readonly>
                                                                     <br>
                                                                 @elseif(!empty($attendance->pm['in']))
-                                                                     <input type="time" value="{{$attendance->pm['in']}}" class="form-control" style="background:transparent" name="warningTimeOut[{{$employee->bio_id}}][{{ $count++ }}]" id="in" readonly>
+                                                                     <input type="time" value="{{$attendance->pm['in']}}" class="warningTimeIn form-control" style="background:transparent" name="warningTimeIn[{{$employee->bio_id}}][]" id="in" readonly>
                                                                      <br>
                                                                 @endif
                                                             @endif
@@ -301,7 +301,7 @@
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
                                                               <div class="input-group clockpicker" data-autoclose="true">
-                                                                    <input type="time" class="form-control" onchange="calchour(this)" name="warningTimeOut[{{$employee->bio_id}}][{{  $count++ }}]" id="out" required>
+                                                                    <input type="time" class="warningTimeOut form-control" onchange="calchour()" name="warningTimeOut[{{$employee->bio_id}}][]" id="out" value="18:00" required>
                                                                     <span class="input-group-addon">
                                                                         <span class="fa fade-clock-o"></span>
                                                                     </span>    
@@ -319,8 +319,10 @@
                                                        
                                                     @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                         @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
-                                                            <input type="text" name="warningTimeOut[{{$employee->bio_id}}][{{ $count++ }}]" class="form-control" style="background:transparent;" readonly>
+                                                            <input type="text" name="warningTotal[{{$employee->bio_id}}][]" class="warningTotal form-control" style="background:transparent;" readonly>
                                                             <br>
+
+                                                          
                                                         @endif
                                                     @endif
                                                     
@@ -358,7 +360,7 @@
 
                 <div class="modal-footer">  
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="ImportData">Save</button>
+                    <button type="submit" class="btn btn-primary" name="ImportData" id="ImportData">Save</button>
                 </div>
             </div>
         </div>
@@ -436,21 +438,64 @@
 @endif
 
 <script>
-    // l306
-    function calchour(obj) {
-        var intime = document.getElementsByName(obj.name)[0].value.split(':');
-        var outtime = document.getElementsByName(obj.name)[1].value.split(':');
 
-        var t = (new Date(0, 0, 0, outtime[0], outtime[1], 0) - new Date(0, 0, 0, intime[0], intime[1], 0))/(3.6 * 1e6);
 
-        document.getElementsByName(obj.name)[2].value = (t < 0 ? 0 : t.toFixed(1));
+
+function diff_minutes(dt2, dt1) 
+ {
+
+  var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+  diff /= 60;
+  return Math.abs(Math.round(diff));
+  
+ }
+  function calchour(){
+    warningElement = document.getElementsByClassName('warningTimeOut');
+    warningInElement = document.getElementsByClassName('warningTimeIn');
+    warningTotalElement = document.getElementsByClassName('warningTotal');
+
+    var warningValues = new Array();
+    var warningInValues = new Array();
+    var warningTotalValues = new Array();
+
+    for(var i = 0; i < warningElement.length; i++){
+        var warningVar = warningElement[i].value;
+        var warningInVar = warningInElement[i].value;
+        
+       
+        warningValues.push(warningElement[i].value);
+        warningInValues.push(warningInElement[i].value);
+
+        var intime = warningInVar.split(':');
+        var outtime = warningVar.split(':');
+
+        var diff = (new Date(0, 0, 0, outtime[0], outtime[1], 0) - new Date(0, 0, 0, intime[0], intime[1], 0))/(3.6 * 1e6);
+
+        warningTotalValues.push(diff.toFixed(2));
+     
+      
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    for(var j =0; j< warningValues.length; j++){
+        warningTotalElement[j].value = warningTotalValues[j];
+    }
 
-        
+
+   
+    checkResult = warningTotalValues.some(el => el < 0);
+
+    if(checkResult){
+       document.getElementById('ImportData').disabled = true;
+    }
+    else{
+        document.getElementById('ImportData').disabled = false;
+    }
+  
+  }
+   
 
 
-    });
+  calchour();
+
+
 </script>
-    

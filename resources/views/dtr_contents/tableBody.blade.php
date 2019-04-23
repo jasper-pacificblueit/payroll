@@ -14,8 +14,9 @@
         @endforeach
         <td>--</td>
         <td>--</td>
-        <td>{{$dayCount}}</td>
         <td>{{$totalHrs}}</td>
+        <td>{{$dayCount}}</td>
+       
         <td><a class="btn btn-default btn-sm" data-toggle="modal" data-target="#showDetails-{{$employee->user_id}}">Details</a></td>
     </tr>
     <div class="modal inmodal fade" id="showDetails-{{$employee->user_id}}" tabindex="-1" role="dialog"  aria-hidden="true">

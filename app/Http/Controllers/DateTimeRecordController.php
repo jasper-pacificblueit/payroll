@@ -34,6 +34,7 @@ class DateTimeRecordController extends Controller
         $data = Employee::with('getProfile')->find($request->input('id'));
         return response()->json($data);
     }
+
     public function selectDate(Request $request){
         
        $data = \App\PayrollDate::find($request->input('q'));
@@ -81,7 +82,7 @@ class DateTimeRecordController extends Controller
     public function store(Request $request)
     {
         
-        //dd($request->totalHours);
+        
         $csv_info = json_decode($request->info, true);
 
         $days = json_decode($request->days, true);
@@ -91,7 +92,7 @@ class DateTimeRecordController extends Controller
         //dd($request->payrollDate1);
     
        $empCount = 0;
-       //dd($request->warningTimeOut);
+    //    dd($request->warningTimeOut , $request->warningTotal);
        
        $checkAttendance = App\PayrollDate::where('start', '=' , $request->payrollDate1, 'AND' , 'end' , '=' , $request->payrollDate2)->get();
 
@@ -118,6 +119,7 @@ class DateTimeRecordController extends Controller
                    $dtr->in_am = $attendance['am']['in'];
                    $dtr->in_pm = $attendance['pm']['in'];
                    if(empty($attendance['am']['out']) && empty($attendance['pm']['out'])){
+
                     $dtr->out_pm = $request->warningTimeOut[$employee['bio_id']][$count];
 
                     $count++;
@@ -126,11 +128,12 @@ class DateTimeRecordController extends Controller
                    else{
                     $dtr->out_am = $attendance['am']['out'];
                     $dtr->out_pm = $attendance['pm']['out'];
-                    
+
+                   
                    }
                    
                    
-                    $dtr->total_hours = $request->totalHours[$employee['bio_id']][$count];
+                   $dtr->total_hours = $request->totalHours[$employee['bio_id']][$count];
                        
                        
                     $dtr->save(); 

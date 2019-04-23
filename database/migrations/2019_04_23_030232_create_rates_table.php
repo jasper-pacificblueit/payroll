@@ -15,12 +15,13 @@ class CreateRatesTable extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('hour');
-            $table->float('overtime');
-            $table->float('holiday');
+            $table->integer('user_id')->unsigned(); 
+            $table->float('hourly'); 
+            $table->float('holiday'); 
+            $table->float('overtime'); 
+            
             
             $table->timestamps();
-
         });
     }
 

@@ -303,9 +303,9 @@
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
                                                               <div class="input-group clockpicker" data-autoclose="true">
-                                                                    <input type="time" class="form-control" value="18:00:00" onchange="calchour(this)" name="warningTimeOut[{{$employee->bio_id}}][{{  $count++ }}]" id="out">
+                                                                    <input type="time" class="form-control" onchange="calchour(this)" name="warningTimeOut[{{$employee->bio_id}}][{{  $count++ }}]" id="out" required>
                                                                     <span class="input-group-addon">
-                                                                        <span class="fa fa-clock-o"></span>
+                                                                        <span class="fa fade-clock-o"></span>
                                                                     </span>    
                                                                 </div>
                                                                 <br>
@@ -321,7 +321,7 @@
                                                        
                                                     @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                         @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
-                                                            <input type="text" value="--" name="warningTimeOut[{{$employee->bio_id}}][{{ $count++ }}]" class="form-control" style="background:transparent;" readonly>
+                                                            <input type="text" name="warningTimeOut[{{$employee->bio_id}}][{{ $count++ }}]" class="form-control" style="background:transparent;" readonly>
                                                             <br>
                                                         @endif
                                                     @endif
@@ -418,7 +418,7 @@
         <div class="col-lg-6">
          
             <div class="row">
-                <div class="col-lg-12" >
+                <div class="col-lg-12">
                     <label>Recent file uploaded</label>
                     <div class="hr-line-dashed"></div>
                     @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->count())
@@ -440,11 +440,21 @@
 @endif
 
 <script>
-
     // l306
     function calchour(obj) {
-        var intime = document.getElementsByName(obj.name)[0].value;
+        var intime = document.getElementsByName(obj.name)[0].value.split(':');
+        var outtime = document.getElementsByName(obj.name)[1].value.split(':');
 
-        console.log(new Date(intime) - new Date(obj.value));
+        var t = (new Date(0, 0, 0, outtime[0], outtime[1], 0) - new Date(0, 0, 0, intime[0], intime[1], 0))/(3.6 * 1e6);
+
+        document.getElementsByName(obj.name)[2].value = (t < 0 ? 0 : t.toFixed(1));
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        
+
+
+    });
 </script>
+    

@@ -15,13 +15,15 @@ class CreateRatesTable extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned(); 
+
+            $table->integer('employee_id')->unsigned();
+
             $table->float('hourly'); 
             $table->float('holiday'); 
             $table->float('overtime'); 
+
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             
-            
-            $table->timestamps();
         });
     }
 

@@ -15,10 +15,9 @@ class CreatePayrollsTable extends Migration
     {
         Schema::create('payrolls', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->date('start');
             $table->date('end');
-            
+            $table->timestamps();
         });
     }
 

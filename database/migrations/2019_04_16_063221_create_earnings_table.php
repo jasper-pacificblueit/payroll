@@ -15,7 +15,6 @@ class CreateEarningsTable extends Migration
     {
         Schema::create('earnings', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
         });
     }
 

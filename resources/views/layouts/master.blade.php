@@ -96,11 +96,6 @@
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
                 @endcan
-
-                <li class="{{ Request::path() == 'rates' ? 'active' : '' }}">
-                    <a href="/rates"><i class="fa fa-cog"></i> <span class="nav-label">Manage Rates</span></a>
-                </li>
-
                 @endcan
 
                 @can('company_read')

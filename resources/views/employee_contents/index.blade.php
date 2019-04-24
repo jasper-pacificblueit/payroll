@@ -63,8 +63,8 @@
                                         <th>Employee name</th>
                                         <th>Department</th>
                                         <th>E-mail</th>
-                                        <th>Position</th>  
-                                        <th></th>      
+                                        <th>Position</th>
+                                        <th>Manage</th>      
                                     </tr>
                                 </thead>
                                 <tbody class='usertables'>
@@ -79,8 +79,11 @@
                                                 <td>{{ App\Profile::where('user_id', $em->user_id)->first()['email'] }}</td>
                                                 <td>{{ App\User::$positions[App\User::find($em->user_id)['position']] }}</td>
                                                 <td>
-                                                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#manageEmployee-{{ $em->user_id }}">
-                                                    Manage
+                                                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#settingEmployee-{{ $em->user_id }}">
+                                                    Settings
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#ratesEmployee-{{ $em->user_id }}">
+                                                    Rates
                                                 </button>
                                                 </td>
                                             </tr>
@@ -99,42 +102,73 @@
     </div>
 
 @can('employee_write')
-    <!-- manage employees modal -->
+    <!-- manage employee setting modal -->
     @foreach ($company as $j)
     @foreach ($j->employees as $em)
-    <div class="modal inmodal fade" id="manageEmployee-{{ $em->user_id }}" tabindex="-1" role="dialog"  aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header no-padding">
-                    <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                   <h4 style="padding:10px">Edit '{{ App\User::find($em->user_id)['user'] }}'</h4>
-                   
-                </div>
-                <form method="POST" action="/employee/{{ $em->user_id }}">
-                    {{ csrf_field() }}
-                    {{ method_field('PUT') }}
-                    <div class="modal-body">
-                       <div class="row">
-                           <div class="col-lg-12">
-                            @can('employee_write')
-                                <label>Change Position</label>
-                                <select class='form-control' name="position">
-                                    <option value='hr'>HR</option>
-                                    <option value='employee'>Employee</option>
-                                </select>
-                            @endcan
-                           </div>
-                       </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <div class='btn-group'>
-                            <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" name="submit">Save</button>
-                        </div>
-                    </div>
-                </form>
+    <div class="modal fade" id="settingEmployee-{{ $em->user_id }}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+                <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+               <h4 style="padding:10px">Settings</h4>
+               
             </div>
+            <form method="POST" action="/employee/{{ $em->user_id }}">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
+                <div class="modal-body">
+                   <div class="row">
+                       <div class="col-lg-4 col-12">
+                        @can('employee_write')
+                            <label>Change Position</label>
+                            <select class='form-control' name="position">
+                                <option value='hr'>HR</option>
+                                <option value='employee'>Employee</option>
+                            </select>
+                        @endcan
+                       </div>
+                   </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class='btn-group'>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" name="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    @endforeach
+    @endforeach
+
+    <!-- manage employee rates modal -->
+    @foreach($company as $j)
+    @foreach($j->employees as $em)
+    <div class="modal fade" id="ratesEmployee-{{ $em->user_id }}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+                <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+               <h4 style="padding:10px">Rates</h4>
+               
+            </div>
+            <form method="POST" action="">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
+                <div class="modal-body">
+                   <div class="row">
+                       <div class="col-lg-12"></div>
+                   </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success" name="submit">Save</button>
+                </div>
+            </form>
+        </div>
         </div>
     </div>
     @endforeach
@@ -155,9 +189,12 @@
                     <td>{{ App\User::find($em->user_id)['email'] }}</td>
                     <td>{{ App\User::$positions[App\User::find($em->user_id)['position']] }}</td>
                     <td>
-                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#manageEmployee-{{ $em->user_id }}">
-                        Manage
-                    </button>
+                        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#settingEmployee-{{ $em->user_id }}">
+                            Settings
+                        </button>
+                        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#ratesEmployee-{{ $em->user_id }}">
+                            Rates
+                        </button>
                     </td>
                 </tr>
             @endif

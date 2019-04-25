@@ -38,7 +38,6 @@
                             </div>
                            
                         </div>
-<<<<<<< HEAD
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
@@ -178,8 +177,6 @@
     </template>
 @endforeach
 @endforeach
-=======
-
 
                     </div>
                 </div>
@@ -187,7 +184,6 @@
              </div>
         </div>
     </div>
->>>>>>> 01d9b872553a7fb3bc2448a8cea91cf6e464c61f
 @endsection
 
 @section('scripts')

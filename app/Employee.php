@@ -7,11 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
 	public $timestamps = false;
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> 0527aceda1e37179dda7b9d075711cea3e7a521e
 	public function user() {
 		return $this->belongsTo('App\User');
 	}

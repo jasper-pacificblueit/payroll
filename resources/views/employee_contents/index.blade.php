@@ -64,7 +64,7 @@
                                         <th>Department</th>
                                         <th>E-mail</th>
                                         <th>Position</th>
-                                        <th>Manage</th>      
+                                        <th>Management</th>      
                                     </tr>
                                 </thead>
                                 <tbody class='usertables'>
@@ -122,6 +122,10 @@
                             <label>Username: </label>
                             {{ App\User::find($em->user_id)['user'] }}
                         </div>
+                        <div class="col-lg-6 col-12">
+                            <label>Bio ID</label>
+                            <input class="form-control" placeholder="--" value="{{ $em->bio_id }}" name="bio">
+                        </div>
                     </div>
                <div class="row">
                     <div class="col-lg-6 col-12">
@@ -131,11 +135,18 @@
                             <option value='employee'>Employee</option>
                         </select>
                     </div>
+                    <div class="col-lg-6 col-12">
+                        <label>Change Department</label>
+                        <select class="form-control" name="chdep">
+                            @foreach ($j->departments as $dep)
+                                <option value="{{ $dep->id }}" {{ $dep->id == $em->department_id ? "selected" : "" }}>{{ $dep->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                </div>
                <hr>
                 <div class="row">
                     <div class="col-lg-12">
-                        <input class="form-control" value="--">
                     </div>  
                 </div>
                 </div>
@@ -153,40 +164,6 @@
     @endforeach
     @endforeach
 
-    <!-- manage employee rates modal -->
-    @foreach($company as $j)
-    @foreach($j->employees as $em)
-    <div class="modal fade" id="ratesEmployee-{{ $em->user_id }}" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header no-padding">
-                <button type="button" style="padding:10px" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                </button>
-               <h4 style="padding:10px">Others</h4>
-               
-            </div>
-            <form method="POST" action="">
-                {{ csrf_field() }}
-                {{ method_field('PUT') }}
-                <div class="modal-body">
-                   <div class="row">
-                       <div class="col-lg-12"></div>
-                   </div>
-                </div>
-
-                <div class="modal-footer">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" name="submit">Save</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        </div>
-    </div>
-    @endforeach
-    @endforeach
 @endcan
 
 <!-- usertables lists -->   

@@ -32,7 +32,6 @@
                         <div class="tab-content">
                             <div id="employee" class="tab-pane {{ Request::path() == 'employee' ? 'active' : '' }}">
                                 <div class="panel-body">
-                                       
                                     @include('employee_contents.view_employee')
                                 </div>
                             </div>
@@ -56,7 +55,7 @@
                                         @if (auth()->user()->id != $em->user_id)
                                             @if (App\User::find($em->user_id)['position'] != auth()->user()->position)
                                             <tr>
-                                                <td>{{ $em->user_id }}</td>
+                                                <td>{{ $em->bio_id ? "Bio#".$em->bio_id : "ID#".$em->user_id }}</td>
                                                 <td>{{ App\Profile::getFullName($em->user_id) }}</td>
                                                 <td>{{ App\Department::find($em->department_id)->name }}</td>
                                                 <td>{{ App\User::find($em->user_id)->email }}</td>
@@ -136,6 +135,7 @@
 
                 <div class="modal-footer">
                     <div class='btn-group'>
+                        
                         <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success" name="submit">Save</button>
                     </div>

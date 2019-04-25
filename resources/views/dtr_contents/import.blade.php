@@ -105,15 +105,6 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>Employee number</th>
-                            <th>Full name</th>
-                            <th>Department</th>
-                            <th>Rendered Hours</th>
-                            <th>Actions</th>
-                        </tr>
-                        </tfoot>
                         </table>    
 
                                 

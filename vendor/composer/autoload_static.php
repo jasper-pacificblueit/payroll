@@ -474,6 +474,7 @@ class ComposerStaticInit5c06420e6614902f97a0a4f3a56cee0f
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Contact' => __DIR__ . '/../..' . '/app/Contact.php',
         'App\\DateTimeRecord' => __DIR__ . '/../..' . '/app/DateTimeRecord.php',
+        'App\\Deduction' => __DIR__ . '/../..' . '/app/Deduction.php',
         'App\\Department' => __DIR__ . '/../..' . '/app/Department.php',
         'App\\Earnings' => __DIR__ . '/../..' . '/app/Earnings.php',
         'App\\Employee' => __DIR__ . '/../..' . '/app/Employee.php',

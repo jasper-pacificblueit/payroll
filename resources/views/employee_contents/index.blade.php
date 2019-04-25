@@ -19,6 +19,7 @@
     </div>
     <br>
 
+  
     <div class="wrapper wrapper-content no-padding">
         <div class="wrapper wrapper-content no-padding">
 
@@ -30,7 +31,10 @@
                         </ul>
                         <div class="tab-content">
                             <div id="employee" class="tab-pane {{ Request::path() == 'employee' ? 'active' : '' }}">
-                                @include('employee_contents.view_employee')
+                                <div class="panel-body">
+                                       
+                                    @include('employee_contents.view_employee')
+                                </div>
                             </div>
                            
                         </div>
@@ -42,8 +46,6 @@
              </div>
         </div>
     </div>
-
-   
 @endsection
 
 @section('scripts')

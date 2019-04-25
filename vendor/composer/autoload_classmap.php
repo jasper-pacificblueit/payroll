@@ -10,6 +10,7 @@ return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Contact' => $baseDir . '/app/Contact.php',
     'App\\DateTimeRecord' => $baseDir . '/app/DateTimeRecord.php',
+    'App\\Deduction' => $baseDir . '/app/Deduction.php',
     'App\\Department' => $baseDir . '/app/Department.php',
     'App\\Earnings' => $baseDir . '/app/Earnings.php',
     'App\\Employee' => $baseDir . '/app/Employee.php',

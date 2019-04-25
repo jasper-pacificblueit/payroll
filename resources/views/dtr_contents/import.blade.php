@@ -105,24 +105,12 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>Employee number</th>
-                            <th>Full name</th>
-                            <th>Department</th>
-                            <th>Rendered Hours</th>
-                            <th>Actions</th>
-                        </tr>
-                        </tfoot>
                         </table>    
 
                                 
-                            <Br>
+                            <br>
                             <a href="/dtr" class="btn btn-default">Cancel</a>
                             <a class="btn btn-success pull-right" data-toggle="modal" data-target="#showWarning">Next</a>
-                            
-                                
-                      
                             
                     </div>
                     
@@ -262,9 +250,6 @@
                                             <th>Time in</th>
                                             <th>Set time out</th>
                                             <th>Total Hour</th>
-                                            
-                                            <th>Set ID number</th>
-                                            
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -478,7 +463,7 @@ function diff_minutes(dt2, dt1)
     var warningInValues = new Array();
     var warningTotalValues = new Array();
 
-    for(var i = 0; i < warningElement.length; i++){
+    for(var i = 0; i < warningElement.length; i++) {
         var warningVar = warningElement[i].value;
         var warningInVar = warningInElement[i].value;
         
@@ -492,11 +477,9 @@ function diff_minutes(dt2, dt1)
         var diff = (new Date(0, 0, 0, outtime[0], outtime[1], 0) - new Date(0, 0, 0, intime[0], intime[1], 0))/(3.6 * 1e6);
 
         warningTotalValues.push(diff.toFixed(2));
-     
-      
     }
 
-    for(var j =0; j< warningValues.length; j++){
+    for(var j =0; j< warningValues.length; j++) {
         warningTotalElement[j].value = warningTotalValues[j];
     }
 

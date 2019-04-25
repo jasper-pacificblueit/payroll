@@ -39,6 +39,7 @@ return array(
     'App\\Imports\\UserImport' => $baseDir . '/app/Imports/UserImport.php',
     'App\\Payroll' => $baseDir . '/app/Payroll.php',
     'App\\PayrollDate' => $baseDir . '/app/PayrollDate.php',
+    'App\\Positions' => $baseDir . '/app/Positions.php',
     'App\\Profile' => $baseDir . '/app/Profile.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

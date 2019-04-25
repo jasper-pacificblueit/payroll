@@ -503,6 +503,7 @@ class ComposerStaticInit5c06420e6614902f97a0a4f3a56cee0f
         'App\\Imports\\UserImport' => __DIR__ . '/../..' . '/app/Imports/UserImport.php',
         'App\\Payroll' => __DIR__ . '/../..' . '/app/Payroll.php',
         'App\\PayrollDate' => __DIR__ . '/../..' . '/app/PayrollDate.php',
+        'App\\Positions' => __DIR__ . '/../..' . '/app/Positions.php',
         'App\\Profile' => __DIR__ . '/../..' . '/app/Profile.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',

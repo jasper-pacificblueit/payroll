@@ -245,6 +245,8 @@
                                         <tr>
                                             <th>Bio number</th>
                                             <th>Employee name</th>
+                                            <th>Date</th>
+                                            
                                             <th>Time in</th>
                                             <th>Set time out</th>
                                             <th>Total Hour</th>
@@ -256,19 +258,37 @@
                                             <tr>
                                                 <td>{{ $employee->bio_id }}</td>
                                                 <td>{{ ucwords(strtolower($employee->name)) }}</td>
+                                                <td style="width:10%;">
+                                                  
+                                                    @foreach ($employee->attendance as $attendance)
+                                                    
+                                                        @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
+                                                            @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
+                                                                @if(!empty($attendance->am['in']))
+                                                                   <input type="text" value="{{$attendance->ddww}}" readonly class="form-control" style="background:transparent;border:0;">
+                                                                   <br>
+                                                                @endif
+                                                            @endif
+                                                        @endif
+
+                                                    @endforeach
+                                                </td>
+
+                                                
                                                 <td>
                                                     @php
                                                         $count = 0;
                                                     @endphp
                                                     @foreach ($employee->attendance as $attendance)
-                                                        
+                                                    
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
                                                                 @if(!empty($attendance->am['in']))
-                                                                    <input type="time" value="{{$attendance->am['in']}}" class="warningTimeIn form-control" style="background:transparent" name="warningTimeIn[{{$employee->bio_id}}][]" id="in" readonly>
+
+                                                                    <input type="time" value="{{$attendance->am['in']}}" class="warningTimeIn form-control" style="background:transparent;border:0;" name="warningTimeIn[{{$employee->bio_id}}][]" id="in" readonly>
                                                                     <br>
                                                                 @elseif(!empty($attendance->pm['in']))
-                                                                     <input type="time" value="{{$attendance->pm['in']}}" class="warningTimeIn form-control" style="background:transparent" name="warningTimeIn[{{$employee->bio_id}}][]" id="in" readonly>
+                                                                     <input type="time" value="{{$attendance->pm['in']}}" class="warningTimeIn form-control" style="background:transparent;border:0;" name="warningTimeIn[{{$employee->bio_id}}][]" id="in" readonly>
                                                                      <br>
                                                                 @endif
                                                             @endif
@@ -296,7 +316,7 @@
                                                         @endif
                                                     @endforeach
                                                 </td>
-                                                <td>
+                                                <td style="width:10%;">
                                                     @php
                                                         $count = 0;
                                                     @endphp
@@ -304,7 +324,7 @@
                                                        
                                                     @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                         @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
-                                                            <input type="text" name="warningTotal[{{$employee->bio_id}}][]" class="warningTotal form-control" style="background:transparent;" readonly>
+                                                            <input type="text" name="warningTotal[{{$employee->bio_id}}][]" class="warningTotal form-control" style="background:transparent;border:0;" readonly>
                                                             <br>
 
                                                           

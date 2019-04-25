@@ -98,6 +98,11 @@
                 @endcan
                 @endcan
 
+                <li class="{{ Request::path() == 'position' ? 'active' : '' }}">
+                    <a href="/positions"><i class="fa fa-user"></i> <span class="nav-label">Manage Positions</span></a>
+                </li>
+
+
                 @can('company_read')
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
                         <a href="/company"><i class="fa fa-building-o"></i> <span class="nav-label">Manage Company</span></a>

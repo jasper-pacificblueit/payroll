@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
 	public $timestamps = false;
+
 	public function user() {
 		return $this->belongsTo('App\User');
 	}
@@ -19,5 +20,13 @@ class Employee extends Model
 
 	public function dateTimeRecord() {
 		return $this->hasOne('App\DateTimeRecord');
+	}
+
+	public function deductions() {
+		return $this->hasOne('App\Deduction');
+	}
+
+	public function rates() {
+		return $this->hasOne('App\Rate');
 	}
 }

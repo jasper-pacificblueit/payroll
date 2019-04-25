@@ -151,9 +151,9 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $user = App\User::findOrFail($id);
 
+        // position
         $user->position = $request->position;
 
         $user->removeRole($user->position);
@@ -169,7 +169,25 @@ class EmployeeController extends Controller
                 'dtr_read', 'dtr_write',
             ]);
 
+
+        // department
+        $employee = App\Employee::where('user_id', $id)->first();
+        $employee->department_id = $request->chdep;
+
+        if (App\Employee::where('bio_id', '=', $request->bio)->first()) {
+
+            $user->save();
+            $employee->save();
+
+            return back()->withErrors([
+                'bio_id_conflict' => $request->bio . " is already used!",
+            ]);
+        }
+
+        $employee->bio_id = $request->bio;
+
         $user->save();
+        $employee->save();
 
         return back();
     }

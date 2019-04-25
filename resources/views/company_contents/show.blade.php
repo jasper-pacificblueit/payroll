@@ -64,12 +64,6 @@
                                         </div>
                                     </div>
                             </div>
-                            
-                            <div class="col-sm-3 pull-right">
-                                <h4>&nbsp;</h4>
-                                <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-success"> Go!</button> </span></div>
-                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped">

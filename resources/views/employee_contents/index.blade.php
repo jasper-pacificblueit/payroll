@@ -76,14 +76,14 @@
                                                 <td>{{ $em->user_id }}</td>
                                                 <td>{{ App\Profile::getFullName($em->user_id) }}</td>
                                                 <td>{{ App\Department::find($em->department_id)->name }}</td>
-                                                <td>{{ App\Profile::where('user_id', $em->user_id)->first()['email'] }}</td>
+                                                <td>{{ App\User::find($em->user_id)->email }}</td>
                                                 <td>{{ App\User::$positions[App\User::find($em->user_id)['position']] }}</td>
                                                 <td>
                                                 <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#settingEmployee-{{ $em->user_id }}">
                                                     Settings
                                                 </button>
                                                 <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#ratesEmployee-{{ $em->user_id }}">
-                                                    Rates
+                                                    Others
                                                 </button>
                                                 </td>
                                             </tr>
@@ -117,17 +117,21 @@
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                 <div class="modal-body">
-                   <div class="row">
-                       <div class="col-lg-4 col-12">
-                        @can('employee_write')
-                            <label>Change Position</label>
-                            <select class='form-control' name="position">
-                                <option value='hr'>HR</option>
-                                <option value='employee'>Employee</option>
-                            </select>
-                        @endcan
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <label>Username: </label>
+                            {{ App\User::find($em->user_id)['user'] }}
                        </div>
-                   </div>
+                    </div>
+               <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <label>Change Position</label>
+                        <select class='form-control' name="position">
+                            <option value='hr'>HR</option>
+                            <option value='employee'>Employee</option>
+                        </select>
+                    </div>
+               </div>
                 </div>
 
                 <div class="modal-footer">
@@ -150,8 +154,10 @@
         <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header no-padding">
-                <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-               <h4 style="padding:10px">Rates</h4>
+                <button type="button" style="padding:10px" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+               <h4 style="padding:10px">Others</h4>
                
             </div>
             <form method="POST" action="">
@@ -164,8 +170,10 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" name="submit">Save</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" name="submit">Save</button>
+                    </div>
                 </div>
             </form>
         </div>

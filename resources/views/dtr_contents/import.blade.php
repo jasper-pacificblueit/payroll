@@ -108,12 +108,9 @@
                         </table>    
 
                                 
-                            <Br>
+                            <br>
                             <a href="/dtr" class="btn btn-default">Cancel</a>
                             <a class="btn btn-success pull-right" data-toggle="modal" data-target="#showWarning">Next</a>
-                            
-                                
-                      
                             
                     </div>
                     

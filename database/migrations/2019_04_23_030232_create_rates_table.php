@@ -20,6 +20,7 @@ class CreateRatesTable extends Migration
             $table->float('hourly');
             $table->float('holiday');
             $table->float('overtime');
+            $table->float('nightrate');
 
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });

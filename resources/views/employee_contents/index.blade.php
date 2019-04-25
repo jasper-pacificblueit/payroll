@@ -121,17 +121,23 @@
                         <div class="col-lg-6 col-12">
                             <label>Username: </label>
                             {{ App\User::find($em->user_id)['user'] }}
-                       </div>
+                        </div>
                     </div>
                <div class="row">
                     <div class="col-lg-6 col-12">
-                        <label>Change Position</label>
+                        <label>Change Position: </label>
                         <select class='form-control' name="position">
                             <option value='hr'>HR</option>
                             <option value='employee'>Employee</option>
                         </select>
                     </div>
                </div>
+               <hr>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input class="form-control" value="--">
+                    </div>  
+                </div>
                 </div>
 
                 <div class="modal-footer">

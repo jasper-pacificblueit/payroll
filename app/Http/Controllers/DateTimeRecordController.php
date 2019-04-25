@@ -216,6 +216,7 @@ class DateTimeRecordController extends Controller
 
 
     public function viewFile(Request $request) {
+        
 
         $start = $request->start;
         $end = $request->end;
@@ -339,7 +340,7 @@ class DateTimeRecordController extends Controller
         }
 
         $employees = [];
-
+     
         // [cleanup] remove any null employee records.
         for ($j = 0; $j < count($csv_info["employees"]); ++$j)
             if ($csv_info["employees"][$j]->name != "")
@@ -351,5 +352,7 @@ class DateTimeRecordController extends Controller
         return view('dtr_contents.index')
           ->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
     }
+
+  
 
 }

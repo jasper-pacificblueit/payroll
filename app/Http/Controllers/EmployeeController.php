@@ -24,6 +24,26 @@ class EmployeeController extends Controller
         ]);
     }
 
+    public function selectDepartment(Request $request){
+        
+        $data = \App\Department::all()->where('company_id' , '=' , $request->input('q'));
+         
+       
+ 
+        return view('employee_contents.selectDepartment' , compact('data'));
+     }
+
+     public function showEmployee(Request $request){
+        
+        $data = \App\Employee::all()->where('department_id' , '=' , $request->input('q'));
+         
+       
+ 
+        return view('employee_contents.EmployeeTable' , compact('data'));
+     }
+
+  
+
     /**
      * Show the form for creating a new resource.
      *
@@ -31,10 +51,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-
-        return view('employee_contents.add')->with([
-            'company' => App\Company::all(),
-        ]);
+        return view('employee_contents.index');
     }
 
     /**
@@ -151,9 +168,9 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $user = App\User::findOrFail($id);
 
+        // position
         $user->position = $request->position;
 
         $user->removeRole($user->position);
@@ -169,7 +186,25 @@ class EmployeeController extends Controller
                 'dtr_read', 'dtr_write',
             ]);
 
+
+        // department
+        $employee = App\Employee::where('user_id', $id)->first();
+        $employee->department_id = $request->chdep;
+
+        if (App\Employee::where('bio_id', '=', $request->bio)->first()) {
+
+            $user->save();
+            $employee->save();
+
+            return back()->withErrors([
+                'bio_id_conflict' => $request->bio . " is already used!",
+            ]);
+        }
+
+        $employee->bio_id = $request->bio;
+
         $user->save();
+        $employee->save();
 
         return back();
     }

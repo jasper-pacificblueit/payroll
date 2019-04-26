@@ -27,6 +27,9 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		Route::get('/employee/add', 'EmployeeController@create')->name('employee.add');
 		Route::post('/employee/keep', 'EmployeeController@store');
 		Route::match(['put', 'patch'], '/employee/{id}', 'EmployeeController@update');
+		
+	
+		
 	});
 
 	Route::middleware(['permission:company_read'])->group(function() {
@@ -48,6 +51,10 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		
 		Route::get("/dtr-records", "DateTimeRecordController@records");
 		Route::get("/selectDate", "DateTimeRecordController@selectDate");
+		
+		Route::get("/selectDepartment", "EmployeeController@selectDepartment");
+		Route::get("/showEmployee", "EmployeeController@showEmployee");
+		Route::get("/employee/add", "EmployeeController@create");
 		
 		Route::resource('/payroll', 'PayrollController');
 		Route::post('/payroll/makePayroll', 'PayrollController@makePayroll');

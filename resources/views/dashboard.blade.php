@@ -108,12 +108,74 @@
                   </div>
       </div>
   </div>
+      </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+        <div class="ibox-content">
+            <h2>TODO List</h2>
+            <small>This is example of task list</small>
+            <ul class="todo-list m-t">
+                <li>
+                    <input type="checkbox" value="" name="" class="i-checks"/>
+                    <span class="m-l-xs">Buy a milk</span>
+                    <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 mins</small>
+                </li>
+                <li>
+                    <input type="checkbox" value="" name="" class="i-checks" checked/>
+                    <span class="m-l-xs">Go to shop and find some products.</span>
+                    <small class="label label-info"><i class="fa fa-clock-o"></i> 3 mins</small>
+                </li>
+                <li>
+                    <input type="checkbox" value="" name="" class="i-checks" />
+                    <span class="m-l-xs">Send documents your documents</span>
+                    <small class="label label-warning"><i class="fa fa-clock-o"></i> 2 mins</small>
+                </li>
+                <li>
+                    <input type="checkbox" value="" name="" class="i-checks"/>
+                    <span class="m-l-xs">Go to your Doctor</span>
+                    <small class="label label-danger"><i class="fa fa-clock-o"></i> 42 mins</small>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <h2>TODO Small version</h2>
+                <small>This is example of small version of todo list</small>
+                <ul class="todo-list m-t small-list">
+                    <li>
+                        <a href="#" class="check-link"><i class="fa fa-check-square"></i> </a>
+                        <span class="m-l-xs todo-completed">Buy a milk</span>
+
+                    </li>
+                    <li>
+                        <a href="#" class="check-link"><i class="fa fa-check-square"></i> </a>
+                        <span class="m-l-xs  todo-completed">Go to shop and find some products.</span>
+
+                    </li>
+                    <li>
+                        <a href="#" class="check-link"><i class="fa fa-square-o"></i> </a>
+                        <span class="m-l-xs">Send documents </span>
+                        <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 mins</small>
+                    </li>
+                    <li>
+                        <a href="#" class="check-link"><i class="fa fa-square-o"></i> </a>
+                        <span class="m-l-xs">Go to your Doctor</span>
+                    </li>
+                    <li>
+                        <a href="#" class="check-link"><i class="fa fa-square-o"></i> </a>
+                        <span class="m-l-xs">Plan vacation</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
 
 </div>
-
-</div>
-</div>
-<div class="footer">
 </div>
 </div>
 @endsection

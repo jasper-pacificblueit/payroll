@@ -120,7 +120,14 @@ class EmployeeController extends Controller
             $employee->department_id = $request->department;
             $employee->user_id = $user->id;
             $employee->bio_id = $request->bio;
+
+            $rates = new App\Rates;
+
+            $rates->employee_id = $employee->id;
+            $rates->hourly = $request->hourly_rate;
+
             $employee->save();
+            $rates->save();
         }
 
         // Add role and permissions

@@ -54,7 +54,7 @@
               <input type="text" name="user" class="form-control" required>
 
               <label>Biometric ID</label>
-              <input type="text" name="bio" class="form-control" required>
+              <input type="text" name="bio" class="form-control">
 
         </div>
         <div class="col-lg-6">

@@ -129,16 +129,16 @@ class DateTimeRecordController extends Controller
                        
                             $dtr->out_pm = $request->warningTimeOut[$employee['bio_id']][$warningCount];
 
-                            echo "days = " .$days[$dayCount] . " mark as <b style='color:orange;'>WARNING</b> " .$in_am . " -" . $request->warningTimeOut[$employee['bio_id']][$warningCount] . "===" . $request->warningTotal[$employee['bio_id']][$warningCount] . " count = " . $warningCount;
+                            echo "days = " .$days[$dayCount] . " mark as <b style='color:orange;'>WARNING</b> " .$in_am . " -" . $request->warningTimeOut[$employee['bio_id']][$warningCount] . "===" . $request->warningTotal[$employee['bio_id']][$warningCount] . " Warning count = " . $warningCount;
                             echo "<br>";
                             $dtr->total_hours = $request->warningTotal[$employee['bio_id']][$warningCount];
 
                             $warningCount++;
                         }else{
-                            echo "days = " .$days[$dayCount] . " mark as <b style='color:green;'>PRESENT</b>".$in_am . "-" . $out_am . "| " . $in_pm . "-" .$out_pm . "===" .$request->totalHours[$employee['bio_id']][$count] . "Warning Count = " . $count;
+                            echo "days = " .$days[$dayCount] . " mark as <b style='color:green;'>PRESENT</b>".$in_am . "-" . $out_am . "| " . $in_pm . "-" .$out_pm . "===" .$request->totalHours[$employee['bio_id']][$count] . "Count = " . $count;
                             $dtr->out_am = $attendance['am']['out'];
                             $dtr->out_pm = $attendance['pm']['out'];
-                            $dtr->total_hours = $request->totalHours[$employee['bio_id']][$count];
+                            $dtr->total_hours = number_format($request->totalHours[$employee['bio_id']][$count] , 2);
                             echo "<br>";
 
                             $count++;

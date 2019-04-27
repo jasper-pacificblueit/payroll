@@ -82,7 +82,7 @@ class EmployeeController extends Controller
         $user = new App\User;
         $contact = new App\Contact;
         $profile = new App\Profile;
-        
+        $employee = new App\Employee;
 
         $user->user = $request->user;
         $user->email = $request->email;
@@ -114,18 +114,11 @@ class EmployeeController extends Controller
         $profile->save();
 
         if ($user->position != 'admin') {
-            $employee = new App\Employee;
-            $rates = new App\Rates;
-
             $employee->company_id = $request->company;
             $employee->department_id = $request->department;
             $employee->user_id = $user->id;
-            $employee->bio_id = $request->bio;
+            $employee->bio_id = $request->bi
             $employee->save();
-
-            $rates->employee_id = $employee->id;
-            $rates->hourly = $request->hourly_rates;
-            $rates->save();
         }
 
         // Add role and permissions

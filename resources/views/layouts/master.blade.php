@@ -42,6 +42,13 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font">{!! App\User::$positions[auth()->user()->position] !!}</strong>
+                                </span>
+                            </span>
+                        </a>
                         <span>
                             <img alt="image" class="img-circle" src="{{ $profile->image['data'] }}" style='max-width: 75px'/>
                         </span>
@@ -49,7 +56,7 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">
                                 <span class="block m-t-xs">
-                                    <strong class="font-bold">{!! App\User::$positions[auth()->user()->position] !!}</strong>
+                                    <strong class="font-bold">{{ App\Profile::getFullName(auth()->user()->id) }}</strong>
                                 </span>
                                 <span class="text-muted text-xs block">
                                     <b class="caret"></b>

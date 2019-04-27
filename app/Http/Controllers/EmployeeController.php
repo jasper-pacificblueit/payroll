@@ -51,7 +51,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employee_contents.index');
+        return view('employee_contents.index')->with([
+            'company' => App\Company::all(),
+        ]);
     }
 
     /**
@@ -215,18 +217,16 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee)
-    {
-        //
+    public function destroy(Request $request, $id) {
+        App\User::destroy($id);
     }
 
-    public function viewEmployee(Request $request){
+    public function viewEmployee(Request $request) {
         return view('sample');
     }
 
     public function getEmployee(Request $request){
         $data = Employee::with('getProfile')->find($request->input('id'));
-
         return response()->json($data);
     }
 }

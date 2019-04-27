@@ -5,7 +5,8 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta id="_token" value="{!! csrf_token() !!}">
+    <meta id="_token" value="{{ csrf_token() }}">
+
 
     <title>@yield('title')</title>
 

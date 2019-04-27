@@ -9,7 +9,19 @@
         <td>
         	<div class="btn-group">
         		<button class="btn btn-xs btn-default">Manage</button>
-        		<button class="btn btn-xs btn-danger">Remove</button>
+        		<button class="btn btn-xs btn-danger" 
+                    onclick="
+                    fetch('/employee/{{ $employee->user_id }}', {
+                        method: 'delete',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        }
+                    });
+                    
+                    EmployeeSelect(document.getElementById('DepartmentSelector').value);
+                ">
+                    Remove
+                </button>
         	</div>
         </td>
     </tr>

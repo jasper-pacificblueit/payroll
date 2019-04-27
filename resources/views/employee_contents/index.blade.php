@@ -43,8 +43,6 @@
                                     <div class="row">
                                             <div class="col-md-3">
                                                     <h4>Select Company</h4>
-                                                  
-                                                        
                                                         <select class="form-control select2_demo_1" id="CompanySelector" onchange="DepartmentSelect(this.value)">
                                                             @php($Companies = App\Company::all())
 
@@ -57,9 +55,7 @@
 
                                              <div class="col-md-3">
                                                     <h4>Select Department</h4>
-                                                    <select class="form-control select2_demo_1" id="DepartmentSelector" onchange="EmployeeSelect(this.value)">
-                                                           
-                                                    </select>
+                                                    <select class="form-control select2_demo_1" id="DepartmentSelector" onchange="EmployeeSelect(this.value)"></select>
                                                             
                                              </div>
                                         </div>
@@ -71,7 +67,7 @@
                             <div class="tab-pane {{ Request::path() == 'employee/add' ? 'active' : '' }}">
                                     <div class="panel-body">
                                         <br>
-                                        @include('employee_contents.addEmployee')
+                                        
                                     </div>
                                 </div>
                            

@@ -20,14 +20,17 @@ Route::middleware(['guest'])->group(function() {
 Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 
 	Route::middleware(['permission:employee_read'])->group(function() {
+		Route::get('view-employee', 'EmployeeController@viewEmployee');
+		Route::get('get-employee', 'EmployeeController@getEmployee');
+
 		Route::get('/employee', 'EmployeeController@index')->name('employee');
 	});
 	
 	Route::middleware(['permission:employee_write'])->group(function() {
-		Route::get('/employee/add', 'EmployeeController@create')->name('employee.add');
+		Route::get('/employee/add', 'EmployeeController@create')->name('addEmployee');
 		Route::post('/employee/keep', 'EmployeeController@store');
 		Route::match(['put', 'patch'], '/employee/{id}', 'EmployeeController@update');
-		
+		Route::delete('/employee/{id}', 'EmployeeController@destroy');
 	
 		
 	});
@@ -65,13 +68,10 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		Route::get("/rates", "RateController@index");
 		
 		Route::resource('/positions', 'PositionsController');
-		
-		
-		
+	
 	});
 
-	Route::get('view-employee', 'EmployeeController@viewEmployee');
-	Route::get('get-employee', 'EmployeeController@getEmployee');
+	
 	
 	
 });

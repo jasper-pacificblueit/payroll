@@ -116,6 +116,10 @@
                     <a href="/positions"><i class="fa fa-user"></i> <span class="nav-label">Manage Positions</span></a>
                 </li>
 
+                <li class="{{ Request::path() == 'rates' ? 'active' : '' }}">
+                    <a href="/rates"><i class="fa fa-money"></i> <span class="nav-label">Manage Rates</span></a>
+                </li>
+
 
                 @can('company_read')
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">

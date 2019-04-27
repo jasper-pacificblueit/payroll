@@ -91,71 +91,84 @@ class DateTimeRecordController extends Controller
         //dd($request->payrollDate1);
     
        $empCount = 0;
-    //    dd($request->warningTimeOut , $request->warningTotal);
+       //dd($request->warningTimeOut , $request->warningTotal , $days);
        
        $checkAttendance = App\PayrollDate::where('start', '=' , $request->payrollDate1, 'AND' , 'end' , '=' , $request->payrollDate2)->get();
 
+       $empCount = 0;
+    
+      
+      //dd($request->totalHours , $days);
        if(!count($checkAttendance) > 0){
+
+            
             foreach($csv_info['employees'] as $employee){
-            
-            
-            $count = 0;
-            $dayCount = 0;
-            foreach($employee['attendance'] as $attendance){
-               
-                if(!$attendance['absent']){
-                  
-                    $dtr = new App\DateTimeRecord;
+                
+                echo "BIO = ".$employee['bio_id'] . " --- UserID =" . $request->UserID[$employee['bio_id']][0] ."<Br>";
+                $dayCount = 0;
+                $count = 0;
+                $warningCount = 0;
+                foreach($employee['attendance'] as $attendance){
+                    echo $dayCount . "<Br>";
+                    if(!$attendance['absent']){
+
+                        $dtr = new App\DateTimeRecord;
                    
-                    $in_am = date("H:i" , strtotime($attendance['am']['in']));
-                    $out_am = date("H:i" , strtotime($attendance['am']['out']));
-                    $in_pm = date("H:i" , strtotime($attendance['pm']['in']));
-                    $out_pm = date("H:i" , strtotime($attendance['pm']['out']));
-                   
+                        $in_am = date("H:i" , strtotime($attendance['am']['in']));
+                        $out_am = date("H:i" , strtotime($attendance['am']['out']));
+                        $in_pm = date("H:i" , strtotime($attendance['pm']['in']));
+                        $out_pm = date("H:i" , strtotime($attendance['pm']['out']));
                     
-                   $dtr->user_id = $request->UserID[$employee['bio_id']][$empCount];
-                   $dtr->date = date("Y-m-d" , strtotime($days[$dayCount]));
-                   $dtr->in_am = $attendance['am']['in'];
-                   $dtr->in_pm = $attendance['pm']['in'];
-                   if(empty($attendance['am']['out']) && empty($attendance['pm']['out'])){
-
-                    $dtr->out_pm = $request->warningTimeOut[$employee['bio_id']][$count];
-
-                    $count++;
-                    
-                   }
-                   else{
-                    $dtr->out_am = $attendance['am']['out'];
-                    $dtr->out_pm = $attendance['pm']['out'];
-
-                   
-                   }
-                   
-                   
-                   $dtr->total_hours = $request->totalHours[$employee['bio_id']][$count];
+                        
+                        $dtr->user_id = $request->UserID[$employee['bio_id']][$empCount];
+                        $dtr->date = date("Y-m-d" , strtotime($days[$dayCount]));
+                        $dtr->in_am = $attendance['am']['in'];
+                        $dtr->in_pm = $attendance['pm']['in'];
                        
+                        if(empty($attendance['am']['out']) && empty($attendance['pm']['out'])){
                        
-                    $dtr->save(); 
-                 
+                            $dtr->out_pm = $request->warningTimeOut[$employee['bio_id']][$warningCount];
+
+                            echo "days = " .$days[$dayCount] . " mark as <b style='color:orange;'>WARNING</b> " .$in_am . " -" . $request->warningTimeOut[$employee['bio_id']][$warningCount] . "===" . $request->warningTotal[$employee['bio_id']][$warningCount] . " count = " . $warningCount;
+                            echo "<br>";
+                            $dtr->total_hours = $request->warningTotal[$employee['bio_id']][$warningCount];
+
+                            $warningCount++;
+                        }else{
+                            echo "days = " .$days[$dayCount] . " mark as <b style='color:green;'>PRESENT</b>".$in_am . "-" . $out_am . "| " . $in_pm . "-" .$out_pm . "===" .$request->totalHours[$employee['bio_id']][$count] . "Warning Count = " . $count;
+                            $dtr->out_am = $attendance['am']['out'];
+                            $dtr->out_pm = $attendance['pm']['out'];
+                            $dtr->total_hours = $request->totalHours[$employee['bio_id']][$count];
+                            echo "<br>";
+
+                            $count++;
+                        }
+
+                        $dtr->save(); 
+                    }
+                    else{
+                        echo "days = " .$days[$dayCount] . " mark as <b style='color:red;'>ABSENT</b>";
+                        echo "<br>";
+                    }
+                   
+                    $dayCount ++;
                 }
               
-                
-               $dayCount++;
             }
+       
+            $empCount++;
+          
+        
+            $payrolldate = new App\PayrollDate;
+            $payrolldate->start = $request->payrollDate1;
+            $payrolldate->end = $request->payrollDate2;
+            $payrolldate->save();
             
-        }
-        $empCount++;
-        
-        $payrolldate = new App\PayrollDate;
-        $payrolldate->start = $request->payrollDate1;
-        $payrolldate->end = $request->payrollDate2;
-        $payrolldate->save();
-        
 
-        $date = App\PayrollDate::orderBy('id' , 'desc')->first();
+            $date = App\PayrollDate::orderBy('id' , 'desc')->first();
 
-        
-        return redirect('dtr-records');
+            return redirect('dtr-records');
+      
        }
        else{
 

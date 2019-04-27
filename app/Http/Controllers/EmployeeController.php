@@ -121,7 +121,7 @@ class EmployeeController extends Controller
             $employee->user_id = $user->id;
             $employee->bio_id = $request->bio;
 
-            $rates = new App\Rates;
+            $rates = new App\Rate;
 
             $rates->employee_id = $employee->id;
             $rates->hourly = $request->hourly_rate;

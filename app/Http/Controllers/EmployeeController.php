@@ -114,19 +114,20 @@ class EmployeeController extends Controller
         $profile->user_id = $user->id;
 
         $profile->save();
-
+            
         if ($user->position != 'admin') {
             $employee->company_id = $request->company;
             $employee->department_id = $request->department;
             $employee->user_id = $user->id;
             $employee->bio_id = $request->bio;
+            
+            $employee->save();
 
             $rates = new App\Rate;
 
             $rates->employee_id = $employee->id;
             $rates->hourly = $request->hourly_rate;
 
-            $employee->save();
             $rates->save();
         }
 

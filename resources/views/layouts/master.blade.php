@@ -42,11 +42,9 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <a class="dropdown-toggle">
                             <span class="clear">
-                                <span class="block m-t-xs">
-                                    <strong class="font">{!! App\User::$positions[auth()->user()->position] !!}</strong>
-                                </span>
+                                <p class="text-muted text-xs">{!! App\User::$positions[auth()->user()->position] !!}</p>
                             </span>
                         </a>
                         <span>

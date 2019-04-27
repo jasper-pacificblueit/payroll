@@ -19,21 +19,20 @@ Route::middleware(['guest'])->group(function() {
 // admin routes
 Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 
-	Route::middleware(['permission:employee_read'])->group(function() {
-		Route::get('view-employee', 'EmployeeController@viewEmployee');
-		Route::get('get-employee', 'EmployeeController@getEmployee');
+	if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
+		Route::middleware(['permission:employee_read'])->group(function() {
+			Route::get('view-employee', 'EmployeeController@viewEmployee');
+			Route::get('get-employee', 'EmployeeController@getEmployee');
+			Route::get('/employee', 'EmployeeController@index')->name('employee');
+		});
 
-		Route::get('/employee', 'EmployeeController@index')->name('employee');
-	});
-	
-	Route::middleware(['permission:employee_write'])->group(function() {
-		Route::get('/employee/add', 'EmployeeController@create')->name('addEmployee');
-		Route::post('/employee/keep', 'EmployeeController@store');
-		Route::match(['put', 'patch'], '/employee/{id}', 'EmployeeController@update');
-		Route::delete('/employee/{id}', 'EmployeeController@destroy');
-	
-		
-	});
+	if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
+		Route::middleware(['permission:employee_write'])->group(function() {
+			Route::get('/employee/add', 'EmployeeController@create')->name('addEmployee');
+			Route::post('/employee/keep', 'EmployeeController@store');
+			Route::match(['put', 'patch'], '/employee/{id}', 'EmployeeController@update');
+			Route::delete('/employee/{id}', 'EmployeeController@destroy');
+		});
 
 	Route::middleware(['permission:company_read'])->group(function() {
 		Route::get('/company', 'CompanyController@index');

@@ -39,7 +39,6 @@ class DatabaseSeeder extends Seeder
             ],
             'birthdate' => '1999-07-26',
 
-            'phone' => '09182639024',
             'mobile' => '09182639024',
             'address' => 'San Rafael St., Sto. Domingo, Albay',
 
@@ -59,8 +58,11 @@ class DatabaseSeeder extends Seeder
 
             UsersTableSeeder::default((object)['name' => $name, 'address' => $address], $departments);
         } else
-            self::default();
+            if ($this->command->confirm('Do you want to continue? '))
+                self::default();
         
+
+
     }
 
     public static function employees() {
@@ -73,7 +75,6 @@ class DatabaseSeeder extends Seeder
                     'password' => bcrypt('jasper')
                 ],
                 'contacts' => [
-                    'phone' => '',
                     'mobile' => '',
                     'address' => '',
                     'email' => 'example@example1.com',
@@ -104,7 +105,6 @@ class DatabaseSeeder extends Seeder
                     'password' => bcrypt('angie')
                 ],
                 'contacts' => [
-                    'phone' => '',
                     'mobile' => '',
                     'address' => '',
                     'email' => 'example@example2.com',
@@ -135,7 +135,6 @@ class DatabaseSeeder extends Seeder
                     'password' => bcrypt('saturnino')
                 ],
                 'contacts' => [
-                    'phone' => '',
                     'mobile' => '',
                     'address' => '',
                     'email' => 'example@example3.com',

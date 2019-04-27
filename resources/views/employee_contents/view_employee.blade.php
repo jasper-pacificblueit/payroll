@@ -18,7 +18,7 @@
     </div>
 </div>
 <script>
-  function DepartmentSelect(str){
+  function DepartmentSelect(str) {
         console.log(str);
         if (str.length==0) { 
                 document.getElementById("showEmp").innerHTML="";
@@ -33,8 +33,9 @@
         }
         xmlhttp.onreadystatechange=function() {
                 if (this.readyState==4 && this.status==200) {
-                document.getElementById("DepartmentSelector").innerHTML=this.responseText;
-              
+                    document.getElementById("DepartmentSelector").innerHTML=this.responseText;
+
+                    EmployeeSelect(document.getElementById("DepartmentSelector").value);
                 }
         }
         xmlhttp.open("GET","selectDepartment?q="+str,true);

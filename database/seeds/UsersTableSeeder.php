@@ -45,7 +45,6 @@ class UsersTableSeeder extends Seeder
             $user->contacts()->save(new App\Contact([
                 'address' => $faker->address,
                 'user_id' => $user->id,
-                'phone' => rand(1, 1e10),
                 'mobile' => rand(1, 1e10),
                 'email' => $user->email,
             ]));
@@ -110,7 +109,6 @@ class UsersTableSeeder extends Seeder
 
         $userProfile->save();
 
-        $userContact->phone = $userInfo->phone;
         $userContact->mobile = $userInfo->mobile;
         $userContact->email = $user->email;
         $userContact->address = $userInfo->address;

@@ -33,4 +33,5 @@ class Employee extends Model
 	public function rates() {
 		return $this->hasOne('App\Rate');
 	}
+
 }

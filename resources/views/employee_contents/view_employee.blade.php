@@ -4,26 +4,14 @@
             <table class="table table-striped table-bordered table-hover dataTables-example" >
                 <thead>
                     <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
+                        <th>Employee Name</th>
+                        <th>Email</th>
+                        <th></th>
                         <th>Engine version</th>
                         <th>CSS grade</th>
                     </tr>
                 </thead>
-                <tbody id="EmployeeTable">
-                   
-                   
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
-                        <th>Engine version</th>
-                        <th>CSS grade</th>
-                    </tr>
-                </tfoot>
+                <tbody id="EmployeeTable"></tbody>
              </table>
         </div>
 

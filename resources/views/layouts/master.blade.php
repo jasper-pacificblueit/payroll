@@ -54,6 +54,8 @@
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li>
+                    <a onclick="window.location.href='/profile'"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a>
+                            <li>
                                 <a onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                                   <i class="fa fa-sign-out"></i>
@@ -108,9 +110,6 @@
                         <a href="/company"><i class="fa fa-building-o"></i> <span class="nav-label">Manage Company</span></a>
                 </li>
                 @endcan
-                <li class="{{ Request::path() == 'profile' || Request::path() == 'profile' ? 'active' : '' }}">
-                    <a href="/profile"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a>
-                </li>
                
                 
               
@@ -138,11 +137,14 @@
                             <i class="fa fa-sign-out"></i>Logout
                         </a>
                     </li>
+                    
+                </li>
                 </ul>
 
             </nav>
         </div>
 
+        <br>
             @yield('content')
       
         <br>

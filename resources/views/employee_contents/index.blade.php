@@ -52,9 +52,7 @@
                                                                 <option value="{{$company->id}}">{{$company->name}}</option>
                                                             @endforeach
                                                         </select>
-                                                        
-                                                 
-                                                   
+                                                           
                                              </div>
 
                                              <div class="col-md-3">
@@ -62,11 +60,7 @@
                                                     <select class="form-control select2_demo_1" id="DepartmentSelector" onchange="EmployeeSelect(this.value)">
                                                            
                                                     </select>
-                                                        
-                                                    
-                                                        
-                                                 
-                                                   
+                                                            
                                              </div>
                                         </div>
                                     <br>
@@ -76,7 +70,6 @@
 
                             <div class="tab-pane {{ Request::path() == 'employee/add' ? 'active' : '' }}">
                                     <div class="panel-body">
-                                        
                                         <br>
                                         @include('employee_contents.addEmployee')
                                     </div>
@@ -111,7 +104,7 @@
 <script>
   
 
-    function EmployeeSelect(str){
+    function EmployeeSelect(str) {
         console.log(str);
         if (str.length==0) { 
                 document.getElementById("EmployeeTable").innerHTML="";
@@ -126,10 +119,10 @@
         }
         xmlhttp.onreadystatechange=function() {
                 if (this.readyState==4 && this.status==200) {
-                document.getElementById("EmployeeTable").innerHTML=this.responseText;
-                    
+                document.getElementById("EmployeeTable").innerHTML=this.responseText;  
                 }
         }
+
         xmlhttp.open("GET","showEmployee?q="+str,true);
         xmlhttp.send();
     }

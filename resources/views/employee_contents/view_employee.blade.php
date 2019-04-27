@@ -4,9 +4,9 @@
             <table class="table table-striped table-bordered table-hover dataTables-example" >
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Employee Name</th>
                         <th>Email</th>
-                        <th></th>
                         <th>Engine version</th>
                         <th>CSS grade</th>
                     </tr>

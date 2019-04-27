@@ -2,9 +2,9 @@
 @if (count($data) > 0)
     @foreach ($data as $employee)
     <tr>
+        <td>{{ $employee->bio_id }}</td>
         <td>{{ App\Profile::getFullName($employee->user_id) }}</td>
         <td>{{ App\User::find($employee->user_id)->email }}</td>
-        <td></td>
         <td></td>
         <td>
     		<button class="btn btn-sm btn-default">Manage</button>

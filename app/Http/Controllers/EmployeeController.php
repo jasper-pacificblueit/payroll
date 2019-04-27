@@ -65,6 +65,7 @@ class EmployeeController extends Controller
         $validate = $request->validate([
             'user' => 'required',
             'pass' => 'required',
+
             'address' => 'required',
             'birthdate' => 'required',
             'firstName' => 'required',
@@ -74,8 +75,7 @@ class EmployeeController extends Controller
             'position' => 'required',
             'mobile' => 'required',
 
-
-            'hourly_rates' => 'required',
+            'hourly_rate' => 'required',
         ]);
 
         if (auth()->user()->position == $request->position)

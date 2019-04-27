@@ -72,8 +72,10 @@ class EmployeeController extends Controller
             'middleName' => 'required',
             'email' => 'required',
             'position' => 'required',
-            'phone' => 'required',
-            'mobile' => 'required'
+            'mobile' => 'required',
+
+
+            'hourly_rates' => 'required',
         ]);
 
         if (auth()->user()->position == $request->position)
@@ -117,7 +119,7 @@ class EmployeeController extends Controller
             $employee->company_id = $request->company;
             $employee->department_id = $request->department;
             $employee->user_id = $user->id;
-            $employee->bio_id = $request->bi
+            $employee->bio_id = $request->bio;
             $employee->save();
         }
 

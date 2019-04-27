@@ -28,8 +28,6 @@ class EmployeeController extends Controller
         
         $data = \App\Department::all()->where('company_id' , '=' , $request->input('q'));
          
-       
- 
         return view('employee_contents.selectDepartment' , compact('data'));
      }
 
@@ -93,7 +91,6 @@ class EmployeeController extends Controller
 
         $user->save();
 
-        $contact->phone = $request->phone;
         $contact->mobile = $request->mobile;
         $contact->address = $request->address;
         $contact->email = $user->email;

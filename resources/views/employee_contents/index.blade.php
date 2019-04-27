@@ -63,11 +63,9 @@
                                     @include('employee_contents.view_employee')
                                 </div>
                             </div>
-
                             <div class="tab-pane {{ Request::path() == 'employee/add' ? 'active' : '' }}">
                                     <div class="panel-body">
-                                        <br>
-                                        
+                                        @include('employee_contents.addEmployee')
                                     </div>
                                 </div>
                            
@@ -161,11 +159,24 @@
                 placeholder: "Select a state",
                 allowClear: true
             });
-           
+            
            
 
     });
 
-</script>
+// event function to change department options when company changes.
+    let chdep = () => {
+      let depid = 'dep-option-' + document.getElementsByName('company')[0].value;
 
+      document.querySelector('.company-dep').innerHTML = "";  // reset
+
+      let dep = document.querySelector('#' + depid);
+      let clone = dep.content.cloneNode(1);
+
+      document.querySelector('.company-dep').appendChild(clone);
+    };
+
+
+</script>
 @endsection
+

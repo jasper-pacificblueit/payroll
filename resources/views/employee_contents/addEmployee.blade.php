@@ -110,9 +110,6 @@
           <label>Hourly</label>
           <input class="form-control" type="text" name="hourly_rate">
         </div>
-
-
-        
       </div>
       <div class="hr-line-dashed"></div>
       <div class="row">

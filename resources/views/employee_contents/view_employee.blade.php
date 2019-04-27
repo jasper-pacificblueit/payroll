@@ -8,7 +8,7 @@
                         <th>Employee Name</th>
                         <th>Email</th>
                         <th>Engine version</th>
-                        <th>CSS grade</th>
+                        <th>Management</th>
                     </tr>
                 </thead>
                 <tbody id="EmployeeTable"></tbody>

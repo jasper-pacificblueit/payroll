@@ -49,13 +49,7 @@ class CompanyController extends Controller
         $company->address = request('address');
         $company->save();
 
-        Department::create([
-            'company_id' => $company->id ,
-            'name' => request('department')
-        ]);
-
-        return redirect('/company');
-
+        return back();
     }
 
     /**

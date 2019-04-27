@@ -26,6 +26,9 @@
 
     @yield('styles')
 </head>
+@php
+
+@endphp
 <body class="skin-1">
 @php
     
@@ -80,18 +83,19 @@
                 </li>
 
                 
-                
+                @if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
                 @can('company_read')
                 <li class="{{ Request::path() == 'employee' || Request::path() == 'employee/add' ? 'active' : '' }}">
                         <a href="/employee"><i class="fa fa-users"></i> <span class="nav-label">Employee</span> <span class="fa arrow"></span></a>
-                         <ul class="nav nav-second-level collapse">
-                             <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
-                             @can('employee_write')
-                                <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
-                             @endcan
-                         </ul>
+                        <ul class="nav nav-second-level collapse">
+                            <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
+                            @can('employee_write')
+                               <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
+                            @endcan
+                        </ul>
                 </li>
                 @endcan
+                @endif
 
                 @can('dtr_read')
                 @can('dtr_write')

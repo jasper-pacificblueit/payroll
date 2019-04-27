@@ -47,8 +47,6 @@
                                                                <div class="col-lg-12">
                                                                 <label>Company Name</label>
                                                                 <input type="text" name="name" class="form-control" required>
-                                                                <label>Department Name</label>
-                                                                <input type="text" name="department" class="form-control" required>
                                                                 <label>Address</label>
                                                                 <input type="text" name="address" class="form-control" required>
                                                                </div>

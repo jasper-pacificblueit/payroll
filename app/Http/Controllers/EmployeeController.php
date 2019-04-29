@@ -26,17 +26,12 @@ class EmployeeController extends Controller
 
     public function selectDepartment(Request $request){
         
-        $data = \App\Department::all()->where('company_id' , '=' , $request->input('q'));
-         
+        $data = App\Department::all()->where('company_id' , '=' , $request->input('q'));
         return view('employee_contents.selectDepartment' , compact('data'));
      }
 
      public function showEmployee(Request $request){
-        
-        $data = \App\Employee::all()->where('department_id' , '=' , $request->input('q'));
-         
-       
- 
+        $data = App\Employee::all()->where('department_id' , '=' , $request->input('q'));
         return view('employee_contents.EmployeeTable' , compact('data'));
      }
 
@@ -125,9 +120,8 @@ class EmployeeController extends Controller
 
             $rates = new App\Rate;
 
-            $rates->employee_id = $user->id;
+            $rates->employee_id = $employee->id;
             $rates->hourly = $request->hourly_rate;
-
             $rates->save();
         }
 
@@ -164,9 +158,11 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function edit(Employee $employee)
+    public function edit(Request $request, $id)
     {
-        //
+        return view('employee_contents.manage_employee')->with([
+            'user' => App\User::find($id),
+        ]);
     }
 
     /**
@@ -179,42 +175,12 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $user = App\User::findOrFail($id);
+        $em = App\Employee::where('user_id', $id)->first();
 
-        // position
-        $user->position = $request->position;
-
-        $user->removeRole($user->position);
-        $user->revokePermissionTo($user->getAllPermissions());
-
-        $user->assignRole($request->position);
-
-        if ($user->hasRole('hr'))
-            $user->syncPermissions([
-                'company_read',
-                'employee_read', 'employee_write',
-                'department_read', 'department_write',
-                'dtr_read', 'dtr_write',
-            ]);
-
-
-        // department
-        $employee = App\Employee::where('user_id', $id)->first();
-        $employee->department_id = $request->chdep;
-
-        if (App\Employee::where('bio_id', '=', $request->bio)->first()) {
-
-            $user->save();
-            $employee->save();
-
-            return back()->withErrors([
-                'bio_id_conflict' => $request->bio . " is already used!",
-            ]);
-        }
-
-        $employee->bio_id = $request->bio;
+        $em->bio_id = $request->bio;
 
         $user->save();
-        $employee->save();
+        $em->save();
 
         return back();
     }

@@ -173,7 +173,7 @@ class DatabaseSeeder extends Seeder
 
             'Pacific Blue Dive Center',
             'Pacific Blue IT',
-            'Pacific Blue DLAB'
+            'Pacific Blue DLAB',
 
         ];
 

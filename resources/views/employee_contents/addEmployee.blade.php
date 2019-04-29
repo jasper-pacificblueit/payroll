@@ -24,7 +24,6 @@
 
              <label>Mobile number</label>
              <input type="text" name="mobile" class="form-control p-2" required>
-
           </div>
 
           <div class="col-lg-6 col-sm-6">

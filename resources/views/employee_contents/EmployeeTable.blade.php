@@ -11,11 +11,10 @@
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                 },
-            }).then(rep => rep.text).then(html => {
+            }).then(rep => rep.text()).then(html => {
 
-                console.log(html);
                 document.getElementById('modal-panel').innerHTML = html;
-
+                $('#manage').modal('toggle');
 
             })">Manage</button>
     		<button class="btn btn-sm btn-danger" 
@@ -26,7 +25,6 @@
                             'X-CSRF-TOKEN': '{{ csrf_token() }}',
                         }
                     });
-
                     EmployeeSelect(document.getElementById('DepartmentSelector').value);
                 ">
                 Remove

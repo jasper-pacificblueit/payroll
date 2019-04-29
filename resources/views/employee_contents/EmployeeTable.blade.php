@@ -39,3 +39,4 @@
         <td colspan="5">No data</td>
     </tr>
 @endif
+

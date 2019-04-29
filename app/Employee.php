@@ -13,13 +13,11 @@ class Employee extends Model
 
   public function getProfile() {
 		return $this->hasOne('App\Profile','user_id');
-
     // return Profile::where('user_id', $this->user_id)->first();
 	}
 	
 	public function getDepartment() {
-		return $this->hasOne('App\Department','user_id');
-
+		return $this->hasOne('App\Department', 'id', 'department_id');
   }
 
 	public function dateTimeRecord() {

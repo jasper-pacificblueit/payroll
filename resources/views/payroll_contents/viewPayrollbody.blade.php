@@ -3,7 +3,7 @@
 @foreach ($employees as $employee)
     <tr>
         <td><input type="checkbox" checked></td>
-        <td>{{$employee->getProfile->fname}} {{$employee->getProfile->lname}}</td>
+        <td>{{ App\Profile::getFullName($employee->user_id) }}</td>
         
         <td>asdasdsad</td>
         <td>asdasdsad</td>

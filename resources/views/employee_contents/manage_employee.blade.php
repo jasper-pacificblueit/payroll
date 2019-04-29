@@ -29,7 +29,7 @@
                                 @endforeach
                             </select>
                        </div>
-
+                       {{ $eminfo->getDepartment }}
                    </div>
                 </div>
                 <div class="modal-footer">

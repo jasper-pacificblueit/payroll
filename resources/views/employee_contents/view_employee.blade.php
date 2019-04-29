@@ -7,8 +7,8 @@
                         <th>ID</th>
                         <th>Employee Name</th>
                         <th>Email</th>
-                        <th>Engine version</th>
-                        <th>Management</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody id="EmployeeTable"></tbody>
@@ -20,6 +20,7 @@
 <script>
   function DepartmentSelect(str) {
         console.log(str);
+        
         if (str.length==0) { 
                 document.getElementById("showEmp").innerHTML="";
                 document.getElementById("showEmp").style.border="0px";
@@ -33,8 +34,7 @@
         }
         xmlhttp.onreadystatechange=function() {
                 if (this.readyState==4 && this.status==200) {
-                    document.getElementById("DepartmentSelector").innerHTML=this.responseText;
-
+                    document.getElementById("DepartmentSelector").innerHTML = this.responseText;
                     EmployeeSelect(document.getElementById("DepartmentSelector").value);
                 }
         }

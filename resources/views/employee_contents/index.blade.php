@@ -20,12 +20,10 @@
                 <li>
                     <a href="/employee"><strong>Manage Employee</strong></a>
                 </li>
-               
             </ol>
         </div>
     </div>
     <br>
-
   
     <div class="wrapper wrapper-content no-padding">
         <div class="wrapper wrapper-content no-padding">
@@ -55,10 +53,7 @@
 
                                              <div class="col-md-3">
                                                     <h4>Select Department</h4>
-                                                    <select class="form-control select2_demo_1" id="DepartmentSelector" onchange="EmployeeSelect(this.value)">
-
-                                                    </select>
-                                                            
+                                                    <select class="form-control select2_demo_1" id="DepartmentSelector" onchange="EmployeeSelect(this.value)"></select>
                                              </div>
                                         </div>
                                     <br>
@@ -102,11 +97,11 @@
 
     function EmployeeSelect(str) {
         console.log(str);
-        if (str.length==0) { 
-                document.getElementById("EmployeeTable").innerHTML="";
-              
-                return;
+        if (str.length == 0) { 
+            document.getElementById("EmployeeTable").innerHTML= "";
+            return;
         }
+        
         if (window.XMLHttpRequest) {
                 // code for IE7+, Firefox, Chrome, Opera, Safari
                 xmlhttp=new XMLHttpRequest();
@@ -115,7 +110,7 @@
         }
         xmlhttp.onreadystatechange=function() {
                 if (this.readyState==4 && this.status==200) {
-                document.getElementById("EmployeeTable").innerHTML=this.responseText;  
+                    document.getElementById("EmployeeTable").innerHTML=this.responseText;  
                 }
         }
 

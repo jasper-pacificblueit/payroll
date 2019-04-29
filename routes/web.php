@@ -32,11 +32,7 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 			Route::post('/employee/keep', 'EmployeeController@store');
 			Route::match(['put', 'patch'], '/employee/{id}', 'EmployeeController@update');
 			Route::delete('/employee/{id}', 'EmployeeController@destroy');
-			Route::get('/manage/{id}', function (Request $request, $id) {
-				return view('employee_contents.manage_employee')->with([
-					'user' => App\User::find($id),
-				]);
-			});
+			Route::get('/manage/{id}', 'EmployeeController@edit');
 		});
 
 	Route::middleware(['permission:company_read'])->group(function() {

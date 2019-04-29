@@ -45,8 +45,30 @@ class PayrollController extends Controller
      */
     public function create()
     {
-       
+        $payrollDate = \App\Payroll::orderBy('id' , 'DESC')->first();
+        
+        if(isset($request->selectDate)){
+            $payroll_id = $request->selectDate;
+        }
+        else{
+            $row = Payroll::orderBy('id' , 'DESC')->count();
+           if($row > 0){
+             $payroll_id = $payrollDate->id;
+           }
+           else{
+             $payroll_id = NULL;
+           }
+        }
+        return view('payroll_contents.index' , compact('payroll_id'));
     }
+
+    public function payrollDate(Request $request){
+        
+        $start = $request->start;
+        $end = $request->end;
+        
+        return view('payroll_contents.viewPayrollbody' , compact('start' , 'end'));
+     }
 
     public function makePayroll(Request $request)
     {

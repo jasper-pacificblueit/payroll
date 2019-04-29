@@ -11,8 +11,17 @@ class DateTimeRecord extends Model
     	return $this->belongsTo('App\User');
     }
     public function getProfile() {
-		return $this->belongsTo('App\Profile','user_id');
-  }
+	  	return $this->belongsTo('App\Profile','user_id');
+    }
+
+    public function getEmployee() {
+	  	return $this->belongsTo('App\Employee','user_id');
+    }
+
+    public function getRate() {
+	  	return $this->belongsTo('App\Rate','user_id');
+    }
+    
 
     public function company() {
     	return $this->belongsTo('App\Company');

@@ -39,9 +39,17 @@
                 <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
-                            <li class="{{Request::path() == 'payroll' ? 'active' : '' }}"><a href="/payroll">Compensation</a></li>
+                            <li class="{{Request::path() == 'payroll/create' ? 'active' : '' }}"><a href="/payroll/create">Create Payroll</a></li>
+                            <li class="{{Request::path() == 'payroll' ? 'active' : '' }}"><a href="/payroll">Payroll Records</a></li>
+                           
                         </ul>
                         <div class="tab-content">
+                            <div id="compensation" class="tab-pane {{ Request::path() == 'payroll/create' ? 'active' : '' }}">
+                                <div class="panel-body">
+                                     
+                                    @include('payroll_contents.create')
+                                </div>
+                            </div>
                             <div id="compensation" class="tab-pane {{ Request::path() == 'payroll' ? 'active' : '' }}">
                                 <div class="panel-body">
                                         @if (isset($status))
@@ -52,6 +60,7 @@
                                     @include('payroll_contents.compensation')
                                 </div>
                             </div>
+                            
                            
                         </div>
 
@@ -80,6 +89,36 @@
 {!! Html::script('js/plugins/daterangepicker/daterangepicker.js') !!}
 {!! Html::script('js/plugins/datapicker/bootstrap-datepicker.js') !!}
 {!! Html::script('js/plugins/iCheck/icheck.min.js') !!}
+
+                 
+<script>
+
+        function checkAttendance(start , end){
+            console.log( start , end);
+            if (start.length==0) { 
+                document.getElementById("payrollTable").innerHTML="";
+             
+                return;
+            }
+            if (window.XMLHttpRequest) {
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+            } else {  // code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function() {
+                if (this.readyState==4 && this.status==200) {
+                document.getElementById("payrollTable").innerHTML=this.responseText;
+                    
+                }
+            }
+            xmlhttp.open("GET","create/payrollDate?start="+start+"&end="+end,true);
+            xmlhttp.send();
+        }
+    
+        checkAttendance(document.getElementById('start').value , document.getElementById('end').value);
+        
+</script>
 
 <script>
     

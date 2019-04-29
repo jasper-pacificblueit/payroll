@@ -19,7 +19,7 @@
             
         </form>
         <script>
-            document.getElementById('selectDate').value = {{$payroll_id}};
+            document.getElementById('selectDate').value = '{{$payroll_id}}';
         </script>
     </div>
 
@@ -128,9 +128,10 @@
 
     @if ($payroll_id == NULL)
         <div class="col-lg-12">
-            <div class="ibox-content">
-                <p>There is no available data</p>
-                <p>Please create or manage your payroll data here</p>   
+            <div class="alert alert-danger">
+                No available attendance for creating for payroll <Br><Br>
+                Please import your attendance file first
+                <a class="alert-link" href="/dtr">Click here to create attendance</a>.
             </div>
 
         </div>
@@ -152,15 +153,15 @@
                 <tbody>
                     @php( $date = \App\Payroll::find($payroll_id))
 
-                    @php( $employees = \App\DateTimeRecord::distinct()->get(['user_id']))
+                    @php( $employees = \App\DateTimeRecord::with('getProfile')->with('user')->with('getEmployee')->with('getRate')->distinct()->get(['user_id']))
                     
                     @foreach ($employees as $employee)
                         <tr>
-                            @php( $profile = \App\Profile::find($employee->user_id))
-                            <td>{{$profile->fname}} {{$profile->lname}}</td>
-                            <td><small>({{$date->start}})</small></td>
-                            <td><small>(incomplete module)</small></td>
-                            <td><small>(rate module inc)</small></td>
+                          
+                            <td>{{$employee->getProfile->fname}}</td>
+                            <td>{{$employee->getEmployee->department_id}}</td>
+                            <td>{{$employee->user->position}}</td>
+                            <td>{{$employee->getRate->hourly}}</td>
                             <td><small>(deduction module inc)</small></td>
                             <td>--</td>
                             <td><button class="btn btn-default btn-sm">Full Details</button></td>

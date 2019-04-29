@@ -14,19 +14,22 @@
                 {{ method_field('put') }}
                 <div class="modal-body">
                    <div class="row">
-                       <div class="col-lg-3 col-md-3 col-sm-5">
+                       <div class="col-lg-3 col-md-3 col-sm-5 col-xs-6">
                             <label>Biometric ID</label>
+                            <br>
                             <input type="text" class="form-control" name="bio" placeholder="{{ $eminfo->bio_id ? $eminfo->bio_id : '--' }}">
                        </div>
 
-                       <div class="col-lg-3 col-md-3 col-sm-5">
+                       <div class="col-lg-4 col-md-5 col-sm-4 col-xs-6">
                             <label>Department</label>
-                            <select class="form-control">
+                            <br>
+                            <select class="form-control" style="width: 100%">
                                 @foreach(App\Company::find($eminfo->company_id)->departments as $dep)
                                     <option value="{{ $dep->id }}">{{ $dep->name }}</option>
                                 @endforeach
                             </select>
                        </div>
+
                    </div>
                 </div>
                 <div class="modal-footer">

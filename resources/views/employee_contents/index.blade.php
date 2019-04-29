@@ -43,7 +43,6 @@
                                                     <h4>Select Company</h4>
                                                         <select class="form-control select2_demo_1" id="CompanySelector" onchange="DepartmentSelect(this.value)">
                                                             @php($Companies = App\Company::all())
-
                                                             @foreach ($Companies as $company)
                                                                 <option value="{{$company->id}}">{{$company->name}}</option>
                                                             @endforeach
@@ -53,7 +52,8 @@
 
                                              <div class="col-md-3">
                                                     <h4>Select Department</h4>
-                                                    <select class="form-control select2_demo_1" id="DepartmentSelector" onchange="EmployeeSelect(this.value)"></select>
+                                                    <select class="form-control select2_demo_1" id="DepartmentSelector" onchange="EmployeeSelect(this.value)">
+                                                    </select>
                                              </div>
                                         </div>
                                     <br>
@@ -101,7 +101,7 @@
             document.getElementById("EmployeeTable").innerHTML= "";
             return;
         }
-        
+
         if (window.XMLHttpRequest) {
                 // code for IE7+, Firefox, Chrome, Opera, Safari
                 xmlhttp=new XMLHttpRequest();

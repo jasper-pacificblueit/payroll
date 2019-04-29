@@ -29,7 +29,6 @@
                                 @endforeach
                             </select>
                        </div>
-                       {{ $eminfo->getProfile }}
                    </div>
                 </div>
                 <div class="modal-footer">

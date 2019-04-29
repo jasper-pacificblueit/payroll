@@ -13,9 +13,7 @@
                 },
             }).then(rep => rep.text()).then(html => {
 
-                console.log(html);
                 document.getElementById('modal-panel').innerHTML = html;
-
                 $('#manage').modal('toggle');
 
             })">Manage</button>

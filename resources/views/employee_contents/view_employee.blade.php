@@ -19,13 +19,12 @@
 </div>
 <script>
   function DepartmentSelect(str) {
-        console.log(str);
-
         if (str.length==0) { 
                 document.getElementById("showEmp").innerHTML="";
                 document.getElementById("showEmp").style.border="0px";
                 return;
         }
+
         if (window.XMLHttpRequest) {
                 // code for IE7+, Firefox, Chrome, Opera, Safari
                 xmlhttp=new XMLHttpRequest();
@@ -34,16 +33,18 @@
         }
         xmlhttp.onreadystatechange=function() {
                 if (this.readyState==4 && this.status==200) {
-                    document.querySelector("#select2-DepartmentSelector-container").value = "";
 
                     document.getElementById("DepartmentSelector").innerHTML = this.responseText;
+                    document.querySelector("#select2-DepartmentSelector-container").innerText = 
+                        document.getElementById("DepartmentSelector").options[document.getElementById("DepartmentSelector").selectedIndex].text;
+                        
                     EmployeeSelect(document.getElementById("DepartmentSelector").value);
                 }
         }
 
         xmlhttp.open("GET","selectDepartment?q="+str,true);
         xmlhttp.send();
-    }
+  }
 
     DepartmentSelect(document.getElementById('CompanySelector').value);
 </script>

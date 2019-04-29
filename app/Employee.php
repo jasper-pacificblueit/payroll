@@ -12,7 +12,7 @@ class Employee extends Model
 	}
 
   public function getProfile() {
-		return $this->hasOne('App\Profile','user_id');
+		return $this->hasOne('App\Profile','user_id', 'user_id');
     // return Profile::where('user_id', $this->user_id)->first();
 	}
 	

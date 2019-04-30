@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		Route::middleware(['permission:employee_write'])->group(function() {
 			Route::get('/employee/add', 'EmployeeController@create')->name('addEmployee');
 			Route::post('/employee/keep', 'EmployeeController@store');
-			Route::match(['put', 'patch'], '/employee/{id}', 'EmployeeController@update');
+			Route::post('/employee/{id}', 'EmployeeController@update');
 			Route::delete('/employee/{id}', 'EmployeeController@destroy');
 			Route::get('/manage/{id}', 'EmployeeController@edit');
 		});

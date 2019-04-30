@@ -174,15 +174,18 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $json = json_decode($request->getContent());
+
         $user = App\User::findOrFail($id);
         $em = App\Employee::where('user_id', $id)->first();
 
-        $em->bio_id = $request->bio;
+        $em->bio_id = $json->bio;
+        $em->department_id = $json->department;
 
         $user->save();
         $em->save();
 
-        return back();
+        return json_encode($json);
     }
 
     /**

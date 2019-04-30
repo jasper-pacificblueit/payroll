@@ -267,7 +267,7 @@
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
                                                                 @if(!empty($attendance->am['in']))
-                                                                   <input type="text" value="{{$attendance->ddww}}" readonly class="form-control" style="background:transparent;border:0;">
+                                                                   <input type="text" value="{{$attendance->ddww}}" readonly class="form-control" style="background:transparent; border: 0;">
                                                                    <br>
                                                                 @endif
                                                             @endif
@@ -286,7 +286,6 @@
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
                                                                 @if(!empty($attendance->am['in']))
-
                                                                     <input type="time" value="{{$attendance->am['in']}}" class="warningTimeIn form-control" style="background:transparent;border:0;" name="warningTimeIn[{{$employee->bio_id}}][]" id="in" readonly>
                                                                     <br>
                                                                 @elseif(!empty($attendance->pm['in']))
@@ -308,10 +307,11 @@
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
                                                               <div class="input-group clockpicker" data-autoclose="true">
-                                                                    <input type="time" class="warningTimeOut form-control" onchange="calchour()" name="warningTimeOut[{{$employee->bio_id}}][]" id="out" value="18:00" required>
                                                                     <span class="input-group-addon">
                                                                         <span class="fa fade-clock-o"></span>
-                                                                    </span>    
+                                                                    </span> 
+                                                                    <input type="time" class="warningTimeOut form-control" onchange="calchour()" name="warningTimeOut[{{$employee->bio_id}}][]" id="out" value="18:00" required>
+                                                                       
                                                                 </div>
                                                                 <br>
                                                             @endif
@@ -323,16 +323,12 @@
                                                         $count = 0;
                                                     @endphp
                                                     @foreach ($employee->attendance as $attendance)
-                                                       
-                                                    @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
-                                                        @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
-                                                            <input type="text" name="warningTotal[{{$employee->bio_id}}][]" class="warningTotal form-control" style="background:transparent;border:0;" readonly>
-                                                            <br>
-
-                                                          
+                                                        @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
+                                                            @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
+                                                                <input type="text" name="warningTotal[{{$employee->bio_id}}][]" class="warningTotal form-control" style="background:transparent;border:0;" readonly>
+                                                                <br>
+                                                            @endif
                                                         @endif
-                                                    @endif
-                                                    
                                                     @endforeach
                                                 </td>
                                                 @php( $checkBioID = \App\Employee::all()->where('bio_id' , '=' , $employee->bio_id)->first())
@@ -352,7 +348,18 @@
                                                          </select>
                                                     </td>
                                                 @endif
-                                              
+                                          
+                                                <td>
+                                                    @php($EmployeeInfos = App\Employee::all())
+                                                    
+                                                    <select name="UserID[{{$employee->bio_id}}][]" id="" class="form-control">
+                                                        @foreach ($EmployeeInfos as $EmployeInfo)
+                                                            <option value="{{$EmployeInfo->user_id}}">
+                                                                {{ App\Profile::getFullName($EmployeInfo->user_id) }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
                                             </tr>
                                         @endforeach
                                       

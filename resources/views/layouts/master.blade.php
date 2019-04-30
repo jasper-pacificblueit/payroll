@@ -83,6 +83,14 @@
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
+
+                @can('dtr_read')
+                @can('dtr_write')
+                <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
+                    <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
+                </li>
+                @endcan
+                @endcan
                 <li class="{{ Request::path() == 'payroll' || Request::path() == 'payroll/create' ? 'active' : '' }}">
                     <a href="/payroll/create"><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
                 </li>
@@ -102,13 +110,7 @@
                 @endcan
                 @endif
 
-                @can('dtr_read')
-                @can('dtr_write')
-                <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
-                    <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
-                </li>
-                @endcan
-                @endcan
+               
 
                 <li class="{{ Request::path() == 'position' ? 'active' : '' }}">
                     <a href="/positions"><i class="fa fa-user"></i> <span class="nav-label">Manage Positions</span></a>

@@ -332,7 +332,9 @@
                                                     @endforeach
                                                 </td>
                                                 @php( $checkBioID = \App\Employee::all()->where('bio_id' , '=' , $employee->bio_id)->first())
-                                                @if ( count($checkBioID) > 0)
+                                                @php( $checkRow = \App\Employee::all()->where('bio_id' , '=' , $employee->bio_id)->count())
+                                                
+                                                @if ( $checkRow > 0)
                                                     <td>
                                                         <i class="fa fa-check" style="color:green;font-size:20px;"></i> 
                                                         <input type="text" value="{{$checkBioID->user_id}}" name="UserID[{{$employee->bio_id}}][]" hidden>

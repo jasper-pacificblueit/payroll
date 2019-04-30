@@ -2,7 +2,6 @@
 @if (count($data) > 0)
     @foreach ($data as $employee)
     <tr>
-        <td>{{ App\User::find($employee->user_id)->id }}</td>
         <td>{{ App\Profile::getFullName($employee->user_id) }}</td>
         <td>{{ App\User::find($employee->user_id)->email }}</td>
         <td></td>

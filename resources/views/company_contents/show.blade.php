@@ -69,44 +69,40 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Deparment ID</th>
+                                        <th>Date Created</th>
                                         <th>Department name</th>
                                         <th>No. of Employee</th>  
-                                        <th>Action</th>  
+                                        <th></th>  
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                    @if (count($company->departments) > 0)
-                                    
                                     @foreach ($company->departments as $department)
                                         <tr>
-                                            <td>{{$department -> id}}</td>
-                                            <td>{{$department -> name}}</td>
+                                            <td>{{$department->created_at}}</td>
+                                            <td>{{$department->name}}</td>
                                             <td>{{count($department->getEmployee())}}</td>
-                                            <td><button class="btn btn-default btn-xs">Details</button></td>
+                                            <td>
+                                                <button class="btn btn-default btn-xs" onclick="pop_modal({{ $department->id }})">Manage</button>
+                                                <button class="btn btn-danger btn-xs">Delete</button>
+                                            </td>
                                         </tr>
                                     @endforeach
-                                   
                                    @else
                                     <tr>
                                         <td colspan="4">No Departments yet</td>
                                     </tr>
                                    @endif
-
                                 </tbody>
-                               
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-   
-        
+    <span id="modal-panel"></span>
 @endsection
 
 
@@ -116,6 +112,21 @@
         $(document).ready(function() {
 
         });
+
+        async function pop_modal(id) {
+
+            fetch('/department/' + id, {
+                method: 'get',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                }
+            }).then(rep => rep.text()).then(html => {
+
+                document.querySelector('#modal-panel').innerHTML = html;
+                $('#manage').modal('toggle');
+
+            });
+        }
     </script>
 
 @endsection

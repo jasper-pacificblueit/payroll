@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 	Route::middleware(['permission:department_write'])->group(function() {
 		Route::get('/company/{id}', 'CompanyController@show');
 		Route::post('/company/{company}/department' , 'DepartmentController@store');
+		Route::get('/department/{id}', 'DepartmentController@edit');
 	});
 
 	Route::middleware(['permission:dtr_read|dtr_write'])->group(function() {

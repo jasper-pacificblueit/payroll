@@ -40,7 +40,7 @@
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
                             <li class="{{Request::path() == 'payroll/create' ? 'active' : '' }}"><a href="/payroll/create">Create Payroll</a></li>
-                            <li class="{{Request::path() == 'payroll' ? 'active' : '' }}"><a href="/payroll">Payroll Records</a></li>
+                            <li class="{{Request::path() == 'payroll' ? 'active' : '' }}"><a href="/payroll">History</a></li>
                            
                         </ul>
                         <div class="tab-content">

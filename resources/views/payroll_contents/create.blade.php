@@ -11,6 +11,13 @@
                        
                             <div class="row">
                                 <div class="col-lg-12">
+                                    <div class="alert alert-warning" style="display:none" id="warningNotif">
+                                        No available attendance for creating for payroll <br><br>
+                                        Please import your attendance file first
+                                        <a class="alert-link" href="/dtr">Click here to create attendance</a>.
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
                                     <h4>Create Payroll Date</h4>
                                     <div class="form-group" id="data_5">
                                        <?php
@@ -24,6 +31,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
                             <Br>
                             <div class="row">
@@ -36,8 +44,7 @@
                                                 <tr>
                                                     
                                                     <th>Employee</th>
-                                                    <th>Hourly</th>
-                                                    <th>Total Hours</th>
+                                                   
                                                     <th>Total Earnings</th>
                                                     <th>Total Deductions</th>
                                                     <th>Net Pay</th>
@@ -52,8 +59,7 @@
                                             <tfoot>
                                                 <tr>
                                                     <th>Employee</th>
-                                                    <th>Hourly</th>
-                                                    <th>Total Hours</th>
+                                                  
                                                     <th>Total Earnings</th>
                                                     <th>Total Deductions</th>
                                                     <th>Net Pay</th>
@@ -80,5 +86,5 @@
                         </div>
                         @endif
 
-
+                  
        

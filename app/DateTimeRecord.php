@@ -26,4 +26,15 @@ class DateTimeRecord extends Model
     public function company() {
     	return $this->belongsTo('App\Company');
     }
+
+    public static function getTotalHours($start , $end , $user_id) {
+
+        $attendances = DateTimeRecord::where('user_id' , '=' , $user_id)->whereBetween('date', [$start,$end])->get();
+
+        $totalHours = 0;
+        foreach ($attendances as $attendance) {
+            $totalHours += $attendance->total_hours;
+        }
+        return $totalHours;
+    }	
 }

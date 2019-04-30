@@ -104,7 +104,6 @@ class DateTimeRecordController extends Controller
             
             foreach($csv_info['employees'] as $employee){
                 
-                echo "BIO = ".$employee['bio_id'] . " --- UserID =" . $request->UserID[$employee['bio_id']][0] ."<Br>";
                 $dayCount = 0;
                 $count = 0;
                 $warningCount = 0;
@@ -152,8 +151,13 @@ class DateTimeRecordController extends Controller
                     }
                    
                     $dayCount ++;
+
+                    
                 }
-              
+                
+                $updateBioID = App\Employee::where('user_id' , '=', $request->UserID[$employee['bio_id']][0])->first();
+                $updateBioID->bio_id = $employee['bio_id'];
+                $updateBioID->save();
             }
        
             $empCount++;

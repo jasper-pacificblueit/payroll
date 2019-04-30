@@ -34,12 +34,14 @@
                                         <table class="table table-striped table-bordered table-hover dataTables-example" >
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    
                                                     <th>Employee</th>
-                                                    <th>Rate</th>
-                                                    <th>Reg Hours</th>
-                                                    <th>Rate</th>
+                                                    <th>Hourly</th>
                                                     <th>Total Hours</th>
+                                                    <th>Total Earnings</th>
+                                                    <th>Total Deductions</th>
+                                                    <th>Net Pay</th>
+                                                    <th>Actions</th>
                                                     
                                                     
                                                 </tr>
@@ -49,20 +51,21 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th>#</th>
                                                     <th>Employee</th>
-                                                    <th>Rate</th>
-                                                    <th>Reg Hours</th>
-                                                    <th>Rate</th>
+                                                    <th>Hourly</th>
                                                     <th>Total Hours</th>
+                                                    <th>Total Earnings</th>
+                                                    <th>Total Deductions</th>
+                                                    <th>Net Pay</th>
+                                                    <th>Actions</th>
                                                     
                                                     
                                                 </tr>
                                             </tfoot>
-                                            </table>
+                                         </table>
                                      </div>
                         
-                                    
+                                     <input type="submit" name="" id="" class="btn btn-success pull-right" value="Next">
                                 </div>
                             </div>   
                         @else

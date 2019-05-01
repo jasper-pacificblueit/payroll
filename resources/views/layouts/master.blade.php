@@ -68,7 +68,7 @@
                             <li>
                                 <a onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
-                                  <i class="fa fa-sign-out"></i>
+                                    <i class="fas fa-sign-out-alt"></i>
                                   <span class="nav-label">Logout</span>
                                 </a>
                             </li>  
@@ -124,7 +124,7 @@
 
                 @can('company_read')
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
-                        <a href="/company"><i class="fa fa-building-o"></i> <span class="nav-label">Manage Company</span></a>
+                        <a href="/company"><i class="far fa-building"></i> <span class="nav-label">Manage Company</span></a>
                 </li>
                 @endcan
                
@@ -151,7 +151,7 @@
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                            <i class="fa fa-sign-out"></i>Logout
+                            <span class="text-muted">Logout</span><i class="fas fa-sign-out-alt" style="position: relative; top: 1px; left: 5px"></i>
                         </a>
                     </li>
                     

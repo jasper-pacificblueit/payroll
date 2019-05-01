@@ -2,7 +2,8 @@
 @if (count($data) > 0)
     @php($min = 0)
     @foreach ($data as $employee)
-        <tr>
+        <tr ondblclick="$('#btnclick-{{ $employee->user_id }}').click();">
+        <td>{{ $employee->user->created_at }}</td>
         <td>
             {{ App\Profile::getFullName($employee->user_id) }}
             <span class="pull-right">
@@ -14,10 +15,10 @@
                </i> 
             </span>
         </td>
-        <td>{{ App\User::find($employee->user_id)->email }}</td>
+        <td>{{ $employee->user->email }}</td>
         <td></td>
         <td>
-    		<button class="btn btn-sm btn-default" onclick="fetch('/manage/{{$employee->user_id}}', {
+    		<button class="btn btn-sm btn-default" id="btnclick-{{ $employee->user_id }}" onclick="fetch('/manage/{{$employee->user_id}}', {
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                 },

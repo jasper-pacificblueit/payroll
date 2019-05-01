@@ -6,6 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
+use Illuminate\Support\Facades\Cache;
+
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
@@ -17,8 +19,6 @@ class User extends Authenticatable
         'employee' => 'Employee'
 
     ];
-
-    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -48,6 +48,10 @@ class User extends Authenticatable
 
     public function employee() {
         return $this->hasOne('App\Employee');
+    }
+
+    public static function online($user) {
+        return Cache::has($user);
     }
 
 }

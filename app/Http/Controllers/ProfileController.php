@@ -141,4 +141,10 @@ class ProfileController extends Controller
     {
         //
     }
+
+    public function update_status(Request $request, $id) {
+        return json_encode([
+            'online' => User::online( User::find($id)->user)
+        ]);
+    }
 }

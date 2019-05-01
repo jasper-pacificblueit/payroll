@@ -93,7 +93,6 @@
 {!! Html::script('js/plugins/select2/select2.full.min.js') !!}
 
 <script>
-  
 
     function EmployeeSelect(str) {
         console.log(str);
@@ -110,11 +109,11 @@
         }
         xmlhttp.onreadystatechange=function() {
                 if (this.readyState==4 && this.status==200) {
-                    document.getElementById("EmployeeTable").innerHTML=this.responseText;  
+                    document.getElementById("EmployeeTable").innerHTML = this.responseText;  
                 }
         }
 
-        xmlhttp.open("GET","showEmployee?q="+str,true);
+        xmlhttp.open("GET","showEmployee?q="+str, true);
         xmlhttp.send();
     }
 

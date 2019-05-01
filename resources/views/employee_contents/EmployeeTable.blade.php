@@ -1,8 +1,19 @@
 
 @if (count($data) > 0)
+    @php($min = 0)
     @foreach ($data as $employee)
-    <tr>
-        <td>{{ App\Profile::getFullName($employee->user_id) }}</td>
+        <tr>
+        <td>
+            {{ App\Profile::getFullName($employee->user_id) }}
+            <span class="pull-right">
+                <i class="fas fa-dot-circle" id="status-{{ $employee->user_id }}"
+                    {{ App\User::online($employee->user->user) ? 'title=Online' : 'title=Offline'  }}
+                    style="
+                        {{ App\User::online($employee->user->user) ? 'color: #23c6c8' : '' }}
+                    ">
+               </i> 
+            </span>
+        </td>
         <td>{{ App\User::find($employee->user_id)->email }}</td>
         <td></td>
         <td>
@@ -30,12 +41,30 @@
             </button>
         </td>
     </tr>
+    <img src="..." style="display: none;" onerror='
+        setInterval(function() {
+            fetch("/user/misc/status/{{ $employee->user_id }}", {
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                }
+            }).then(rep => rep.json()).then(json => {
+
+                document.querySelector("#status-{{ $employee->user_id }}").style.color = 
+                    json.online ? "#23c6c8" : "";
+
+                document.querySelector("#status-{{ $employee->user_id }}").title = 
+                    json.online ? "Online" : "Offline";
+
+            });
+
+        }, 1000+{{ $min += 1000 }});
+    '>
     @endforeach
 
     <span id="modal-panel"></span>
 @else
     <tr>
-        <td colspan="5">No data</td>
+        <td colspan="5" align=center>No data</td>
     </tr>
 @endif
 

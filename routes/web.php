@@ -80,16 +80,17 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 });
 
 Route::middleware(['auth'])->group(function () {
-
+	Route::get('/', 'HomeController@index')->name('dashboard');
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
 
 	Route::get("/editprofile", "ProfileController@edit")->name('editprofile');
 	Route::post("/editprofile", "ProfileController@update");
 	
-	Route::get('/', 'HomeController@index')->name('dashboard');
-
+	
   Route::get('/profile', 'ProfileController@index')->name('profile');
   Route::match(['put', 'update'], '/editprofile/chpasswd', 'ProfileController@chpasswd');
+  Route::get('/user/misc/status/{id}', 'ProfileController@update_status');
 
 });
 

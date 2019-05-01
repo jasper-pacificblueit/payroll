@@ -31,11 +31,12 @@
                             else if (form.elements[i].name)
                                 json[form.elements[i].name] = form.elements[i].placeholder;
 
+                        console.log(json);
+
                         return json;
                     })()),
 
                 }).then(rep => {console.log(rep); return rep.text(); }).then(txt => {
-                    
                     $('#manage #close').click();
 
                     EmployeeSelect(document.querySelector('#DepartmentSelector').value);

@@ -13,7 +13,7 @@
     {{ Html::favicon('img/placeholder.jpg') }}
 
     {!! Html::style('css/bootstrap.min.css') !!}
-    {!! Html::style('css/font-awesome.min.css') !!}
+    {!! Html::style('font-awesome/css/font-awesome.css') !!}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     {!! Html::style('css/animate.css') !!}
     {!! Html::style('css/style.css') !!}

@@ -90,12 +90,10 @@ class ProfileController extends Controller
                 'path' => $request->image->getPathname(),
             ]);
 
-        $profile->age   = $request->age;
         $profile->about = $request->about;
         $profile->save();
 
         $contact->address = $request->address;
-        $contact->phone = $request->phone;
         $contact->email = $user->email;
         $contact->mobile = $request->mobile;
         $contact->save();
@@ -107,7 +105,7 @@ class ProfileController extends Controller
 
         $request->validate([
             'current' => 'required',
-            'newpasswd' => 'required|min:5',
+            'newpasswd' => 'required',
             'repasswd' => 'required',
         ]);
 

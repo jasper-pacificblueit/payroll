@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>Date Created</th>
@@ -83,14 +83,14 @@
                                 <tbody>
                                     @if(count($companies) > 0)
                                         @foreach ($companies as $company)
-                                        <tr>
+                                        <tr ondblclick="window.location.href = '/company/{{ $company->id }}'">
                                             <td>{{$company->created_at}}</td>
                                             <td>{{$company->name}}</td>
                                             <td>{{$company->address}}</td>
                                             <td>{{count($company->departments)}}</td>
                                             <td>{{count(App\Employee::where('company_id', '=', $company->id)->get())}}</td>
                                             <td>
-                                                <a href="company/{{$company->id}}" class="btn btn-default btn-xs">Manage</a>
+                                                <a href="company/{{ $company->id }}" class="btn btn-default btn-xs">Manage</a>
                                                 <button type="button" class="btn btn-xs btn-danger">Delete</button>
                                             </td>
                                             

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
       <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dataTables-example" >
+            <table class="table table-striped table-bordered table-hover dataTables-example">
                 <thead>
                     <tr>
                         <th>Date Registered</th>
@@ -12,10 +12,11 @@
                     </tr>
                 </thead>
                 <tbody id="EmployeeTable"></tbody>
+
              </table>
         </div>
-
     </div>
+    <span id="modal-panel"></span>
 </div>
 <script>
   function DepartmentSelect(str) {

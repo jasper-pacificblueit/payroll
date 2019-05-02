@@ -39,7 +39,7 @@
                             <div id="employee" class="tab-pane {{ Request::path() == 'employee' ? 'active' : '' }}">
                                 <div class="panel-body">
                                     <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 col-xs-6">
                                                     <h4>Select Company</h4>
                                                         <select class="form-control select2_demo_1" id="CompanySelector" onchange="DepartmentSelect(this.value)">
                                                             @php($Companies = App\Company::all())
@@ -50,7 +50,7 @@
                                                            
                                              </div>
 
-                                             <div class="col-md-3">
+                                             <div class="col-md-3 col-xs-6">
                                                     <h4>Select Department</h4>
                                                     <select class="form-control select2_demo_1" id="DepartmentSelector" onchange="EmployeeSelect(this.value)">
                                                     </select>
@@ -109,7 +109,9 @@
         }
         xmlhttp.onreadystatechange=function() {
                 if (this.readyState==4 && this.status==200) {
-                    document.getElementById("EmployeeTable").innerHTML = this.responseText;  
+                    $(".dataTables-example").DataTable().destroy();
+                    document.querySelector('#EmployeeTable').innerHTML = this.responseText;
+                    $(".dataTables-example").DataTable().draw();
                 }
         }
 
@@ -124,30 +126,8 @@
 <script>
 
   
-    $(document).ready(function(){
-        $('.dataTables-example').DataTable({
-            pageLength: 25,
-            responsive: true,
-            dom: '<"html5buttons"B>lTfgitp',
-            buttons: [
-                { extend: 'copy'},
-                {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
-
-                {extend: 'print',
-                 customize: function (win){
-                        $(win.document.body).addClass('white-bg');
-                        $(win.document.body).css('font-size', '10px');
-
-                        $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                }
-                }
-            ]
-
-        });
+    $(document).ready(function() {
+        $('.dataTables-example').DataTable();
 
         $(".select2_demo_1").select2();
             $(".select2_demo_2").select2();
@@ -155,9 +135,10 @@
                 placeholder: "Select a state",
                 allowClear: true
             });
-            
-           
 
+        $('[aria-controls=DataTables_Table_0]').on('input', function () {
+            $(".dataTables-example").DataTable().search(this.value).draw();
+        });
     });
 
 // event function to change department options when company changes.

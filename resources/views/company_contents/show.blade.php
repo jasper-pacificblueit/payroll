@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>Date Created</th>
@@ -79,12 +79,12 @@
                                 <tbody>
                                    @if (count($company->departments) > 0)
                                     @foreach ($company->departments as $department)
-                                        <tr>
+                                        <tr ondblclick="$('#pop_info-{{ $department->id }}').click()">
                                             <td>{{$department->created_at}}</td>
                                             <td>{{$department->name}}</td>
                                             <td>{{count($department->getEmployee())}}</td>
                                             <td>
-                                                <button class="btn btn-default btn-xs" onclick="pop_modal({{ $department->id }})">Manage</button>
+                                                <button class="btn btn-default btn-xs" onclick="pop_modal({{ $department->id }})" id="pop_info-{{ $department->id }}">Manage</button>
                                                 <button class="btn btn-danger btn-xs">Delete</button>
                                             </td>
                                         </tr>

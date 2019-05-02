@@ -36,5 +36,17 @@ class DateTimeRecord extends Model
             $totalHours += $attendance->total_hours;
         }
         return $totalHours;
-    }	
+    }
+
+    public static function getTotalDays($start , $end , $user_id) {
+
+        $attendances = DateTimeRecord::where('user_id' , '=' , $user_id)->whereBetween('date', [$start,$end])->get();
+
+        $totalDays = 0;
+        foreach ($attendances as $attendance) {
+            $totalDays++;
+        }
+        return $totalDays;
+    }
+    
 }

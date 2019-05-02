@@ -351,17 +351,7 @@
                                                     </td>
                                                 @endif
                                           
-                                                <td>
-                                                    @php($EmployeeInfos = App\Employee::all())
-                                                    
-                                                    <select name="UserID[{{$employee->bio_id}}][]" id="" class="form-control">
-                                                        @foreach ($EmployeeInfos as $EmployeInfo)
-                                                            <option value="{{$EmployeInfo->user_id}}">
-                                                                {{ App\Profile::getFullName($EmployeInfo->user_id) }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
+                                              
                                             </tr>
                                         @endforeach
                                       

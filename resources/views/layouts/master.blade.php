@@ -180,12 +180,23 @@
 </form>
 
 <!-- Mainly scripts -->
-
 {!! Html::script('js/jquery-3.1.1.min.js') !!}
 {!! Html::script('js/bootstrap.min.js') !!}
 {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!}
 {!! Html::script('js/plugins/slimscroll/jquery.slimscroll.min.js') !!}
 {!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
+
+{!! Html::script('js/inspinia.js') !!}
+{!! Html::script('js/plugins/pace/pace.min.js') !!}
+{!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
+{!! Html::script('js/plugins/pace/pace.min.js') !!}
+{!! Html::script('js/plugins/footable/footable.all.min.js') !!}
+{!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
+{!! Html::script('js/plugins/codemirror/codemirror.js') !!}
+{!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!}
+
+<!-- Jasny -->
+{!! Html::script('js/plugins/jasny/jasny-bootstrap.min.js') !!}
 
 
 @yield('scripts')

@@ -51,13 +51,6 @@
 @endsection
 
 @section('scripts')
-<!-- Custom and plugin javascript -->
-{!! Html::script('js/inspinia.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/footable/footable.all.min.js') !!}
-
 
 <script>
     

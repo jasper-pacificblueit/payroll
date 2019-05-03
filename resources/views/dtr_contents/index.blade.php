@@ -107,16 +107,6 @@
 
 @section('scripts')
 
-<!-- Jasny -->
-{!! Html::script('js/plugins/jasny/jasny-bootstrap.min.js') !!}
-
-{!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
-{!! Html::script('js/inspinia.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/codemirror/codemirror.js') !!}
-{!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!}
-
-{!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
 
 <script>
         function DateSelect(str){

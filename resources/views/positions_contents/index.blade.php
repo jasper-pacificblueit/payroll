@@ -52,6 +52,12 @@
 
 @section('scripts')
 
+{!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
+{!! Html::script('js/plugins/select2/select2.full.min.js') !!}
+{!! Html::script('js/plugins/daterangepicker/daterangepicker.js') !!}
+{!! Html::script('js/plugins/datapicker/bootstrap-datepicker.js') !!}
+{!! Html::script('js/plugins/iCheck/icheck.min.js') !!}
+
 <script>
     
     $(document).ready(function(){

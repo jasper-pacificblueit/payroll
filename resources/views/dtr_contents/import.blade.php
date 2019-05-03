@@ -345,25 +345,12 @@
                                                     <td>
                                                         @php( $employees = \App\Employee::all()->where('bio_id' , '=' , NULL))
                                                          <select name="UserID[{{$employee->bio_id}}][]" id="" class="form-control">
-                                                            
                                                             @foreach ($employees as $employee)
                                                                 <option value="{{$employee->user_id}}">{{ App\Profile::getFullName($employee->user_id) }} {{$employee->user_id}}</option>
                                                             @endforeach
                                                          </select>
                                                     </td>
                                                 @endif
-                                          
-                                                <td>
-                                                    @php($EmployeeInfos = App\Employee::all())
-                                                    
-                                                    <select name="UserID[{{$employee->bio_id}}][]" id="" class="form-control">
-                                                        @foreach ($EmployeeInfos as $EmployeInfo)
-                                                            <option value="{{$EmployeInfo->user_id}}">
-                                                                {{ App\Profile::getFullName($EmployeInfo->user_id) }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
                                             </tr>
                                         @endforeach
                                       

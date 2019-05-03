@@ -49,7 +49,8 @@
                             </span>
                         </a>
                         <span>
-                            <img alt="image" class="img-circle" src="{{ $profile->image['data'] }}" style='max-width: 75px'/>
+                            <img alt="image" class="img-responsive" src="{{ $profile->image['data'] }}" 
+                                style='max-width: 75px; position: relative; left: 46px; border-radius: 1000px; border: 2px solid skyblue;'/>
                         </span>
 
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -64,7 +65,13 @@
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li>
-                    <a onclick="window.location.href='/profile'"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a>
+                                <a onclick="window.location.href='/profile'"><i class="fa fa-user"></i> <span class="nav-label">My Profile</span></a>
+                            </li>
+                            @hasrole('admin|hr')
+                            <li>
+                                <a onclick="window.location.href='#'"><i class="fa fa-cog"></i> <span class="nav-label">Settings</span></a>
+                            </li>
+                            @endhasrole
                             <li>
                                 <a onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">

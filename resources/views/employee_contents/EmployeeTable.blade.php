@@ -5,7 +5,9 @@
     <tr ondblclick="$('#btnclick-{{ $employee->user_id }}').click();">
         <td>{{ $employee->user->created_at }}</td>
         <td>
+            <a href="/profile/{{ $employee->user->user }}">
             {{ App\Profile::getFullName($employee->user_id) }}
+            </a>
             <span class="pull-right">
                 <i class="fas fa-dot-circle" id="status-{{ $employee->user_id }}"
                     {{ App\User::online($employee->user->user) ? 'title=Online' : 'title=Offline'  }}
@@ -18,7 +20,7 @@
         <td>{{ $employee->user->email }}</td>
         <td></td>
         <td>
-    		<button class="btn btn-sm btn-default" id="btnclick-{{ $employee->user_id }}" onclick="fetch('/manage/{{$employee->user_id}}', {
+    		<button class="btn btn-xs btn-default" id="btnclick-{{ $employee->user_id }}" onclick="fetch('/manage/{{$employee->user_id}}', {
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                 },
@@ -28,7 +30,7 @@
                 $('#manage').modal('toggle');
 
             })">Manage</button>
-    		<button class="btn btn-sm btn-danger" 
+    		<button class="btn btn-xs btn-danger" 
                 onclick="
                     fetch('/employee/{{ $employee->user_id }}', {
                         method: 'delete',

@@ -64,9 +64,7 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		Route::post('/payroll/makePayroll', 'PayrollController@makePayroll');
 		Route::post('/viewPayroll', 'PayrollController@viewPayroll');
 		Route::get('/payroll/create/payrollDate', 'PayrollController@payrollDate');
-		
-
-
+	
 		Route::get("/holiday", "PayrollController@holiday");
 
 		Route::get("/rates", "RateController@index");
@@ -83,6 +81,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/', 'HomeController@index')->name('dashboard');
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
+	Route::get("/profile/{user}", "ProfileController@public_index");
 
 	Route::get("/editprofile", "ProfileController@edit")->name('editprofile');
 	Route::post("/editprofile", "ProfileController@update");

@@ -7,8 +7,8 @@
                         <th>Date Registered</th>
                         <th>Employee Name</th>
                         <th>Email</th>
-                        <th></th>
-                        <th></th>
+                        <th>Page</th>
+                        <th width="250"></th>
                     </tr>
                 </thead>
                 <tbody id="EmployeeTable"></tbody>

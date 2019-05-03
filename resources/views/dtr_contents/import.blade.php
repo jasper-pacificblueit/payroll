@@ -6,6 +6,7 @@
         <div class="col-lg-12">
                   @if(isset($csv_info))
                       @php
+
                         $period = $csv_info->period;
                         $year1 = "{$period[0]}{$period[1]}{$period[2]}{$period[3]}";
                         if(isset($period[20])){
@@ -24,6 +25,7 @@
                         $payrollDate1 = "{$year1}/{$startMonth}/{$startDay}";
                         $payrollDate2 = "{$year2}/{$endMonth}/{$endDay}";
 
+                        
                         $days = GetDays($payrollDate1 , $payrollDate2);
                         
                       @endphp
@@ -64,7 +66,7 @@
                                                 
                                                 @if($attendance->absent)
                                                     <?php 
-                                                        $diff =0;
+                                                        $diff = 0;
                                                     ?>
                                                 @else
                                                     <?php

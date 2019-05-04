@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Rate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Deduction;
 class RateController extends Controller
 {
     /**
@@ -27,6 +27,23 @@ class RateController extends Controller
         
         return view('rate_contents.index' , compact('editDeduction'));
     }
+    public function addDeductions(Request $request)
+    {
+       $addDeduction = new Deduction;
+
+       $addDeduction->name = $request->name;
+       $addDeduction->type = $request->type;
+       $addDeduction->formula_type = $request->formula_type;
+       $addDeduction->amount = $request->amount;
+       $addDeduction->status = 'Active';
+       
+       $addDeduction->save();
+       
+       
+       
+       return redirect('/deductions');
+    }
+    
     public function index()
     {
         if(isset($request->editDeduction)){

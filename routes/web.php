@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		Route::get("/rates", "RateController@index");
 		Route::get("/deductions", "RateController@deductions");
 		Route::get("/earnings", "RateController@earnings");
+		Route::post("/addDeductions", "RateController@addDeductions");
 		
 		Route::resource('/positions', 'PositionsController');
 		

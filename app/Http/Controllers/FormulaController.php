@@ -2,57 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Rate;
+use App\Formula;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class RateController extends Controller
+class FormulaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function deductions(Request $request)
-    {
-      
-        if(isset($request->editDeduction)){
-            $editDeduction = $request->editDeduction;
-        }
-        else{
-            $editDeduction = false;
-        
-        }
-        
-        return view('rate_contents.index' , compact('editDeduction'));
-    }
     public function index()
     {
-        if(isset($request->editDeduction)){
-            $editDeduction = $request->editDeduction;
-        }
-        else{
-            $editDeduction = false;
-        
-        }
-        return view('rate_contents.index' , compact('editDeduction'));
+        //
     }
 
-    public function earnings()
-    {
-        if(isset($request->editDeduction)){
-            $editDeduction = $request->editDeduction;
-        }
-        else{
-            $editDeduction = false;
-        
-        }
-        return view('rate_contents.index' , compact('editDeduction'));
-    }
-
-  
-    
     /**
      * Show the form for creating a new resource.
      *
@@ -77,10 +42,10 @@ class RateController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Rate  $rate
+     * @param  \App\Formula  $formula
      * @return \Illuminate\Http\Response
      */
-    public function show(Rate $rate)
+    public function show(Formula $formula)
     {
         //
     }
@@ -88,10 +53,10 @@ class RateController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Rate  $rate
+     * @param  \App\Formula  $formula
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rate $rate)
+    public function edit(Formula $formula)
     {
         //
     }
@@ -100,10 +65,10 @@ class RateController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Rate  $rate
+     * @param  \App\Formula  $formula
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rate $rate)
+    public function update(Request $request, Formula $formula)
     {
         //
     }
@@ -111,10 +76,10 @@ class RateController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Rate  $rate
+     * @param  \App\Formula  $formula
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rate $rate)
+    public function destroy(Formula $formula)
     {
         //
     }

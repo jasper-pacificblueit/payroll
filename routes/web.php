@@ -68,8 +68,11 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		Route::get("/holiday", "PayrollController@holiday");
 
 		Route::get("/rates", "RateController@index");
+		Route::get("/deductions", "RateController@deductions");
+		Route::get("/earnings", "RateController@earnings");
 		
 		Route::resource('/positions', 'PositionsController');
+		
 	});
 
 	

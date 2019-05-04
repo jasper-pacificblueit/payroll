@@ -15,6 +15,13 @@ class CreateEarningsTable extends Migration
     {
         Schema::create('earnings', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('type');
+            $table->string('formula_type');
+            $table->string('amount');
+            $table->string('status');
+            
+            
         });
     }
 

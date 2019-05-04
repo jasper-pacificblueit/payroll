@@ -20,7 +20,7 @@
         <td>{{ $employee->user->email }}</td>
         <td></td>
         <td>
-    		<button class="btn btn-xs btn-default" id="btnclick-{{ $employee->user_id }}" onclick="fetch('/manage/{{$employee->user_id}}', {
+    		<button class="btn btn-xs btn-default" id="btnclick-{{ $employee->user_id }}" onclick="this.disabled = true; fetch('/manage/{{$employee->user_id}}', {
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                 },
@@ -30,18 +30,6 @@
                 $('#manage').modal('toggle');
 
             })">Manage</button>
-    		<button class="btn btn-xs btn-danger" 
-                onclick="
-                    fetch('/employee/{{ $employee->user_id }}', {
-                        method: 'delete',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        }
-                    });
-                    EmployeeSelect(document.getElementById('DepartmentSelector').value);
-                ">
-                Remove
-            </button>
             <img src="..." style="display: none;" onerror='
             setInterval(function() {
                 fetch("/user/misc/status/{{ $employee->user_id }}", {

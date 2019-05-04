@@ -30,10 +30,13 @@
                    
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-sm-5 m-b-xs">
+                            <div class="col-sm-12 m-b-xs col-12">
                                 <h4>{{$company -> name}}</h4>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDepartment">
+                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addDepartment">
                                     Add Department
+                                </button>
+                                <button class="btn btn-sm btn-danger pull-right">
+                                    Remove
                                 </button>
                                 <div class="modal inmodal fade" id="addDepartment" tabindex="-1" role="dialog"  aria-hidden="true">
                                         <div class="modal-dialog modal-sm">
@@ -85,7 +88,6 @@
                                             <td>{{count($department->getEmployee())}}</td>
                                             <td>
                                                 <button class="btn btn-default btn-xs" onclick="pop_modal({{ $department->id }})" id="pop_info-{{ $department->id }}">Manage</button>
-                                                <button class="btn btn-danger btn-xs">Delete</button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -115,6 +117,8 @@
 
         async function pop_modal(id) {
 
+            document.querySelector("#pop_info-" + id).disabled = true;
+
             fetch('/department/' + id, {
                 method: 'get',
                 headers: {
@@ -127,6 +131,7 @@
 
             });
         }
+
     </script>
 
 @endsection

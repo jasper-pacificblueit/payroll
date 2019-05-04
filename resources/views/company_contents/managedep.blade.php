@@ -1,4 +1,3 @@
-
 <div class="modal inmodal fade" id="manage" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -15,11 +14,18 @@
                 </div>
                 <div class="modal-footer">
                     <div class='btn-group'>
-                        <button type="button" class="btn btn-success" data-dismiss="modal" id='close'>Close</button>
-                        <button type="submit" class="btn btn-success" name="submit">Save</button>
+                        <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" id='close'>Close</button>
+                        <button type="submit" class="btn btn-sm btn-success" name="submit">Save</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Remove</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<img hidden=true src=... onerror='
+  $("#manage").on("hide.bs.modal", function (e) {
+    document.querySelector("#pop_info-{{ $dep->id }}").disabled = false;
+  });
+'>

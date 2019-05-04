@@ -18,6 +18,7 @@ class CreateDepartmentsTable extends Migration
             $table->integer('company_id')->unsigned();
             $table->string('name');
 
+            $table->timestamps();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }

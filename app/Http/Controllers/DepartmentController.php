@@ -37,9 +37,10 @@ class DepartmentController extends Controller
      */
     public function store(Company $company)
     {
+
         Department::create([
-            'company_id' => $company->id ,
-            'name' => request('name')
+            'company_id' => $company->id,
+            'name' => ucwords(request('name'))
         ]);
         
         return back();
@@ -62,9 +63,11 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function edit(Department $department)
+    public function edit(Request $request, $id)
     {
-        //
+        return view('company_contents.managedep')->with([
+            'dep' => Department::find($id)
+        ]);
     }
 
     /**

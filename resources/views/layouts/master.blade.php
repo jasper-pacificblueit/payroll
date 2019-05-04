@@ -14,6 +14,7 @@
 
     {!! Html::style('css/bootstrap.min.css') !!}
     {!! Html::style('font-awesome/css/font-awesome.css') !!}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     {!! Html::style('css/animate.css') !!}
     {!! Html::style('css/style.css') !!}
     {!! Html::style('css/plugins/steps/jquery.steps.css') !!}
@@ -48,7 +49,8 @@
                             </span>
                         </a>
                         <span>
-                            <img alt="image" class="img-circle" src="{{ $profile->image['data'] }}" style='max-width: 75px'/>
+                            <img alt="image" class="img-responsive" src="{{ $profile->image['data'] }}" 
+                                style='max-width: 75px; position: relative; left: 46px; border-radius: 1000px; border: 2px solid skyblue;'/>
                         </span>
 
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -63,11 +65,17 @@
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li>
-                    <a onclick="window.location.href='/profile'"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a>
+                                <a onclick="window.location.href='/profile'"><i class="fa fa-user"></i> <span class="nav-label">My Profile</span></a>
+                            </li>
+                            @hasrole('admin|hr')
+                            <li>
+                                <a onclick="window.location.href='#'"><i class="fa fa-cog"></i> <span class="nav-label">Settings</span></a>
+                            </li>
+                            @endhasrole
                             <li>
                                 <a onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
-                                  <i class="fa fa-sign-out"></i>
+                                    <i class="fas fa-sign-out-alt"></i>
                                   <span class="nav-label">Logout</span>
                                 </a>
                             </li>  
@@ -123,7 +131,7 @@
 
                 @can('company_read')
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
-                        <a href="/company"><i class="fa fa-building-o"></i> <span class="nav-label">Manage Company</span></a>
+                        <a href="/company"><i class="far fa-building"></i> <span class="nav-label">Manage Company</span></a>
                 </li>
                 @endcan
                
@@ -150,7 +158,7 @@
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                            <i class="fa fa-sign-out"></i>Logout
+                            <span class="text-muted">Logout</span><i class="fas fa-sign-out-alt" style="position: relative; top: 1px; left: 5px"></i>
                         </a>
                     </li>
                     
@@ -179,12 +187,23 @@
 </form>
 
 <!-- Mainly scripts -->
-
 {!! Html::script('js/jquery-3.1.1.min.js') !!}
 {!! Html::script('js/bootstrap.min.js') !!}
 {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!}
 {!! Html::script('js/plugins/slimscroll/jquery.slimscroll.min.js') !!}
 {!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
+
+{!! Html::script('js/inspinia.js') !!}
+{!! Html::script('js/plugins/pace/pace.min.js') !!}
+{!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
+{!! Html::script('js/plugins/pace/pace.min.js') !!}
+{!! Html::script('js/plugins/footable/footable.all.min.js') !!}
+{!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
+{!! Html::script('js/plugins/codemirror/codemirror.js') !!}
+{!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!}
+
+<!-- Jasny -->
+{!! Html::script('js/plugins/jasny/jasny-bootstrap.min.js') !!}
 
 
 @yield('scripts')

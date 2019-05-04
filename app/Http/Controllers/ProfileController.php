@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Employee;
 use App\Profile;
 use App\Contact;
 use Illuminate\Http\Request;
@@ -90,12 +91,10 @@ class ProfileController extends Controller
                 'path' => $request->image->getPathname(),
             ]);
 
-        $profile->age   = $request->age;
         $profile->about = $request->about;
         $profile->save();
 
         $contact->address = $request->address;
-        $contact->phone = $request->phone;
         $contact->email = $user->email;
         $contact->mobile = $request->mobile;
         $contact->save();
@@ -107,7 +106,7 @@ class ProfileController extends Controller
 
         $request->validate([
             'current' => 'required',
-            'newpasswd' => 'required|min:5',
+            'newpasswd' => 'required',
             'repasswd' => 'required',
         ]);
 
@@ -142,5 +141,24 @@ class ProfileController extends Controller
     public function destroy(Profile $profile)
     {
         //
+    }
+
+    public function public_index($user) {
+
+        $eminfo = User::where("user", "=", $user)->first();
+
+        if ($eminfo->user == "admin") return redirect('/');
+
+        return view("employee_contents.employee_profile")->with([
+            "employee" => $eminfo->employee,
+
+        ]);
+
+    }
+
+    public function update_status(Request $request, $id) {
+        return json_encode([
+            'online' => User::online( User::find($id)->user)
+        ]);
     }
 }

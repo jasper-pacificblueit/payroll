@@ -35,6 +35,9 @@
               <label>Birthdate</label>
               <input type="date" name="birthdate" class="form-control" required>
 
+              <label>Age</label>
+              <input type="text" name="age" class="form-control" required>
+
               <label>Address</label>
               <input type="text" name="address" class="form-control" required>
 

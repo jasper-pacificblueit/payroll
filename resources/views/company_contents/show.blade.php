@@ -30,10 +30,13 @@
                    
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-sm-5 m-b-xs">
+                            <div class="col-sm-12 m-b-xs col-12">
                                 <h4>{{$company -> name}}</h4>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDepartment">
+                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addDepartment">
                                     Add Department
+                                </button>
+                                <button class="btn btn-sm btn-danger pull-right">
+                                    Remove
                                 </button>
                                 <div class="modal inmodal fade" id="addDepartment" tabindex="-1" role="dialog"  aria-hidden="true">
                                         <div class="modal-dialog modal-sm">
@@ -66,47 +69,42 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Deparment ID</th>
+                                        <th>Date Created</th>
                                         <th>Department name</th>
                                         <th>No. of Employee</th>  
-                                        <th>Action</th>  
+                                        <th></th>  
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                    @if (count($company->departments) > 0)
-                                    
                                     @foreach ($company->departments as $department)
-                                        <tr>
-                                            <td>{{$department -> id}}</td>
-                                            <td>{{$department -> name}}</td>
+                                        <tr ondblclick="$('#pop_info-{{ $department->id }}').click()">
+                                            <td>{{$department->created_at}}</td>
+                                            <td>{{$department->name}}</td>
                                             <td>{{count($department->getEmployee())}}</td>
-                                            <td><button class="btn btn-default btn-xs">Details</button></td>
+                                            <td>
+                                                <button class="btn btn-default btn-xs" onclick="pop_modal({{ $department->id }})" id="pop_info-{{ $department->id }}">Manage</button>
+                                            </td>
                                         </tr>
                                     @endforeach
-                                   
                                    @else
                                     <tr>
                                         <td colspan="4">No Departments yet</td>
                                     </tr>
                                    @endif
-
                                 </tbody>
-                               
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-   
-        
+    <span id="modal-panel"></span>
 @endsection
 
 
@@ -116,6 +114,24 @@
         $(document).ready(function() {
 
         });
+
+        async function pop_modal(id) {
+
+            document.querySelector("#pop_info-" + id).disabled = true;
+
+            fetch('/department/' + id, {
+                method: 'get',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                }
+            }).then(rep => rep.text()).then(html => {
+
+                document.querySelector('#modal-panel').innerHTML = html;
+                $('#manage').modal('toggle');
+
+            });
+        }
+
     </script>
 
 @endsection

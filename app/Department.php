@@ -8,14 +8,11 @@ class Department extends Model
 {
 	protected $guarded = [];
 	
-	public $timestamps = false;
-	
 	public function company() {
 		return $this->belongsTo('App\Company');
 	}
 
 	public function getEmployee() {
-
 		return Employee::where('department_id', $this->id)->get();
 
 	}

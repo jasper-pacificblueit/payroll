@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(Permission::class);
         $this->call(Role::class);
         $this->command->info('Added default roles & permissions.');
-
         $this->command->info('Creating admin account...');
 
         // admin info
@@ -161,7 +160,6 @@ class DatabaseSeeder extends Seeder
     }
 
     public static function default() {
-
         $company = (object)[
 
             'name' => 'Pacific Blue Co. Ltd.',

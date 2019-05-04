@@ -66,33 +66,32 @@
                             </div>
                             
                             <div class="col-sm-3 pull-right">
-                               
-                                <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-success"> Go!</button> </span></div>
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Company ID</th>
-                                        <th>Company name</th>
+                                        <th>Date Created</th>
+                                        <th>Company Name</th>
                                         <th>Address</th>
-                                        <th>Departments</th>
+                                        <th>Department/s</th>
                                         <th>Employee/s</th>  
-                                        <th>Action</th>  
+                                        <th></th>  
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if(count($companies) > 0)
                                         @foreach ($companies as $company)
-                                        <tr>
-                                            <td>{{$company->id}}</td>
+                                        <tr ondblclick="window.location.href = '/company/{{ $company->id }}'">
+                                            <td>{{$company->created_at}}</td>
                                             <td>{{$company->name}}</td>
                                             <td>{{$company->address}}</td>
                                             <td>{{count($company->departments)}}</td>
                                             <td>{{count(App\Employee::where('company_id', '=', $company->id)->get())}}</td>
-                                            <td><a href="company/{{$company->id}}" class="btn btn-default btn-xs">Manage</a></td>
+                                            <td>
+                                                <a href="company/{{ $company->id }}" class="btn btn-default btn-xs">Manage</a>
+                                            </td>
                                             
                                         </tr>    
                                         @endforeach
@@ -118,15 +117,6 @@
 
 
 @section('scripts')
-<!-- Custom and plugin javascript -->
-{!! Html::script('js/inspinia.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/footable/footable.all.min.js') !!}
-
-
- 
     <script>
         $(document).ready(function() {
 

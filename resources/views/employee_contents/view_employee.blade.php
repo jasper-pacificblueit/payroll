@@ -1,21 +1,22 @@
 <div class="row">
     <div class="col-lg-12">
       <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dataTables-example" >
+            <table class="table table-striped table-bordered table-hover dataTables-example">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Date Registered</th>
                         <th>Employee Name</th>
                         <th>Email</th>
-                        <th></th>
-                        <th></th>
+                        <th>Page</th>
+                        <th width="250"></th>
                     </tr>
                 </thead>
                 <tbody id="EmployeeTable"></tbody>
+
              </table>
         </div>
-
     </div>
+    <span id="modal-panel"></span>
 </div>
 <script>
   function DepartmentSelect(str) {

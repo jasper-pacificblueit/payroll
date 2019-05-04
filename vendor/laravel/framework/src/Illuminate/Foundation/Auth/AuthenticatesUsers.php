@@ -5,6 +5,8 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 trait AuthenticatesUsers
 {
@@ -114,7 +116,7 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+        Cache::put($this->guard()->user()->user, true, Carbon::now()->addMinutes(60));
     }
 
     /**
@@ -150,11 +152,12 @@ trait AuthenticatesUsers
      */
     public function logout(Request $request)
     {
+        Cache::forget(auth()->user()->user);
+        
         $this->guard()->logout();
-
         $request->session()->invalidate();
 
-        return redirect('/');
+        return redirect('/login');
     }
 
     /**

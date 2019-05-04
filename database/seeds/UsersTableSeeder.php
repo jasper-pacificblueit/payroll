@@ -9,7 +9,7 @@ class UsersTableSeeder extends Seeder
     protected static function dummy() {
 
         // random employee
-        factory(App\User::class, 2)->create()->each(function ($user) {
+        factory(App\User::class, 50)->create()->each(function ($user) {
             $faker = Faker\Factory::create();
 
             $user->assignRole($user->position);
@@ -94,7 +94,6 @@ class UsersTableSeeder extends Seeder
         $user->password = $userInfo->password;
         $user->email = $userInfo->email;
         $user->position = $userInfo->position;
-
         $user->save();
 
         $userProfile->gender = $userInfo->gender;
@@ -104,16 +103,13 @@ class UsersTableSeeder extends Seeder
         $userProfile->age = $userInfo->age;
         $userProfile->image = json_encode($userInfo->image);
         $userProfile->birthdate = (new Carbon($userInfo->birthdate))->toDateTimeString();
-
         $userProfile->user_id = $user->id;
-
         $userProfile->save();
 
         $userContact->mobile = $userInfo->mobile;
         $userContact->email = $user->email;
         $userContact->address = $userInfo->address;
         $userContact->user_id = $user->id;
-
         $userContact->save();
 
         $user->assignRole($user->position);

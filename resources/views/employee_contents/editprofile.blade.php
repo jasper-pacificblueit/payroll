@@ -36,13 +36,13 @@
             			</div>
             		</div>
                 <div class='row'>
-
                 	<div class="col-lg-6">
                     <div class="ibox float-e-margins" style="border-radius: 5px">
                         <div class="ibox-title">
                             <h5></h5>
                         </div>
                         <div class="ibox-content">
+                        	<label>Profile Picture</label>
                             <form method="post" class="form-horizontal" id='profile-form' action="/editprofile" enctype="multipart/form-data">
                             	{{ csrf_field() }}
                                 <div class="fileinput fileinput-exists input-group" data-provides="fileinput">
@@ -57,13 +57,6 @@
 									        <span class="fileinput-exists">Change</span>
 									    </span>
 									</div>
-
-									<label>Age</label>
-									<input class='form-control' name='age' type='text' onchange="(function(e) {
-										document.getElementById('age').innerHTML = '<strong>Age : </strong>' + 
-										(e.value != '' ? e.value : 'How old are you?');
-									})(this)" placeholder="Age" value="{{ $profile->age }}" required>
-									<br>
 									<br>
 									<label>Address</label>
 									<input class='form-control' name='address' type='text' placeholder="Address" onchange="(function(e) {
@@ -77,13 +70,6 @@
 
 
 									})(this)" value="{{ $contact->address }}">
-									<label>Phone</label>
-									<input class='form-control' name='phone' type='text' placeholder="Phone" onchange="(function(e) {
-
-										document.getElementById('phoneNumber').innerHTML = e.value;
-
-
-									})(this)"  value="{{ $contact->phone }}" required>
 									<label>Mobile</label>
 									<input class='form-control' name='mobile' type='text' placeholder="Mobile" onchange="(function(e) {
 
@@ -158,7 +144,7 @@
 	                  <h5><strong>Birthdate : </strong>{{ (new Carbon($profile->birthdate))->toFormattedDateString() }}</h5>
 	                  <h5><strong>Gender : </strong>{{ ($profile->gender? 'Male' : 'Female') }}</h5>
 	                  <h5 id='age'><strong>Age : </strong>{{ ($profile->age? $profile->age : 'How old are you?') }}</h5>
-	                  <h5><strong>Contact :</strong> <span id='phoneNumber'>{{ $contact->phone }}</span> / <span 	id='mobileNumber'>{{ $contact->mobile }}</span></h5>
+	                  <h5><strong>Mobile :</strong> <span 	id='mobileNumber'>{{ $contact->mobile }}</span></h5>
 	                  <h5><strong>Email :</strong> <span id='emailAddress'>{{ $contact->email }}</span></h5>
 	                </div>
 	            </div>
@@ -176,8 +162,6 @@
 <script>
 	
 	function image_ch() {
-
-
 		var rdr = new FileReader();
 
 		rdr.addEventListener('load', async function(e) {

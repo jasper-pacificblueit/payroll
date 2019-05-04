@@ -31,11 +31,12 @@
                             else if (form.elements[i].name)
                                 json[form.elements[i].name] = form.elements[i].placeholder;
 
+                        console.log(json);
+
                         return json;
                     })()),
 
                 }).then(rep => {console.log(rep); return rep.text(); }).then(txt => {
-                    
                     $('#manage #close').click();
 
                     EmployeeSelect(document.querySelector('#DepartmentSelector').value);
@@ -65,11 +66,31 @@
                 </div>
                 <div class="modal-footer">
                     <div class='btn-group'>
-                        <button type="button" class="btn btn-success" data-dismiss="modal" id='close'>Close</button>
-                        <button type="submit" class="btn btn-success" name="submit">Save</button>
+                        <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" id='close'>Close</button>
+                        <button type="submit" class="btn btn-sm btn-success" name="submit" onclick="document.querySelector('#btnclick-{{ $eminfo->user_id }}').disabled = false;">Save</button>
+                        <button class="btn btn-sm btn-danger" 
+                            onclick="
+                                fetch('/employee/{{ $eminfo->user_id }}', {
+                                    method: 'delete',
+                                    headers: {
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    }
+                                });
+                                EmployeeSelect(document.getElementById('DepartmentSelector').value);
+                            " data-dismiss="modal">
+                            Remove
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<img hidden="true" src="..." onerror='
+
+    $("#manage").on("hide.bs.modal", function (e) {
+        document.querySelector("#btnclick-{{ $eminfo->user_id }}").disabled = false;
+    });
+
+'>

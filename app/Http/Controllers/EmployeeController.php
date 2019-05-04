@@ -63,6 +63,7 @@ class EmployeeController extends Controller
 
             'address' => 'required',
             'birthdate' => 'required',
+            'age' => 'required',
             'firstName' => 'required',
             'lastName' => 'required',
             'middleName' => 'required',
@@ -97,7 +98,7 @@ class EmployeeController extends Controller
 
         $profile->fname = $request->firstName;
         $profile->gender = $request->gender;
-        $profile->age = 0;
+        $profile->age = $request->age;
         $profile->image = json_encode([
             'data' => "/img/landing/avatar_anonymous.png",
             'path' => "/img/landing/avatar_anonymous.png",
@@ -179,7 +180,7 @@ class EmployeeController extends Controller
         $user = App\User::findOrFail($id);
         $em = App\Employee::where('user_id', $id)->first();
 
-        $em->bio_id = $json->bio;
+        $em->bio_id = ($json->bio == '--' ? 0 : $json->bio);
         $em->department_id = $json->department;
 
         $user->save();
@@ -202,8 +203,9 @@ class EmployeeController extends Controller
         return view('sample');
     }
 
-    public function getEmployee(Request $request){
+    public function getEmployee(Request $request) {
         $data = Employee::with('getProfile')->find($request->input('id'));
         return response()->json($data);
     }
+
 }

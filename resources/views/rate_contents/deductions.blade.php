@@ -1,6 +1,54 @@
 <div class="row">
     <div class="col-lg-1">
-        <button class="btn btn-success">Add Deduction</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDeduction">Add Deduction</button>
+
+        <div class="modal inmodal fade" id="addDeduction" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <form action="/addDeductions" method="POST">
+                    {{ csrf_field() }}
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">Add Deduction</h4>
+                           
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label for="">Deduction name</label>
+                                    <input type="text" name="name" id="" class="form-control" placeholder="" required>
+                                </div>
+                                <div class="col-lg-6">
+                                        <label for="">Deduction type</label>
+                                    <input type="text" name="type" id="" class="form-control" required>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label for="">Formula type</label>
+                                    <input type="text" name="formula_type" id="" class="form-control" required>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label for="">Formula</label>
+                                    <input type="text" name="" id="" class="form-control" >
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="">Amount</label>
+                                    <input type="text" name="amount" id="" class="form-control" required>
+                                </div>
+                                
+                            </div>
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                     </div>
+                </form>
+            </div>
+        </div>
+
     </div>
     
     <div class="col-lg-1">

@@ -9,7 +9,7 @@ class UsersTableSeeder extends Seeder
     protected static function dummy() {
 
         // random employee
-        factory(App\User::class, 500)->create()->each(function ($user) {
+        factory(App\User::class, 10)->create()->each(function ($user) {
             $faker = Faker\Factory::create();
 
             $user->assignRole($user->position);

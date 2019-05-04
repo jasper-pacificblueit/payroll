@@ -1,5 +1,11 @@
 @extends('layouts.master')
 
+@if (auth()->user()->user == $employee->user->user)
+<script>
+  window.location.href = '/profile';
+</script>
+@endif
+
 @php
 
   use Carbon\Carbon;
@@ -8,6 +14,7 @@
   $profile->image = json_decode($profile->image, 1);
   
   $contact = App\Contact::where("user_id", $employee->user_id)->first();
+
 @endphp
 
 @section('title', App\Profile::getFullName($employee->user_id))
@@ -16,7 +23,7 @@
 <div class="wrapper wrapper-content">
 <div class='row'>
   <div class='col-lg-3 col-md-6 col-xs-12 col-sm-8'>
-    <div class="ibox float-e-margins">
+    <div class="ibox float-e-margins">  
         <div class="ibox-title">
             <h5>User Information</h5>
         </div>

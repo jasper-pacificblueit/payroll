@@ -147,11 +147,11 @@ class ProfileController extends Controller
 
         $eminfo = User::where("user", "=", $user)->first();
 
-        if ($eminfo->user == "admin") return redirect('/');
+        if (!$eminfo) abort(404);
+        else if ($eminfo->user == "admin") return redirect('/');
 
         return view("employee_contents.employee_profile")->with([
             "employee" => $eminfo->employee,
-
         ]);
 
     }

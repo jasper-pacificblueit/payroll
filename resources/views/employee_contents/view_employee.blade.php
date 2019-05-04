@@ -7,7 +7,7 @@
                         <th>Date Registered</th>
                         <th>Employee Name</th>
                         <th>Email</th>
-                        <th>Position</th>
+                        <th>Job Title</th>
                         <th id="excludedcolumn"></th>
                     </tr>
                 </thead>

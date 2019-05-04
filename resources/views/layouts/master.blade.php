@@ -50,7 +50,7 @@
                         </a>
                         <span>
                             <img alt="image" class="img-responsive" src="{{ $profile->image['data'] }}" 
-                                style='max-width: 75px; position: relative; left: 46px; border-radius: 1000px; border: 2px solid skyblue;'/>
+                                style='max-width: 75px; position: relative; left: 46px; border-radius: 100%; border: 2px;'/>
                         </span>
 
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">

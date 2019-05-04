@@ -31,6 +31,7 @@ class EmployeeController extends Controller
      }
 
      public function showEmployee(Request $request){
+
         $data = App\Employee::all()->where('department_id' , '=' , $request->input('q'));
         return view('employee_contents.EmployeeTable' , compact('data'));
      }

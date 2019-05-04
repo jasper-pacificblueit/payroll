@@ -9,7 +9,7 @@ class UsersTableSeeder extends Seeder
     protected static function dummy() {
 
         // random employee
-        factory(App\User::class, 50)->create()->each(function ($user) {
+        factory(App\User::class, 500)->create()->each(function ($user) {
             $faker = Faker\Factory::create();
 
             $user->assignRole($user->position);
@@ -56,6 +56,11 @@ class UsersTableSeeder extends Seeder
                 'department_id' => 
                     $faker->randomElement(App\Department::find(1)->pluck('id')->toArray()),
             ]));
+
+            $user->employee->rates()->save(new App\Rate([
+                'employee_id' => $user->employee->id,
+                'hourly' => 50.5,
+            ]));
         });
 
         foreach(DatabaseSeeder::employees() as $em) {
@@ -71,6 +76,10 @@ class UsersTableSeeder extends Seeder
             (new App\Employee($em->employees))->save();
             (new App\Profile($em->profiles))->save();
             (new App\Contact($em->contacts))->save();
+            (new App\Rate([
+                'employee_id' => $user->employee->id,
+                'hourly' => 55.5,
+            ]))->save();
         }
     }
 

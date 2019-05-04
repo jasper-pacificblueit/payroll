@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
                 'employees' => [
                     'company_id' => 1,
                     'department_id' => 2,
-                ]
+                ],
 
             ],
             (object)[

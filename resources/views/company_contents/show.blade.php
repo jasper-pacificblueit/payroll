@@ -112,7 +112,7 @@
 
     <script>
         $(document).ready(function() {
-
+            
         });
 
         async function pop_modal(id) {

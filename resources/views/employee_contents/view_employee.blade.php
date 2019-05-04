@@ -7,8 +7,8 @@
                         <th>Date Registered</th>
                         <th>Employee Name</th>
                         <th>Email</th>
-                        <th>Page</th>
-                        <th width="250"></th>
+                        <th>Position</th>
+                        <th id="excludedcolumn"></th>
                     </tr>
                 </thead>
                 <tbody id="EmployeeTable"></tbody>
@@ -35,11 +35,16 @@
         xmlhttp.onreadystatechange=function() {
                 if (this.readyState==4 && this.status==200) {
 
-                    document.getElementById("DepartmentSelector").innerHTML = this.responseText;
-                    document.querySelector("#select2-DepartmentSelector-container").innerText = 
-                        document.getElementById("DepartmentSelector").options[document.getElementById("DepartmentSelector").selectedIndex].text;
-                        
-                    EmployeeSelect(document.getElementById("DepartmentSelector").value);
+                    try {
+                        document.getElementById("DepartmentSelector").innerHTML = this.responseText;
+                        document.querySelector("#select2-DepartmentSelector-container").innerText = 
+                            document.getElementById("DepartmentSelector").options[document.getElementById("DepartmentSelector").selectedIndex].text;
+
+                        EmployeeSelect(document.getElementById("DepartmentSelector").value);
+                    } catch (e) {};
+
+                    
+                    
                 }
         }
 

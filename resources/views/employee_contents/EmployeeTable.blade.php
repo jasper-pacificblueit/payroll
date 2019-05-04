@@ -2,7 +2,7 @@
 @if (count($data) > 0)
     @php($min = 0)
     @foreach ($data as $employee)
-    <tr ondblclick="$('#btnclick-{{ $employee->user_id }}').click();">
+    <tr ondblclick="$('#btnclick-{{ $employee->user_id }}').click();" id="emrow-{{ $employee->user_id }}">
         <td>{{ $employee->user->created_at }}</td>
         <td>
             <a href="/profile/{{ $employee->user->user }}">
@@ -18,8 +18,8 @@
             </span>
         </td>
         <td>{{ $employee->user->email }}</td>
-        <td></td>
-        <td>
+        <td>{{ $employee->user->position }}</td>
+        <td id="excludedcolumn">
     		<button class="btn btn-xs btn-default" id="btnclick-{{ $employee->user_id }}" onclick="this.disabled = true; fetch('/manage/{{$employee->user_id}}', {
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -32,20 +32,26 @@
             })">Manage</button>
             <img src="..." style="display: none;" onerror='
             setInterval(function() {
-                fetch("/user/misc/status/{{ $employee->user_id }}", {
-                    headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    }
-                }).then(rep => rep.json()).then(json => {
 
-                    document.querySelector("#status-{{ $employee->user_id }}").style.color = 
-                        json.online ? "#23c6c8" : "";
+                    fetch("/user/misc/status/{{ $employee->user_id }}", {
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        }
+                    }).then(rep => rep.json()).then(json => {
 
-                    document.querySelector("#status-{{ $employee->user_id }}").title = 
-                        json.online ? "Online" : "Offline";
+                        try {
 
-                });
-            }, 10000+{{ $min += 1000 }});
+                        document.querySelector("#status-{{ $employee->user_id }}").style.color = 
+                            json.online ? "#23c6c8" : "";
+
+                        document.querySelector("#status-{{ $employee->user_id }}").title = 
+                            json.online ? "Online" : "Offline";
+
+                        } catch (e) {};
+
+                    }).catch(e => e);
+
+            }, 5*60000+{{ $min += 1000 }});
             '>
         </td>
     </tr>

@@ -25,7 +25,7 @@ class PositionsController extends Controller
      */
     public function create()
     {
-        //
+        dd('asdasd');
     }
 
     /**
@@ -36,7 +36,16 @@ class PositionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Position = new Positions;
+
+        $Position->name = $request->name;
+        $Position->description = $request->description;
+
+        $Position->save();
+
+        $status = 'success';
+        return view('positions_contents.index' , compact('status'));
+        
     }
 
     /**

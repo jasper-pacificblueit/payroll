@@ -28,22 +28,103 @@
 
              <div class="row">
                 <div class="col-lg-12">
-                    <div class="tabs-container">
-                        <ul class="nav nav-tabs">
-                            <li class="{{Request::path() == 'payroll' ? 'active' : '' }}"><a href="/payroll">Compensation</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div id="compensation" class="tab-pane {{ Request::path() == 'payroll' ? 'active' : '' }}">
-                               
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                               @if (isset($status))
+                                    <div class="alert alert-success">
+                                     Position added successfully 
+                                    </div>
+                               @endif
                             </div>
-                           
                         </div>
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addPosition">
+                                    Add Position
+                                </button>
+                                <div class="modal inmodal fade" id="addPosition" tabindex="-1" role="dialog"  aria-hidden="true">
+                                        <div class="modal-dialog modal-md">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title">Add a Position</h4>
+                                                    <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="positions" method="POST">
+                                                        {{ csrf_field() }}
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <h4>Name</h4>
+                                                                <input type="text" name="name" id="" class="form-control" required>
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
 
-
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <h4>Description</h4>
+                                                                <input type="text" name="description" id="" class="form-control" required>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                </div>
+        
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                    <button type="submit" name="createPosition" class="btn btn-primary">Create</button>
+                                                </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Position Name</th>
+                                            <th>Description</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php($Positions = \App\Positions::all())
+                                            
+                                            @if (\App\Positions::all()->count() > 0)
+                                                @foreach ($Positions as $position)
+                                                <tr>
+                                                    <td>{{$position->name}}</td>
+                                                    <td>{{$position->description}}</td>
+                                                    <td>{{$position->created_at}}</td>
+                                                    <td><button class="btn btn-primary btn-xs">Update</button> <button class="btn btn-danger btn-xs">Delete</button></td>
+                                                 </tr> 
+                                                @endforeach                                               
+                                            @else
+                                                <tr>
+                                                    <td colspan="4"><span class="text-muted">No positions</span></td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+    
+    
+                            </div>
+                        </div>
                     </div>
                 </div>
        
              </div>
+             
         </div>
     </div>
 

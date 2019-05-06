@@ -100,12 +100,10 @@
       	<div class="col-lg-6 col-sm-6">
       	 <label>Position</label>
          <select class='form-control' name='position' required>
-            @if (auth()->user()->position == 'hr')
-              <option value='employee'>Employee</option>
-            @elseif (auth()->user()->position == 'admin')
-              <option value='hr'>HR</option>
-              <option value='employee'>Employee</option>
-            @endif
+              @php($Positions = \App\Positions::all())
+              @foreach ($Positions as $Position)
+                  <option value="{{$Position->id}}">{{$Position->name}}</option>
+              @endforeach
          </select>
       	</div>
         <div class="col-lg-2 col-sm-2">

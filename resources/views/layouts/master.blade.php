@@ -108,7 +108,7 @@
 
                
 
-                <li class="{{ Request::path() == 'position' ? 'active' : '' }}">
+                <li class="{{ Request::path() == 'positions' ? 'active' : '' }}">
                     <a href="/positions"><i class="fa fa-user"></i> <span class="nav-label">Manage Positions</span></a>
                 </li>
 

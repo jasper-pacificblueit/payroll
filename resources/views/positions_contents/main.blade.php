@@ -29,21 +29,7 @@
                                         <td width=500>{{ $position->description }}</td>
                                         <td>0/50</td>
                                         <td>
-                                        @php
-                                            switch ($position->state) {
-                                            case 0:
-                                                echo "<span class='alert-success'>Active</span>";
-                                                break;
-                                            case 1:
-                                                echo "<span class='alert-warning'>Inactive</span>";
-                                                break;
-                                            case 2:
-                                                echo "<span class='alert-info'>Temporarily Inactive</span>";
-                                                break;
-                                            default:
-                                                echo "<span class='alert-danger'>Unknown</span>";
-                                            }
-                                        @endphp
+                                        
                                         </td>
                                     </tr>
                                     @endforeach

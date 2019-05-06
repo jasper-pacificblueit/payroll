@@ -16,7 +16,7 @@ class CreatePositionsTable extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->increments('id');
-            
+         
             $table->longText("title");
             $table->longText("description");
             $table->enum("state", [0, 1, 2, 3]);

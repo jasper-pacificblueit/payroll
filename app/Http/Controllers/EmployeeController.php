@@ -75,8 +75,8 @@ class EmployeeController extends Controller
             'hourly_rate' => 'required',
         ]);
 
-        if (auth()->user()->position == $request->position)
-            return redirect()->route('employee.add');
+        if (auth()->user()->position_id == $request->position_id)
+            return back();
 
         $user = new App\User;
         $contact = new App\Contact;
@@ -85,16 +85,14 @@ class EmployeeController extends Controller
 
         $user->user = $request->user;
         $user->email = $request->email;
-        $user->position = $request->position;
+        $user->position_id = $request->position;
         $user->password = bcrypt($request->pass);
-
         $user->save();
 
         $contact->mobile = $request->mobile;
         $contact->address = $request->address;
         $contact->email = $user->email;
         $contact->user_id = $user->id;
-
         $contact->save();
 
         $profile->fname = $request->firstName;
@@ -104,20 +102,17 @@ class EmployeeController extends Controller
             'data' => "/img/landing/avatar_anonymous.png",
             'path' => "/img/landing/avatar_anonymous.png",
         ]);
-        
         $profile->lname = $request->lastName;
         $profile->mname = $request->middleName;
         $profile->birthdate = (new Carbon($request->birthdate))->toDateTimeString();
         $profile->user_id = $user->id;
-
         $profile->save();
             
-        if ($user->position != 'admin') {
+        if ($user->position_id != 1) {
             $employee->company_id = $request->company;
             $employee->department_id = $request->department;
             $employee->user_id = $user->id;
             $employee->bio_id = $request->bio;
-            
             $employee->save();
 
             $rates = new App\Rate;
@@ -126,19 +121,6 @@ class EmployeeController extends Controller
             $rates->hourly = $request->hourly_rate;
             $rates->save();
         }
-
-        // Add role and permissions
-        $user->assignRole($user->position);
-
-        if ($user->position == 'admin') {
-            $user->syncPermissions(Permission::all());
-        } else if ($user->position == 'hr')
-            $user->syncPermissions([
-                'company_read',
-                'employee_read', 'employee_write',
-                'department_read', 'department_write',
-                'dtr_read', 'dtr_write',
-            ]);
 
         return redirect()->route('employee');
     }

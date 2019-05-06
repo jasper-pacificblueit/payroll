@@ -38,6 +38,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function position() {
+        return Positions::find($this->position_id);
+    }
+
     public function profile() {
         return $this->hasOne('App\Profile');
     }

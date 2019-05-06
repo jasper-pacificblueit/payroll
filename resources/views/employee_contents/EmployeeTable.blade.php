@@ -18,7 +18,7 @@
             </span>
         </td>
         <td>{{ $employee->user->email }}</td>
-        <td>{{ $employee->user->position }}</td>
+        <td>{{ $employee->user->position()->title }}</td>
         <td id="excludedcolumn">
     		<button class="btn btn-xs btn-default" id="btnclick-{{ $employee->user_id }}" onclick="this.disabled = true; fetch('/manage/{{$employee->user_id}}', {
                 headers: {

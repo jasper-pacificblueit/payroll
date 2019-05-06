@@ -27,7 +27,6 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-5 m-b-xs">
-                                    @can('company_write')
                                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCompany">
                                                 Add Company
                                         </button>
@@ -62,7 +61,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endcan
                             </div>
                             
                             <div class="col-sm-3 pull-right">

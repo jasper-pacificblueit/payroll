@@ -100,17 +100,22 @@
       	<div class="col-lg-6 col-sm-6">
       	 <label>Position</label>
          <select class='form-control' name='position' required>
-            @if (auth()->user()->position == 'hr')
-              <option value='employee'>Employee</option>
-            @elseif (auth()->user()->position == 'admin')
-              <option value='hr'>HR</option>
-              <option value='employee'>Employee</option>
-            @endif
+            @foreach (App\Positions::where('id', '!=', 1)->get() as $position)
+              <option value={{ $position->id }}>{{ $position->title }}</option>
+            @endforeach
          </select>
       	</div>
         <div class="col-lg-2 col-sm-2">
           <label>Hourly</label>
           <input class="form-control" type="text" name="hourly_rate">
+        </div>
+        <div class="col-lg-2 col-sm-2">
+          <label>Overtime</label>
+          <input class="form-control" type="text" name="ot_rate">
+        </div>
+        <div class="col-lg-2 col-sm-2">
+          <label>Nightshift</label>
+          <input class="form-control" type="text" name="nightdiff_rate">
         </div>
       </div>
       <div class="hr-line-dashed"></div>

@@ -8,23 +8,11 @@ class UsersTableSeeder extends Seeder
 {
     protected static function dummy() {
 
+        factory(App\Positions::class, 10)->create();
+
         // random employee
         factory(App\User::class, 10)->create()->each(function ($user) {
             $faker = Faker\Factory::create();
-
-            $user->assignRole($user->position);
-
-            switch ($user->position) {
-            case 'hr':
-                $user->syncPermissions([
-                    'company_read',
-                    'employee_read', 'employee_write',
-                    'department_read', 'department_write',
-                    'dtr_read', 'dtr_write',
-                ]);
-                break;
-            }
-
             
             // profile
             $user->profile()->save(new App\Profile([
@@ -95,14 +83,20 @@ class UsersTableSeeder extends Seeder
 
     public static function create($userInfo) {
 
+        (new App\Positions([
+            'title' => $userInfo->title,
+            'description' => $userInfo->description,
+            'state' => $userInfo->state,
+        ]))->save();
+
         $user = new App\User;
         $userProfile = new App\Profile;
         $userContact = new App\Contact;
 
         $user->user = $userInfo->user;
         $user->password = $userInfo->password;
+        $user->position_id = 1;
         $user->email = $userInfo->email;
-        $user->position = $userInfo->position;
         $user->save();
 
         $userProfile->gender = $userInfo->gender;
@@ -121,17 +115,6 @@ class UsersTableSeeder extends Seeder
         $userContact->user_id = $user->id;
         $userContact->save();
 
-        $user->assignRole($user->position);
-
-        if ($user->position == 'admin') {
-            $user->syncPermissions(Permission::getPerm());
-        } else
-            $user->syncPermissions([
-                'company_read',
-                'employee_read', 'employee_write',
-                'department_read', 'department_write',
-                'dtr_read', 'dtr_write',
-            ]);
     }
 
     public static function default($company, $departments) {

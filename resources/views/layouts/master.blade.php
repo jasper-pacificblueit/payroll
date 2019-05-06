@@ -43,11 +43,6 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element">
-                        <a class="dropdown-toggle">
-                            <span class="clear">
-                                <p class="text-muted text-xs">{!! App\User::$positions[auth()->user()->position] !!}</p>
-                            </span>
-                        </a>
                         <span>
                             <img alt="image" class="img-responsive" src="{{ $profile->image['data'] }}" 
                                 style='max-width: 75px; position: relative; left: 46px; border-radius: 100%; border: 2px;'/>
@@ -67,11 +62,11 @@
                             <li>
                                 <a onclick="window.location.href='/profile'"><i class="fa fa-user"></i> <span class="nav-label">My Profile</span></a>
                             </li>
-                            @hasrole('admin|hr')
+
                             <li>
                                 <a onclick="window.location.href='#'"><i class="fa fa-cog"></i> <span class="nav-label">Settings</span></a>
                             </li>
-                            @endhasrole
+                            
                             <li>
                                 <a onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
@@ -92,30 +87,23 @@
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
 
-                @can('dtr_read')
-                @can('dtr_write')
                 <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
                 </li>
-                @endcan
-                @endcan
+
                 <li class="{{ Request::path() == 'payroll' || Request::path() == 'payroll/create' ? 'active' : '' }}">
                     <a href="/payroll/create"><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
                 </li>
 
                 
                 @if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
-                @can('company_read')
                 <li class="{{ Request::path() == 'employee' || Request::path() == 'employee/add' ? 'active' : '' }}">
                         <a href="/employee"><i class="fa fa-users"></i> <span class="nav-label">Employee</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
-                            @can('employee_write')
-                               <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
-                            @endcan
+                            <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
                         </ul>
                 </li>
-                @endcan
                 @endif
 
                
@@ -129,11 +117,9 @@
                 </li>
 
 
-                @can('company_read')
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
-                        <a href="/company"><i class="far fa-building"></i> <span class="nav-label">Manage Company</span></a>
+                    <a href="/company"><i class="far fa-building"></i> <span class="nav-label">Manage Company</span></a>
                 </li>
-                @endcan
                
                 
               

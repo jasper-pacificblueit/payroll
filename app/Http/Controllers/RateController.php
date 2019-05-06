@@ -21,7 +21,7 @@ class RateController extends Controller
             $editDeduction = $request->editDeduction;
         }
         else{
-            $editDeduction = false;
+            $editDeduction = false; 
         
         }
         

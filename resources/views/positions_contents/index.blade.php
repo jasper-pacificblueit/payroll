@@ -18,8 +18,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
-            <h2>Manage Position</h2>
-           
+            <h2>Manage Positions</h2>
         </div>
     </div>
     <br>
@@ -30,11 +29,13 @@
                 <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
-                            <li class="{{Request::path() == 'payroll' ? 'active' : '' }}"><a href="/payroll">Compensation</a></li>
+                            <li class="{{Request::path() == 'positions' ? 'active' : '' }}"><a href="/positions">Add Positions</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div id="compensation" class="tab-pane {{ Request::path() == 'payroll' ? 'active' : '' }}">
-                               
+                            <div id="compensation" class="tab-pane {{ Request::path() == 'positions' ? 'active' : '' }}">
+                               <div class="panel-body">
+                                    @include('positions_contents.main')
+                                </div>
                             </div>
                            
                         </div>

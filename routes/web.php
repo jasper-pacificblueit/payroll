@@ -17,17 +17,17 @@ Route::middleware(['guest'])->group(function() {
 });
 
 // admin routes
-Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
+Route::group(['middleware' => ['auth']], function() {
 
 	if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
-		Route::middleware(['permission:employee_read'])->group(function() {
+		Route::middleware(['auth'])->group(function() {
 			Route::get('view-employee', 'EmployeeController@viewEmployee');
 			Route::get('get-employee', 'EmployeeController@getEmployee');
 			Route::get('/employee', 'EmployeeController@index')->name('employee');
 		});
 
 	if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
-		Route::middleware(['permission:employee_write'])->group(function() {
+		Route::middleware(['auth'])->group(function() {
 			Route::get('/employee/add', 'EmployeeController@create')->name('addEmployee');
 			Route::post('/employee/keep', 'EmployeeController@store');
 			Route::post('/employee/{id}', 'EmployeeController@update');
@@ -35,21 +35,21 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 			Route::get('/manage/{id}', 'EmployeeController@edit');
 		});
 
-	Route::middleware(['permission:company_read'])->group(function() {
+	Route::middleware(['auth'])->group(function() {
 		Route::get('/company', 'CompanyController@index');
 	});
 
-	Route::middleware(['permission:company_write'])->group(function() {
+	Route::middleware(['auth'])->group(function() {
 		Route::post('/company', 'CompanyController@store');
 	});
 	
-	Route::middleware(['permission:department_write'])->group(function() {
+	Route::middleware(['auth'])->group(function() {
 		Route::get('/company/{id}', 'CompanyController@show');
 		Route::post('/company/{company}/department' , 'DepartmentController@store');
 		Route::get('/department/{id}', 'DepartmentController@edit');
 	});
 
-	Route::middleware(['permission:dtr_read|dtr_write'])->group(function() {
+	Route::middleware(['auth'])->group(function() {
 		Route::resource('/dtr', 'DateTimeRecordController');
 		Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
 		
@@ -76,7 +76,6 @@ Route::group(['middleware' => ['auth', 'role:admin|hr']], function() {
 		
 	});
 
-	
 	
 	
 });

@@ -44,7 +44,6 @@
                                                 <tr>
                                                     
                                                     <th>Employee</th>
-                                                   
                                                     <th>Total Earnings</th>
                                                     <th>Total Deductions</th>
                                                     <th>Net Pay</th>

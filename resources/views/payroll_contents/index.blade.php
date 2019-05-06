@@ -101,8 +101,60 @@
             }
             xmlhttp.onreadystatechange=function() {
                 if (this.readyState==4 && this.status==200) {
-                document.getElementById("payrollTable").innerHTML=this.responseText;
-                    
+                    $(".dataTables-example").DataTable().destroy();
+                    document.getElementById("payrollTable").innerHTML=this.responseText;
+                    $('.dataTables-example').DataTable({
+                        pageLength: 10,
+                        responsive: true,
+                        dom: '<"html5buttons"B>lTfgitp',
+                        buttons: [
+                            {
+                                extend: 'copy',
+                                exportOptions: {
+                                    columns: ":not(#excludedcolumn)",
+                                }
+                            },
+                            {
+                                extend: 'csv',
+                                exportOptions: {
+                                    columns: ":not(#excludedcolumn)",
+                                }
+                            },
+                            {
+                                extend: 'excel', 
+                                title: 'ExampleFile',
+                            },
+                            {
+                                extend: 'pdf', 
+                                title: 'ExampleFile',
+                                exportOptions: {
+                                    columns: ":not(#excludedcolumn)",
+                                }
+                            },
+
+                            {
+                                extend: 'print',
+                                customize: function (win) {
+                                    $(win.document.body).addClass('white-bg');
+                                    $(win.document.body).css('font-size', '10px');
+
+                                    $(win.document.body).find('table')
+                                        .addClass('compact')
+                                        .css('font-size', 'inherit');
+                                },
+                                exportOptions: {
+                                    columns: ":not(#excludedcolumn)",
+                                }
+                            },
+                        ],
+                        language: {
+                            paginate: {
+                                previous: '<i class="fas fa-arrow-left"></i>',
+                                next: '<i class="fas fa-arrow-right "></i>',
+                            }
+                        },
+
+                    }).draw();
                 }
             }
             xmlhttp.open("GET","create/payrollDate?start="+start+"&end="+end,true);
@@ -117,29 +169,6 @@
     
     $(document).ready(function(){
 
-        $('.dataTables-example').DataTable({
-            pageLength: 10,
-            responsive: true,
-            dom: '<"html5buttons"B>lTfgitp',
-            buttons: [
-                { extend: 'copy'},
-                {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
-
-                {extend: 'print',
-                 customize: function (win){
-                        $(win.document.body).addClass('white-bg');
-                        $(win.document.body).css('font-size', '10px');
-
-                        $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                }
-                }
-            ]
-
-        });
         $(".select2_demo_1").select2();
             $(".select2_demo_2").select2();
             $(".select2_demo_3").select2({

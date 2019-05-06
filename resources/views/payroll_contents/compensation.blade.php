@@ -168,7 +168,6 @@
                             
                         </tr>
                     @endforeach
-                
                 </tbody>
                 <tfoot>
                 <tr>
@@ -183,7 +182,6 @@
                 </tfoot>
                 </table>
             </div>
-
         </div>
     @endif
     

@@ -56,6 +56,7 @@ class UsersTableSeeder extends Seeder
                 'deductions' => json_encode([
                     'sss' => 120.5,
                     'pagibig' => 99.4,
+                    'philhealth' => 54.4,
                 ]),
             ]));
         });
@@ -84,6 +85,7 @@ class UsersTableSeeder extends Seeder
                 'deductions' => json_encode([
                     'sss' => 120.5,
                     'pagibig' => 99.4,
+                    'philhealth' => 45.2,
                 ]),
             ]))->save();
         }

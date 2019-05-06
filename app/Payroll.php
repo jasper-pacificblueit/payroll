@@ -17,6 +17,14 @@ class Payroll extends Model
         
       return $Basic;
     }	
+
+    public static function getDeductions($DeductionsRates) {
+      $TotalDeductions = 0;
+      foreach ($DeductionsRates as $name => $value) {
+        $TotalDeductions+= $value;
+      }
+      return $TotalDeductions;
+    }
     
     public static function NetPay($TotalEarnings , $TotalDeduction) {
         

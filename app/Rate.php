@@ -17,6 +17,13 @@ class Rate extends Model
         $rate = Rate::where('id', $id)->first();
     
         return $rate->hourly;
-    }	
+    }
+    
+    public static function getDeductions($id) {
+    
+        $rate = Rate::where('id', $id)->first();
+    
+        return $rate->deductions;
+    }
 
 }

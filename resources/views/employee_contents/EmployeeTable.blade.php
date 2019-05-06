@@ -1,4 +1,8 @@
 
+@php
+    use Carbon\Carbon;
+@endphp
+
 @if (count($data) > 0)
     @php($min = 0)
     @foreach ($data as $employee)

@@ -24,6 +24,7 @@
 		    </ol>
     </div>
 </div>
+<br>
 <div class="wrapper wrapper-content animated fadeInRight no-padding">
     <div class="wrapper wrapper-content animated fadeInRight no-padding">
         <div class="row">
@@ -31,12 +32,9 @@
             <div class="no-padding">
             		<div class='row'>
             			<div class='col-lg-6'></div>
-            			<div class='col-lg-5 col-xl-5 col-md-5 hidden-xs hidden-sm hidden-md text-center'>
-            				<h2>Preview</h2>
-            			</div>
             		</div>
                 <div class='row'>
-                	<div class="col-lg-6">
+                	<div class="col-lg-4">
                     <div class="ibox float-e-margins" style="border-radius: 5px">
                         <div class="ibox-title">
                             <h5></h5>
@@ -112,11 +110,10 @@
                 </div>
                 	
                 	{{-- Preview --}}
-                	<div class='col-lg-5 col-xl-5'>
-                	<h2 class="text-center hidden-lg">Preview</h2>
+                	<div class='col-lg-3 col-xl-3'>
   <div class="ibox float-e-margins">
 	    <div class="ibox-title">
-	        <h5>User Information</h5>
+	        <h5>User Information (Preview)</h5>
 	    </div>
 	    <div>
 	        <div class="ibox-content no-padding border-left-right text-center">

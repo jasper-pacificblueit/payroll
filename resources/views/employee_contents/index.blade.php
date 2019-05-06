@@ -8,6 +8,8 @@
 
 {!! Html::style('css/plugins/select2/select2.min.css') !!}
 
+
+
 @endsection
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">

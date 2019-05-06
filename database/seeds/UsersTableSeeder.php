@@ -48,6 +48,15 @@ class UsersTableSeeder extends Seeder
             $user->employee->rates()->save(new App\Rate([
                 'employee_id' => $user->employee->id,
                 'hourly' => 50.5,
+
+                'holiday' => 50.5,
+                'overtime' => 45.7,
+                'nightdiff' => 40.6,
+
+                'deductions' => json_encode([
+                    'sss' => 120.5,
+                    'pagibig' => 99.4,
+                ]),
             ]));
         });
 
@@ -66,7 +75,16 @@ class UsersTableSeeder extends Seeder
             (new App\Contact($em->contacts))->save();
             (new App\Rate([
                 'employee_id' => $user->employee->id,
-                'hourly' => 55.5,
+                'hourly' => 50.5,
+
+                'holiday' => 50.5,
+                'overtime' => 45.7,
+                'nightdiff' => 40.6,
+
+                'deductions' => json_encode([
+                    'sss' => 120.5,
+                    'pagibig' => 99.4,
+                ]),
             ]))->save();
         }
     }

@@ -23,6 +23,7 @@ class CreateRatesTable extends Migration
             $table->float('overtime')->nullable();
             $table->float('nightdiff')->nullable();
             $table->longText('deductions')->nullable();
+            
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }

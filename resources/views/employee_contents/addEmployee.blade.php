@@ -8,21 +8,31 @@
       		<div class="col-lg-12">
     				<h2>Employee Information</h2>
     			</div>
-          <div class="col-lg-6 col-sm-6">
+          <div class="col-lg-6 col-sm-6" style="padding: 0">
+            <div class="col-lg-4">
              <label>First name</label>
              <input type="text" name="firstName" class="form-control p-2" required>
+            </div>
 
+            <div class="col-lg-4">
              <label>Last name</label>
              <input type="text" name="lastName" class="form-control p-2" required>
+            </div>
 
+            <div class="col-lg-4">
              <label>Middle name</label>
              <input type="text" name="middleName" class="form-control p-2" required>
+            </div>
 
+            <div class="col-lg-12">
              <label>E-mail</label>
              <input type="email" name="email" class="form-control p-2" required>
+            </div>
 
+            <div class="col-lg-12">
              <label>Mobile number</label>
              <input type="text" name="mobile" class="form-control p-2" required>
+            </div>
           </div>
 
           <div class="col-lg-6 col-sm-6" style="padding: 0">
@@ -139,7 +149,7 @@
         <div class="col-lg-6"></div>
         <div class="col-lg-6">
 
-          
+
 
         </div>
         

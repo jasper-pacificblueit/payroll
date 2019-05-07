@@ -19,6 +19,7 @@ class CreatePositionsTable extends Migration
          
             $table->longText("title");
             $table->longText("description");
+            $table->integer("lim")->unsigned()->default(10);
             $table->enum("state", [0, 1, 2, 3]);
 
             $table->timestamps();

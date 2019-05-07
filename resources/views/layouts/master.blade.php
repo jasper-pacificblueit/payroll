@@ -18,7 +18,6 @@
     {!! Html::style('css/animate.css') !!}
     {!! Html::style('css/style.css') !!}
     {!! Html::style('css/plugins/steps/jquery.steps.css') !!}
-
     {!! Html::style('css/plugins/dropzone/basic.css') !!}
     {!! Html::style('css/plugins/dropzone/dropzone.css') !!}
     {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}

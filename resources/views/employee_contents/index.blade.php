@@ -5,10 +5,9 @@
 @section('styles')
 
 {!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
-
 {!! Html::style('css/plugins/select2/select2.min.css') !!}
-
-
+{!! Html::style("css/plugins/steps/jquery.steps.css") !!}
+{!! Html::style("css/plugins/iCheck/custom.css") !!}
 
 @endsection
 @section('content')
@@ -83,9 +82,13 @@
 @endsection
 
 @section('scripts')
+
 {!! Html::script('js/plugins/footable/footable.all.min.js') !!}
 {!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
 {!! Html::script('js/plugins/select2/select2.full.min.js') !!}
+{!! Html::script("js/plugins/steps/jquery.steps.min.js") !!}
+{!! Html::script("js/plugins/validate/jquery.validate.min.js") !!}
+
 
 <script>
 
@@ -169,7 +172,7 @@
 
 <script>
 
-  
+
     $(document).ready(function() {
         $('.dataTables-example').DataTable({
             pageLength: 10,
@@ -218,18 +221,19 @@
         $('[aria-controls=DataTables_Table_0]').on('input', function () {
             $(".dataTables-example").DataTable().search(this.value).draw();
         });
+
     });
 
-// event function to change department options when company changes.
-    let chdep = () => {
-      let depid = 'dep-option-' + document.getElementsByName('company')[0].value;
+// event function that change the department options when company droplist is changed.
+    var chdep = function () {
 
-      document.querySelector('.company-dep').innerHTML = "";  // reset
+        fetch ("/selectDepartment?q="+ document.getElementsByName('company')[0].value +"", {
+            method: "get",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            }
+        }).then(rep => rep.text()).then(text => document.querySelector(".company-dep").innerHTML = text);
 
-      let dep = document.querySelector('#' + depid);
-      let clone = dep.content.cloneNode(1);
-
-      document.querySelector('.company-dep').appendChild(clone);
     };
 
 

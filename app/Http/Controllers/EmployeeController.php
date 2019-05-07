@@ -24,17 +24,15 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function selectDepartment(Request $request){
-        
+    public function selectDepartment(Request $request) {
         $data = App\Department::all()->where('company_id' , '=' , $request->input('q'));
         return view('employee_contents.selectDepartment' , compact('data'));
-     }
+    }
 
-     public function showEmployee(Request $request){
-
+     public function showEmployee(Request $request) {
         $data = App\Employee::all()->where('department_id' , '=' , $request->input('q'));
         return view('employee_contents.EmployeeTable' , compact('data'));
-     }
+    }
 
   
 

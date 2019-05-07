@@ -132,11 +132,3 @@
   </form>
 </div>
 </div>
-
-@foreach($company as $i)
-    <template id="dep-option-{{ $i->id }}">
-    @foreach($i->departments as $dep)
-      <option value="{{ $dep->id }}">{{ $dep->name }}</option>
-    @endforeach
-    </template>
-@endforeach

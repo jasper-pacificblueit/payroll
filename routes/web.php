@@ -16,7 +16,6 @@ Route::middleware(['guest'])->group(function() {
 	Route::post('login', 'Auth\LoginController@login');
 });
 
-// admin routes
 Route::group(['middleware' => ['auth']], function() {
 
 	if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
@@ -35,52 +34,37 @@ Route::group(['middleware' => ['auth']], function() {
 			Route::get('/manage/{id}', 'EmployeeController@edit');
 		});
 
-	Route::middleware(['auth'])->group(function() {
-		Route::get('/company', 'CompanyController@index');
-	});
-
-	Route::middleware(['auth'])->group(function() {
-		Route::post('/company', 'CompanyController@store');
-	});
+	Route::get('/company', 'CompanyController@index');
+	Route::post('/company', 'CompanyController@store');
 	
-	Route::middleware(['auth'])->group(function() {
-		Route::get('/company/{id}', 'CompanyController@show');
-		Route::post('/company/{company}/department' , 'DepartmentController@store');
-		Route::get('/department/{id}', 'DepartmentController@edit');
-	});
+	Route::get('/company/{id}', 'CompanyController@show');
+	Route::post('/company/{company}/department' , 'DepartmentController@store');
+	Route::get('/department/{id}', 'DepartmentController@edit');
 
-	Route::middleware(['auth'])->group(function() {
-		Route::resource('/dtr', 'DateTimeRecordController');
-		Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
-		
-		Route::get("/dtr-records", "DateTimeRecordController@records");
-		Route::get("/selectDate", "DateTimeRecordController@selectDate");
-		
-		Route::get("/selectDepartment", "EmployeeController@selectDepartment");
-		Route::get("/showEmployee", "EmployeeController@showEmployee");
-		Route::get("/employee/add", "EmployeeController@create");
-		
-		Route::resource('/payroll', 'PayrollController');
-		Route::post('/payroll/makePayroll', 'PayrollController@makePayroll');
-		Route::post('/viewPayroll', 'PayrollController@viewPayroll');
-		Route::get('/payroll/create/payrollDate', 'PayrollController@payrollDate');
+	Route::resource('/dtr', 'DateTimeRecordController');
+	Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
 	
-		Route::get("/holiday", "PayrollController@holiday");
-
-		Route::get("/rates", "RateController@index");
-		Route::get("/deductions", "RateController@deductions");
-		Route::get("/earnings", "RateController@earnings");
-		Route::post("/addDeductions", "RateController@addDeductions");
-		
-		Route::resource('/positions', 'PositionsController');
-		
-	});
-
+	Route::get("/dtr-records", "DateTimeRecordController@records");
+	Route::get("/selectDate", "DateTimeRecordController@selectDate");
 	
+	Route::get("/selectDepartment", "EmployeeController@selectDepartment");
+	Route::get("/showEmployee", "EmployeeController@showEmployee");
+	Route::get("/employee/add", "EmployeeController@create");
 	
-});
+	Route::resource('/payroll', 'PayrollController');
+	Route::post('/payroll/makePayroll', 'PayrollController@makePayroll');
+	Route::post('/viewPayroll', 'PayrollController@viewPayroll');
+	Route::get('/payroll/create/payrollDate', 'PayrollController@payrollDate');
 
-Route::middleware(['auth'])->group(function () {
+	Route::get("/holiday", "PayrollController@holiday");
+
+	Route::get("/rates", "RateController@index");
+	Route::get("/deductions", "RateController@deductions");
+	Route::get("/earnings", "RateController@earnings");
+	Route::post("/addDeductions", "RateController@addDeductions");
+	
+	Route::resource('/positions', 'PositionsController');
+
 	Route::get('/', 'HomeController@index')->name('dashboard');
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
@@ -94,8 +78,9 @@ Route::middleware(['auth'])->group(function () {
   Route::match(['put', 'update'], '/editprofile/chpasswd', 'ProfileController@chpasswd');
   Route::get('/user/misc/status/{id}', 'ProfileController@update_status');
 
+	
+	
 });
-
 
 
 

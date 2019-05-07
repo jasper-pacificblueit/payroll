@@ -105,6 +105,7 @@ class UsersTableSeeder extends Seeder
 
         (new App\Positions([
             'title' => $userInfo->title,
+            'lim' => $userInfo->lim,
             'description' => $userInfo->description,
             'state' => $userInfo->state,
         ]))->save();

@@ -88,7 +88,7 @@
                 </li>
 
                 <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
-                    <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Date Time Record</span></a>
+                    <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Attendance</span></a>
                 </li>
 
                 <li class="{{ Request::path() == 'payroll' || Request::path() == 'payroll/create' ? 'active' : '' }}">

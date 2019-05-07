@@ -75,7 +75,7 @@
                                 <div class="tabs-container">
                                     <ul class="nav nav-tabs">
                                         <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}"><a href="/dtr"> Import Attendance</a></li>
-                                        <li class="{{Request::path() == 'dtr-records' ? 'active' : '' }}"><a href="/dtr-records">Records</a></li>
+                                        <li class="{{Request::path() == 'dtr-records' ? 'active' : '' }}"><a href="/dtr-records">History</a></li>
                                     </ul>
                                     <div class="tab-content">
                                         <div id="import" class="tab-pane {{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">

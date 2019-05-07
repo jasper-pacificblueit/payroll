@@ -99,13 +99,13 @@
                         <a href="#"><i class="fa fa-tasks"></i> <span class="nav-label">Management</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li>
-                                <a href="#"><i class="far fa-clock"></i>Schedules</a>
-                            </li>
-                            <li>
                                 <a href="/company"><i class="far fa-building"></i>Companies</a>
                             </li>
                             <li>
                                 <a href="/rates"><i class="fa fa-money"></i>Rates</span></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="far fa-clock"></i>Schedules</a>
                             </li>
                             <li>
                                 <a href="/positions"><i class="fa fa-user"></i>Positions</a>

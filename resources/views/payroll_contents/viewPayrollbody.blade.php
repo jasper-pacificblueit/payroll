@@ -8,8 +8,8 @@
         $EmployeeTotalHours = App\DateTimeRecord::getTotalHours($startDate , $endDate , $employee->user_id);
         
         //Deductions
-        $EmployeeDeductions = App\Rate::getDeductions($employee->id);
-        $DeductionsRates = json_decode($EmployeeDeductions); 
+        // $EmployeeDeductions = App\Rate::getDeductions($employee->id);
+        // $DeductionsRates = json_decode($EmployeeDeductions); 
         
         //Earnings
         $Basic = App\Payroll::getBasic($EmployeeRate , $EmployeeTotalHours);
@@ -19,7 +19,7 @@
 
         $TotalEarnings = App\Payroll::getEarnings($Basic , $Overtime , $Holiday);
 
-        $TotalDeductions = App\Payroll::getDeductions($DeductionsRates);
+        $TotalDeductions = 0;
         $NetPay =  App\Payroll::NetPay($TotalEarnings , $TotalDeductions);
      ?>
     
@@ -120,12 +120,7 @@
                                                         <span>Late</span>
                                                         <span class="pull-right"> ₱ {{number_format(0 , 2)}}</span>
                                                      </li>
-                                                    @foreach ($DeductionsRates as $Name => $value)
-                                                    <li class="list-group-item">
-                                                        <span>{{ucwords($Name)}}</span>
-                                                        <span class="pull-right"> ₱ {{number_format($value , 2)}}</span>
-                                                    </li>
-                                                    @endforeach
+                                                    
 
                                                     <li class="list-group-item">
                                                         <strong style="color:red">Total Deductions</strong>

@@ -44,7 +44,7 @@
               
           </div>
       </div>
-      <div class="hr-line-dashed"></div>
+      <hr style="margin: 5px">
       <div class="row">
       	<div class="col-lg-12">
       		<h2>User Account & Permissions</h2>
@@ -67,7 +67,7 @@
         </div>
 
       </div>
-      <div class="hr-line-dashed"></div>
+      <hr style="margin: 5px">
       <div class="row">
       	<div class="col-lg-12">
       		<h2>Workplace & Schedule</h2>
@@ -92,10 +92,10 @@
         </div>
 
       </div>
-      <div class="hr-line-dashed"></div>
+      <hr style="margin: 5px">
       <div class="row">
       	<div class="col-lg-12">
-      		<h2>Positions & Rates</h2>
+      		<h2>Positions, Rates & Deductions</h2>
       	</div>
       	<div class="col-lg-6 col-sm-6">
       	 <label>Position</label>
@@ -105,20 +105,36 @@
             @endforeach
          </select>
       	</div>
-        <div class="col-lg-2 col-sm-2">
+        <br class="hidden-lg">
+        <div class="col-lg-2 col-xs-3">
           <label>Hourly</label>
-          <input class="form-control" type="text" name="hourly_rate">
+          <input class="form-control" type="text" name="hourly_rate" placeholder="Rate">
         </div>
-        <div class="col-lg-2 col-sm-2">
+        <div class="col-lg-1 col-xs-3">
           <label>Overtime</label>
-          <input class="form-control" type="text" name="ot_rate">
+          <input class="form-control" type="text" name="ot_rate" placeholder="Rate">
         </div>
-        <div class="col-lg-2 col-sm-2">
-          <label>Nightshift</label>
-          <input class="form-control" type="text" name="nightdiff_rate">
+        <div class="col-lg-1 col-xs-3">
+          <label>Holiday</label>
+          <input class="form-control" type="text" name="holiday" placeholder="Rate">
+        </div>
+        <div class="col-lg-2 col-xs-3">
+          <label title="Night Differential">Night Diff.</label>
+          <input class="form-control" type="text" name="nightdiff_rate" placeholder="Rate">
+        </div>
+        <div class="col-lg-6 col-sm-6"></div>
+        <div class="col-lg-6 col-sm-6">
+          <hr>
+        </div>
+        <div class="col-lg-6 col-sm-6"></div>
+        <div class="col-lg-6 col-sm-6">
+          <div class="col-lg-4">border</div>
+          <div class="col-lg-4">border</div>
+          <div class="col-lg-4">border</div>
         </div>
       </div>
-      <div class="hr-line-dashed"></div>
+
+      <hr style="margin: 5px">
       <div class="row">
           <div class="col-lg-12">
               

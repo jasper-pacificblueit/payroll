@@ -15,13 +15,10 @@ class CreateDeductionsTable extends Migration
     {
         Schema::create('deductions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('type');
-            $table->string('formula_type');
-            $table->string('amount');
-            $table->string('status');
-            
+            $table->integer("employee_id")->unsigned();
 
+            $table->longText("deductions");
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

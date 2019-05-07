@@ -52,15 +52,20 @@ class UsersTableSeeder extends Seeder
                 'holiday' => 50.5,
                 'overtime' => 45.7,
                 'nightdiff' => 40.6,
+            ]));
 
+            $user->employee->deductions()->save(new App\Deduction([
                 'deductions' => json_encode([
-                    'sss' => 120.5,
-                    'pagibig' => 99.4,
-                    'philhealth' => 54.4,
+                    'statutory' => [
+                        'sss' => 120.5,
+                        'pagibig' => 99.4,
+                        'philhealth' => 54.4,
+                    ],
                 ]),
             ]));
         });
 
+        // static employees
         foreach(DatabaseSeeder::employees() as $em) {
 
             $user = new App\User($em->users);
@@ -77,16 +82,22 @@ class UsersTableSeeder extends Seeder
             (new App\Rate([
                 'employee_id' => $user->employee->id,
                 'hourly' => 50.5,
-
                 'holiday' => 50.5,
                 'overtime' => 45.7,
                 'nightdiff' => 40.6,
 
+            ]))->save();
+
+            (new App\Deduction([
+                'employee_id' => $user->employee->id,
                 'deductions' => json_encode([
-                    'sss' => 120.5,
-                    'pagibig' => 99.4,
-                    'philhealth' => 45.2,
+                    'statutory' => [
+                        'sss' => 120.5,
+                        'pagibig' => 99.4,
+                        'philhealth' => 45.2,
+                    ],
                 ]),
+
             ]))->save();
         }
     }

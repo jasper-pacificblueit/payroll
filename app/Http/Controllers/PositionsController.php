@@ -88,8 +88,13 @@ class PositionsController extends Controller
      * @param  \App\Positions  $positions
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Positions $positions)
+    public function destroy(Positions $position)
     {
-        //
+        if ($position->count() > 0) return json_encode([
+            'error' => 'cannot delete non-empty position!',
+        ]);
+
+
+        $position->delete();
     }
 }

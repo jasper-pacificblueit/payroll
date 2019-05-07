@@ -27,7 +27,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-5 m-b-xs">
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addCompany">
+                                        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addCompany">
                                                 Add Company
                                         </button>
 

@@ -95,12 +95,23 @@
                     <a href="/payroll/create"><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
                 </li>
 
-                <li class="{{ in_array(Request::path(), ['company', 'rates', 'positions', 'employee']) ? 'active' : '' }}">
+                <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
+                    <a href="/company"><i class="far fa-building"></i>Companies</a>
+                </li>
+
+                @if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
+                <li class="{{ Request::path() == 'employee' ? 'active' : '' }}">
+                        <a href="/employee"><i class="fa fa-users"></i>Employees<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
+                            <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
+                        </ul>
+                </li>
+                @endif
+
+                <li class="{{ in_array(Request::path(), ['rates', 'positions']) ? 'active' : '' }}">
                         <a href="#"><i class="fa fa-tasks"></i> <span class="nav-label">Management</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li>
-                                <a href="/company"><i class="far fa-building"></i>Companies</a>
-                            </li>
                             <li>
                                 <a href="/rates"><i class="fa fa-money"></i>Rates</span></a>
                             </li>
@@ -110,16 +121,6 @@
                             <li>
                                 <a href="/positions"><i class="fa fa-user"></i>Positions</a>
                             </li>
-                            @if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
-                            <li>
-                                    <a href="/employee"><i class="fa fa-users"></i>Employees<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level collapse">
-                                        <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
-                                        <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
-                                    </ul>
-                            </li>
-                            @endif
-
                         </ul>
                 </li>
 

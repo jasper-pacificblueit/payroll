@@ -47,7 +47,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-1">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addPosition">
+                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addPosition">
                                     Add Position
                                 </button>
                                 <div class="modal inmodal fade" id="addPosition" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -66,8 +66,6 @@
                                                                 <h4>Name</h4>
                                                                 <input type="text" name="name" id="" class="form-control" required>
                                                             </div>
-                                                            
-                                                            
                                                         </div>
 
                                                         <div class="row">
@@ -94,13 +92,13 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-hover">
+                                    <table class="table table-striped table-hover positionTable">
                                         <thead>
                                         <tr>
                                             <th>ID</th>
                                             <th>Date Created</th>
-                                            <th>Title</th>
-                                            <th>Description</th>
+                                            <th>Job Title</th>
+                                            <th class="hidden-xs hidden-sm">Description</th>
                                             <th>Employee/s</th>
                                             <th>Status</th>
                                         </tr>
@@ -131,7 +129,25 @@
                     <div class='btn-group'>
                         <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" id='close'>Close</button>
                         <button type="submit" class="btn btn-sm btn-success" name="submit">Save</button>
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Remove</button>
+                        @if ($position->id != 1)
+                        @if ($position->count() <= 0)
+                        <button type="button" class="btn btn-sm btn-danger" onclick='
+
+                            fetch("/positions/{{ $position->id }}", {
+                                method: "delete",
+                                headers: {
+                                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                                }
+                            }).then(rep => rep.json()).then(json => {
+
+                                console.log(json);
+
+
+                            });
+
+                        ' data-dismiss="modal">Remove</button>
+                        @endif
+                        @endif
                     </div>
                 </div>
             </form>
@@ -142,7 +158,7 @@
                                                     </td>
                                                     <td>{{$position->created_at}}</td>
                                                     <td>{{$position->title}}</td>
-                                                    <td width=500>{{ $position->description }}</td>
+                                                    <td width=500 class="hidden-xs hidden-sm">{{ $position->description }}</td>
                                                     <td>{{ $position->count() }}/{{ $position->lim }}</td>
                                                     <td>
                                                         @php
@@ -163,10 +179,6 @@
                                                     </td>
                                                  </tr> 
                                                 @endforeach
-                                            @else
-                                                <tr>
-                                                    <td colspan="4"><span class="text-muted">No positions</span></td>
-                                                </tr>
                                             @endif
                                         </tbody>
                                     </table>
@@ -196,7 +208,17 @@
     
     $(document).ready(function(){
 
-       
+       $(".positionTable").DataTable({
+            pageLength: 10,
+            language: {
+                paginate: {
+                    previous: '<i class="fas fa-arrow-left"></i>',
+                    next: '<i class="fas fa-arrow-right"></i>',
+                }
+            },
+
+
+       });
 
     });
 

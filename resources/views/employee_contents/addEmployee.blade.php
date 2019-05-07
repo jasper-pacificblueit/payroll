@@ -7,7 +7,6 @@
       <div class="row">
       		<div class="col-lg-12">
     				<h2>Employee Information</h2>
-    				<br>
     			</div>
           <div class="col-lg-6 col-sm-6">
              <label>First name</label>
@@ -26,22 +25,28 @@
              <input type="text" name="mobile" class="form-control p-2" required>
           </div>
 
-          <div class="col-lg-6 col-sm-6">
-              <label>Gender</label>
-              <select class='form-control' name='gender' required>
-                <option value='1'>Male</option>
-                <option value='0'>Female</option>
-              </select>
-              <label>Birthdate</label>
-              <input type="date" name="birthdate" class="form-control" required>
+          <div class="col-lg-6 col-sm-6" style="padding: 0">
+              <div class="col-lg-4">
+                <label>Gender</label>
+                <select class='form-control' name='gender' required>
+                  <option value='1'>Male</option>
+                  <option value='0'>Female</option>
+                </select>
+              </div>
+              <div class="col-lg-4">
+                <label>Birthdate</label>
+                <input type="date" name="birthdate" class="form-control" required>
+              </div>
 
-              <label>Age</label>
-              <input type="text" name="age" class="form-control" required>
+              <div class="col-lg-4">
+                <label>Age</label>
+                <input type="text" name="age" class="form-control" required>
+              </div>
 
-              <label>Address</label>
-              <input type="text" name="address" class="form-control" required>
-
-              
+              <div class="col-lg-12">
+                <label>Address</label>
+                <input type="text" name="address" class="form-control" required>
+              </div>
           </div>
       </div>
       <hr style="margin: 5px">
@@ -49,30 +54,32 @@
       	<div class="col-lg-12">
       		<h2>User Account & Permissions</h2>
       	</div>
-      	<div class="col-lg-6">
-              
-
+      </div>
+      <div class="row">
+        <div class="col-lg-1">
+          <label>Biometric ID</label>
+          <input type="text" name="bio" class="form-control">
+        </div>
+        <div class="col-lg-2">
               <label>Employee Username</label>
               <input type="text" name="user" class="form-control" required>
-
-              <label>Biometric ID</label>
-              <input type="text" name="bio" class="form-control">
-
         </div>
-        <div class="col-lg-6">
-
+        <div class="col-lg-3">
               <label>Employee Password</label>
               <input type="password" name="pass" class="form-control" required>
-
         </div>
-
       </div>
+        
+
+
       <hr style="margin: 5px">
+
+
       <div class="row">
       	<div class="col-lg-12">
       		<h2>Workplace & Schedule</h2>
       	</div>
-      	<div class="col-lg-6 col-sm-6">
+      	<div class="col-lg-3 col-sm-6">
               
       		<label>Company</label>
           <select class="form-control" name="company" onchange="chdep()" required>
@@ -82,7 +89,7 @@
           </select>
 
         </div>
-        <div class="col-lg-6 col-sm-6">
+        <div class="col-lg-3 col-sm-6">
         	<label>Department</label>
           <select class="form-control company-dep" name="department" required>
             @foreach($company[0]->departments as $dep)
@@ -97,6 +104,8 @@
       	<div class="col-lg-12">
       		<h2>Positions, Rates & Deductions</h2>
       	</div>
+      </div>
+      <div class="row">
       	<div class="col-lg-6 col-sm-6">
       	 <label>Position</label>
          <select class='form-control' name='position' required>
@@ -105,33 +114,39 @@
             @endforeach
          </select>
       	</div>
+
         <br class="hidden-lg">
-        <div class="col-lg-2 col-xs-3">
-          <label>Hourly</label>
-          <input class="form-control" type="text" name="hourly_rate" placeholder="Rate">
+
+        <div class="col-lg-6 col-sm-6" style="padding: 0">
+          <div class="col-lg-3 col-xs-3">
+            <label>Hourly</label>
+            <input class="form-control" type="text" name="hourly_rate" placeholder="Rate">
+          </div>
+          <div class="col-lg-3 col-xs-3">
+            <label>Overtime</label>
+            <input class="form-control" type="text" name="ot_rate" placeholder="Rate">
+          </div>
+          <div class="col-lg-3 col-xs-3">
+            <label>Holiday</label>
+            <input class="form-control" type="text" name="holiday" placeholder="Rate">
+          </div>
+          <div class="col-lg-3 col-xs-3">
+            <label title="Night Differential">Night Diff.</label>
+            <input class="form-control" type="text" name="nightdiff_rate" placeholder="Rate">
+          </div>
         </div>
-        <div class="col-lg-1 col-xs-3">
-          <label>Overtime</label>
-          <input class="form-control" type="text" name="ot_rate" placeholder="Rate">
+
+        <div class="col-lg-6"></div>
+        <div class="col-lg-6">
+
+          
+
         </div>
-        <div class="col-lg-1 col-xs-3">
-          <label>Holiday</label>
-          <input class="form-control" type="text" name="holiday" placeholder="Rate">
-        </div>
-        <div class="col-lg-2 col-xs-3">
-          <label title="Night Differential">Night Diff.</label>
-          <input class="form-control" type="text" name="nightdiff_rate" placeholder="Rate">
-        </div>
-        <div class="col-lg-6 col-sm-6"></div>
-        <div class="col-lg-6 col-sm-6">
-          <hr>
-        </div>
-        <div class="col-lg-6 col-sm-6"></div>
-        <div class="col-lg-6 col-sm-6">
-          <div class="col-lg-4">border</div>
-          <div class="col-lg-4">border</div>
-          <div class="col-lg-4">border</div>
-        </div>
+        
+      </div>
+
+      <div class="row">
+
       </div>
 
       <hr style="margin: 5px">

@@ -343,12 +343,19 @@
                                                     </td>
                                                 @else
                                                     <td>
-                                                        @php( $employees = \App\Employee::all()->where('bio_id' , '=' , NULL))
-                                                         <select name="UserID[{{$employee->bio_id}}][]" id="" class="form-control">
-                                                            @foreach ($employees as $employee)
-                                                                <option value="{{$employee->user_id}}">{{ App\Profile::getFullName($employee->user_id) }} {{$employee->user_id}}</option>
-                                                            @endforeach
-                                                         </select>
+
+                                                        {{-- @php( $employees = \App\Employee::all()->where('bio_id' , '=' , NULL)) --}}
+                                                        <?php
+                                                            $name = ucwords(strtolower($employee->name));
+                                                            $Searchname = "{$name[0]}{$name[1]}{$name[2]}";
+                                                        ?>
+                                                        
+                                                        @php($EmployeeList = DB::table('employees')->join('profiles' , 'employees.user_id' , '=' , 'profiles.user_id')->where('fname' , 'LIKE' , '%'.$Searchname.'%' , 'AND' , 'bio_id' , NULL)->get())
+                                                        <select name="UserID[{{$employee->bio_id}}][]" id="" class="form-control">
+                                                        @foreach ($EmployeeList as $emp)
+                                                            <option value="{{$emp->user_id}}">{{ App\Profile::getFullName($emp->user_id) }}</option>
+                                                        @endforeach
+                                                    </select>
                                                     </td>
                                                 @endif
                                           

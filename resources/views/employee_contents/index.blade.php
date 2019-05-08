@@ -83,11 +83,11 @@
 
 @section('scripts')
 
+
 {!! Html::script('js/plugins/footable/footable.all.min.js') !!}
 {!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
 {!! Html::script('js/plugins/select2/select2.full.min.js') !!}
-{!! Html::script("js/plugins/steps/jquery.steps.min.js") !!}
-{!! Html::script("js/plugins/validate/jquery.validate.min.js") !!}
+{!! Html::script("js/plugins/iCheck/icheck.min.js") !!}
 
 
 <script>
@@ -174,6 +174,7 @@
 
 
     $(document).ready(function() {
+
         $('.dataTables-example').DataTable({
             pageLength: 10,
             responsive: true,

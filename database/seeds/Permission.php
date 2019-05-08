@@ -7,7 +7,10 @@ class Permission extends Seeder
 {
     public static function getPerm() {
         return [
-
+            'department_Create',    'company_Create',       'employee_Create',      'position_Create',
+            'department_View',      'company_View',         'employee_View',        'position_View',
+            'department_Modify',    'company_Modify',       'employee_Modify',      'position_Modify',
+            'department_Delete',    'company_Delete',       'employee_Delete',      'position_Delete',
         ];
     }
     /**

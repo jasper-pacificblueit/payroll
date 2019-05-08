@@ -81,6 +81,69 @@
 {!! Html::script('js/plugins/datapicker/bootstrap-datepicker.js') !!}
 {!! Html::script('js/plugins/iCheck/icheck.min.js') !!}
 
+<<<<<<< HEAD
+=======
+                 
+<script>
+        var addButton = document.getElementById('addIncomeBtn');
+        function addIncome(){
+            var node = document.createElement("LI");
+            node.className = 'list-group-item';
+            var textnode = document.createTextNode("Water");
+            node.appendChild(textnode);
+            document.getElementById("ulIncome").appendChild(node);
+        }
+        function checkAttendance(start , end){
+            console.log( start , end);
+            if (start.length==0) { 
+                document.getElementById("payrollTable").innerHTML="";
+             
+                return;
+            }
+            if (window.XMLHttpRequest) {
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+            } else {  // code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function() {
+                if (this.readyState==4 && this.status==200) {
+                    $(".dataTables-example").DataTable().destroy();
+                    document.getElementById("payrollTable").innerHTML=this.responseText;
+                    $('.dataTables-example').DataTable({
+                        pageLength: 10,
+                        responsive: true,
+                        dom: '<"html5buttons"B>lTfgitp',
+                        buttons: [
+                            { extend: 'copy'},
+                            {extend: 'csv'},
+                            {extend: 'excel', title: 'ExampleFile'},
+                            {extend: 'pdf', title: 'ExampleFile'},
+
+                            {extend: 'print',
+                            customize: function (win){
+                                    $(win.document.body).addClass('white-bg');
+                                    $(win.document.body).css('font-size', '10px');
+
+                                    $(win.document.body).find('table')
+                                            .addClass('compact')
+                                            .css('font-size', 'inherit');
+                            }
+                            }
+                        ]
+
+                    }).draw();
+                }
+            }
+            xmlhttp.open("GET","create/payrollDate?start="+start+"&end="+end,true);
+            xmlhttp.send();
+        }
+    
+        checkAttendance(document.getElementById('start').value , document.getElementById('end').value);
+        
+</script>
+
+>>>>>>> 25f0d8bc6e7993a351c518d8b1b11493db1575c0
 <script>
     
     $(document).ready(function(){

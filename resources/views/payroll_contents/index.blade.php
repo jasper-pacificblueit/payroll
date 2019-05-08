@@ -115,6 +115,10 @@
         function removeIncome() {
             var element = document.getElementById('addedIncome');
             element.parentNode.removeChild(element);
+            var addButton = document.getElementById('addIncomeBtn');
+
+            addButton.className = 'btn btn-default btn-xs';
+             addButton.value = 'Add Income';
         }
         function checkAttendance(start , end){
             console.log( start , end);

@@ -86,13 +86,36 @@
 
                  
 <script>
-        var addButton = document.getElementById('addIncomeBtn');
-        function addIncome(){
-            var node = document.createElement("LI");
-            node.className = 'list-group-item';
-            var textnode = document.createTextNode("Water");
-            node.appendChild(textnode);
-            document.getElementById("ulIncome").appendChild(node);
+        
+        function addIncome(user_id) {
+                var addButton = document.getElementById('addIncomeBtn');
+                
+                if(addButton.value == 'Save'){
+                    console.log('ok');
+                   
+                }
+                else{
+                    console.log(user_id);
+                    var node = document.createElement("LI");
+                    node.setAttribute('id', 'addedIncome');
+                    node.className = 'list-group-item';
+                    node.innerHTML = `
+                        <input type="text" name="addedIncome[${user_id}][]" id="description" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent" placeholder="Description.." required>
+                        <span class="pull-right">₱ <input id='amount' type="number" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent" placeholder="Amount.." required> <a onclick="removeIncome()"><i class="fa fa-close pull-right"></i></a> </span> 
+                    `;
+                    document.querySelector("#income").appendChild(node);
+
+                    addButton.className = 'btn btn-primary btn-xs';
+                    addButton.value = 'Save';
+                }
+               
+                
+               
+                
+        }
+        function removeIncome() {
+            var element = document.getElementById('addedIncome');
+            element.parentNode.removeChild(element);
         }
         function checkAttendance(start , end){
             console.log( start , end);

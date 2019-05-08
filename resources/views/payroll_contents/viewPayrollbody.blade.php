@@ -80,30 +80,36 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <ul class="list-group" id="ulIncome">
-                                                    <li class="list-group-item">
-                                                        <span>Basic</span>
-                                                        <span class="pull-right"> ₱ {{number_format($Basic , 2)}}</span>
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <span>Overtime</span>
-                                                        <span class="pull-right"> ₱ {{number_format(0 , 2)}}</span>
-                                                            
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <span>Holiday</span>
-                                                        <span class="pull-right"> ₱ {{number_format(0 , 2)}}</span>
-                                                    </li>
-                                                    <span id='misc-income'></span>
+                                                    
+                                                    <span id='income'>
+                                                        <li class="list-group-item">
+                                                            <span>Basic</span>
+                                                            <span class="pull-right"> ₱ {{number_format($Basic , 2)}}</span>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <span>Overtime</span>
+                                                            <span class="pull-right"> ₱ {{number_format(0 , 2)}}</span>
+                                                                
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <span>Holiday</span>
+                                                            <span class="pull-right"> ₱ {{number_format(0 , 2)}}</span>
+                                                        </li>
+                                                    </span>
                                                 
                                                 {{-- <div id="addIncomeItem">
                                                     <li class="list-group-item" >
-                                                        <input type="text" id='description' style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent" placeholder="Description..">
+                                                        <input type="text" id="description" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent" placeholder="Description..">
                                                         <span class="pull-right">₱ <input id='amount' type="text" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent" placeholder="Amount.."></span>
                                                     </li>
                                                 </div> --}}
                                                 <li class="list-group-item">
-                                                    <span><button class="btn btn-default btn-xs" onclick="addIncome()" id="addIncomeBtn"><i class="fa fa-plus"></i> Add Income</button></span>
+                                                    <span><input type="button" class="btn btn-default btn-xs" onclick="addIncome({{$employee->user_id}})" id="addIncomeBtn" value="Add Income"></span>
                                                     <span class="pull-right"></span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                        <strong style="color:green">Total Income</strong>
+                                                        <span class="pull-right"> ₱ {{number_format($TotalEarnings , 2)}}</span>
                                                 </li>
                                                 
                                                

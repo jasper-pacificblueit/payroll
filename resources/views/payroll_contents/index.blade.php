@@ -21,7 +21,7 @@
             <h2>Manage Payroll</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <a href="/payroll">Dashboard</a>
+                    <a>Dashboard</a>
                 </li>
                 <li class="">
                     <a href="#"><strong>Compensation</strong></a>
@@ -81,8 +81,6 @@
 {!! Html::script('js/plugins/datapicker/bootstrap-datepicker.js') !!}
 {!! Html::script('js/plugins/iCheck/icheck.min.js') !!}
 
-<<<<<<< HEAD
-=======
                  
 <script>
         var addButton = document.getElementById('addIncomeBtn');
@@ -143,7 +141,6 @@
         
 </script>
 
->>>>>>> 25f0d8bc6e7993a351c518d8b1b11493db1575c0
 <script>
     
     $(document).ready(function(){

@@ -21,7 +21,7 @@
             <h2>Manage Positions</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <a href="/">Dashboard</a>
+                    <a>Dashboard</a>
                 </li>
                 <li>
                     <a href="/positions"><strong>Manage Positions</strong></a>

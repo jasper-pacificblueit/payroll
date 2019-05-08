@@ -52,7 +52,7 @@
             <h2>Manage Attendance</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <a href="/">Dashboard</a>
+                    <a>Dashboard</a>
                 </li>
                 <li>
                     <a href="/dtr">Daily Time Records</a>

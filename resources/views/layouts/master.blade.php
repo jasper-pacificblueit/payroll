@@ -96,12 +96,12 @@
                 </li>
 
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
-                    <a href="/company"><i class="far fa-building"></i>Companies</a>
+                    <a href="/company"><i class="far fa-building"></i><span>Companies</span></a>
                 </li>
 
                 @if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
                 <li class="{{ Request::path() == 'employee' ? 'active' : '' }}">
-                        <a href="/employee"><i class="fa fa-users"></i>Employees<span class="fa arrow"></span></a>
+                        <a href="/employee"><i class="fa fa-users"></i><span>Employees</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
                             <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>

@@ -16,7 +16,7 @@
             <h2>Manage Employee</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <a href="/">Dashboard</a>
+                    <a>Dashboard</a>
                 </li>
                 <li>
                     <a href="/employee"><strong>Manage Employee</strong></a>

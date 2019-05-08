@@ -86,7 +86,9 @@
 
                  
 <script>
-        
+
+
+    
         function addIncome(user_id) {
                 var addButton = document.getElementById('addIncomeBtn');
                 
@@ -107,6 +109,7 @@
 
                     addButton.className = 'btn btn-primary btn-xs';
                     addButton.value = 'Save';
+                    addButton.disabled = true;
                 }
                
                 

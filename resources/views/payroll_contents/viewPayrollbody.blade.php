@@ -96,6 +96,13 @@
                                                             <span class="pull-right"> ₱ {{number_format(0 , 2)}}</span>
                                                         </li>
                                                     </span>
+
+                                                    <span id="localIncome">
+                                                        <li class="list-group-item">
+                                                            <span id="descriptItem-{{$employee->user_id}}"></span>
+                                                            <span class="pull-right" id="amountItem-{{$employee->user_id}}"> ₱ {{number_format(0 , 2)}}</span>
+                                                        </li>
+                                                    </span>
                                                 
                                                 {{-- <div id="addIncomeItem">
                                                     <li class="list-group-item" >

@@ -57,12 +57,18 @@
                 <label>Address</label>
                 <input type="text" name="address" class="form-control" required>
               </div>
+
           </div>
       </div>
       <hr style="margin: 5px">
       <div class="row">
-      	<div class="col-lg-12">
-      		<h2>User Account & Permissions</h2>
+      	<div class="col-lg-12" style="padding: 0px">
+          <div class="col-lg-6">
+            <h2>User Accounts</h2>
+          </div>
+          <div class="col-lg-6">
+            <h2>Permissions</h2>
+          </div>
       	</div>
       </div>
       <div class="row">
@@ -78,6 +84,47 @@
               <label>Employee Password</label>
               <input type="password" name="pass" class="form-control" required>
         </div>
+
+        <div class="col-lg-6 pull-right">
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Department</th>
+                <th>Company</th>
+                <th>Employee</th>
+                <th>Positions</th>
+              </tr>
+            </thead>
+            <tbody class="i-checks">
+                <tr>
+                  @foreach(['department', 'company', 'employee', 'position'] as $tmp)
+                    <td>
+                      @foreach(["Create", "Modify", "View", "Delete"] as $perm)
+                      <label class="text-muted">{{ $perm }}</label>
+                      <div class="icheckbox_square-green pull-right" id="checkbox-{{ $perm }}-{{ $tmp }}" style="position: relative;">
+                        <input type="hidden" name="{{ $tmp }}_{{ $perm }}" style="position: absolute; opacity: 0;" value=false>
+                        <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;" title="{{ $perm }}" onclick="
+                          if (document.querySelector('#checkbox-{{ $perm }}-{{ $tmp }}').classList.contains('checked')) {
+                            document.querySelector('#checkbox-{{ $perm }}-{{ $tmp }}').classList.remove('checked');
+                            document.getElementsByName('{{ $tmp }}_{{ $perm }}')[0].value = false;
+                          } else {
+                            document.querySelector('#checkbox-{{ $perm }}-{{ $tmp }}').classList.add('checked');
+                            document.getElementsByName('{{ $tmp }}_{{ $perm }}')[0].value = true;
+                          }
+                        "></ins>
+                      </div>
+                      <br>
+                      @endforeach
+                    </td>
+                  @endforeach
+                </tr>
+              
+            </tbody>
+            <tfoot>
+            </tfoot>
+          </table>
+        </div>
+
       </div>
         
 
@@ -102,7 +149,7 @@
         	<label>Department</label>
           <select class="form-control company-dep" name="department" required>
             @foreach($company[0]->departments as $dep)
-              <option value="{{ $dep->id }}">{{$dep->name}}</option>
+              <option value="{{ $dep->id }}" selected>{{$dep->name}}</option>
             @endforeach       
           </select>
         </div>
@@ -110,8 +157,13 @@
       </div>
       <hr style="margin: 5px">
       <div class="row">
-      	<div class="col-lg-12">
-      		<h2>Positions, Rates & Deductions</h2>
+      	<div class="col-lg-12" style="padding: 0px">
+      		<div class="col-lg-6">
+            <h2>Positions</h2>
+          </div>
+          <div class="col-lg-6">
+            <h2>Rates</h2>
+          </div>
       	</div>
       </div>
       <div class="row">

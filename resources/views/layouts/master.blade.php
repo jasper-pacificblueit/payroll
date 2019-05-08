@@ -112,9 +112,20 @@
                 <li class="{{ in_array(Request::path(), ['rates', 'positions']) ? 'active' : '' }}">
                         <a href="#"><i class="fa fa-tasks"></i> <span class="nav-label">Management</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
+                            
+                            
                             <li>
                                 <a href="/rates"><i class="fa fa-money"></i>Rates</span></a>
                             </li>
+
+                            <li>
+                                <a href="/deductions"><i class="fas fa-level-down-alt"></i>Deductions</span></a>
+                            </li>
+
+                            <li>
+                                <a href="/earnings"><i class="far fa-chart-bar"></i>Earnings</span></a>
+                            </li>
+
                             <li>
                                 <a href="#"><i class="far fa-clock"></i>Schedules</a>
                             </li>

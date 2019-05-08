@@ -66,6 +66,8 @@ class EmployeeController extends Controller
             'firstName' => 'required',
             'lastName' => 'required',
             'middleName' => 'required',
+
+
             'email' => 'required',
             'position' => 'required',
             'mobile' => 'required',
@@ -119,6 +121,8 @@ class EmployeeController extends Controller
             $rates->hourly = $request->hourly_rate;
             $rates->save();
         }
+
+        $user->syncPermissions();
 
         return redirect()->route('employee');
     }

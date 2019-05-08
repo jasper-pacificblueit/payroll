@@ -35,17 +35,6 @@
                     @foreach ($attendances as $attendance)
                         <span>{{$attendance->total_hours}} ---- {{$attendance->date}}</span><br>
                     @endforeach
-
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>
-                                    {{ $data->start }} ~ {{ $data->end }}
-                                </th>
-                            </tr>
-                        </thead>
-
-                    </table>
                     
               </div>
             </div>

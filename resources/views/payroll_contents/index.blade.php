@@ -86,7 +86,14 @@
 
                  
 <script>
-
+        var addButton = document.getElementById('addIncomeBtn');
+        function addIncome(){
+            var node = document.createElement("LI");
+            node.className = 'list-group-item';
+            var textnode = document.createTextNode("Water");
+            node.appendChild(textnode);
+            document.getElementById("ulIncome").appendChild(node);
+        }
         function checkAttendance(start , end){
             console.log( start , end);
             if (start.length==0) { 

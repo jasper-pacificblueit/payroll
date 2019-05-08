@@ -81,7 +81,7 @@
                                             <div class="col-lg-12">
                                                 <ul class="list-group" id="ulIncome">
                                                     
-                                                    <span id='income'>
+                                                    <span id='income-{{$employee->user_id}}'>
                                                         <li class="list-group-item">
                                                             <span>Basic</span>
                                                             <span class="pull-right"> ₱ {{number_format($Basic , 2)}}</span>
@@ -104,7 +104,7 @@
                                                     </li>
                                                 </div> --}}
                                                 <li class="list-group-item">
-                                                    <span><input type="button" class="btn btn-default btn-xs" onclick="addIncome({{$employee->user_id}})" id="addIncomeBtn" value="Add Income"></span>
+                                                <span><input type="button" class="btn btn-default btn-xs" onclick="addIncome({{$employee->user_id}})" id="addIncomeBtn-{{ $employee->user_id }}" value="Add Income"></span>
                                                     <span class="pull-right"></span>
                                                 </li>
                                                 <li class="list-group-item">

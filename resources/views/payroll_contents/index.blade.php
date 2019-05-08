@@ -86,13 +86,12 @@
 <script>
 
 
-    
+
         function addIncome(user_id) {
-                var addButton = document.getElementById('addIncomeBtn');
+                var addButton = document.getElementById('addIncomeBtn-' + user_id);
                 
                 if(addButton.value == 'Save'){
                     console.log('ok');
-                    
                 }
                 else{
                     console.log(user_id);
@@ -103,7 +102,7 @@
                         <input type="text" name="addedIncome[${user_id}][]" id="description" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent" placeholder="Description.." required>
                         <span class="pull-right">₱ <input id='amount' type="number" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent" placeholder="Amount.." required> <a onclick="removeIncome()"><i class="fa fa-close pull-right"></i></a> </span> 
                     `;
-                    document.querySelector("#income").appendChild(node);
+                    document.querySelector("#income-"+user_id).appendChild(node);
 
                     addButton.className = 'btn btn-primary btn-xs';
                     addButton.value = 'Save';

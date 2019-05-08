@@ -206,18 +206,6 @@
         });
 
         $(".select2_demo_1").select2();
-            $(".select2_demo_2").select2();
-            $(".select2_demo_3").select2({
-                placeholder: "Select a state",
-                allowClear: true
-            });
-
-        $(".select2_demo_1").select2();
-            $(".select2_demo_2").select2();
-            $(".select2_demo_3").select2({
-                placeholder: "Select a state",
-                allowClear: true
-            });
 
         $('[aria-controls=DataTables_Table_0]').on('input', function () {
             $(".dataTables-example").DataTable().search(this.value).draw();

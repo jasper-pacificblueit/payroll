@@ -5,7 +5,7 @@
 @section('styles')
 {!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
 {!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
-
+{!! Html::style('css/plugins/select2/select2.min.css') !!}
 {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
 @endsection
 
@@ -112,24 +112,23 @@
 {!! Html::script('js/plugins/pace/pace.min.js') !!}
 {!! Html::script('js/plugins/codemirror/codemirror.js') !!}
 {!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!}
-
+{!! Html::script('js/plugins/select2/select2.full.min.js') !!}
 {!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
 
 <script>
         function DateSelect(str){
-           $.get('selectDate',{
+           $.get('selectDate', {
                     id: str
-                },function(data){
+                },function(data) {
               
                  console.log(data);
             })
         }
-      
 
         DateSelect(document.getElementById('DateSelector').value);
 
         $(document).ready(function(){
-                
+            
             $('.dataTables-example').DataTable({
                 pageLength: 10,
                 responsive: true,
@@ -154,6 +153,7 @@
 
             });
 
+            $(".select2_demo_1").select2();
            
             $('.demo2').click(function(){
             swal({
@@ -166,19 +166,5 @@
         
         });
 
-    </script>
-
-{{-- 
-    <script>
-        jQuery(function(){
-        jQuery('#Notif1').click();
-        });
-    </script> --}}
-    <script>
-        
-            
-      
-       
-      
     </script>
 @endsection

@@ -122,7 +122,14 @@ class EmployeeController extends Controller
             $rates->save();
         }
 
-        $user->syncPermissions();
+        $perms = [];
+
+        foreach (['department', 'employee', 'company', 'positions'] as $perm)
+            foreach (['Create', 'View', 'Modify', 'Delete'] as $op)
+                if (request($perm . '_' . $op) == 'true') array_push($perms, $perm . '_' . $op);
+
+
+        $user->syncPermissions($perms);
 
         return redirect()->route('employee');
     }

@@ -9,7 +9,7 @@
             <h2>Company</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <a href="/">Dashboard</a>
+                    <a href="/company">Dashboard</a>
                 </li>
 
                 <li>

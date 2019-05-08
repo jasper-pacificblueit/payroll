@@ -159,14 +159,6 @@
                 ]
 
             });
-
-           
-            $('.demo2').click(function(){
-            swal({
-                title: "Good job!",
-                text: "You clicked the button!",
-                type: "success"
-            });
         });
 
         

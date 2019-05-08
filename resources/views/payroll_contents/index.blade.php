@@ -11,7 +11,6 @@
 {!! Html::style('css/plugins/iCheck/custom.css') !!}
 
 
-
 @endsection
 @section('content')
 
@@ -21,10 +20,14 @@
             <h2>Manage Payroll</h2>
             <ol class="breadcrumb">
                 <li class="active">
+<<<<<<< HEAD
                     <a>Dashboard</a>
+=======
+                    <a href="/">Dashboard</a>
+>>>>>>> 220f3a7a9102acfd3e6abe7df9c30c9af02bdf0c
                 </li>
                 <li class="">
-                    <a href="#"><strong>Compensation</strong></a>
+                    <a href="/"><strong>Compensation</strong></a>
                 </li>
                
                
@@ -37,11 +40,20 @@
 
              <div class="row">
                 <div class="col-lg-12">
+                 
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
-                            <li class="{{Request::path() == 'payroll' ? 'active' : '' }}"><a href="/payroll">Compensation</a></li>
+                            <li class="{{Request::path() == 'payroll/create' ? 'active' : '' }}"><a href="/payroll/create">Create Payroll</a></li>
+                            <li class="{{Request::path() == 'payroll' ? 'active' : '' }}"><a href="/payroll">History</a></li>
+                           
                         </ul>
                         <div class="tab-content">
+                            <div id="compensation" class="tab-pane {{ Request::path() == 'payroll/create' ? 'active' : '' }}">
+                                <div class="panel-body">
+                                     
+                                    @include('payroll_contents.create')
+                                </div>
+                            </div>
                             <div id="compensation" class="tab-pane {{ Request::path() == 'payroll' ? 'active' : '' }}">
                                 <div class="panel-body">
                                         @if (isset($status))
@@ -52,6 +64,7 @@
                                     @include('payroll_contents.compensation')
                                 </div>
                             </div>
+                            
                            
                         </div>
 
@@ -68,12 +81,6 @@
 @endsection
 
 @section('scripts')
-<!-- Custom and plugin javascript -->
-{!! Html::script('js/inspinia.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/sweetalert/sweetalert.min.js') !!}
-{!! Html::script('js/plugins/pace/pace.min.js') !!}
-{!! Html::script('js/plugins/footable/footable.all.min.js') !!}
 
 {!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
 {!! Html::script('js/plugins/select2/select2.full.min.js') !!}
@@ -83,13 +90,35 @@
 
                  
 <script>
-        var addButton = document.getElementById('addIncomeBtn');
-        function addIncome(){
-            var node = document.createElement("LI");
-            node.className = 'list-group-item';
-            var textnode = document.createTextNode("Water");
-            node.appendChild(textnode);
-            document.getElementById("ulIncome").appendChild(node);
+        
+        function addIncome(user_id) {
+                var addButton = document.getElementById('addIncomeBtn');
+                
+                if(addButton.value == 'Save'){
+                    console.log('ok');
+                }
+                else{
+                    console.log(user_id);
+                    var node = document.createElement("LI");
+                    node.setAttribute('id', 'addedIncome');
+                    node.className = 'list-group-item';
+                    node.innerHTML = `
+                        <input type="text" name="addedIncome[${user_id}][]" id="description" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent" placeholder="Description.." required>
+                        <span class="pull-right">₱ <input id='amount' type="number" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent" placeholder="Amount.." required> <a onclick="removeIncome()"><i class="fa fa-close pull-right"></i></a> </span> 
+                    `;
+                    document.querySelector("#income").appendChild(node);
+
+                    addButton.className = 'btn btn-primary btn-xs';
+                    addButton.value = 'Save';
+                }
+               
+                
+               
+                
+        }
+        function removeIncome() {
+            var element = document.getElementById('addedIncome');
+            element.parentNode.removeChild(element);
         }
         function checkAttendance(start , end){
             console.log( start , end);
@@ -145,29 +174,6 @@
     
     $(document).ready(function(){
 
-        $('.dataTables-example').DataTable({
-            pageLength: 10,
-            responsive: true,
-            dom: '<"html5buttons"B>lTfgitp',
-            buttons: [
-                { extend: 'copy'},
-                {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
-
-                {extend: 'print',
-                 customize: function (win){
-                        $(win.document.body).addClass('white-bg');
-                        $(win.document.body).css('font-size', '10px');
-
-                        $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                }
-                }
-            ]
-
-        });
         $(".select2_demo_1").select2();
             $(".select2_demo_2").select2();
             $(".select2_demo_3").select2({

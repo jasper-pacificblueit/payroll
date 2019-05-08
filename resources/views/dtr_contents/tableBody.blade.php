@@ -3,7 +3,7 @@
     
     <tr>
         @php( $attendances = \App\DateTimeRecord::where('user_id' , $employee->user_id)->whereBetween('date' , [$data->start , $data->end])->get())
-        <td>{{$employee->getProfile->lname}}</td>
+        <td>{{App\Profile::getFullName($employee->user_id)}}</td>
         <?php $dayCount = 0; $totalHrs = 0;?>
         @foreach ($attendances as $attendance)
             <?php
@@ -12,8 +12,8 @@
                 $totalHrs += $attendance->total_hours;
             ?>
         @endforeach
-        <td>--</td>
-        <td>--</td>
+        <td>{{ App\Employee::where('user_id', $employee->user_id)->first()->departments->name }}</td>
+        <td>{{ App\User::find($employee->user_id)->position()->title }}</td>
         <td>{{$totalHrs}}</td>
         <td>{{$dayCount}}</td>
        
@@ -33,9 +33,9 @@
                 @php( $attendances = \App\DateTimeRecord::where('user_id' , $employee->user_id)->whereBetween('date' , [$data->start , $data->end])->get())
 
                     @foreach ($attendances as $attendance)
-                        
                         <span>{{$attendance->total_hours}} ---- {{$attendance->date}}</span><br>
-                     @endforeach
+                    @endforeach
+                    
               </div>
             </div>
 

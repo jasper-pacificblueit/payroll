@@ -20,8 +20,8 @@ class Permission extends Seeder
      */
     public function run()
     {
-
-
+        foreach (self::getPerm() as $perm)
+            Spatie\Permission\Models\Permission::create(['name' => $perm]);
     }
 
     

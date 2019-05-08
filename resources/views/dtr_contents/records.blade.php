@@ -3,12 +3,10 @@
             @php( $payrollDates = \App\PayrollDate::all() )
             
             <h4>Payroll Date:</h4>
-     
-            
-            <select name="DateSelector" id="DateSelector" class="form-control" onchange="DateSelect(this.value)">
-              
+
+            <select name="DateSelector" id="DateSelector" class="form-control select2_demo_1" onchange="DateSelect(this.value)">
                 @foreach ($payrollDates as $payrollDate)
-                <option value="{{$payrollDate->id}}">{{date("M d" , strtotime($payrollDate->start))}} - {{date("M d Y" , strtotime($payrollDate->end))}}</option>                
+                    <option value="{{$payrollDate->id}}">{{date("M d" , strtotime($payrollDate->start))}} - {{date("M d Y" , strtotime($payrollDate->end))}}</option>
                 @endforeach
             </select>
       
@@ -36,9 +34,7 @@
                         <th>Action</th>
                     </tr>
                     </thead>
-                    <tbody id="tableBody">
-                        
-                    </tbody>
+                    <tbody id="tableBody"></tbody>
                     <tfoot>
                         <th>Employee</th>
                         <th>Department</th>

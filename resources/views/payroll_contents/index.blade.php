@@ -20,13 +20,11 @@
             <h2>Manage Payroll</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <a href="/">Dashboard</a>
+                    <a>Dashboard</a>
                 </li>
                 <li class="">
                     <a href="/"><strong>Compensation</strong></a>
                 </li>
-               
-               
             </ol>
         </div>
     </div>

@@ -32,4 +32,8 @@ class Employee extends Model
 		return $this->hasOne('App\Rate' , 'employee_id');
 	}
 
+	public function departments() {
+		return $this->belongsTo('App\Department', 'department_id');
+	}
+
 }

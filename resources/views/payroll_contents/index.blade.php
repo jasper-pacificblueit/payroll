@@ -96,27 +96,27 @@
                 else{
                     console.log(user_id);
                     var node = document.createElement("LI");
-                    node.setAttribute('id', 'addedIncome');
+                    node.setAttribute('id', 'addedIncome-'+user_id);
                     node.className = 'list-group-item';
                     node.innerHTML = `
                         <input type="text" name="addedIncome[${user_id}][]" id="description" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent" placeholder="Description.." required>
-                        <span class="pull-right">₱ <input id='amount' type="number" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent" placeholder="Amount.." required> <a onclick="removeIncome()"><i class="fa fa-close pull-right"></i></a> </span> 
+                        <span class="pull-right">₱ <input id='amount' type="number" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent" placeholder="Amount.." required> <a onclick="removeIncome(${user_id})"><i class="fa fa-close pull-right"></i></a> </span> 
                     `;
                     document.querySelector("#income-"+user_id).appendChild(node);
 
                     addButton.className = 'btn btn-primary btn-xs';
                     addButton.value = 'Save';
-                    addButton.disabled = true;
+                  
                 }
                
                 
                
                 
         }
-        function removeIncome() {
-            var element = document.getElementById('addedIncome');
+        function removeIncome(user_id) {
+            var element = document.getElementById('addedIncome-'+user_id);
             element.parentNode.removeChild(element);
-            var addButton = document.getElementById('addIncomeBtn');
+            var addButton = document.getElementById('addIncomeBtn-'+user_id);
 
             addButton.className = 'btn btn-default btn-xs';
              addButton.value = 'Add Income';

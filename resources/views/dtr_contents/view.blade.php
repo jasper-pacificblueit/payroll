@@ -9,7 +9,7 @@
             <h2>Manage Attendance</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <a href="/">Dashboard</a>
+                    <a href="/dtr">Dashboard</a>
                 </li>
                 <li>
                     <a href="/employee"><strong>View File</strong></a>

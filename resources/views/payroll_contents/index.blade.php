@@ -167,12 +167,6 @@
                     var node = document.createElement("LI");
                     node.setAttribute('id', 'addedIncome-'+user_id);
                     node.className = 'list-group-item';
-                    node.onmouseover = function () {
-                        document.querySelector(".close-btn-"+user_id).style.display = "block";
-                    };
-                    node.onmouseleave = function () {
-                        document.querySelector(".close-btn-"+user_id).style.display = "none";
-                    }
 
                     node.innerHTML = `
                         <input type="text" class="addedDisp" name="addedIncome[${user_id}][]" id="description-${user_id}" onkeyup="changeSaveBtn(this.value , document.getElementById('amount-'+${user_id}).value , ${user_id})" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent;" placeholder="Description.." required>

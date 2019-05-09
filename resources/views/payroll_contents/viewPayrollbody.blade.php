@@ -27,7 +27,7 @@
     <tr>
         <td>{{ App\Profile::getFullName($employee->user_id) }}</td>
        
-        <td>₱ {{ number_format($TotalEarnings , 2) }}</td>
+        <td><span id="TotalIncomeDispOut-{{$employee->user_id}}"> ₱ {{number_format($TotalEarnings , 2)}} </span></td>
         <td>₱ 0</td>
         <td>₱ {{ number_format($NetPay , 2) }}</td>
         <td>

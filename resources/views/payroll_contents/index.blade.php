@@ -100,6 +100,7 @@
             console.log(NewTotalIncome);
             document.querySelector('#TotalIncome-'+user_id).value = NewTotalIncome.toFixed(2);
             document.querySelector('#TotalIncomeDisp-'+user_id).innerHTML = currencyFormat(NewTotalIncome);
+            document.querySelector('#TotalIncomeDispOut-'+user_id).innerHTML = currencyFormat(NewTotalIncome);
             
         }
         
@@ -192,6 +193,7 @@
 
             addButton.className = 'btn btn-default btn-xs';
             addButton.value = 'Add Income';
+            addButton.disabled =  false;
             CalculateTotalIncome(user_id)
 
         }
@@ -199,6 +201,7 @@
             var element = document.getElementById('DispaddedIncome-'+user_id);
             element.parentNode.removeChild(element);
             CalculateTotalIncome(user_id)
+            
             
         }
         function checkAttendance(start , end){

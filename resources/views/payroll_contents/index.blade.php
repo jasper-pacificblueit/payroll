@@ -193,13 +193,16 @@
 
             addButton.className = 'btn btn-default btn-xs';
             addButton.value = 'Add Income';
-
+            
             addButton.disabled = false;
+            CalculateTotalIncome(user_id)
+
         }
 
         function removeAddedIncome(user_id) {
             var element = document.getElementById('DispaddedIncome-'+user_id);
             element.parentNode.removeChild(element);
+            CalculateTotalIncome(user_id)
             
         }
         function checkAttendance(start , end){

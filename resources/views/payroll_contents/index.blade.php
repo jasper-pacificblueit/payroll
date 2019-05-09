@@ -139,7 +139,7 @@
                     newNode.className = 'list-group-item';
                     newNode.innerHTML = `
                         <span id="DispaddedDisc">${Description.value} <input type="text" name="addedItemDiscp[${user_id}][]"  class="DiscriptionClass-${user_id}" value="${Description.value}" hidden></span>
-                        <span class="pull-right" style="margin-right:-15px; display: none"><a onclick="removeAddedIncome(${user_id})"><i class="fa fa-close"></i></a></span>
+                        <span class="pull-right" style="margin-right:-15px;"><a onclick="removeAddedIncome(${user_id})"><i class="fa fa-close"></i></a></span>
                         <span class="pull-right">₱ ${Amount.value} <input type="text" name="addedItemAmount[${user_id}][]" class="IncomeClass-${user_id}" value="${Amount.value}" hidden> </span>
                         
                     `;

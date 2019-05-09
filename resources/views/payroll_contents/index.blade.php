@@ -93,7 +93,7 @@
 
             }
             console.log(NewTotalIncome);
-            document.querySelector('#TotalIncome').value = NewTotalIncome.toFixed(2);
+            document.querySelector('#TotalIncome-'+user_id).value = NewTotalIncome.toFixed(2);
         }
         
 

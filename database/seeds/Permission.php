@@ -12,10 +12,10 @@ class Permission extends Seeder
             'department_Modify',    'company_Modify',       'employee_Modify',      'position_Modify',      'dtr_Modify',
             'department_Delete',    'company_Delete',       'employee_Delete',      'position_Delete',      'dtr_Delete',
 
-            'payroll_Create',
-            'payroll_View',
-            'payroll_Modify',
-            'payroll_Delete'
+            'payroll_Create',       'rate_Create',         'schedule_Create',     'deduction_Create',       'earning_Create',
+            'payroll_View',         'rate_View',           'schedule_View',       'deduction_View',         'earning_View',
+            'payroll_Modify',       'rate_Modify',         'schedule_Modify',     'deduction_Modify',       'earning_Modify',
+            'payroll_Delete',       'rate_Delete',         'schedule_Delete',     'deduction_Delete',       'earning_Delete',
         ];
     }
     /**

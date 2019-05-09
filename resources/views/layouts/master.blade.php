@@ -63,7 +63,7 @@
                             </li>
 
                             <li>
-                                <a onclick="window.location.href='#'"><i class="fa fa-cog"></i> <span class="nav-label">Settings</span></a>
+                                <a onclick="window.location.href='/settings'"><i class="fa fa-cog"></i> <span class="nav-label">Settings</span></a>
                             </li>
                             
                             <li>
@@ -109,11 +109,9 @@
                 </li>
                 @endif
 
-                <li class="{{ in_array(Request::path(), ['rates', 'positions']) ? 'active' : '' }}">
+                <li class="{{ in_array(Request::path(), ['rates', 'deductions', 'earnings', 'schedules', 'positions']) ? 'active' : '' }}">
                         <a href="#"><i class="fa fa-tasks"></i> <span class="nav-label">Management</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            
-                            
                             <li>
                                 <a href="/rates"><i class="fa fa-money"></i>Rates</span></a>
                             </li>

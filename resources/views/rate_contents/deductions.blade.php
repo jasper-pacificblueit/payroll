@@ -1,6 +1,7 @@
 <div class="row">
-    <div class="col-lg-1">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDeduction">Add Deduction</button>
+    <div class="col-lg-12">
+        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addDeduction">Add Deduction</button>
+        <button class="btn btn-default btn-sm">Add Formula</button>
 
         <div class="modal inmodal fade" id="addDeduction" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -51,9 +52,7 @@
 
     </div>
     
-    <div class="col-lg-1">
-        <button class="btn btn-default">Add Formula</button>
-    </div>
+    
     
 </div>
 <br>

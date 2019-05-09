@@ -1,12 +1,8 @@
 <div class="row">
-        <div class="col-lg-1">
-            <button class="btn btn-success">Add Deduction</button>
-        </div>
-        
-        <div class="col-lg-1">
-            <button class="btn btn-default">Add Formula</button>
-        </div>
-        
+    <div class="col-lg-12">
+        <button class="btn btn-success btn-sm">Add Deduction</button>
+        <button class="btn btn-default btn-sm">Add Formula</button>
+    </div>
     </div>
     <br>
     <div class="row">

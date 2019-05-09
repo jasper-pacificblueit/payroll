@@ -18,6 +18,14 @@
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
             <h2>Management</h2>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <a>Dashboard</a>
+                </li>
+                <li class="">
+                    <strong>Management</strong>
+                </li>
+            </ol>
         </div>
     </div>
     <br>
@@ -61,6 +69,7 @@
                             </div>
                             <div id="compensation" class="tab-pane {{ Request::path() == 'positions' ? 'active' : '' }}">
                                 <div class="panel-body">
+
                                     @include('positions_contents.index')
                                 </div>
                             </div>

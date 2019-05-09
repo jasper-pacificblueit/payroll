@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
             // positions
             'title' => 'Administrator',
             'state' => 2,
-            'lim' => 2,
+            'lim' => 1,
             'description' => 'Controls the entire company',
 
         ];

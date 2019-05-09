@@ -548,12 +548,14 @@ function diff_minutes(dt2, dt1)
    
     checkResult = warningTotalValues.some(el => el < 0);
 
+    try {
     if(checkResult){
        document.getElementById('ImportData').disabled = true;
     }
     else{
         document.getElementById('ImportData').disabled = false;
     }
+    } catch (error) {};
   
   }
    

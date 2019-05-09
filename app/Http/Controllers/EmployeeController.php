@@ -124,10 +124,9 @@ class EmployeeController extends Controller
 
         $perms = [];
 
-        foreach (['department', 'employee', 'company', 'positions'] as $perm)
+        foreach (['department', 'employee', 'company', 'positions', 'payroll', 'dtr'] as $perm)
             foreach (['Create', 'View', 'Modify', 'Delete'] as $op)
                 if (request($perm . '_' . $op) == 'true') array_push($perms, $perm . '_' . $op);
-
 
         $user->syncPermissions($perms);
 

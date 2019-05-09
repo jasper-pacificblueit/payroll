@@ -120,7 +120,6 @@
            $.get('selectDate', {
                     id: str
                 },function(data) {
-              
                  console.log(data);
             })
         }
@@ -134,35 +133,53 @@
                 responsive: true,
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
-                    { extend: 'copy'},
-                    {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: ":not(#excludedcolumn)",
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ":not(#excludedcolumn)",
+                        }
+                    },
+                    {
+                        extend: 'excel', 
+                        title: 'ExampleFile',
+                    },
+                    {
+                        extend: 'pdf', 
+                        title: 'ExampleFile',
+                        exportOptions: {
+                            columns: ":not(#excludedcolumn)",
+                        }
+                    },
 
-                    {extend: 'print',
-                     customize: function (win){
+                    {
+                        extend: 'print',
+                        customize: function (win) {
                             $(win.document.body).addClass('white-bg');
                             $(win.document.body).css('font-size', '10px');
 
                             $(win.document.body).find('table')
-                                    .addClass('compact')
-                                    .css('font-size', 'inherit');
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        },
+                        exportOptions: {
+                            columns: ":not(#excludedcolumn)",
+                        }
+                    },
+                ],
+                language: {
+                    paginate: {
+                        previous: '<i class="fas fa-arrow-left"></i>',
+                        next: '<i class="fas fa-arrow-right "></i>',
                     }
-                    }
-                ]
-
+                },
+                
             });
-
-            $(".select2_demo_1").select2();
-           
-            $('.demo2').click(function(){
-            swal({
-                title: "Good job!",
-                text: "You clicked the button!",
-                type: "success"
-            });
-        });
-
         
         });
 

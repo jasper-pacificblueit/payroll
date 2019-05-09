@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-3">
-            @php( $payrollDates = \App\PayrollDate::all() )
+            @php($payrollDates = \App\PayrollDate::all())
             
             <h4>Payroll Date:</h4>
 
@@ -24,25 +24,25 @@
     
       <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover dataTables-example" >
-                    <thead>
-                    <tr>
-                        <th>Employee</th>
-                        <th>Department</th>
-                        <th>Position</th>
-                        <th>Total Hours</th>
-                        <th>Total Days</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tableBody"></tbody>
-                    <tfoot>
-                        <th>Employee</th>
-                        <th>Department</th>
-                        <th>Position</th>
-                        <th>Total Hours</th>
-                        <th>Total Days</th><th>Action</th>
-                    </tfoot>
-                    </table>  
+                <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Department</th>
+                    <th>Position</th>
+                    <th>Total Hours</th>
+                    <th>Total Days</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+                <tfoot>
+                    <th>Employee</th>
+                    <th>Department</th>
+                    <th>Position</th>
+                    <th>Total Hours</th>
+                    <th>Total Days</th><th>Action</th>
+                </tfoot>
+            </table>  
         </div>
     </div>
 </div>

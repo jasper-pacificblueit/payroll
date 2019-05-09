@@ -15,7 +15,7 @@ class PositionsController extends Controller
      */
     public function index()
     {
-        return view('positions_contents.index');
+        return view('rate_contents.index');
     }
 
     /**
@@ -25,7 +25,7 @@ class PositionsController extends Controller
      */
     public function create()
     {
-        dd('asdasd');
+        
     }
 
     /**
@@ -36,15 +36,24 @@ class PositionsController extends Controller
      */
     public function store(Request $request)
     {
-        $Position = new Positions;
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'state' => 'required',
+            'max' => 'required',
+        ]);
 
-        $Position->name = $request->name;
-        $Position->description = $request->description;
+        if (request('max') <= 0) return back();
 
-        $Position->save();
+        $position = new Positions();
 
-        $status = 'success';
-        return view('positions_contents.index' , compact('status'));
+        $position->title = request('name');
+        $position->description = request('description');
+        $position->state = request('state');
+        $position->lim = request('max');
+        $position->save();
+
+        return back();
         
     }
 
@@ -96,5 +105,6 @@ class PositionsController extends Controller
 
 
         $position->delete();
+        return view('positions_contents/data');
     }
 }

@@ -93,11 +93,13 @@
                 <th>Company</th>
                 <th>Employee</th>
                 <th>Positions</th>
+                <th>Payroll</th>
+                <th>DTR</th>
               </tr>
             </thead>
             <tbody class="i-checks">
                 <tr>
-                  @foreach(['department', 'company', 'employee', 'position'] as $tmp)
+                  @foreach(['department', 'company', 'employee', 'position', 'payroll', 'dtr'] as $tmp)
                     <td>
                       @foreach(["Create", "Modify", "View", "Delete"] as $perm)
                       <label class="text-muted">{{ $perm }}</label>

@@ -6,7 +6,6 @@
 
 {!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
 {!! Html::style('css/plugins/select2/select2.min.css') !!}
-{!! Html::style("css/plugins/steps/jquery.steps.css") !!}
 {!! Html::style("css/plugins/iCheck/custom.css") !!}
 
 @endsection

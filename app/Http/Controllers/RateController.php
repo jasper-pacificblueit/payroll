@@ -65,6 +65,7 @@ class RateController extends Controller
             $editDeduction = false;
         
         }
+        
         return view('rate_contents.index' , compact('editDeduction'));
     }
 

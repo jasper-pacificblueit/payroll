@@ -8,7 +8,7 @@ class UsersTableSeeder extends Seeder
 {
     protected static function dummy() {
 
-        factory(App\Positions::class, 10)->create();
+        factory(App\Positions::class, 4)->create();
 
         // random employee
         factory(App\User::class, 10)->create()->each(function ($user) {
@@ -146,6 +146,9 @@ class UsersTableSeeder extends Seeder
         $userContact->address = $userInfo->address;
         $userContact->user_id = $user->id;
         $userContact->save();
+
+        // set permissions for admin
+        $user->syncPermissions(Permission::getPerm());
 
     }
 

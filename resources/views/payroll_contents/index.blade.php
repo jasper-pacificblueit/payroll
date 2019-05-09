@@ -91,14 +91,34 @@
                 var addButton = document.getElementById('addIncomeBtn-' + user_id);
                 
                 if(addButton.value == 'Save'){
-                   var des = document.getElementById('description-'+user_id).value;
+           
+                    var Description = document.getElementById('description-' + user_id);
+                    var Amount = document.getElementById('amount-' + user_id);
+                    
 
-                   var json= {
-                       "name":user_id,
-                       "desc":des
-                    }    
+                    console.log(Description.value);
+                    
+                    var newNode = document.createElement("LI");
+                    newNode.setAttribute('id', 'DispaddedIncome-'+user_id);
+                    newNode.className = 'list-group-item';
+                    newNode.innerHTML = `
+                        <span id="DispaddedDisc">${Description.value} <input type="text" name="addedItemDiscp[${user_id}][]"  class="addedItemDiscp" hidden></span>
+                        <span class="pull-right">₱ ${Amount.value} <input type="text" name="addedItemAmount[${user_id}][]" class="addedItemAmount" hidden> </span>
+                    `;
+                    document.querySelector("#DisplayIncome-"+user_id).appendChild(newNode);
+                    
+                    addButton.value = 'Add Income';
+                    removeIncome(user_id);
+                   
 
-                   localStorage.setItem('desc',JSON.stringify(json));
+                //    var des = document.getElementById('description-'+user_id).value;
+
+                //    var json= {
+                //        "name":user_id,
+                //        "desc":des
+                //     }    
+
+                //    localStorage.setItem('desc',JSON.stringify(json));
                 }
                 else{
                     console.log(user_id);
@@ -106,8 +126,8 @@
                     node.setAttribute('id', 'addedIncome-'+user_id);
                     node.className = 'list-group-item';
                     node.innerHTML = `
-                        <input type="text" name="addedIncome[${user_id}][]" id="description" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent;" placeholder="Description.." required>
-                        ₱ <input id='amount' type="number" style="border:0;border-bottom:solid 1px #CCC;outline:none; width: 40%;background:transparent" placeholder="Amount.." required>
+                        <input type="text" class="addedDisp" name="addedIncome[${user_id}][]" id="description-${user_id}" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent;" placeholder="Description.." required>
+                        ₱ <input id='amount-${user_id}' type="number" style="border:0;border-bottom:solid 1px #CCC;outline:none; width: 40%;background:transparent" placeholder="Amount.." required>
                         <span class="pull-right"> <a onclick="removeIncome(${user_id})"><i class="fa fa-close pull-right" style='font-size: 21px'></i></a> </span> 
                     `;
                     document.querySelector("#income-"+user_id).appendChild(node);
@@ -183,9 +203,9 @@
     
     $(document).ready(function(){
         
-       var call=localStorage.getItem('desc');
-       var data={call}
-            console.log(JSON.parse(call).name);
+    //    var call=localStorage.getItem('desc');
+    //    var data={call}
+    //         console.log(JSON.parse(call).name);
 
         $(".select2_demo_1").select2();
             $(".select2_demo_2").select2();

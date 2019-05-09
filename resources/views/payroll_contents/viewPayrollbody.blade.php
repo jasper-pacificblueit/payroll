@@ -81,7 +81,7 @@
                                             <div class="col-lg-12">
                                                 <ul class="list-group" id="ulIncome">
                                                     
-                                                    <span id='income-{{$employee->user_id}}'>
+                                                    
                                                         <li class="list-group-item">
                                                             <span>Basic</span>
                                                             <span class="pull-right"> ₱ {{number_format($Basic , 2)}}</span>
@@ -95,13 +95,10 @@
                                                             <span>Holiday</span>
                                                             <span class="pull-right"> ₱ {{number_format(0 , 2)}}</span>
                                                         </li>
+                                                    
+                                                    <span id="DisplayIncome-{{$employee->user_id}}">
                                                     </span>
-
-                                                    <span id="localIncome">
-                                                        <li class="list-group-item">
-                                                            <span id="descriptItem-{{$employee->user_id}}"></span>
-                                                            <span class="pull-right" id="amountItem-{{$employee->user_id}}"> ₱ {{number_format(0 , 2)}}</span>
-                                                        </li>
+                                                    <span id='income-{{$employee->user_id}}'>
                                                     </span>
                                                 
                                                 {{-- <div id="addIncomeItem">

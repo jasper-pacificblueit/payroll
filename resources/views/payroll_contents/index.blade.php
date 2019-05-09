@@ -171,7 +171,7 @@
                     node.innerHTML = `
                         <input type="text" class="addedDisp" name="addedIncome[${user_id}][]" id="description-${user_id}" onkeyup="changeSaveBtn(this.value , document.getElementById('amount-'+${user_id}).value , ${user_id})" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent;" placeholder="Description.." required>
                         ₱ <input id='amount-${user_id}' class="IncomeClass-${user_id}" onkeyup="changeSaveBtn(document.getElementById('description-'+${user_id}).value , this.value , ${user_id})" type="number" style="border:0;border-bottom:solid 1px #CCC;outline:none; width: 40%;background:transparent" placeholder="Amount.." required>
-                        <span class="pull-right close-btn-${user_id}" style="display: none"> <a onclick="removeIncome(${user_id})"><i class="fa fa-close pull-right" style='font-size: 21px'></i></a> </span> 
+                        <span class="pull-right close-btn-${user_id}"> <a onclick="removeIncome(${user_id})"><i class="fa fa-close pull-right" style='font-size: 21px'></i></a> </span> 
                     `;
                     document.querySelector("#income-"+user_id).appendChild(node);
 
@@ -195,7 +195,7 @@
             addButton.value = 'Add Income';
             
             addButton.disabled = false;
-            CalculateTotalIncome(user_id)
+            CalculateTotalIncome(user_id);
 
         }
 

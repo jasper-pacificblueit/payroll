@@ -113,12 +113,20 @@ class UsersTableSeeder extends Seeder
     }
 
     public static function create($userInfo) {
-
+        // Administrator
         (new App\Positions([
             'title' => $userInfo->title,
             'lim' => $userInfo->lim,
             'description' => $userInfo->description,
             'state' => $userInfo->state,
+        ]))->save();
+
+        // HR
+        (new App\Positions([
+            'title' => 'Human Resource Manager',
+            'lim' => 10,
+            'description' => 'HRM can also manage Extraterrestrial Resources.',
+            'state' => '0',
         ]))->save();
 
         $user = new App\User;

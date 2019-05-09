@@ -139,7 +139,7 @@
                     newNode.className = 'list-group-item';
                     newNode.innerHTML = `
                         <span id="DispaddedDisc">${Description.value} <input type="text" name="addedItemDiscp[${user_id}][]"  class="DiscriptionClass-${user_id}" value="${Description.value}" hidden></span>
-                        <span class="pull-right" style="margin-right:-15px;"><a onclick="removeAddedIncome(${user_id})"><i class="fa fa-close"></i></a></span>
+                        <span class="pull-right" style="margin-right:-15px; display: none"><a onclick="removeAddedIncome(${user_id})"><i class="fa fa-close"></i></a></span>
                         <span class="pull-right">₱ ${Amount.value} <input type="text" name="addedItemAmount[${user_id}][]" class="IncomeClass-${user_id}" value="${Amount.value}" hidden> </span>
                         
                     `;
@@ -167,10 +167,17 @@
                     var node = document.createElement("LI");
                     node.setAttribute('id', 'addedIncome-'+user_id);
                     node.className = 'list-group-item';
+                    node.onmouseover = function () {
+                        document.querySelector(".close-btn-"+user_id).style.display = "block";
+                    };
+                    node.onmouseleave = function () {
+                        document.querySelector(".close-btn-"+user_id).style.display = "none";
+                    }
+
                     node.innerHTML = `
                         <input type="text" class="addedDisp" name="addedIncome[${user_id}][]" id="description-${user_id}" onkeyup="changeSaveBtn(this.value , document.getElementById('amount-'+${user_id}).value , ${user_id})" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent;" placeholder="Description.." required>
                         ₱ <input id='amount-${user_id}' class="IncomeClass-${user_id}" onkeyup="changeSaveBtn(document.getElementById('description-'+${user_id}).value , this.value , ${user_id})" type="number" style="border:0;border-bottom:solid 1px #CCC;outline:none; width: 40%;background:transparent" placeholder="Amount.." required>
-                        <span class="pull-right"> <a onclick="removeIncome(${user_id})"><i class="fa fa-close pull-right" style='font-size: 21px'></i></a> </span> 
+                        <span class="pull-right close-btn-${user_id}" style="display: none"> <a onclick="removeIncome(${user_id})"><i class="fa fa-close pull-right" style='font-size: 21px'></i></a> </span> 
                     `;
                     document.querySelector("#income-"+user_id).appendChild(node);
 
@@ -193,8 +200,9 @@
             addButton.className = 'btn btn-default btn-xs';
             addButton.value = 'Add Income';
 
-
+            addButton.disabled = false;
         }
+
         function removeAddedIncome(user_id) {
             var element = document.getElementById('DispaddedIncome-'+user_id);
             element.parentNode.removeChild(element);

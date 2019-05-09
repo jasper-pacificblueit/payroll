@@ -113,7 +113,7 @@
                                                 </li>
                                                 <li class="list-group-item">
                                                         <strong style="color:green">Total Income</strong>
-                                                        <span class="pull-right"> ₱  <input type="text" id="TotalIncome" value="{{number_format($TotalEarnings , 2)}}" style="border:0; background:transparent;" readonly></span>
+                                                        <span class="pull-right"> <input type="text" id="TotalIncome-{{$employee->user_id}}" value="{{number_format($TotalEarnings , 2)}}" style="border:0; background:transparent;text-align:right;" readonly></span>
                                                 </li>
                                                 
                                                

@@ -85,13 +85,20 @@
                  
 <script>
 
-
+       
 
         function addIncome(user_id) {
                 var addButton = document.getElementById('addIncomeBtn-' + user_id);
                 
                 if(addButton.value == 'Save'){
-                    console.log('ok');
+                   var des = document.getElementById('description-'+user_id).value;
+
+                   var json= {
+                       "name":user_id,
+                       "desc":des
+                    }    
+
+                   localStorage.setItem('desc',JSON.stringify(json));
                 }
                 else{
                     console.log(user_id);
@@ -175,6 +182,10 @@
 <script>
     
     $(document).ready(function(){
+        
+       var call=localStorage.getItem('desc');
+       var data={call}
+            console.log(JSON.parse(call).name);
 
         $(".select2_demo_1").select2();
             $(".select2_demo_2").select2();

@@ -84,16 +84,16 @@
                                                     <span id="DisplayIncome-{{$employee->user_id}}">
                                                         <li class="list-group-item">
                                                             <span>Basic</span>
-                                                            <span class="pull-right"> ₱ {{number_format($Basic , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="{{$Basic}}" hidden></span>
+                                                            <span class="pull-right"> ₱ {{number_format($Basic , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="{{round($Basic , 2)}}" hidden></span>
                                                         </li>
                                                         <li class="list-group-item">
                                                             <span>Overtime</span>
-                                                            <span class="pull-right"> ₱ {{number_format(0 , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="0" hidden></span>
+                                                            <span class="pull-right"> ₱ {{number_format(0 , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="{{round(0 , 2)}}" hidden></span>
                                                                 
                                                         </li>
                                                         <li class="list-group-item">
                                                             <span>Holiday</span>
-                                                            <span class="pull-right"> ₱ {{number_format(0 , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="0" hidden></span>
+                                                            <span class="pull-right"> ₱ {{number_format(0 , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="{{round(0 , 2)}}" hidden></span>
                                                         </li>
                                                     
                                                     
@@ -113,7 +113,7 @@
                                                 </li>
                                                 <li class="list-group-item">
                                                         <strong style="color:green">Total Income</strong>
-                                                        <span class="pull-right"> <input type="text" id="TotalIncome-{{$employee->user_id}}" value="{{number_format($TotalEarnings , 2)}}" style="border:0; background:transparent;text-align:right;" readonly></span>
+                                                        <span class="pull-right" id="TotalIncomeDisp-{{$employee->user_id}}"> ₱ {{number_format($TotalEarnings , 2)}} </span><span><input type="text" id="TotalIncome-{{$employee->user_id}}" value="{{number_format($TotalEarnings , 2)}}" style="border:0; background:transparent;text-align:right;" hidden></span>
                                                 </li>
                                                 
                                                

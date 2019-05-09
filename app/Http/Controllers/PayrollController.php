@@ -63,7 +63,6 @@ class PayrollController extends Controller
     }
 
     public function payrollDate(Request $request){
-        
         $start = $request->start;
         $end = $request->end;
         

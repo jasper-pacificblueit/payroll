@@ -85,7 +85,19 @@
                  
 <script>
 
-       
+        function changeSaveBtn(Discription , Amount , user_id){
+            var addButton = document.getElementById('addIncomeBtn-' + user_id);
+            if(Discription.length > 0 && Amount.length > 0){
+                console.log(Discription , Amount);
+                addButton.disabled = false;
+            }
+            else{
+                console.log('dis');
+                addButton.disabled = true;
+            }
+        
+        
+        }   
 
         function addIncome(user_id) {
                 var addButton = document.getElementById('addIncomeBtn-' + user_id);
@@ -121,23 +133,28 @@
                 //    localStorage.setItem('desc',JSON.stringify(json));
                 }
                 else{
+                    var Description = document.getElementById('description-' + user_id);
+                    var Amount = document.getElementById('amount-' + user_id);
+
                     console.log(user_id);
                     var node = document.createElement("LI");
                     node.setAttribute('id', 'addedIncome-'+user_id);
                     node.className = 'list-group-item';
                     node.innerHTML = `
-                        <input type="text" class="addedDisp" name="addedIncome[${user_id}][]" id="description-${user_id}" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent;" placeholder="Description.." required>
-                        ₱ <input id='amount-${user_id}' type="number" style="border:0;border-bottom:solid 1px #CCC;outline:none; width: 40%;background:transparent" placeholder="Amount.." required>
+                        <input type="text" class="addedDisp" name="addedIncome[${user_id}][]" id="description-${user_id}" onkeyup="changeSaveBtn(this.value , document.getElementById('amount-'+${user_id}).value , ${user_id})" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent;" placeholder="Description.." required>
+                        ₱ <input id='amount-${user_id}' onkeyup="changeSaveBtn(document.getElementById('description-'+${user_id}).value , this.value , ${user_id})" type="number" style="border:0;border-bottom:solid 1px #CCC;outline:none; width: 40%;background:transparent" placeholder="Amount.." required>
                         <span class="pull-right"> <a onclick="removeIncome(${user_id})"><i class="fa fa-close pull-right" style='font-size: 21px'></i></a> </span> 
                     `;
                     document.querySelector("#income-"+user_id).appendChild(node);
 
                     addButton.className = 'btn btn-primary btn-xs';
                     addButton.value = 'Save';
-                  
+
+                    addButton.disabled = true;
+                    
                 }
                
-                
+       
                
                 
         }

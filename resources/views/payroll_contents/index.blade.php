@@ -84,17 +84,34 @@
 
                  
 <script>
+        function CalculateTotalIncome(user_id){
+            var IncomeClass = document.getElementsByClassName('IncomeClass-' + user_id);
+            var NewTotalIncome = 0;
+            for(var i = 0; i < IncomeClass.length; i++) {
+               var value= IncomeClass[i].value;
+               NewTotalIncome += parseFloat(value);
+
+            }
+            console.log(NewTotalIncome);
+            document.querySelector('#TotalIncome').value = NewTotalIncome.toFixed(2);
+        }
+        
 
         function changeSaveBtn(Discription , Amount , user_id){
             var addButton = document.getElementById('addIncomeBtn-' + user_id);
             if(Discription.length > 0 && Amount.length > 0){
                 console.log(Discription , Amount);
                 addButton.disabled = false;
+
             }
             else{
                 console.log('dis');
                 addButton.disabled = true;
             }
+
+          
+               
+         
         
         
         }   
@@ -114,13 +131,14 @@
                     newNode.setAttribute('id', 'DispaddedIncome-'+user_id);
                     newNode.className = 'list-group-item';
                     newNode.innerHTML = `
-                        <span id="DispaddedDisc">${Description.value} <input type="text" name="addedItemDiscp[${user_id}][]"  class="addedItemDiscp" hidden></span>
-                        <span class="pull-right">₱ ${Amount.value} <input type="text" name="addedItemAmount[${user_id}][]" class="addedItemAmount" hidden> </span>
+                        <span id="DispaddedDisc">${Description.value} <input type="text" name="addedItemDiscp[${user_id}][]"  class="DiscriptionClass-${user_id}" value="${Description.value}" hidden></span>
+                        <span class="pull-right">₱ ${Amount.value} <input type="text" name="addedItemAmount[${user_id}][]" class="IncomeClass-${user_id}" value="${Amount.value}" hidden> </span>
                     `;
                     document.querySelector("#DisplayIncome-"+user_id).appendChild(newNode);
                     
                     addButton.value = 'Add Income';
                     removeIncome(user_id);
+                    CalculateTotalIncome(user_id);
                    
 
                 //    var des = document.getElementById('description-'+user_id).value;

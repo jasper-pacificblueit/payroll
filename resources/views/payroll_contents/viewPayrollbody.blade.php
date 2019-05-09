@@ -81,22 +81,22 @@
                                             <div class="col-lg-12">
                                                 <ul class="list-group" id="ulIncome">
                                                     
-                                                    
+                                                    <span id="DisplayIncome-{{$employee->user_id}}">
                                                         <li class="list-group-item">
                                                             <span>Basic</span>
-                                                            <span class="pull-right"> ₱ {{number_format($Basic , 2)}}</span>
+                                                            <span class="pull-right"> ₱ {{number_format($Basic , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="{{$Basic}}" hidden></span>
                                                         </li>
                                                         <li class="list-group-item">
                                                             <span>Overtime</span>
-                                                            <span class="pull-right"> ₱ {{number_format(0 , 2)}}</span>
+                                                            <span class="pull-right"> ₱ {{number_format(0 , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="0" hidden></span>
                                                                 
                                                         </li>
                                                         <li class="list-group-item">
                                                             <span>Holiday</span>
-                                                            <span class="pull-right"> ₱ {{number_format(0 , 2)}}</span>
+                                                            <span class="pull-right"> ₱ {{number_format(0 , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="0" hidden></span>
                                                         </li>
                                                     
-                                                    <span id="DisplayIncome-{{$employee->user_id}}">
+                                                    
                                                     </span>
                                                     <span id='income-{{$employee->user_id}}'>
                                                     </span>
@@ -113,7 +113,7 @@
                                                 </li>
                                                 <li class="list-group-item">
                                                         <strong style="color:green">Total Income</strong>
-                                                        <span class="pull-right"> ₱ {{number_format($TotalEarnings , 2)}}</span>
+                                                        <span class="pull-right"> ₱  <input type="text" id="TotalIncome" value="{{number_format($TotalEarnings , 2)}}" style="border:0; background:transparent;" readonly></span>
                                                 </li>
                                                 
                                                
@@ -184,3 +184,7 @@
     
 
 @endforeach
+
+<script>
+  
+</script>

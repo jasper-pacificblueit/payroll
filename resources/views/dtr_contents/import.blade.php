@@ -53,7 +53,7 @@
                                         <td>{{$employee->bio_id}}</td>
                                         <input type="text" name="bio_id[]" value="{{$employee->bio_id}}" hidden>
                                         <td>{{ucwords(strtolower($employee->name))}}</td>
-                                        <td>{{ App\Employee::where("bio_id", $employee->bio_id)->first()->departments->name }}</td>
+                                        <td>{{ $employee->dep }}</td>
 
                                      
                                         @php

@@ -45,12 +45,12 @@
             ">
                 <div class="modal-body">
                    <div class="row">
-                       <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                       <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                             <label>Bio. ID</label>
                             <br>
                             <input type="text" class="form-control" name="bio" placeholder="{{ $eminfo->bio_id ? $eminfo->bio_id : '--' }}">
                        </div>
-                       <div class="col-lg-4 col-md-5 col-sm-4 col-xs-6">
+                       <div class="col-lg-9 col-md-8 col-sm-8 col-xs-6">
                             <label>Department</label>
                             <br>
                             <select class="form-control" name="department" style="width: 100%">
@@ -59,7 +59,10 @@
                                 @endforeach
                             </select>
                        </div>
-                       <div class="col-lg-12">
+
+    
+                   </div>
+                   <div class="row">
                         <table class="table table-striped table-bordered">
                             <thead>
                               <tr>
@@ -127,9 +130,8 @@
                             </tbody>
                             <tfoot>
                             </tfoot>
-                          </table>
-                       </div>
-                   </div>
+                        </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class='btn-group'>

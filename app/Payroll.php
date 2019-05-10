@@ -20,7 +20,7 @@ class Payroll extends Model
 
     public static function getDeductions($DeductionsRates) {
       $TotalDeductions = 0;
-      foreach ($DeductionsRates as $name => $value) {
+      foreach ($DeductionsRates->statutory as $name => $value) {
         $TotalDeductions+= $value;
       }
       return $TotalDeductions;

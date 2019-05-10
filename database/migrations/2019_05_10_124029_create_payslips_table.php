@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDeductionsTable extends Migration
+class CreatePayslipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateDeductionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('deductions', function (Blueprint $table) {
+        Schema::create('payslips', function (Blueprint $table) {
             $table->increments('id');
             $table->integer("employee_id")->unsigned();
-
+            $table->integer("payroll_date");
+            $table->longText("earnings");
             $table->longText("deductions");
-            $table->float("late")->nullable();
-            $table->float("undertime")->nullable();
-            $table->longText("additional_deductions")->nullable();
-            
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->float("net_pay");
+            $table->timestamps();
         });
     }
 
@@ -33,6 +31,6 @@ class CreateDeductionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deductions');
+        Schema::dropIfExists('payslips');
     }
 }

@@ -123,6 +123,7 @@
         
         
         }   
+        
 
         function addIncome(user_id) {
                 var addButton = document.getElementById('addIncomeBtn-' + user_id);
@@ -175,6 +176,116 @@
                         <span class="pull-right close-btn-${user_id}"> <a onclick="removeIncome(${user_id})"><i class="fa fa-close pull-right" style='font-size: 21px'></i></a> </span> 
                     `;
                     document.querySelector("#income-"+user_id).appendChild(node);
+
+                    addButton.className = 'btn btn-primary btn-xs';
+                    addButton.value = 'Save';
+
+                    addButton.disabled = true;
+                    
+                }
+               
+       
+               
+                
+        }
+        function CalculateTotalDeduction(user_id){
+            var DeductionClass = document.getElementsByClassName('DeductionClass-' + user_id);
+            var NewTotalDeduction = 0;
+            console.log(DeductionClass.length);
+            for(var i = 0; i < DeductionClass.length; i++) {
+            
+               var value= DeductionClass[i].value;
+               console.log(parseFloat(value));
+               NewTotalDeduction += parseFloat(value);
+
+            }
+            console.log(NewTotalDeduction);
+            document.querySelector('#TotalDeduction-'+user_id).value = NewTotalDeduction.toFixed(2);
+            document.querySelector('#TotalDeductionDisp-'+user_id).innerHTML = currencyFormat(NewTotalDeduction);
+            document.querySelector('#TotalDeductionDispOut-'+user_id).innerHTML = currencyFormat(NewTotalDeduction);
+            
+        }
+        function changeSaveBtnDeduction(Discription , Amount , user_id){
+            var addButton = document.getElementById('addDeductionBtn-' + user_id);
+            if(Discription.length > 0 && Amount.length > 0){
+                console.log(Discription , Amount);
+                addButton.disabled = false;
+                CalculateTotalDeduction(user_id);
+            }
+            else{
+                console.log('dis');
+               
+                addButton.disabled = true;
+            }
+
+        }   
+        function removeDeduction(user_id) {
+            var element = document.getElementById('addedDeduction-'+user_id);
+            element.parentNode.removeChild(element);
+            var addButton = document.getElementById('addDeductionBtn-'+user_id);
+
+            addButton.className = 'btn btn-default btn-xs';
+            addButton.value = 'Add Deduction';
+            
+            addButton.disabled = false;
+            CalculateTotalDeduction(user_id);
+
+        }
+
+        function removeAddedDeduction(user_id) {
+            var element = document.getElementById('DispaddedDeduction-'+user_id);
+            element.parentNode.removeChild(element);
+            CalculateTotalDeduction(user_id)
+            
+
+        }
+
+        function addDeduction(user_id) {
+                var addButton = document.getElementById('addDeductionBtn-' + user_id);
+                
+                if(addButton.value == 'Save'){
+           
+                   console.log('save');
+
+                    var Description = document.getElementById('Deduc_description-' + user_id);
+                    var Amount = document.getElementById('Deduction_amount-' + user_id);
+                    
+
+                    console.log(Description.value);
+                    
+                    var newNode = document.createElement("LI");
+                    newNode.setAttribute('id', 'DispaddedDeduction-'+user_id);
+                    newNode.className = 'list-group-item';
+                    newNode.innerHTML = `
+                        <span id="DispaddedDiscDeduction">${Description.value} <input type="text" name="addedDeduction[${user_id}][]"  class="DiscriptionClassDeduction-${user_id}" value="${Description.value}" hidden></span>
+                        <span class="pull-right" style="margin-right:-15px;"><a onclick="removeAddedDeduction(${user_id})"><i class="fa fa-close"></i></a></span>
+                        <span class="pull-right">₱ ${Amount.value} <input type="text" name="addedItemDeductionAmount[${user_id}][]" class="DeductionClass-${user_id}" value="${Amount.value}" hidden> </span>
+                        
+                    `;
+                    document.querySelector("#DisplayDeduction-"+user_id).appendChild(newNode);
+                    
+                    addButton.value = 'Add Deduction';
+                    removeDeduction(user_id);
+                    CalculateTotalDeduction(user_id);
+                }
+                else{
+                    console.log(user_id);
+                    var Description = document.getElementById('description-' + user_id);
+                    var Amount = document.getElementById('amount-' + user_id);
+
+                    console.log(user_id);
+                    var node = document.createElement("LI");
+                    node.setAttribute('id', 'addedDeduction-'+user_id);
+                    node.className = 'list-group-item';
+
+                    node.innerHTML = `
+                         <input type="text" class="addedDedDisp" name="addedDeduction[${user_id}][]" id="Deduc_description-${user_id}" onkeyup="changeSaveBtnDeduction(this.value , document.getElementById('Deduction_amount-'+${user_id}).value , ${user_id})" style="border:0;border-bottom:solid 1px #CCC;outline:none;background:transparent;" placeholder="Description.." required>
+                        ₱ <input id='Deduction_amount-${user_id}' class="DeductionClass-${user_id}" onkeyup="changeSaveBtnDeduction(document.getElementById('Deduc_description-'+${user_id}).value , this.value , ${user_id})" type="number" style="border:0;border-bottom:solid 1px #CCC;outline:none; width: 40%;background:transparent" placeholder="Amount.." required>
+                        <span class="pull-right close-btn-${user_id}"> <a onclick="removeDeduction(${user_id})"><i class="fa fa-close pull-right" style='font-size: 21px'></i></a> </span> 
+                    
+                       
+                        `;
+                    document.querySelector("#deduction-"+user_id).appendChild(node);
 
                     addButton.className = 'btn btn-primary btn-xs';
                     addButton.value = 'Save';

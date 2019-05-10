@@ -183,7 +183,7 @@
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                            <span class="text-muted">Logout</span><i class="fas fa-sign-out-alt" style="position: relative; top: 1px; left: 5px"></i>
+                            <span class="text-muted">Logout</span><i class="fas fa-sign-out-alt" style="position: relative; top: 0.5px; left: 5px"></i>
                         </a>
                     </li>
                     

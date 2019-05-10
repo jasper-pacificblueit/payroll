@@ -7,7 +7,7 @@
         <div class="modal-content">
             <div class="modal-header no-padding">
                 <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-               <h4 style="padding:10px"></h4>
+               <h4 style="padding:10px">    </h4>
             </div>
             <form method="POST" action="/employee/{{ $user->id }}" onsubmit="
 
@@ -31,12 +31,13 @@
                             else if (form.elements[i].name)
                                 json[form.elements[i].name] = form.elements[i].placeholder;
 
+                        console.log(json);
+
                         return json;
                     })()),
 
                 }).then(rep => {console.log(rep); return rep.text(); }).then(txt => {
                     $('#manage #close').click();
-
                     EmployeeSelect(document.querySelector('#DepartmentSelector').value);
                 });
 
@@ -44,13 +45,14 @@
 
             ">
                 <div class="modal-body">
-                   <div class="row">
-                       <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
+                   <div class="row" style="padding: 0px">
+                       <div class="col-lg-12" style="padding: 0px">
+                       <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
                             <label>Bio. ID</label>
                             <br>
                             <input type="text" class="form-control" name="bio" placeholder="{{ $eminfo->bio_id ? $eminfo->bio_id : '--' }}">
                        </div>
-                       <div class="col-lg-9 col-md-8 col-sm-8 col-xs-6">
+                       <div class="col-lg-4 col-md-5 col-sm-4 col-xs-6">
                             <label>Department</label>
                             <br>
                             <select class="form-control" name="department" style="width: 100%">
@@ -59,10 +61,13 @@
                                 @endforeach
                             </select>
                        </div>
+                       </div>
 
-    
                    </div>
-                   <div class="row">
+
+                   <div class="row" style="padding: 14">
+                      <br>
+                      <div class="table-responsive">
                         <table class="table table-striped table-bordered">
                             <thead>
                               <tr>
@@ -75,8 +80,11 @@
                             </thead>
                             <tbody class="i-checks">
                                 <tr>
+                                  @php
+                                    $user = App\User::find($eminfo->user_id);
+                                  @endphp
                                   @foreach(['department', 'company', 'employee', 'position', 'dtr'] as $tmp)
-                                    <td>
+                                    <td width=100>
                                       @foreach(["Create", "Modify", "View", "Delete"] as $perm)
                                       <label class="text-muted">{{ $perm }}</label>
                                       <div class="icheckbox_square-green pull-right" id="checkbox-{{ $perm }}-{{ $tmp }}" style="position: relative;">
@@ -89,7 +97,15 @@
                                             document.querySelector('#checkbox-{{ $perm }}-{{ $tmp }}').classList.add('checked');
                                             document.getElementsByName('{{ $tmp }}_{{ $perm }}')[0].value = true;
                                           }
-                                        "></ins>
+                                        ">
+                                          <img src="" hidden onerror='
+
+                                            @if ($user->hasPermissionTo($tmp . "_" . $perm))
+                                                $("#{{$tmp}}_{{$perm}}").click();
+                                            @endif
+
+                                        '>
+                                        </ins>
                                       </div>
                                       <br>
                                       @endforeach
@@ -107,7 +123,7 @@
                                 </tr>
                                 <tr>
                                   @foreach(['payroll', 'rate', 'schedule', 'deduction', 'earning'] as $tmp)
-                                    <td>
+                                    <td width=500>
                                       @foreach(["Create", "Modify", "View", "Delete"] as $perm)
                                       <label class="text-muted">{{ $perm }}</label>
                                       <div class="icheckbox_square-green pull-right" id="checkbox-{{ $perm }}-{{ $tmp }}" style="position: relative;">
@@ -120,7 +136,16 @@
                                             document.querySelector('#checkbox-{{ $perm }}-{{ $tmp }}').classList.add('checked');
                                             document.getElementsByName('{{ $tmp }}_{{ $perm }}')[0].value = true;
                                           }
-                                        "></ins>
+                                        ">
+                                        <img src="" hidden onerror='
+
+                                            @if ($user->hasPermissionTo($tmp . "_" . $perm))
+                                                $("#{{$tmp}}_{{$perm}}").click();
+                                            @endif
+
+                                        '>
+                                      </ins>
+                                        
                                       </div>
                                       <br>
                                       @endforeach
@@ -130,8 +155,9 @@
                             </tbody>
                             <tfoot>
                             </tfoot>
-                        </table>
-                    </div>
+                          </table>
+                        </div>
+                       </div>
                 </div>
                 <div class="modal-footer">
                     <div class='btn-group'>
@@ -161,7 +187,7 @@
     </div>
 </div>
 
-<img hidden="true" src="..." onerror='
+<img hidden="true" src="" onerror='
 
     $("#manage").on("hide.bs.modal", function (e) {
         document.querySelector("#btnclick-{{ $eminfo->user_id }}").disabled = false;

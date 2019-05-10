@@ -166,13 +166,21 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $json = json_decode($request->getContent());
+        $json = json_decode($request->getContent(), 1);
 
         $user = App\User::findOrFail($id);
         $em = App\Employee::where('user_id', $id)->first();
 
-        $em->bio_id = ($json->bio == '--' ? 0 : $json->bio);
-        $em->department_id = $json->department;
+        $em->bio_id = ($json['bio'] == '' ?: $json['bio']);
+        $em->department_id = $json['department'];
+
+        $perms = [];
+
+        foreach (['department', 'employee', 'company', 'position', 'payroll', 'dtr', 'rate', 'deduction', 'earning', 'schedule'] as $perm)
+            foreach (['Create', 'View', 'Modify', 'Delete'] as $op)
+                if ($json[$perm . "_" . $op] == 'true') array_push($perms, $perm . '_' . $op);
+
+        $user->syncPermissions($perms);
 
         $user->save();
         $em->save();

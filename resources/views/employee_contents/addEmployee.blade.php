@@ -101,9 +101,9 @@
         <br class="hidden-lg">
 
 
-        <div class="col-lg-6 pull-right col-xs-12">
+        <div class="col-lg-6 pull-right col-xs-12" style="padding: 14px">
           <h2 class="hidden-lg">Permissions (optional)</h2>
-          <table class="table table-striped table-bordered" style='float: left'>
+          <table class="table table-striped table-bordered">
             <thead>
               <tr>
                 <th>Department</th>
@@ -113,13 +113,13 @@
                 <th>DTR</th>
               </tr>
             </thead>
-            <tbody class="i-checks">
+            <tbody>
                 <tr>
                   @foreach(['department', 'company', 'employee', 'position', 'dtr'] as $tmp)
                     <td>
                       @foreach(["Create", "Modify", "View", "Delete"] as $perm)
                       <label class="text-muted">{{ $perm }}</label>
-                      <div class="icheckbox_square-green pull-right" id="checkbox-{{ $perm }}-{{ $tmp }}" style="position: relative;">
+                      <div class="icheckbox_square-green pull-right" id="checkbox-{{ $perm }}-{{ $tmp }}" style="position: relative;" title="{{ $perm }}">
                         <input type="hidden" name="{{ $tmp }}_{{ $perm }}" style="position: absolute; opacity: 0;" value=false>
                         <ins class="iCheck-helper" id="{{$tmp}}_{{$perm}}" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;" title="{{ $perm }}" onclick="
                           if (document.querySelector('#checkbox-{{ $perm }}-{{ $tmp }}').classList.contains('checked')) {
@@ -207,6 +207,9 @@
           <div class="col-lg-6">
             <h2>Rates</h2>
           </div>
+          <div class="col-lg-6">
+            <h2>Deductions</h2>
+          </div>
       	</div>
       </div>
       <div class="row">
@@ -280,17 +283,19 @@
           @endforeach
         ];
         break;
-      default: perm = [];
-
+      default: perm = ['dtr_View'];
     }
 
-    prev = perm;
+    @foreach (['department', 'company', 'employee', 'position', 'dtr', 'payroll', 'rate', 'schedule', 'deduction', 'earning'] as $perm)
+      @foreach (['Create', 'View', "Modify", "Delete"] as $op)
+        document.querySelector('#checkbox-{{$op}}-{{$perm}}').classList.contains('checked') ? 
+          document.querySelector('#checkbox-{{$op}}-{{$perm}}').classList.remove('checked') : '';
+      @endforeach
+    @endforeach
 
     perm.forEach(function (v) {
       document.querySelector('#'+v).click();
     });
-
-    
   }
 
   autoFillPerm(document.getElementsByName('position')[0]);

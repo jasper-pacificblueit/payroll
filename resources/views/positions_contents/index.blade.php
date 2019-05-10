@@ -6,58 +6,60 @@
             </div>
             <div class="row">
                 <div class="col-lg-1">
-                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addPosition">
+                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addPosition" {{ auth()->user()->can("position_Create") ?: 'disabled' }}>
                         Add Position
                     </button>
 
+                    @can ("position_Create")
                     <div class="modal inmodal fade" id="addPosition" tabindex="-1" role="dialog"  aria-hidden="true">
-                            <div class="modal-dialog modal-md">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="/positions" method="POST">
-                                            {{ csrf_field() }}
-                                            <div class="row">
-                                                <div class="col-lg-12" style='padding: 0px'>
-                                                    <div class="col-lg-6">
-                                                        <h4>Title</h4>
-                                                        <input type="text" name="name" id="" class="form-control" required>
-                                                    </div>
-                                                    <div class="col-lg-3">
-                                                        <h4>Maximum</h4>
-                                                        <input type="number" name="max" id="" class="form-control" required>
-                                                    </div>
-                                                    <div class="col-lg-3">
-                                                        <h4>State</h4>
-                                                        <select class="form-control" name="state">
-                                                            <option value=0 selected>Available</option>
-                                                            <option value=1>Unavailable</option>
-                                                            <option value=2>Temporarily Unavailable</option>
-                                                            <option value=4>Unknown</option>
-                                                        </select>
-                                                    </div>
+                        <div class="modal-dialog modal-md">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/positions" method="POST">
+                                        {{ csrf_field() }}
+                                        <div class="row">
+                                            <div class="col-lg-12" style='padding: 0px'>
+                                                <div class="col-lg-6">
+                                                    <h4>Title</h4>
+                                                    <input type="text" name="name" id="" class="form-control" required>
                                                 </div>
-                                                <div class="col-lg-12">
-                                                    <h4>Description</h4>
-                                                    <textarea type="text" name="description" id="" class="form-control" required></textarea>
+                                                <div class="col-lg-3">
+                                                    <h4>Maximum</h4>
+                                                    <input type="number" name="max" id="" class="form-control" required>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <h4>State</h4>
+                                                    <select class="form-control" name="state">
+                                                        <option value=0 selected>Available</option>
+                                                        <option value=1>Unavailable</option>
+                                                        <option value=2>Temporarily Unavailable</option>
+                                                        <option value=4>Unknown</option>
+                                                    </select>
                                                 </div>
                                             </div>
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
-                                            <button type="submit" name="createPosition" class="btn btn-primary btn-sm">Create</button>
+                                            <div class="col-lg-12">
+                                                <h4>Description</h4>
+                                                <textarea type="text" name="description" id="" class="form-control" required></textarea>
+                                            </div>
                                         </div>
-                                    </form>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
+                                        <button type="submit" name="createPosition" class="btn btn-primary btn-sm">Create</button>
                                     </div>
+                                </form>
                                 </div>
                             </div>
                         </div>
-
+                    </div>
+                    @endcan
                 </div>
+
             </div>
             <br>
             <div class="row">

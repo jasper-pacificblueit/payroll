@@ -15,6 +15,15 @@ class CreateSchedulesTable extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('department_id')->nullable();
+            $table->integer('comp_id')->nullable();
+            $table->string('type')->nullable(); 
+            $table->time('in_am')->nullable();
+            $table->time('out_am')->nullable();
+            $table->time('in_pm')->nullable();
+            $table->time('out_pm')->nullable();
+            $table->time('overtime_out')->nullable();
+            
             $table->timestamps();
         });
     }

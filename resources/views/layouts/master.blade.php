@@ -127,7 +127,7 @@
                 @endphp
 
                 @if (can('rate_View') || can('deduction_View') || can('earning_View') || can('schedule_View') || can('position_View'))
-                <li class="{{ in_array(Request::path(), ['rates', 'deductions', 'earnings', 'schedules', 'positions']) ? 'active' : '' }}">
+                <li class="{{ in_array(Request::path(), ['rates', 'deductions', 'earnings', 'schedules', 'positions' , 'schedule']) ? 'active' : '' }}">
                         <a href="#"><i class="fa fa-tasks"></i> <span class="nav-label">Management</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             @can ("rate_View")
@@ -150,7 +150,7 @@
 
                             @can ("schedule_View")
                             <li>
-                                <a href="#"><i class="far fa-clock"></i>Schedules</a>
+                                <a href="/schedule"><i class="far fa-clock"></i>Schedules</a>
                             </li>
                             @endcan
 

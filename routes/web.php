@@ -166,7 +166,10 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::match(["put", "patch"], "/positions/{position}", "PositionsController@update");
 	});
 
+
 	
+	Route::resource('schedule', 'ScheduleController');
+
 	Route::get("/holiday", "PayrollController@holiday");
 	Route::get("/rates", "RateController@index");
 	Route::get("/deductions", "RateController@deductions");

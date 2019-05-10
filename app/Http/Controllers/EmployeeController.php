@@ -30,7 +30,7 @@ class EmployeeController extends Controller
     }
 
      public function showEmployee(Request $request) {
-        $data = App\Employee::all()->where('department_id' , '=' , $request->input('q'));
+        $data = App\Employee::all()->where('department_id' , '=' , $request->input('q'))->where('user_id', '!=', auth()->user()->id);
         return view('employee_contents.EmployeeTable' , compact('data'));
     }
 
@@ -124,7 +124,7 @@ class EmployeeController extends Controller
 
         $perms = [];
 
-        foreach (['department', 'employee', 'company', 'positions', 'payroll', 'dtr'] as $perm)
+        foreach (['department', 'employee', 'company', 'position', 'payroll', 'dtr', 'rate', 'deduction', 'earning', 'schedule'] as $perm)
             foreach (['Create', 'View', 'Modify', 'Delete'] as $op)
                 if (request($perm . '_' . $op) == 'true') array_push($perms, $perm . '_' . $op);
 

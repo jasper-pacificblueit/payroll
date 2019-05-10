@@ -64,7 +64,6 @@
                                                     <th>Net Pay</th>
                                                     <th>Actions</th>
                                                     
-                                                    
                                                 </tr>
                                             </tfoot>
                                          </table>

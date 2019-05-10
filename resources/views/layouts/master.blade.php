@@ -87,51 +87,81 @@
                     <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
 
+                @can ("dtr_View")
                 <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
                     <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Attendance</span></a>
                 </li>
+                @endcan
 
+                @can ("payroll_View")
                 <li class="{{ Request::path() == 'payroll' || Request::path() == 'payroll/create' ? 'active' : '' }}">
                     <a href="/payroll/create"><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
                 </li>
+                @endcan
 
+                @can ("company_View")
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
                     <a href="/company"><i class="far fa-building"></i><span>Companies</span></a>
                 </li>
+                @endcan
 
+                @can ("employee_View")
                 @if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
                 <li class="{{ Request::path() == 'employee' ? 'active' : '' }}">
                         <a href="/employee"><i class="fa fa-users"></i><span>Employees</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
+                            @can ("employee_Create")
                             <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
+                            @endcan
                         </ul>
                 </li>
                 @endif
+                @endcan
 
+                @php
+                    function can ($perm) {
+                        return auth()->user()->can($perm);
+                    }
+
+                @endphp
+
+                @if (can('rate_View') || can('deduction_View') || can('earning_View') || can('schedule_View') || can('position_View'))
                 <li class="{{ in_array(Request::path(), ['rates', 'deductions', 'earnings', 'schedules', 'positions']) ? 'active' : '' }}">
                         <a href="#"><i class="fa fa-tasks"></i> <span class="nav-label">Management</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
+                            @can ("rate_View")
                             <li>
                                 <a href="/rates"><i class="fa fa-money"></i>Rates</span></a>
                             </li>
+                            @endcan
 
+                            @can ("deduction_View")
                             <li>
                                 <a href="/deductions"><i class="fas fa-level-down-alt"></i>Deductions</span></a>
                             </li>
+                            @endcan
 
+                            @can ("earning_View")
                             <li>
                                 <a href="/earnings"><i class="far fa-chart-bar"></i>Earnings</span></a>
                             </li>
+                            @endcan
 
+                            @can ("schedule_View")
                             <li>
                                 <a href="#"><i class="far fa-clock"></i>Schedules</a>
                             </li>
+                            @endcan
+
+                            @can ("position_View")
                             <li>
                                 <a href="/positions"><i class="fa fa-user"></i>Positions</a>
                             </li>
+                            @endcan
                         </ul>
                 </li>
+                @endif
 
                 {{--side menus end--}}
 

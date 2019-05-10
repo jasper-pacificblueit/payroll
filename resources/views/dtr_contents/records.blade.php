@@ -40,7 +40,8 @@
                     <th>Department</th>
                     <th>Position</th>
                     <th>Total Hours</th>
-                    <th>Total Days</th><th>Action</th>
+                    <th>Total Days</th>
+                    <th>Action</th>
                 </tfoot>
             </table>  
         </div>

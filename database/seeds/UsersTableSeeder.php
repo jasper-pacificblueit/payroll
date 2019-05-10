@@ -123,7 +123,7 @@ class UsersTableSeeder extends Seeder
 
         // HR
         (new App\Positions([
-            'title' => 'Human Resource Manager',
+            'title' => 'Human Resources Manager',
             'lim' => 10,
             'description' => 'HRM can also manage Extraterrestrial Resources.',
             'state' => '0',

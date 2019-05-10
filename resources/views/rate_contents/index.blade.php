@@ -4,7 +4,6 @@
 
 @section('styles')
 
-{!! Html::style('font-awesome/css/font-awesome.css') !!}
 {!! Html::style('css/plugins/iCheck/custom.css') !!}
 {!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
 {!! Html::style('css/plugins/select2/select2.min.css') !!}

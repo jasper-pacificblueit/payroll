@@ -8,7 +8,7 @@
                         <th>Employee Name</th>
                         <th>Email</th>
                         <th>Job Title</th>
-                        <th id="excludedcolumn"></th>
+                        <th id="excludedcolumn">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="EmployeeTable"></tbody>

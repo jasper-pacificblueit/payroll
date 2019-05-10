@@ -91,15 +91,15 @@ Route::group(['middleware' => ['auth']], function() {
 
 	});
 
-	// DTR Create
+	// DTR create
 	Route::group(['middleware' => ['permission:dtr_Create']], function () {
 		Route::get('/dtr/create', 'DateTimeRecordController@create');
-		Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
 		Route::post('/dtr', 'DateTimeRecordController@store');
 	});
 
 	// DTR View
 	Route::group(['middleware' => ['permission:dtr_View']], function () {
+		Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
 		Route::get("/selectDate", "DateTimeRecordController@selectDate");
 		Route::get('/dtr/{dtr}', "DateTimeRecordController@show");
 		Route::get("/dtr-records", "DateTimeRecordController@records");
@@ -117,30 +117,68 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::delete('/dtr/{dtr}', "DateTimeRecordController@destroy");
 	});
 
-	Route::resource('/payroll', 'PayrollController');
-	Route::post('/payroll/makePayroll', 'PayrollController@makePayroll');
-	Route::post('/viewPayroll', 'PayrollController@viewPayroll');
-	Route::get('/payroll/create/payrollDate', 'PayrollController@payrollDate');
+	// Payroll Create
+	Route::group(["middleware" => ["permission:payroll_Create"]], function () {
+		Route::post('/payroll/makePayroll', 'PayrollController@makePayroll');
+		Route::post("/payroll", "PayrollController@store");
+	});
 
+	// Payroll View
+	Route::group(["middleware" => ["permission:payroll_View"]], function () {
+		Route::get('/payroll/create/payrollDate', 'PayrollController@payrollDate');
+		Route::get("/payroll/create", "PayrollController@create");
+		Route::post('/viewPayroll', 'PayrollController@viewPayroll');
+		Route::get("/payroll/{payroll}", "PayrollController@show");
+		Route::get("/payroll", "PayrollController@index");
+	});
+
+	// Payroll Delete
+	Route::group(["middleware" => ["permission:payroll_Delete"]], function () {
+		Route::delete("/payroll/{payroll}", "PayrollController@destroy");
+	});
+	
+	// Payroll Modify
+	Route::group(["middleware" => ["permission:payroll_Modify"]], function () {
+		Route::get("/payroll/{payroll}/edit", "PayrollController@edit");
+		Route::match(["put", "patch"], "/payroll/{payroll}", "PayrollController@update");
+	});
+
+	// Position Create
+	Route::group(["middleware" => ["permission:position_Create"]], function () {
+		Route::get("/positions/create", "PositionsController@create");
+		Route::post("/positions", "PositionsController@store");
+	});
+
+	// Position View
+	Route::group(["middleware" => ["permission:position_View"]], function () {
+		Route::get("/positions/{position}", "PositionsController@show");
+		Route::get("/positions", "PositionsController@index");
+	});
+
+	// Position Delete
+	Route::group(["middleware" => ["permission:position_Delete"]], function () {
+		Route::delete("/positions/{position}", "PositionsController@destroy");
+	});
+
+	// Position Modify
+	Route::group(["middleware" => ["permission:position_Modify"]], function () {
+		Route::get("/positions/{position}/edit", "PositionsController@edit");
+		Route::match(["put", "patch"], "/positions/{position}", "PositionsController@update");
+	});
+
+	
 	Route::get("/holiday", "PayrollController@holiday");
-
 	Route::get("/rates", "RateController@index");
 	Route::get("/deductions", "RateController@deductions");
 	Route::get("/earnings", "RateController@earnings");
 	Route::post("/addDeductions", "RateController@addDeductions");
 	
-	Route::resource('/positions', 'PositionsController');
-
 	// public
 	Route::get('/', 'HomeController@index')->name('dashboard');
 	Route::get("/profile/{user}", "ProfileController@public_index");
-	
  	Route::get("/editprofile", "ProfileController@edit")->name('editprofile');
 	Route::post("/editprofile", "ProfileController@update");
 	Route::get('/profile', 'ProfileController@index')->name('profile');
   Route::match(['put', 'update'], '/editprofile/chpasswd', 'ProfileController@chpasswd');
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 });
-
-
-

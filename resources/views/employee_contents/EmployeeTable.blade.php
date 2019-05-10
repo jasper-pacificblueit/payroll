@@ -6,7 +6,7 @@
 @if (count($data) > 0)
     @php($min = 0)
     @foreach ($data as $employee)
-    <tr ondblclick="$('#btnclick-{{ $employee->user_id }}').click();" id="emrow-{{ $employee->user_id }}">
+    <tr @can("employee_Modify") ondblclick="$('#btnclick-{{ $employee->user_id }}').click();" id="emrow-{{ $employee->user_id }}" @endcan>
         <td>{{ $employee->user->created_at }}</td>
         <td>
             <a href="/profile/{{ $employee->user->user }}">
@@ -33,7 +33,7 @@
                 document.getElementById('modal-panel').innerHTML = html;
                 $('#manage').modal('toggle');
 
-            })">Manage</button>
+            })" {{ auth()->user()->can("employee_Modify") ?: 'disabled' }}>Manage</button>
             <img src="..." style="display: none;" onerror='
             setInterval(function() {
 

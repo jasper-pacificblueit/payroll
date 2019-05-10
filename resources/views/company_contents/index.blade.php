@@ -27,17 +27,16 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-5 m-b-xs">
-                                        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addCompany">
+                                        
+                                        <button type="button" class="btn btn-sm btn-success" {{ auth()->user()->can('company_Create') ? '' : 'disabled' }} data-toggle="modal" data-target="#addCompany">
                                                 Add Company
                                         </button>
-
                                         <div class="modal inmodal fade" id="addCompany" tabindex="-1" role="dialog"  aria-hidden="true">
                                             <div class="modal-dialog modal-sm">
                                                 <div class="modal-content">
                                                     <div class="modal-header no-padding">
                                                         <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                                        <h4 style="padding:10px">Add Company</h4>
-                                                       
                                                     </div>
                                                     <form method="POST" action="/company">
                                                         {{ csrf_field() }}

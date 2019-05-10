@@ -33,7 +33,9 @@
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
                             <li class="{{Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">Manage Employees</a></li>
+                            @can ("employee_Create")
                             <li class="{{Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employees</a></li>
+                            @endcan
                         </ul>
                         <div class="tab-content">
                             <div id="employee" class="tab-pane {{ Request::path() == 'employee' ? 'active' : '' }}">

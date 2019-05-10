@@ -53,13 +53,12 @@
                                         <td>{{$employee->bio_id}}</td>
                                         <input type="text" name="bio_id[]" value="{{$employee->bio_id}}" hidden>
                                         <td>{{ucwords(strtolower($employee->name))}}</td>
-                                        <td>{{$employee->dep}}</td>
+                                        <td>{{ App\Employee::where("bio_id", $employee->bio_id)->first()->departments->name }}</td>
 
                                      
                                         @php
                                             $totalHrs = 0; $diff = array(); $TotalWarning = array();$Warning = 0;
                                             $totalDays = 0;
-                                          
                                         @endphp
                                             @foreach ($employee->attendance as $attendance)
                                                 
@@ -112,7 +111,7 @@
                                 
                             <br>
                             <a href="/dtr" class="btn btn-default">Cancel</a>
-                            <a class="btn btn-success pull-right" data-toggle="modal" data-target="#showWarning">Next</a>
+                            <a class="btn btn-success pull-right" data-toggle="modal" data-target="#showWarning" {{ auth()->user()->can("dtr_Create") ?: 'disabled' }}>Next</a>
                             
                     </div>
                     
@@ -231,6 +230,7 @@
  </div> 
  @endforeach
 
+ @can ("dtr_Create")
  <div class="modal inmodal fade" id="showWarning" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -248,7 +248,6 @@
                                             <th>Bio number</th>
                                             <th>Employee name</th>
                                             <th>Date</th>
-                                            
                                             <th>Time in</th>
                                             <th>Set time out</th>
                                             <th>Total Hour</th>
@@ -386,6 +385,7 @@
             </div>
         </div>
  </div>
+ @endcan
  <input type="button" name="" id="Notif1"  class="btn btn-success btn-sm demo2" style="display:none;">
  
 </form>
@@ -401,9 +401,18 @@
                     <form method="POST" action="/dtr/view" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                            <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
-                            <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" name="upload-file" required></span>
-                            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                            <div class="form-control" data-trigger="fileinput" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px">
+                                <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                <span class="fileinput-filename"></span>
+                            </div>
+                                <span class="input-group-addon btn btn-default btn-file">
+                                <span class="fileinput-new">Select file</span>
+                                <span class="input-group fileinput-exists">Change</span>
+                                <input type="file" name="upload-file" required></span>
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" style="
+                                    border-bottom-right-radius: 5px;
+                                    border-top-right-radius: 5px;
+                                " data-dismiss="fileinput">Remove</a>
                         </div>
                        
                         
@@ -412,8 +421,10 @@
             </div>
            
             <div class="row">
-                <div class="col-lg-2">
-                    <button type="submit" class="form-control">View</button>
+                <div class="col-lg-2 col-xs-3">
+                    
+                    <button type="submit" class="btn btn-default btn-md" style="width: 100%">View</button>
+
                     </form>
                 </div>
             </div>
@@ -473,11 +484,9 @@
                                                 <tr>
                                                     <td>{{ App\Profile::getFullName($employee->user_id) }}</td>
                                                     <td>{{$employee->getDepartment->name}}</td>
-                                                    <td>Web Developer</td>
+                                                    <td>{{ $employee->positions()->title }}</td>
                                                     <td>{{$EmployeeTotalHours}}</td>
                                                     <td>{{$EmployeeTotalDays}}</td>
-                                                    
-                                                    
                                                 </tr>
                                                 @endforeach
 

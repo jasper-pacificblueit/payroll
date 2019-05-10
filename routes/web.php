@@ -166,12 +166,23 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::match(["put", "patch"], "/positions/{position}", "PositionsController@update");
 	});
 
-	
-	Route::get("/holiday", "PayrollController@holiday");
-	Route::get("/rates", "RateController@index");
-	Route::get("/deductions", "RateController@deductions");
-	Route::get("/earnings", "RateController@earnings");
-	Route::post("/addDeductions", "RateController@addDeductions");
+	Route::group(["middleware" => ["permission:rate_View"]], function () {
+		Route::get("/rates", "RateController@index");
+	});
+
+	Route::group(["middleware" => ["permission:deduction_View"]], function () {
+		Route::get("/deductions", "RateController@deductions");
+		Route::get("/holiday", "PayrollController@holiday");
+	});
+
+	Route::group(["middleware" => ["permission:deduction_Create"]], function () {
+		Route::post("/addDeductions", "RateController@addDeductions");
+	});
+
+	Route::group(["middleware" => ["permission:earning_View"]], function () {
+		Route::get("/earnings", "RateController@earnings");
+	});
+
 	
 	// public
 	Route::get('/', 'HomeController@index')->name('dashboard');

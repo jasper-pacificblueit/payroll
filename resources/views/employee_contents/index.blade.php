@@ -54,7 +54,7 @@
 
                                              <div class="col-md-3 col-xs-6">
                                                     <h4>Select Department</h4>
-                                                    <select class="form-control select2_demo_1" id="DepartmentSelector" onchange="EmployeeSelect(this.value)">
+                                                    <select class="form-control select2_demo_2" id="DepartmentSelector" onchange="EmployeeSelect(this.value)">
                                                     </select>
                                              </div>
                                         </div>
@@ -206,7 +206,16 @@
             initComplete: function() { EmployeeSelect(document.getElementById('DepartmentSelector').value); },
         });
 
+        window.addEventListener('resize', function () {
+            $(".select2_demo_1").select2('destroy');
+            $(".select2_demo_2").select2('destroy');
+
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+        });
+
         $(".select2_demo_1").select2();
+        $(".select2_demo_2").select2();
 
         $('[aria-controls=DataTables_Table_0]').on('input', function () {
             $(".dataTables-example").DataTable().search(this.value).draw();

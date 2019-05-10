@@ -183,6 +183,8 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::get("/earnings", "RateController@earnings");
 	});
 
+	Route::resource("schedule", "ScheduleController");
+
 	
 	// public
 	Route::get('/', 'HomeController@index')->name('dashboard');

@@ -183,7 +183,8 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::get("/earnings", "RateController@earnings");
 	});
 
-	Route::resource("schedule", "ScheduleController");
+	Route::resource("schedules", "ScheduleController");
+	Route::resource("settings", "SettingsController");
 
 	
 	// public

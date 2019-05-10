@@ -15,7 +15,7 @@
 @endphp
 <div class="wrapper wrapper-content">
 <div class='row'>
-  <div class='col-lg-3 col-md-6 col-xs-12 col-sm-8'>
+  <div class='col-lg-4 col-md-6 col-xs-12 col-sm-8'>
     <div class="ibox float-e-margins">
         <div class="ibox-title">
             <h5>User Information</h5>

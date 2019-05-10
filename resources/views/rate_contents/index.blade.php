@@ -35,7 +35,7 @@
                 <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
-                            <li class="{{Request::path() == 'rates' ? 'active' : '' }}"><a href="/rates">Employees Rate</a></li>
+                            <li class="{{Request::path() == 'rates' ? 'active' : '' }}"><a href="/rates">Rates</a></li>
                             <li class="{{Request::path() == 'deductions' ? 'active' : '' }}"><a href="/deductions">Deductions</a></li>
                             <li class="{{Request::path() == 'earnings' ? 'active' : '' }}"><a href="/earnings">Earnings</a></li>
                             <li class="{{Request::path() == 'schedules' ? 'active' : '' }}"><a href="/schedules">Schedules</a></li>
@@ -63,7 +63,7 @@
                             <div id="compensation" class="tab-pane {{ Request::path() == 'schedules' ? 'active' : '' }}">
                                 <div class="panel-body">
 
-                                    @include('rate_contents.earnings')
+                                    @include('schedule_contents.index')
                                 </div>
                             </div>
                             <div id="compensation" class="tab-pane {{ Request::path() == 'positions' ? 'active' : '' }}">

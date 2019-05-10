@@ -14,7 +14,7 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        return view('schedule_contents.index');
+        return view('rate_contents.index');
     }
 
     /**

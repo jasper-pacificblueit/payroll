@@ -65,7 +65,7 @@
 
                    </div>
 
-                   <div class="row" style="padding: 14">
+                   <div class="row" style="padding: 14px">
                       <br>
                       <div class="table-responsive">
                         <table class="table table-striped table-bordered">

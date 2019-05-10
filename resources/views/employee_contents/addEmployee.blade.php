@@ -101,7 +101,7 @@
         <br class="hidden-lg">
 
 
-        <div class="col-lg-6 pull-right col-xs-12" style="padding: 14px">
+        <div class="col-lg-6 pull-right col-xs-12" style="padding: 14px;">
           <h2 class="hidden-lg">Permissions (optional)</h2>
           <table class="table table-striped table-bordered">
             <thead>

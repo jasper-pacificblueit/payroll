@@ -79,10 +79,10 @@
                             <tbody id='update'>                                        
                                 @if ( ($Positions = \App\Positions::all())->count() > 0)
                                     @foreach ($Positions as $position)
-                                    <tr ondblclick="$('#position-{{ $position->id }}').modal('show');">
+                                    <tr @can ("position_Modify") ondblclick="$('#position-{{ $position->id }}').modal('show');" @endcan>
                                         <td>
                                             {{$position->id}}
-
+@can ("position_Modify")
 <!-- @@@@@@@@@@@@ modal @@@@@@@@@@@@ -->
 <div class="modal inmodal fade" id="position-{{ $position->id }}" tabindex="-1" role="dialog"  aria-hidden="true">
 <div class="modal-dialog modal-md">
@@ -136,6 +136,7 @@
 </div>
 </div>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@endcan
                                         </td>
                                         <td>{{$position->created_at}}</td>
                                         <td>{{$position->title}}</td>

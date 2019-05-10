@@ -166,15 +166,6 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::match(["put", "patch"], "/positions/{position}", "PositionsController@update");
 	});
 
-
-	
-	Route::resource('schedule', 'ScheduleController');
-
-	Route::get("/holiday", "PayrollController@holiday");
-	Route::get("/rates", "RateController@index");
-	Route::get("/deductions", "RateController@deductions");
-	Route::get("/earnings", "RateController@earnings");
-	Route::post("/addDeductions", "RateController@addDeductions");
 	Route::group(["middleware" => ["permission:rate_View"]], function () {
 		Route::get("/rates", "RateController@index");
 	});

@@ -95,7 +95,7 @@ class DatabaseSeeder extends Seeder
                 ],
                 'employees' => [
                     'company_id' => 1,
-                    'department_id' => App\Department::all()[App\Department::all()->count()],
+                    'department_id' => 1,
                 ],
 
             ],
@@ -125,7 +125,7 @@ class DatabaseSeeder extends Seeder
                 ],
                 'employees' => [
                     'company_id' => 1,
-                    'department_id' => App\Department::all()[App\Department::all()->count()],
+                    'department_id' => 1,
                 ]
 
             ],
@@ -155,7 +155,7 @@ class DatabaseSeeder extends Seeder
                 ],
                 'employees' => [
                     'company_id' => 1,
-                    'department_id' => App\Department::all()[App\Department::all()->count()],
+                    'department_id' => 1,
                 ]
 
             ]

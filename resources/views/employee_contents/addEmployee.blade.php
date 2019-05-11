@@ -43,14 +43,30 @@
                   <option value='0'>Female</option>
                 </select>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <label>Birthdate</label>
-                <input type="date" name="birthdate" class="form-control" required>
+                <input type="date" name="birthdate" class="form-control" required oninput="
+
+                  fetch ('/getServerTime', {
+                    method: 'get',
+                    headers: {
+                      'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    }
+                  }).then(rep => rep.json()).then(json => {
+
+                    var date = new Date(json.carbon.date);
+                    var bday = new Date(this.value);
+
+                    document.querySelector('[name=age]').value = Math.floor(date.getYear() - bday.getYear());
+
+                  });
+
+                ">
               </div>
 
-              <div class="col-lg-4">
+              <div class="col-lg-2">
                 <label>Age</label>
-                <input type="text" name="age" class="form-control" required>
+                <input type="text" name="age" class="form-control" readonly>
               </div>
 
               <div class="col-lg-12">
@@ -208,7 +224,7 @@
             <h2>Rates</h2>
           </div>
           <div class="col-lg-6">
-            <h2>Deductions</h2>
+            <h2 class="hidden-xs hidden-sm hidden-md">Deductions</h2>
           </div>
       	</div>
       </div>
@@ -216,15 +232,19 @@
         <br class="hidden-lg">
 
         <div class="col-lg-6 col-sm-6" style="padding: 0">
-          <div class="col-lg-3 col-xs-3">
+          <div class="col-lg-3">
+            <label>Monthly</label>
+            <input class="form-control" type="text" name="hourly_rate" placeholder="Salary">
+          </div>
+          <div class="col-lg-2 col-xs-3">
             <label>Hourly</label>
             <input class="form-control" type="text" name="hourly_rate" placeholder="Rate">
           </div>
-          <div class="col-lg-3 col-xs-3">
+          <div class="col-lg-2 col-xs-3">
             <label>Overtime</label>
             <input class="form-control" type="text" name="ot_rate" placeholder="Rate">
           </div>
-          <div class="col-lg-3 col-xs-3">
+          <div class="col-lg-2 col-xs-3">
             <label>Holiday</label>
             <input class="form-control" type="text" name="holiday" placeholder="Rate">
           </div>

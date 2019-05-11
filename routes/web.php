@@ -199,4 +199,12 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/profile', 'ProfileController@index')->name('profile');
   	Route::match(['put', 'update'], '/editprofile/chpasswd', 'ProfileController@chpasswd');
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+
+	Route::get("/getServerTime", function () {
+		return json_encode([
+			"carbon" => new Carbon\Carbon(),
+			"timestamp" => strtotime((new DateTime())->format("Y-m-d H:i:s")),
+		]);
+	});
 });

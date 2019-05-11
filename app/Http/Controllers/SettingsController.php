@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Artisan;
 use App\Settings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Cache;
+
 class SettingsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +20,16 @@ class SettingsController extends Controller
     public function index()
     {
        return view('settings_contents.index');
+    }
+
+    public function reset_test() {
+
+        Artisan::call("db:seed", [
+            "--force" => true,
+            "--class" => 'ApplicationReinitializer',
+        ]);
+
+        return json_encode([]);
     }
 
     /**

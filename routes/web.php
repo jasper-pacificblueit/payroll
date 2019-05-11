@@ -184,8 +184,12 @@ Route::group(['middleware' => ['auth']], function() {
 	});
 
 	Route::resource("schedules", "ScheduleController");
-	Route::resource("settings", "SettingsController");
 
+	Route::get("/settings", "SettingsController@index");
+	Route::get("/settings/app", "SettingsController@index");
+	Route::get("/settings/user", "SettingsController@index");
+
+	Route::post("/settings/app/reset", "SettingsController@reset_test");
 	
 	// public
 	Route::get('/', 'HomeController@index')->name('dashboard');
@@ -193,6 +197,6 @@ Route::group(['middleware' => ['auth']], function() {
  	Route::get("/editprofile", "ProfileController@edit")->name('editprofile');
 	Route::post("/editprofile", "ProfileController@update");
 	Route::get('/profile', 'ProfileController@index')->name('profile');
-  Route::match(['put', 'update'], '/editprofile/chpasswd', 'ProfileController@chpasswd');
+  	Route::match(['put', 'update'], '/editprofile/chpasswd', 'ProfileController@chpasswd');
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 });

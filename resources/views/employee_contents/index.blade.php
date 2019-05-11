@@ -15,10 +15,10 @@
             <h2>Manage Employee</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <a>Dashboard</a>
+                    Dashboard
                 </li>
                 <li>
-                    <a href="/employee"><strong>Manage Employee</strong></a>
+                    <strong>Manage Employee</strong>
                 </li>
             </ol>
         </div>

@@ -84,37 +84,37 @@
 
                 
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
-                    <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+                    <a href="/"><i class="fa fa-th-large" style="width: 20px"></i><span class="nav-label">Dashboard</span></a>
                 </li>
 
                 @can ("dtr_View")
                 <li class="{{ Request::path() == 'dtr' || Request::path() == 'dtr/view' ? 'active' : '' }}">
-                    <a href="/dtr"><i class="fa fa-calendar"></i> <span class="nav-label">Attendance</span></a>
+                    <a href="/dtr"><i class="fa fa-calendar" style="width: 20px"></i><span class="nav-label">Attendance</span></a>
                 </li>
                 @endcan
 
                 @can ("payroll_View")
                 <li class="{{ Request::path() == 'payroll' || Request::path() == 'payroll/create' ? 'active' : '' }}">
-                    <a href="/payroll/create"><i class="fa fa-money"></i> <span class="nav-label">Payroll</span></a>
+                    <a href="/payroll/create"><i class="fas fa-dollar-sign" style="width: 20px"></i></i><span class="nav-label">Payroll</span></a>
                 </li>
                 @endcan
 
                 @can ("company_View")
                 <li class="{{ Request::path() == 'company' ? 'active' : '' }}">
-                    <a href="/company"><i class="far fa-building"></i><span>Companies</span></a>
+                    <a href="/company"><i class="far fa-building" style='width: 20px'></i><span class="nav-label">Companies</span></a>
                 </li>
                 @endcan
 
                 @can ("employee_View")
                 @if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
-                <li class="{{ Request::path() == 'employee' ? 'active' : '' }}">
-                        <a href="/employee"><i class="fa fa-users"></i><span>Employees</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
-                            @can ("employee_Create")
-                            <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
-                            @endcan
-                        </ul>
+                <li class="{{ Request::path() == 'employee' || Request::path() == 'employee/add' ? 'active' : '' }}">
+                    <a href="/employee"><i class="fa fa-users" style="width: 20px"></i><span>Employees</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
+                        @can ("employee_Create")
+                        <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
+                        @endcan
+                    </ul>
                 </li>
                 @endif
                 @endcan

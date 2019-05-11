@@ -137,11 +137,11 @@
                     console.log(Description.value);
                     
                     var newNode = document.createElement("LI");
-                    newNode.setAttribute('id', 'DispaddedIncome-'+user_id);
+                    newNode.setAttribute('id', 'DispaddedIncome-'+user_id+'-'+document.querySelector('#DisplayIncome-' + user_id).childElementCount);
                     newNode.className = 'list-group-item';
                     newNode.innerHTML = `
                         <span id="DispaddedDisc">${Description.value} <input type="text" name="addedItemDiscp[${user_id}][]"  class="DiscriptionClass-${user_id}" value="${Description.value}" hidden></span>
-                        <span class="pull-right" style="margin-right:-15px;"><a onclick="removeAddedIncome(${user_id})"><i class="fa fa-close"></i></a></span>
+                        <span class="pull-right" style="margin-right:-15px;"><a onclick="removeAddedIncome(${user_id}, ${document.querySelector('#DisplayIncome-' + user_id).childElementCount})"><i class="fa fa-close"></i></a></span>
                         <span class="pull-right">₱ ${Amount.value} <input type="text" name="addedItemAmount[${user_id}][]" class="IncomeClass-${user_id}" value="${Amount.value}" hidden> </span>
                         
                     `;
@@ -232,12 +232,10 @@
 
         }
 
-        function removeAddedDeduction(user_id) {
-            var element = document.getElementById('DispaddedDeduction-'+user_id);
+        function removeAddedDeduction(user_id, count) {
+            var element = document.getElementById('DispaddedDeduction-'+user_id+'-'+count);
             element.parentNode.removeChild(element);
-            CalculateTotalDeduction(user_id)
-            
-
+            CalculateTotalDeduction(user_id);
         }
 
         function addDeduction(user_id) {
@@ -254,11 +252,11 @@
                     console.log(Description.value);
                     
                     var newNode = document.createElement("LI");
-                    newNode.setAttribute('id', 'DispaddedDeduction-'+user_id);
+                    newNode.setAttribute('id', 'DispaddedDeduction-'+user_id+'-'+document.querySelector("#DisplayDeduction-"+user_id).childElementCount);
                     newNode.className = 'list-group-item';
                     newNode.innerHTML = `
                         <span id="DispaddedDiscDeduction">${Description.value} <input type="text" name="addedDeduction[${user_id}][]"  class="DiscriptionClassDeduction-${user_id}" value="${Description.value}" hidden></span>
-                        <span class="pull-right" style="margin-right:-15px;"><a onclick="removeAddedDeduction(${user_id})"><i class="fa fa-close"></i></a></span>
+                        <span class="pull-right" style="margin-right:-15px;"><a onclick="removeAddedDeduction(${user_id}, ${document.querySelector("#DisplayDeduction-"+user_id).childElementCount})"><i class="fa fa-close"></i></a></span>
                         <span class="pull-right">₱ ${Amount.value} <input type="text" name="addedItemDeductionAmount[${user_id}][]" class="DeductionClass-${user_id}" value="${Amount.value}" hidden> </span>
                         
                     `;
@@ -311,8 +309,8 @@
 
         }
 
-        function removeAddedIncome(user_id) {
-            var element = document.getElementById('DispaddedIncome-'+user_id);
+        function removeAddedIncome(user_id, count) {
+            var element = document.getElementById('DispaddedIncome-'+user_id+'-'+count);
             element.parentNode.removeChild(element);
             CalculateTotalIncome(user_id)
             

@@ -3,49 +3,83 @@
     <tr ondblclick="$('#position-{{ $position->id }}').modal('show');">
         <td>
             {{$position->id}}
+@can ("position_Modify")
 <!-- @@@@@@@@@@@@ modal @@@@@@@@@@@@ -->
 <div class="modal inmodal fade" id="position-{{ $position->id }}" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header no-padding">
-                <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-               <h4 style="padding:10px"></h4>
+<div class="modal-dialog modal-md">
+<div class="modal-content">
+<form method="post" action="/positions/{{ $position->id }}">
+    {{ csrf_field() }}
+    {{ method_field("put") }}
+    <div class="modal-header no-padding">
+       <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-12" style="padding: 0px">
+                <div class="col-lg-5">
+                    <label>Title</label>
+                    <input type=text class="form-control" name="edit-title" placeholder="{{ $position->title }}" title={{$position->title}}>
+                </div>
+                <div class="col-lg-2">
+                    <label>Maximum</label>
+                    <input type=number class="form-control" style="width: 100%" name="edit-lim" placeholder={{ $position->lim }}>
+                </div>
+                <div class="col-lg-5">
+                    <label>Status</label>
+                    <select class="form-control" name="edit-state">
+                        <option value=0 {{ $position->state != 0 ?: 'selected' }}>Available</option>
+                        <option value=1 {{ $position->state != 1 ?: 'selected' }}>Unavailable</option>
+                        <option value=2 {{ $position->state != 2 ?: 'selected' }}>Temporarily Unavailable</option>
+                        <option value=4 {{ $position->state != 3 ?: 'selected' }}>Unknown</option>
+                    </select>
+                </div>
+                <div class="col-lg-12">
+                    <label>Description</label>
+                    <textarea type="text" name="edit-description" id="" class="form-control" style="width: 100%" required>{{ $position->description }}</textarea>
+                </div>
             </div>
-            <form>
-                <div class="modal-body">
-                   <div class="row">
-                       <div class="col-lg-3 col-md-3 col-sm-5 col-xs-6">
-                       </div>
-                   </div>
-                </div>
-                <div class="modal-footer">
-                    <div class='btn-group'>
-                        <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" id='close'>Close</button>
-                        <button type="submit" class="btn btn-sm btn-success" name="submit">Save</button>
-                        @if ($position->id != 1)
-                        @if ($position->count() <= 0)
-                        <button type="button" class="btn btn-sm btn-danger" onclick='
-
-                            fetch("/positions/{{ $position->id }}", {
-                                method: "delete",
-                                headers: {
-                                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                                }
-                            }).then(rep => rep.text()).then(text => {
-                                console.log(text);
-                            });
-                        ' data-dismiss="modal">
-                            Remove
-                        </button>
-                        @endif
-                        @endif
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
+    <div class="modal-footer">
+        <div class='btn-group'>
+            <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" id='close'>Close</button>
+            <button type="submit" class="btn btn-sm btn-success">Save</button>
+            <button type="button" class="btn btn-sm btn-danger"
+            @if ($position->id == 1 || $position->count() > 0)
+                {{ 'disabled' }}
+            @endif
+             onclick='
+                fetch("/positions/{{ $position->id }}", {
+                    method: "delete",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    }
+                }).then(rep => rep.text()).then(text => {
+                    $(".positionTable").DataTable().destroy();
+                    document.querySelector("#update").innerHTML = text;
+                    $(".positionTable").DataTable({
+                        pageLength: 10,
+                        language: {
+                            paginate: {
+                                previous: `<i class="fas fa-arrow-left"></i>`,
+                                next: `<i class="fas fa-arrow-right"></i>`,
+                            }
+                        },
+                   }).draw();
+                });
+            '
+             data-dismiss="modal">
+                Remove
+            </button>
+        </div>
+    </div>
+</form>
+</div>
+</div>
 </div>
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+@endcan
         </td>
         <td>{{$position->created_at}}</td>
         <td>{{$position->title}}</td>

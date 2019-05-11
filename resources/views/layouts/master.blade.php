@@ -31,10 +31,8 @@
 @endphp
 <body class="skin-1">
 @php
-    
     $profile = App\Profile::where('user_id', auth()->user()->id)->first();
     $profile->image = (array)json_decode($profile->image);
-
 @endphp
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">

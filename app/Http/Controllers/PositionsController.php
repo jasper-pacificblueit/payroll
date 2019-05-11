@@ -86,10 +86,16 @@ class PositionsController extends Controller
      * @param  \App\Positions  $positions
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Positions $positions)
+    public function update(Request $request, Positions $position)
     {
-        //
-    }
+        $position->title = request('edit-title') ? request('edit-title') : $position->title;
+        $position->description = request('edit-description');
+        $position->state = in_array(request('edit-state'), [0,1,2,3]) ? request('edit-state') : $position->state;
+        $position->lim = request('edit-lim') <= 0 ? $position->lim : request('edit-lim');
+        $position->save();
+
+        return back();
+    }   
 
     /**
      * Remove the specified resource from storage.

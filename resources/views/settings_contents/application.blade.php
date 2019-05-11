@@ -29,6 +29,5 @@
 			<div class="modal inmodal fade" id="progress" tabindex="-1" role="dialog" aria-hidden="true"></div>
 		</div>
 	</div>
-	
 </div>
 

@@ -162,11 +162,10 @@
                                         </td>
                                         <td>{{$position->created_at}}</td>
                                         <td>{{$position->title}}</td>
-                                        <td width=500 class="hidden-xs hidden-sm">{{ $position->description }}</td>
+                                        <td width=450 class="hidden-xs hidden-sm">{{ $position->description }}</td>
                                         <td>{{ $position->count() }}/{{ $position->lim }}</td>
                                         @php
-                                            if ($position->count()/$position->lim == 1) $position->state = 1;
-
+                                            if ($position->count()/$position->lim >= 1) $position->state = 1;
                                             $position->save();
                                         @endphp
                                         <td>

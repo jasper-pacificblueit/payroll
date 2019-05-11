@@ -34,7 +34,6 @@
 
              <div class="row">
                 <div class="col-lg-12">
-                 
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
                             <li class="{{Request::path() == 'payroll/create' ? 'active' : '' }}"><a href="/payroll/create">Create Payroll</a></li>

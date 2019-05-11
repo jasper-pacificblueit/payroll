@@ -130,31 +130,31 @@
                         <ul class="nav nav-second-level collapse">
                             @can ("rate_View")
                             <li>
-                                <a href="/rates"><i class="fa fa-money"></i>Rates</span></a>
+                                <a href="/rates"><i class="fa fa-money" style="width: 20px"></i>Rates</span></a>
                             </li>
                             @endcan
 
                             @can ("deduction_View")
                             <li>
-                                <a href="/deductions"><i class="fas fa-level-down-alt"></i>Deductions</span></a>
+                                <a href="/deductions"><i class="fas fa-level-down-alt" style="width: 20px"></i>Deductions</span></a>
                             </li>
                             @endcan
 
                             @can ("earning_View")
                             <li>
-                                <a href="/earnings"><i class="far fa-chart-bar"></i>Earnings</span></a>
+                                <a href="/earnings"><i class="far fa-chart-bar" style="width: 20px"></i>Earnings</span></a>
                             </li>
                             @endcan
 
                             @can ("schedule_View")
                             <li>
-                                <a href="/schedules"><i class="far fa-clock"></i>Schedules</a>
+                                <a href="/schedules"><i class="far fa-clock" style="width: 20px"></i>Schedules</a>
                             </li>
                             @endcan
 
                             @can ("position_View")
                             <li>
-                                <a href="/positions"><i class="fa fa-user"></i>Positions</a>
+                                <a href="/positions"><i class="fa fa-user" style="width: 20px"></i>Positions</a>
                             </li>
                             @endcan
                         </ul>

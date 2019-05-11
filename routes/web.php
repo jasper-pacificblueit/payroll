@@ -70,7 +70,6 @@ Route::group(['middleware' => ['auth']], function() {
 
 	});
 
-	
 	// Department View
 	Route::group(['middleware' => ['permission:department_View']], function () {
 		Route::get('/company/{id}', 'CompanyController@show');

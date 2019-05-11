@@ -49,8 +49,9 @@ class PositionsController extends Controller
 
         $position->title = request('name');
         $position->description = request('description');
-        $position->state = request('state');
         $position->lim = request('max');
+        $position->state = request('state');
+
         $position->save();
 
         return back();

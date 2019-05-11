@@ -3,7 +3,7 @@
 @section('title', 'Settings')
 
 @section('styles')
-
+{!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
 @endsection
 
 @section('content')
@@ -63,7 +63,15 @@
     
     $(document).ready(function(){
 
-        
+        $(".migrationTable").DataTable({
+            pageLength: 10, 
+            language: {
+                paginate: {
+                    previous: '<i class="fas fa-arrow-left"></i>',
+                    next: '<i class="fas fa-arrow-right"></i>',
+                }
+            },
+       });
 
     });
     

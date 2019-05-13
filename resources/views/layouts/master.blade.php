@@ -106,12 +106,13 @@
                 @can ("employee_View")
                 @if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0)
                 <li class="{{ Request::path() == 'employee' || Request::path() == 'employee/add' ? 'active' : '' }}">
-                    <a href="/employee"><i class="fa fa-users" style="width: 20px"></i><span>Employees</span><span class="fa arrow"></span></a>
+                    <a href="/employee"><i class="fas fa-address-card" style="width: 20px"></i><span>Employees</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee">View Employee</a></li>
                         @can ("employee_Create")
-                        <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add">Add Employee</a></li>
+                        <li class="{{ Request::path() == 'employee/add' ? 'active' : '' }}"><a href="/employee/add"><i class="fas fa-user-plus" style="width: 20px"></i> Add</a></li>
                         @endcan
+
+                        <li class="{{ Request::path() == 'employee' ? 'active' : '' }}"><a href="/employee"><i class="fa fa-users" style="width: 20px"></i> Manage</a></li>
                     </ul>
                 </li>
                 @endif
@@ -129,35 +130,39 @@
                         <a href="#"><i class="fa fa-tasks"></i> <span class="nav-label">Management</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             @can ("rate_View")
-                            <li>
+                            <li class="{{ Request::path() == 'rates' ? 'active' : '' }}">
                                 <a href="/rates"><i class="fa fa-money" style="width: 20px"></i>Rates</span></a>
                             </li>
                             @endcan
 
                             @can ("deduction_View")
-                            <li>
+                            <li class="{{ Request::path() == 'deductions' ? 'active' : '' }}">
                                 <a href="/deductions"><i class="fas fa-level-down-alt" style="width: 20px"></i>Deductions</span></a>
                             </li>
                             @endcan
 
                             @can ("earning_View")
-                            <li>
+                            <li class="{{ Request::path() == 'earnings' ? 'active' : '' }}">
                                 <a href="/earnings"><i class="far fa-chart-bar" style="width: 20px"></i>Earnings</span></a>
-                            </li>
+                            </li class="{{ Request::path() == 'earnings' ? 'active' : '' }}">
                             @endcan
 
                             @can ("schedule_View")
-                            <li>
+                            <li class="{{ Request::path() == 'schedules' ? 'active' : '' }}">
                                 <a href="/schedules"><i class="far fa-clock" style="width: 20px"></i>Schedules</a>
                             </li>
                             @endcan
 
                             @can ("position_View")
-                            <li>
+                            <li class="{{ Request::path() == 'positions' ? 'active' : '' }}">
                                 <a href="/positions"><i class="fa fa-user" style="width: 20px"></i>Positions</a>
                             </li>
                             @endcan
                         </ul>
+                </li>
+
+                <li class="{{ Request::path() == 'settings/app' || Request::path() == 'settings/user' ? 'active' : '' }} hidden-lg hidden-sm hidden-md">
+                    <a href="/settings/app"><i class="fa fa-cogs" style="width: 20px"></i><span>Settings</span></a>
                 </li>
                 @endif
 

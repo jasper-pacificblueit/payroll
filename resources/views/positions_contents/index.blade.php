@@ -118,7 +118,79 @@
                     <textarea type="text" name="edit-description" id="" class="form-control" style="width: 100%">{{ $position->description }}</textarea>
                 </div>
             </div>
+
+          <div class="col-lg-12 col-xs-12" style="padding: 14px;">
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Department</th>
+                <th>Company</th>
+                <th>Employee</th>
+                <th>Positions</th>
+                <th>DTR</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  @foreach(['department', 'company', 'employee', 'position', 'dtr'] as $tmp)
+                    <td>
+                      @foreach(["Create", "Modify", "View", "Delete"] as $perm)
+                      <label class="text-muted">{{ $perm }}</label>
+                      <div class="icheckbox_square-green pull-right" id="checkbox-{{ $perm }}-{{ $tmp }}" style="position: relative;" title="{{ $perm }}">
+                        <input type="hidden" name="{{ $tmp }}_{{ $perm }}" style="position: absolute; opacity: 0;" value=false>
+                        <ins class="iCheck-helper" id="{{$tmp}}_{{$perm}}" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;" title="{{ $perm }}" onclick="
+                          if (document.querySelector('#checkbox-{{ $perm }}-{{ $tmp }}').classList.contains('checked')) {
+                            document.querySelector('#checkbox-{{ $perm }}-{{ $tmp }}').classList.remove('checked');
+                            document.getElementsByName('{{ $tmp }}_{{ $perm }}')[0].value = false;
+                          } else {
+                            document.querySelector('#checkbox-{{ $perm }}-{{ $tmp }}').classList.add('checked');
+                            document.getElementsByName('{{ $tmp }}_{{ $perm }}')[0].value = true;
+                          }
+                        "></ins>
+                      </div>
+                      <br>
+                      @endforeach
+                    </td>
+                  @endforeach
+                </tr>
+                <tr>
+                  <thead>
+                    <th>Payroll</th>
+                    <th>Rate</th>
+                    <th>Schedule</th>
+                    <th>Deduction</th>
+                    <th>Earning</th>
+                  </thead>
+                </tr>
+                <tr>
+                  @foreach(['payroll', 'rate', 'schedule', 'deduction', 'earning'] as $tmp)
+                    <td>
+                      @foreach(["Create", "Modify", "View", "Delete"] as $perm)
+                      <label class="text-muted">{{ $perm }}</label>
+                      <div class="icheckbox_square-green pull-right" id="checkbox-{{ $perm }}-{{ $tmp }}" style="position: relative;">
+                        <input type="hidden" name="{{ $tmp }}_{{ $perm }}" style="position: absolute; opacity: 0;" value=false>
+                        <ins class="iCheck-helper" id="{{$tmp}}_{{$perm}}" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;" title="{{ $perm }}" onclick="
+                          if (document.querySelector('#checkbox-{{ $perm }}-{{ $tmp }}').classList.contains('checked')) {
+                            document.querySelector('#checkbox-{{ $perm }}-{{ $tmp }}').classList.remove('checked');
+                            document.getElementsByName('{{ $tmp }}_{{ $perm }}')[0].value = false;
+                          } else {
+                            document.querySelector('#checkbox-{{ $perm }}-{{ $tmp }}').classList.add('checked');
+                            document.getElementsByName('{{ $tmp }}_{{ $perm }}')[0].value = true;
+                          }
+                        "></ins>
+                      </div>
+                      <br>
+                      @endforeach
+                    </td>
+                  @endforeach
+                </tr>
+            </tbody>
+            <tfoot>
+            </tfoot>
+          </table>
         </div>
+        </div>
+
     </div>
     <div class="modal-footer">
         <div class='btn-group'>
@@ -164,10 +236,6 @@
                                         <td>{{$position->title}}</td>
                                         <td width=450 class="hidden-xs hidden-sm">{{ $position->description }}</td>
                                         <td>{{ $position->count() }}/{{ $position->lim }}</td>
-                                        @php
-                                            if ($position->count()/$position->lim >= 1) $position->state = 1;
-                                            $position->save();
-                                        @endphp
                                         <td>
                                             @php
                                                 switch ($position->state) {

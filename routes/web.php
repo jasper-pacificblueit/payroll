@@ -184,13 +184,9 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::resource("schedules", "ScheduleController");
 
-	Route::get("/settings", "SettingsController@index");
-
 	Route::post("/settings/app", "SettingsController@update");
 	Route::get("/settings/app", "SettingsController@index");
-	
 	Route::get("/settings/user", "SettingsController@index");
-
 	Route::post("/settings/app/reset", "SettingsController@reset");
 	
 	// public

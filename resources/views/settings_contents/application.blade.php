@@ -53,7 +53,9 @@
 	        				@foreach ($migrations as $mig)
 	        				<tr>
 	        					<td>{{ $mig->migration }}</td>
-	        					<td><strong class="{{ $mig->batch ? "alert-success" : "alert-danger" }} pull-right">M</strong></td>
+	        					<td>
+	        						<strong class="{{ $mig->batch ? "alert-success" : "alert-danger" }} pull-right">M</strong>
+	        					</td>
 	        				</tr>
 	        				@endforeach
 	        			</tbody>

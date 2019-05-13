@@ -110,10 +110,6 @@
                                         @endforeach
                                     @endif
                                 @endif
-                            @else
-                                <tr>
-                                    <td colspan="7">No Result</td>
-                                </tr>
                             @endif
                             
                            

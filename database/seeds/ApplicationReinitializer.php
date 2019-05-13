@@ -45,7 +45,7 @@ class ApplicationReinitializer extends Seeder
             'title' => 'Administrator',
             'state' => 2,
             'lim' => 1,
-            'description' => 'Controls the entire company',
+            'description' => '',
 
         ];
         // ------------------------------------------------------------------------------------

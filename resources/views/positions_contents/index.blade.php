@@ -115,7 +115,7 @@
                 </div>
                 <div class="col-lg-12">
                     <label>Description</label>
-                    <textarea type="text" name="edit-description" id="" class="form-control" style="width: 100%" required>{{ $position->description }}</textarea>
+                    <textarea type="text" name="edit-description" id="" class="form-control" style="width: 100%">{{ $position->description }}</textarea>
                 </div>
             </div>
         </div>

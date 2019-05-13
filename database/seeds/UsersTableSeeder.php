@@ -45,6 +45,7 @@ class UsersTableSeeder extends Seeder
                     $faker->randomElement(App\Department::find(1)->pluck('id')->toArray()),
             ]));
 
+            // rates
             $user->employee->rates()->save(new App\Rate([
                 'employee_id' => $user->employee->id,
                 'hourly' => 50.5,
@@ -54,6 +55,7 @@ class UsersTableSeeder extends Seeder
                 'nightdiff' => 40.6,
             ]));
 
+            // deductions
             $user->employee->deductions()->save(new App\Deduction([
                 'deductions' => json_encode([
                     'statutory' => [
@@ -61,6 +63,16 @@ class UsersTableSeeder extends Seeder
                         'pagibig' => 99.4,
                         'philhealth' => 54.4,
                     ],
+                ]),
+            ]));
+
+            // settings
+            $user->settings()->save(new App\Settings([
+                'user_id' => $user->id,
+                'settings' => json_encode([
+
+                    'skin' => '',
+
                 ]),
             ]));
         });
@@ -99,6 +111,15 @@ class UsersTableSeeder extends Seeder
                 ]),
 
             ]))->save();
+
+            (new App\Settings([
+                'user_id' => $user->id,
+                'settings' => json_encode([
+
+                    'skin' => 'skin-1',
+
+                ]),
+            ]));
         }
     }
 
@@ -154,6 +175,13 @@ class UsersTableSeeder extends Seeder
         $userContact->address = $userInfo->address;
         $userContact->user_id = $user->id;
         $userContact->save();
+
+        $user->settings()->save(new App\Settings([
+            'user_id' => $user->id,
+            'settings' => json_encode([
+                'skin' => '',
+            ]),
+        ]));
 
         // set permissions for admin
         $user->syncPermissions(Permission::getPerm());

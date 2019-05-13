@@ -27,9 +27,9 @@
     @yield('styles')
 </head>
 @php
-
+    $config = json_decode(auth()->user()->settings->settings);
 @endphp
-<body class="skin-1">
+<body class="{{ $config->skin }}">
 @php
     $profile = App\Profile::where('user_id', auth()->user()->id)->first();
     $profile->image = (array)json_decode($profile->image);
@@ -42,7 +42,7 @@
                     <div class="dropdown profile-element">
                         <span>
                             <img alt="image" class="img-responsive" src="{{ $profile->image['data'] }}" 
-                                style='max-width: 75px; position: relative; left: 46px; border-radius: 100%; border: 2px;'/>
+                                style='max-width: 75px; position: relative; left: 47px; border-radius: 100%; border: 2px;'/>
                         </span>
 
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -61,7 +61,7 @@
                             </li>
 
                             <li>
-                                <a onclick="window.location.href='/settings'"><i class="fa fa-cog"></i> <span class="nav-label">Settings</span></a>
+                                <a onclick="window.location.href='/settings/app'"><i class="fa fa-cog"></i> <span class="nav-label">Settings</span></a>
                             </li>
                             
                             <li>
@@ -172,7 +172,7 @@
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#"><i class="fa fa-bars"></i></a>
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-success" href="#"><i class="fa fa-bars"></i></a>
                 </div>
                 
                 <ul class="nav navbar-top-links navbar-right text-right">

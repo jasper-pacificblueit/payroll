@@ -17,7 +17,8 @@ class CreateRatesTable extends Migration
             $table->increments('id');
             $table->integer('employee_id')->unsigned();
 
-            $table->float('hourly');
+            $table->float('monthly')->nullable();
+            $table->float('hourly')->nullable();
             $table->float('holiday')->nullable();
             $table->float('overtime')->nullable();
             $table->float('nightdiff')->nullable();

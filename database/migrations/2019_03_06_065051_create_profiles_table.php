@@ -23,7 +23,6 @@ class CreateProfilesTable extends Migration
             $table->string('lname');
             $table->string('mname');
             $table->date('birthdate');
-            $table->integer('age');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

@@ -226,7 +226,7 @@
 // event function that change the department options when company droplist is changed.
     var chdep = function () {
 
-        fetch ("/selectDepartment?q="+ document.getElementsByName('company')[0].value +"", {
+        fetch ("/selectDepartment?q="+ document.getElementsByName('company')[0].value, {
             method: "get",
             headers: {
                 "X-CSRF-TOKEN": "{{ csrf_token() }}",

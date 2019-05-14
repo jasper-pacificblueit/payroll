@@ -233,17 +233,17 @@
             <div class="col-lg-5">
               <label>AM</label>
               <div class="input-daterange input-group am" id="datepicker">
-                  <input type="time" class="input form-control" name="in_am" value="">
-                  <span class="input-group-addon am_to">to</span>
-                  <input type="time" class="input form-control" name="out_am" value="">
+                  <input type="time" class="input form-control" name=in_am>
+                  <span class="input-group-addon">to</span>
+                  <input type="time" class="input form-control" name=out_am>
               </div>
             </div>
             <div class="col-lg-5">
               <label>PM</label>
               <div class="input-daterange input-group pm" id="datepicker">
-                  <input type="time" class="form-control" name="in_pm" value="">
-                  <span class="input-group-addon pm_to">to</span>
-                  <input type="time" class="form-control" name="out_pm" value="">
+                  <input type="time" class="form-control" name=in_pm>
+                  <span class="input-group-addon">to</span>
+                  <input type="time" class="form-control" name=out_pm>
               </div>
             </div>
         </div>
@@ -267,23 +267,37 @@
         <div class="col-lg-6 col-sm-6" style="padding: 0">
           <div class="col-lg-3">
             <label>Monthly</label>
-            <input class="form-control" type="text" name="hourly_rate" placeholder="Salary">
+            <input class="form-control" type="number" name="monthly_salary" placeholder="Salary" oninput="
+              fetch ('/getServerTime', {
+                method: 'get',
+                headers: {
+                  'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+              }).then(rep => rep.json()).then(json => {
+
+
+                document.querySelector('[name=hourly_rate]').value = (this.value/26/8).toFixed(2);
+                document.querySelector('[name=ot_rate]').value = (this.value/26/8*1.25).toFixed(2);
+                document.querySelector('[name=holiday_rate]').value = (this.value/26/8*2).toFixed(2);
+                document.querySelector('[name=nightdiff_rate]').value = (this.value/26/8*.1).toFixed(2);
+              });
+            ">
           </div>
           <div class="col-lg-2 col-xs-3">
             <label>Hourly</label>
-            <input class="form-control" type="text" name="hourly_rate" placeholder="Rate">
+            <input class="form-control" type="number" name="hourly_rate" placeholder="Rate">
           </div>
           <div class="col-lg-2 col-xs-3">
             <label>Overtime</label>
-            <input class="form-control" type="text" name="ot_rate" placeholder="Rate">
+            <input class="form-control" type="number" name="ot_rate" placeholder="Rate">
           </div>
           <div class="col-lg-2 col-xs-3">
             <label>Holiday</label>
-            <input class="form-control" type="text" name="holiday" placeholder="Rate">
+            <input class="form-control" type="number" name="holiday_rate" placeholder="Rate">
           </div>
           <div class="col-lg-3 col-xs-3">
             <label title="Night Differential">Night Diff.</label>
-            <input class="form-control" type="text" name="nightdiff_rate" placeholder="Rate">
+            <input class="form-control" type="number" name="nightdiff_rate" placeholder="Rate">
           </div>
         </div>
 
@@ -369,10 +383,10 @@
           document.querySelector("[name=in_pm]").value = "";
           document.querySelector("[name=out_pm]").value = "";
 
-          document.querySelector("[name=in_am]").disabled = false;
-          document.querySelector("[name=out_am").disabled = false;
-          document.querySelector("[name=in_pm]").disabled = false;
-          document.querySelector("[name=out_pm]").disabled = false;
+          document.querySelector("[name=in_am]").removeAttribute("readonly");
+          document.querySelector("[name=out_am").removeAttribute("readonly");
+          document.querySelector("[name=in_pm]").removeAttribute("readonly");
+          document.querySelector("[name=out_pm]").removeAttribute("readonly");
           return;
         } else {
           document.querySelector("[name=in_am]").value = json.in_am;
@@ -380,14 +394,11 @@
           document.querySelector("[name=in_pm]").value = json.in_pm;
           document.querySelector("[name=out_pm]").value = json.out_pm;
 
-          document.querySelector("[name=in_am]").disabled = true;
-          document.querySelector("[name=out_am").disabled = true;
-          document.querySelector("[name=in_pm]").disabled = true;
-          document.querySelector("[name=out_pm]").disabled = true;
+          document.querySelector("[name=in_am]").setAttribute("readonly", "readonly");
+          document.querySelector("[name=out_am").setAttribute("readonly", "readonly");
+          document.querySelector("[name=in_pm]").setAttribute("readonly", "readonly");
+          document.querySelector("[name=out_pm]").setAttribute("readonly", "readonly");
         }
-        
-        
-
     });
   }
 

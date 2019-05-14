@@ -77,7 +77,6 @@
                                         <th>Address</th>
                                         <th>Department/s</th>
                                         <th>Employee/s</th>  
-                                        <th></th>  
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -89,10 +88,6 @@
                                             <td>{{$company->address}}</td>
                                             <td>{{count($company->departments)}}</td>
                                             <td>{{count(App\Employee::where('company_id', '=', $company->id)->get())}}</td>
-                                            <td>
-                                                <a href="company/{{ $company->id }}" class="btn btn-default btn-xs">Manage</a>
-                                            </td>
-                                            
                                         </tr>    
                                         @endforeach
                                     @endif

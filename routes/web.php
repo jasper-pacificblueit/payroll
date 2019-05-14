@@ -11,6 +11,10 @@
 |
 */
 
+Route::fallback(function () {
+	return view('errors.404');
+});
+
 Route::middleware(['guest'])->group(function() {
 	Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 	Route::post('login', 'Auth\LoginController@login');

@@ -12,8 +12,7 @@
           <h5>My Profile</h5>
         </div>
         <div class="ibox-content">
-          <img alt="image" class="img-responsive" 
-                    src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+          <img alt="image" class="img-responsive" src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
         </div>
         <div class="ibox-footer">
 

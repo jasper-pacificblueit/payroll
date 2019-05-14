@@ -234,7 +234,7 @@
               <label>AM</label>
               <div class="input-daterange input-group am" id="datepicker">
                   <input type="time" class="input form-control" name="in_am" value="">
-                  <span class="input-group-addon">to</span>
+                  <span class="input-group-addon am_to">to</span>
                   <input type="time" class="input form-control" name="out_am" value="">
               </div>
             </div>
@@ -242,7 +242,7 @@
               <label>PM</label>
               <div class="input-daterange input-group pm" id="datepicker">
                   <input type="time" class="form-control" name="in_pm" value="">
-                  <span class="input-group-addon">to</span>
+                  <span class="input-group-addon pm_to">to</span>
                   <input type="time" class="form-control" name="out_pm" value="">
               </div>
             </div>
@@ -368,13 +368,25 @@
           document.querySelector("[name=out_am").value = "";
           document.querySelector("[name=in_pm]").value = "";
           document.querySelector("[name=out_pm]").value = "";
+
+          document.querySelector("[name=in_am]").disabled = false;
+          document.querySelector("[name=out_am").disabled = false;
+          document.querySelector("[name=in_pm]").disabled = false;
+          document.querySelector("[name=out_pm]").disabled = false;
           return;
+        } else {
+          document.querySelector("[name=in_am]").value = json.in_am;
+          document.querySelector("[name=out_am").value = json.out_am;
+          document.querySelector("[name=in_pm]").value = json.in_pm;
+          document.querySelector("[name=out_pm]").value = json.out_pm;
+
+          document.querySelector("[name=in_am]").disabled = true;
+          document.querySelector("[name=out_am").disabled = true;
+          document.querySelector("[name=in_pm]").disabled = true;
+          document.querySelector("[name=out_pm]").disabled = true;
         }
         
-        document.querySelector("[name=in_am]").value = json.in_am;
-        document.querySelector("[name=out_am").value = json.out_am;
-        document.querySelector("[name=in_pm]").value = json.in_pm;
-        document.querySelector("[name=out_pm]").value = json.out_pm;
+        
 
     });
   }

@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Carbon\Carbon;
 
-use App\Employee;
-
 class EmployeeController extends Controller
 {
     /**
@@ -196,7 +194,7 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id) {
+    public function destroy($id) {
         App\User::destroy($id);
     }
 

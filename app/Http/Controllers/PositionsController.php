@@ -38,7 +38,6 @@ class PositionsController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'description' => 'required',
             'state' => 'required',
             'max' => 'required',
         ]);
@@ -48,7 +47,7 @@ class PositionsController extends Controller
         $position = new Positions();
 
         $position->title = request('name');
-        $position->description = request('description');
+        $position->description = request('description') ? request('description') : '';
         $position->lim = request('max');
         $position->state = request('state');
 

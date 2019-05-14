@@ -93,7 +93,7 @@
 
 <script>
 
-    function EmployeeSelect(str, pg) {
+    function EmployeeSelect(str) {
         if (str.length == 0) { 
             document.getElementById("EmployeeTable").innerHTML= "";
             return;

@@ -35,6 +35,22 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::group(['middleware' => ['permission:employee_Create']], function () {
 			Route::get('/employee/add', 'EmployeeController@create')->name('addEmployee');
 			Route::post('/employee/keep', 'EmployeeController@store');
+
+			Route::get("/employee/add/schedules/{id}/{type?}/{req_type?}", function ($id, $type = '', $req_type = 'option') {
+
+				switch ($req_type) {
+				case 'option':
+					return view('schedule_contents.schedules')->with([
+						'schedules' => App\Department::find($id)->schedules,
+					]);
+					break;
+				case 'json':
+				 return json_encode(App\Schedule::where('department_id', $id)->where('type', $type)->first());
+				}
+				
+
+			});
+
 		});
 
 		// Employee Modify

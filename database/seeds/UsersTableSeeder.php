@@ -119,7 +119,9 @@ class UsersTableSeeder extends Seeder
                     'skin' => 'skin-1',
 
                 ]),
-            ]));
+            ]))->save();
+
+
         }
     }
 

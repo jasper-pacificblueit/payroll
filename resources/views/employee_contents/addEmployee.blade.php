@@ -196,30 +196,61 @@
 
 
       <div class="row">
-      	<div class="col-lg-12">
-      		<h2>Workplace & Schedule</h2>
-      	</div>
-      	<div class="col-lg-3 col-sm-6">
-              
-      		<label>Company</label>
-          <select class="form-control" name="company" onchange="chdep()" required>
-            @foreach($company as $i)
-              <option value="{{ $i->id }}">{{ $i->name }}</option>
-            @endforeach
-          </select>
+        <div class="col-lg-6" style="padding: 0">
+          <div class="col-lg-12">
+            <h2>Workplace</h2>
+          </div>
+          <div class="col-lg-6 col-sm-6">
+            <label>Company</label>
+            <select class="form-control" name="company" onchange="chdep()" required>
+              @foreach($company as $i)
+                @if (count($i->departments) > 0)
+                <option value="{{ $i->id }}">{{ $i->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
 
+          <div class="col-lg-6 col-sm-6">
+            <label>Department</label>
+            <select class="form-control company-dep" name="department" onchange="chsched(this.value)" required>
+              @foreach($company[0]->departments as $dep)
+                <option value="{{ $dep->id }}" selected>{{$dep->name}}</option>
+              @endforeach       
+            </select>
+          </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
-        	<label>Department</label>
-          <select class="form-control company-dep" name="department" required>
-            @foreach($company[0]->departments as $dep)
-              <option value="{{ $dep->id }}" selected>{{$dep->name}}</option>
-            @endforeach       
-          </select>
-        </div>
+      	
 
+        <div class="col-lg-6" style="padding: 0">
+            <div class="col-lg-12">
+              <h2>Schedules</h2>
+            </div>
+            <div class="col-lg-2">
+              <label>Type</label>
+              <select class="form-control" name="schedule" required onchange="chtype(this.value, this.options[this.selectedIndex].innerHTML)"></select>
+            </div>
+            <div class="col-lg-5">
+              <label>AM</label>
+              <div class="input-daterange input-group am" id="datepicker">
+                  <input type="time" class="input form-control" name="in_am" value="">
+                  <span class="input-group-addon">to</span>
+                  <input type="time" class="input form-control" name="out_am" value="">
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <label>PM</label>
+              <div class="input-daterange input-group pm" id="datepicker">
+                  <input type="time" class="form-control" name="in_pm" value="">
+                  <span class="input-group-addon">to</span>
+                  <input type="time" class="form-control" name="out_pm" value="">
+              </div>
+            </div>
+        </div>
       </div>
+
       <hr style="margin: 5px">
+
       <div class="row">
       	<div class="col-lg-12" style="padding: 0px">
           <div class="col-lg-6">
@@ -320,6 +351,36 @@
     });
   }
 
+  function chsched(dep_id) {
+    fetch ("/employee/add/schedules/" + dep_id).then(rep => rep.text()).then(text => {
+      var schedule = document.querySelector("[name=schedule]");
+      schedule.innerHTML = text;
+      console.log(schedule);
+      chtype(schedule.value, schedule.options[schedule.selectedIndex].innerHTML);
+    });
+  }
+
+  function chtype(sched_id, type) {
+    fetch ("/employee/add/schedules/" + sched_id + "/" + type + "/json").then(rep => rep.json()).then(json => {
+
+        if (type == "Custom") {
+          document.querySelector("[name=in_am]").value = "";
+          document.querySelector("[name=out_am").value = "";
+          document.querySelector("[name=in_pm]").value = "";
+          document.querySelector("[name=out_pm]").value = "";
+          return;
+        }
+        
+        document.querySelector("[name=in_am]").value = json.in_am;
+        document.querySelector("[name=out_am").value = json.out_am;
+        document.querySelector("[name=in_pm]").value = json.in_pm;
+        document.querySelector("[name=out_pm]").value = json.out_pm;
+
+    });
+  }
+
+
+  chsched(document.querySelector(".company-dep").value);
   autoFillPerm(document.getElementsByName('position')[0]);
 
 </script>

@@ -165,16 +165,13 @@
                         <button type="submit" class="btn btn-sm btn-success" name="submit" onclick="document.querySelector('#btnclick-{{ $eminfo->user_id }}').disabled = false;">Save</button>
                         <button class="btn btn-sm btn-danger" 
                             onclick="
-
-                                var pg = $('.dataTables-example').DataTable().page();
-
                                 fetch('/employee/{{ $eminfo->user_id }}', {
                                     method: 'delete',
                                     headers: {
                                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
                                     }
                                 }).then(function() { 
-                                    EmployeeSelect(document.getElementById('DepartmentSelector').value, pg);
+                                    EmployeeSelect(document.getElementById('DepartmentSelector').value);
                                 });
                                 
                             " data-dismiss="modal">

@@ -26,29 +26,40 @@
 
     @yield('styles')
 </head>
+@guest
+@else
 @php
     $config = json_decode(auth()->user()->settings->settings);
 @endphp
-<body class="{{ $config->skin }}">
+@endguest
+<body class="@guest @else{{ $config->skin }}@endguest">
+@guest
+@else
 @php
     $profile = App\Profile::where('user_id', auth()->user()->id)->first();
     $profile->image = (array)json_decode($profile->image);
 @endphp
+@endguest
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element">
+                        @guest
+                        @else
                         <span>
                             <img alt="image" class="img-responsive" src="{{ $profile->image['data'] }}" 
                                 style='max-width: 75px; position: relative; left: 47px; border-radius: 100%; border: 2px;'/>
                         </span>
+                        @endguest
 
+                        @guest
+                        @else
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">
                                 <span class="block m-t-xs">
-                                    <strong class="font-bold">{{ App\Profile::getFullName(auth()->user()->id) }}</strong>
+                                    <strong class="font-bold">@guest @else{{ App\Profile::getFullName(auth()->user()->id) }}@endguest</strong>
                                 </span>
                                 <span class="text-muted text-xs block">
                                     <b class="caret"></b>
@@ -72,6 +83,7 @@
                                 </a>
                             </li>  
                         </ul>
+                        @endguest
                     </div>
                     <div class="logo-element">
                         PMR
@@ -80,7 +92,9 @@
 
                 {{--side menus start--}}
 
-                
+                @guest
+
+                @else
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large" style="width: 20px"></i><span class="nav-label">Dashboard</span></a>
                 </li>
@@ -117,14 +131,19 @@
                 </li>
                 @endif
                 @endcan
+                @endguest
 
+                @guest
+                @else
                 @php
                     function can ($perm) {
                         return auth()->user()->can($perm);
                     }
-
                 @endphp
+                @endguest
 
+                @guest
+                @else
                 @if (can('rate_View') || can('deduction_View') || can('earning_View') || can('schedule_View') || can('position_View'))
                 <li class="{{ in_array(Request::path(), ['rates', 'deductions', 'earnings', 'schedules', 'positions' , 'schedules']) ? 'active' : '' }}">
                         <a href="#"><i class="fa fa-tasks"></i> <span class="nav-label">Management</span> <span class="fa arrow"></span></a>
@@ -165,6 +184,7 @@
                     <a href="/settings/app"><i class="fa fa-cogs" style="width: 20px"></i><span>Settings</span></a>
                 </li>
                 @endif
+                @endguest
 
                 {{--side menus end--}}
 
@@ -181,7 +201,9 @@
                 </div>
                 
                 <ul class="nav navbar-top-links navbar-right text-right">
-                    
+                    @guest
+
+                    @else
                     <li>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -189,7 +211,7 @@
                             <span class="text-muted">Logout</span><i class="fas fa-sign-out-alt" style="position: relative; top: 0.5px; left: 5px"></i>
                         </a>
                     </li>
-                    
+                    @endguest
                 </li>
                 </ul>
 

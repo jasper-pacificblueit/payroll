@@ -20,7 +20,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('company_id')->unsigned();
             $table->integer('department_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->integer('schedule_id')->unsigned();
+            $table->integer('schedule_id')->unsigned()->nullable();
             
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('department_id')->references('id')->on('departments');

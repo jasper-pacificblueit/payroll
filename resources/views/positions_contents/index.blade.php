@@ -5,8 +5,8 @@
                 <div class="col-lg-12"></div>
             </div>
             <div class="row">
-                <div class="col-lg-1">
-                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addPosition" {{ auth()->user()->can("position_Create") ?: 'disabled' }}>
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-sm btn-success pull-right" data-toggle="modal" data-target="#addPosition" {{ auth()->user()->can("position_Create") ?: 'disabled' }}>
                         Add Position
                     </button>
 

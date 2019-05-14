@@ -22,7 +22,6 @@ class UsersTableSeeder extends Seeder
                 'lname' => $faker->unique()->lastName,
                 'mname' => $faker->unique()->lastName,
                 'birthdate' => now(),
-                'age' => rand(1, 40),
                 'image' => json_encode([
                       'data' => "/img/landing/avatar_anonymous.png",
                       'path' => "/img/landing/avatar_anonymous.png",
@@ -166,7 +165,6 @@ class UsersTableSeeder extends Seeder
         $userProfile->fname = $userInfo->fname;
         $userProfile->lname = $userInfo->lname;
         $userProfile->mname = $userInfo->mname;
-        $userProfile->age = $userInfo->age;
         $userProfile->image = json_encode($userInfo->image);
         $userProfile->birthdate = (new Carbon($userInfo->birthdate))->toDateTimeString();
         $userProfile->user_id = $user->id;

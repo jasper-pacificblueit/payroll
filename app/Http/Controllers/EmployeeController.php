@@ -54,26 +54,36 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $request->validate([
+        $request->validate([
             'user' => 'required',
             'pass' => 'required',
 
             'address' => 'required',
             'birthdate' => 'required',
-            'age' => 'required',
             'firstName' => 'required',
             'lastName' => 'required',
             'middleName' => 'required',
-
+            'gender' => 'required',
 
             'email' => 'required',
             'position' => 'required',
             'mobile' => 'required',
+            'company' => 'required',
+            'department' => 'required',
 
+            'monthly_salary' => 'required',
             'hourly_rate' => 'required',
+            'ot_rate' => 'required',
+            'holiday_rate' => 'required',
+            'nightdiff_rate' => 'required',
+
+            'in_am' => 'required',
+            'out_am' => 'required',
+            'in_pm' => 'required',
+            'out_pm' => 'required',
         ]);
 
-        if (auth()->user()->position_id == $request->position_id)
+        if (auth()->user()->position_id == $request->position)
             return back();
 
         $user = new App\User;
@@ -95,7 +105,6 @@ class EmployeeController extends Controller
 
         $profile->fname = $request->firstName;
         $profile->gender = $request->gender;
-        $profile->age = $request->age;
         $profile->image = json_encode([
             'data' => "/img/landing/avatar_anonymous.png",
             'path' => "/img/landing/avatar_anonymous.png",
@@ -111,12 +120,35 @@ class EmployeeController extends Controller
             $employee->department_id = $request->department;
             $employee->user_id = $user->id;
             $employee->bio_id = $request->bio;
+
+            if ($request->schedule == "custom") {
+
+                $schedule = new App\Schedule([
+                    'employee_id' => $employee->id,
+                    'type' => 'Custom',
+                    'in_am' => $request->in_am,
+                    'out_am' => $request->out_am,
+                    'in_pm' => $request->in_pm,
+                    'out_pm' => $request->out_pm,
+                    'state' => '1',
+                ]);
+                $schedule->save();
+
+                $employee->schedule_id = $schedule->id;
+            } else
+                $employee->schedule_id = $request->schedule;
+
+
             $employee->save();
 
             $rates = new App\Rate;
 
+            $rates->monthly = $request->monthly_salary;
             $rates->employee_id = $employee->id;
             $rates->hourly = $request->hourly_rate;
+            $rates->holiday = $request->holiday;
+            $rates->overtime = $request->ot_rate;
+            $rates->nightdiff = $request->nightdiff_rate;
             $rates->save();
         }
 

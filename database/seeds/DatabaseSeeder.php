@@ -30,7 +30,6 @@ class DatabaseSeeder extends Seeder
             'fname' => 'Ching',
             'lname' => 'Chong',
             'mname' => 'Chang',
-            'age' => 99,
             'image' => [
                 'data' => '/img/landing/avatar_anonymous.png',
                 'path' => '/img/landing/avatar_anonymous.png',
@@ -86,7 +85,6 @@ class DatabaseSeeder extends Seeder
                     'fname' => 'Jasper',
                     'lname' => 'Garcera',
                     'mname' => '',
-                    'age' => 0,
                     'birthdate' => now(),
                     'image' => json_encode([
                       'data' => "/img/landing/avatar_anonymous.png",
@@ -115,7 +113,6 @@ class DatabaseSeeder extends Seeder
                     'fname' => 'Angelie',
                     'lname' => 'Orosco',
                     'mname' => '',
-                    'age' => 0,
                     'birthdate' => now(),
                     'image' => json_encode([
                       'data' => "/img/landing/avatar_anonymous.png",
@@ -145,7 +142,6 @@ class DatabaseSeeder extends Seeder
                     'fname' => 'Saturnino',
                     'lname' => 'Adral',
                     'mname' => '',
-                    'age' => 0,
                     'birthdate' => now(),
                     'image' => json_encode([
                       'data' => "/img/landing/avatar_anonymous.png",

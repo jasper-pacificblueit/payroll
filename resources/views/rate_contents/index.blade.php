@@ -137,6 +137,18 @@
        });
         @endif
 
+        @if (Request::path() == 'rates')
+        $(".ratesTable").DataTable({
+            pageLength: 10, 
+            language: {
+                paginate: {
+                    previous: '<i class="fas fa-arrow-left"></i>',
+                    next: '<i class="fas fa-arrow-right"></i>',
+                }
+            },
+       });
+        @endif
+
 
         @if (Request::path() == "earnings")
        $(".earningTable").DataTable({

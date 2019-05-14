@@ -98,17 +98,29 @@ class PayrollController extends Controller
                 $deductions = [];
                 // $jsonEarnings = json_encode($request->addedItemDeductionAmount[13]);
                 
+              
 
                 $earnings["basic"] = $request->basic[$employee];
                 $earnings["overtime"] = $request->overtime[$employee];
                 $earnings["holiday"] = $request->holiday[$employee];
-                $earnings["additional_earnings"] = $request->addedItemAmount[$employee];
+                if(isset($request->addedItemAmount[$employee])){
+                    $earnings["additional_earnings"] = $request->addedItemAmount[$employee];
+                }
+                else{
+                    $earnings["additional_earnings"] = NULL;
+                }
+                
 
                 $deductions["late"] = $request->late[$employee];
                 $deductions["undertime"] = $request->undertime[$employee];
                 $deductions["statutory"] = $request->statutory[$employee];
-                $deductions["additional_deductions"] = $request->addedItemDeductionAmount[$employee];
-                
+              
+                if(isset($request->addedItemDeductionAmount[$employee])){
+                    $deductions["additional_deductions"] = $request->addedItemDeductionAmount[$employee];
+                }
+                else{
+                    $deductions["additional_deductions"] = NULL;
+                }
                 $encode_earnings = json_encode($earnings);
                 $encode_deductions= json_encode($deductions);
                 

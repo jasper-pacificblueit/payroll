@@ -267,7 +267,7 @@
         <div class="col-lg-6 col-sm-6" style="padding: 0">
           <div class="col-lg-3">
             <label>Monthly</label>
-            <input class="form-control" type="number" name="monthly_salary" placeholder="Salary" oninput="
+            <input class="form-control" type="number" name="monthly_salary" step=".01" placeholder="Salary" oninput="
               fetch ('/getServerTime', {
                 method: 'get',
                 headers: {
@@ -285,19 +285,19 @@
           </div>
           <div class="col-lg-2 col-xs-3">
             <label>Hourly</label>
-            <input class="form-control" type="number" name="hourly_rate" placeholder="Rate">
+            <input class="form-control" type="number" name="hourly_rate" placeholder="Rate" step=".01">
           </div>
           <div class="col-lg-2 col-xs-3">
             <label>Overtime</label>
-            <input class="form-control" type="number" name="ot_rate" placeholder="Rate">
+            <input class="form-control" type="number" name="ot_rate" placeholder="Rate" step=".01">
           </div>
           <div class="col-lg-2 col-xs-3">
             <label>Holiday</label>
-            <input class="form-control" type="number" name="holiday_rate" placeholder="Rate">
+            <input class="form-control" type="number" name="holiday_rate" placeholder="Rate" step=".01">
           </div>
           <div class="col-lg-3 col-xs-3">
             <label title="Night Differential">Night Diff.</label>
-            <input class="form-control" type="number" name="nightdiff_rate" placeholder="Rate">
+            <input class="form-control" type="number" name="nightdiff_rate" placeholder="Rate" step=".01">
           </div>
         </div>
 

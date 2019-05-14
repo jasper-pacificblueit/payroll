@@ -14,8 +14,7 @@
         			<thead>
         				<tr>
         					<th>Migration</th>
-        					<th>Status</th>
-                            <th></th>
+        					<th width=10></th>
         				</tr>
         			</thead>
         			<tbody>
@@ -30,11 +29,8 @@
         				'>
         					<td>{{ $mig->migration }}</td>
         					<td>
-        						<strong class="{{ $mig->batch ? "alert-success" : "alert-danger" }} pull-right">M</strong>
+        						<strong class="{{ $mig->batch ? "alert-success" : "alert-danger" }} pull-right" title="Status">M</strong>
         					</td>
-                            <td>
-                                <a class="btn btn-xs btn-success">Backup</a>
-                            </td>
         				</tr>
         				@endforeach
         			</tbody>

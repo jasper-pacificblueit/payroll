@@ -192,6 +192,15 @@ class DatabaseSeeder extends Seeder
             $defaultDepartment->name = trim($dep);
 
             $defaultDepartment->save();
+
+            (new App\Schedule([
+                'department_id' => $defaultDepartment->id,
+                'type' => 'Regular',
+                'in_am' => "06:00",
+                'out_am' => "12:00",
+                "in_pm" => "1:00",
+                "out_pm" => "6:00",
+            ]))->save();
         }
 
     }

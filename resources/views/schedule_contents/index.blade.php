@@ -14,7 +14,6 @@
                                   <thead>
                                   <tr>
                                       <th>Schedule Type</th>
-                                     
                                       <th>Department</th>
                                       <th>Time in <small>(am)</small></th>
                                       <th>Time out <small>(am)</small></th>
@@ -24,7 +23,8 @@
                                       <th>Action</th>
                                   </tr>
                                   </thead>
-                                  <tbody>
+                                  <tbody id="tbody">
+                                    @include ("schedule_contents.data")
                                   </tbody>
                            </table>
                   </div>

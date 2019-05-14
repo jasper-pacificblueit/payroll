@@ -20,9 +20,10 @@ class CreateEmployeesTable extends Migration
             $table->integer('company_id')->unsigned();
             $table->integer('department_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->integer('schedule_id')->unsigned();
             
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('department_id')->references('id')->on('departments');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

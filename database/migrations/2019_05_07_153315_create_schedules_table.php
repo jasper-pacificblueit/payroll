@@ -22,6 +22,7 @@ class CreateSchedulesTable extends Migration
             $table->time('in_pm')->nullable();
             $table->time('out_pm')->nullable();
             $table->time('overtime_out')->nullable();
+            $table->enum("state", [0, 1, 2, 3]);
 
             $table->foreign("department_id")->references("id")->on("departments")->onDelete("cascade");
             $table->timestamps();

@@ -2,23 +2,26 @@
 
 @section('title', 'Company')
 
+@section("styles")
+{!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
+@endsection
+
+
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
             <h2>Company</h2>
             <ol class="breadcrumb">
-                <li class="active">
-                    <a href="/company">Dashboard</a>
-                </li>
-
                 <li>
-                    <a href="/company">View Companies</a>
+                    Dashboard
                 </li>
                 <li>
-                    <a href="#"><strong>Manage Company</strong></a>
+                    View Companies
                 </li>
-               
+                <li>
+                    <strong>Manage Company</strong>
+                </li>
             </ol>
         </div>
     </div>
@@ -32,12 +35,14 @@
                         <div class="row">
                             <div class="col-sm-12 m-b-xs col-12">
                                 <h4>{{$company -> name}}</h4>
-                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addDepartment">
+                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addDepartment" @if (!auth()->user()->can("department_Create")) disabled @endif>
                                     Add Department
                                 </button>
-                                <button class="btn btn-sm btn-danger pull-right">
+
+                                <button class="btn btn-sm btn-danger pull-right" @if (!auth()->user()->can("company_Delete")) disabled @endif>
                                     Remove
                                 </button>
+                                @can("department_Create")
                                 <div class="modal inmodal fade" id="addDepartment" tabindex="-1" role="dialog"  aria-hidden="true">
                                         <div class="modal-dialog modal-sm">
                                             <div class="modal-content">
@@ -66,10 +71,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                @endcan
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover departmentTable">
                                 <thead>
                                     <tr>
                                         <th>Date Created</th>
@@ -112,7 +118,58 @@
 
     <script>
         $(document).ready(function() {
-            
+            $(".departmentTable").DataTable({
+                pageLength: 10,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: ":not(#excludedcolumn)",
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ":not(#excludedcolumn)",
+                        }
+                    },
+                    {
+                        extend: 'excel', 
+                        title: 'ExampleFile',
+                    },
+                    {
+                        extend: 'pdf', 
+                        title: 'ExampleFile',
+                        exportOptions: {
+                            columns: ":not(#excludedcolumn)",
+                        }
+                    },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        },
+                        exportOptions: {
+                            columns: ":not(#excludedcolumn)",
+                        }
+                    },
+                ],
+                language: {
+                    paginate: {
+                        previous: '<i class="fas fa-arrow-left"></i>',
+                        next: '<i class="fas fa-arrow-right "></i>',
+                    }
+                },
+                
+            });
         });
 
         async function pop_modal(id) {

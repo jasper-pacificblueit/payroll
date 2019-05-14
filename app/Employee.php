@@ -36,6 +36,10 @@ class Employee extends Model
 		return $this->belongsTo('App\Department', 'department_id');
 	}
 
+	public function schedule() {
+		return $this->hasOne("App\Schedule", "schedule_id");
+	}
+
 	public function positions() {
 		return User::find($this->user_id)->position();
 	}

@@ -21,6 +21,10 @@ class Department extends Model
 		return $this->hasMany('App\DateTimeRecord');
 	}
 
+	public function schedules() {
+		return $this->hasMany('App\Schedule');
+	}
+
 	public function count() {
 		return (Employee::where("department_id", "=", $this->id)->get())->count();
 	}

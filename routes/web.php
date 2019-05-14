@@ -70,7 +70,6 @@ Route::group(['middleware' => ['auth']], function() {
 
 	});
 
-	
 	// Department View
 	Route::group(['middleware' => ['permission:department_View']], function () {
 		Route::get('/company/{id}', 'CompanyController@show');
@@ -185,11 +184,10 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::resource("schedules", "ScheduleController");
 
-	Route::get("/settings", "SettingsController@index");
+	Route::post("/settings/app", "SettingsController@update");
 	Route::get("/settings/app", "SettingsController@index");
 	Route::get("/settings/user", "SettingsController@index");
-
-	Route::post("/settings/app/reset", "SettingsController@reset_test");
+	Route::post("/settings/app/reset", "SettingsController@reset");
 	
 	// public
 	Route::get('/', 'HomeController@index')->name('dashboard');

@@ -21,8 +21,21 @@
                 <li class="active">
                     <a>Dashboard</a>
                 </li>
-                <li class="">
-                    <strong>Management</strong>
+                <li>Management</li>
+                <li class="{{ Request::path() == 'rates' ?: 'hidden' }}">
+                    <strong>Rates</strong>
+                </li>
+                <li class="{{ Request::path() == 'deductions' ?: 'hidden' }}">
+                    <strong>Deductions</strong>
+                </li>
+                <li class="{{ Request::path() == 'earnings' ?: 'hidden' }}">
+                    <strong>Earnings</strong>
+                </li>
+                <li class="{{ Request::path() == 'schedules' ?: 'hidden' }}">
+                    <strong>Schedules</strong>
+                </li>
+                <li class="{{ Request::path() == 'positions' ?: 'hidden' }}">
+                    <strong>Positions</strong>
                 </li>
             </ol>
         </div>
@@ -94,12 +107,50 @@
 {!! Html::script('js/plugins/select2/select2.full.min.js') !!}
 {!! Html::script('js/plugins/daterangepicker/daterangepicker.js') !!}
 {!! Html::script('js/plugins/datapicker/bootstrap-datepicker.js') !!}
-{!! Html::script('js/plugins/iCheck/icheck.min.sjs') !!}
+{!! Html::script('js/plugins/iCheck/icheck.min.js') !!}
 
 <script>
     
-    $(document).ready(function(){
+    $(document).ready(function() {
 
+        @if (Request::path() == 'schedules')
+        $(".scheduleTable").DataTable({
+            pageLength: 10,
+            language: {
+                paginate: {
+                    previous: '<i class="fas fa-arrow-left"></i>',
+                    next: '<i class="fas fa-arrow-right"></i>',
+                }
+            },
+       });
+        @endif
+
+        @if (Request::path() == 'deductions')
+        $(".deductionTable").DataTable({
+            pageLength: 10, 
+            language: {
+                paginate: {
+                    previous: '<i class="fas fa-arrow-left"></i>',
+                    next: '<i class="fas fa-arrow-right"></i>',
+                }
+            },
+       });
+        @endif
+
+
+        @if (Request::path() == "earnings")
+       $(".earningTable").DataTable({
+            pageLength: 10,
+            language: {
+                paginate: {
+                    previous: '<i class="fas fa-arrow-left"></i>',
+                    next: '<i class="fas fa-arrow-right"></i>',
+                }
+            },
+       });
+       @endif
+
+       @if (Request::path() == "positions")
        $(".positionTable").DataTable({
             pageLength: 10,
             language: {
@@ -109,6 +160,7 @@
                 }
             },
        });
+       @endif   
 
     });
 

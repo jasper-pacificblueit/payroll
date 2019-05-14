@@ -73,8 +73,14 @@ class User extends Authenticatable
         return $this->hasOne('App\Employee');
     }
 
+    public function settings() {
+        return $this->hasOne('App\Settings');
+    }
+
     public static function online($user) {
         return Cache::has($user);
     }
+
+
 
 }

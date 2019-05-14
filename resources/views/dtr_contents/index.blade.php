@@ -112,8 +112,10 @@
 <script>
         function DateSelect(str){
             if (str.length==0) { 
+                try {
                 document.getElementById("showEmp").innerHTML="";
                 document.getElementById("showEmp").style.border="0px";
+                } catch (e) {};                
                 return;
             }
             if (window.XMLHttpRequest) {

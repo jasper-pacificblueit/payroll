@@ -12,9 +12,9 @@ class ApplicationReinitializer extends Seeder
      */
     public function run()
     {
-        DB::raw("drop database payroll");
-		DB::raw("create database payroll");
-        DB::raw("use payroll");
+        DB::raw("drop database " . env("DB_DATABASE"));
+		DB::raw("create database " . env("DB_DATABASE"));
+        DB::raw("use " . env("DB_DATABASE"));
 		DB::raw("create table companies (id int auto_increment, primary key(id))");
 
 		$this->command->call("migrate:fresh");
@@ -45,7 +45,7 @@ class ApplicationReinitializer extends Seeder
             'title' => 'Administrator',
             'state' => 2,
             'lim' => 1,
-            'description' => 'Controls the entire company',
+            'description' => '',
 
         ];
         // ------------------------------------------------------------------------------------

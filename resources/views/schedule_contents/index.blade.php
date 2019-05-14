@@ -1,6 +1,4 @@
 
-
-
  <div class="row">
     <div class="col-lg-12">
         <div class="row">
@@ -77,11 +75,10 @@
         <div class="row">
             <div class="col-lg-12">
                   <div class="table-responsive">
-                          <table class="table table-striped">
+                          <table class="table table-striped table-hover scheduleTable">
                                   <thead>
                                   <tr>
                                       <th>Schedule Type</th>
-                                     
                                       <th>Department</th>
                                       <th>Time in <small>(am)</small></th>
                                       <th>Time out <small>(am)</small></th>
@@ -89,23 +86,10 @@
                                       <th>Time out <small>(pm)</small></th>
                                       <th>Status</th>
                                       <th>Action</th>
-                                   
                                   </tr>
                                   </thead>
-                                  <tbody>
-                                    @php($Schedules = \App\Schedule::all())
-                                    @foreach ($Schedules as $Schedule)
-                                        <tr>
-                                            <td>{{$Schedule->type}}</td>
-                                            <td>{{$Schedule->department_id}}</td>
-                                            <td>{{$Schedule->in_am}}</td>
-                                            <td>{{$Schedule->out_am}}</td>
-                                            <td>{{$Schedule->in_pm}}</td>
-                                            <td>{{$Schedule->out_pm}}</td>
-                                            
-                                            
-                                        </tr>
-                                    @endforeach
+                                  <tbody id="tbody">
+                                    @include ("schedule_contents.data")
                                   </tbody>
                            </table>
                   </div>

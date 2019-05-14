@@ -15,15 +15,16 @@ class CreateSchedulesTable extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('department_id')->nullable();
-            $table->integer('comp_id')->nullable();
+            $table->integer('department_id')->unsigned();
             $table->string('type')->nullable(); 
             $table->time('in_am')->nullable();
             $table->time('out_am')->nullable();
             $table->time('in_pm')->nullable();
             $table->time('out_pm')->nullable();
             $table->time('overtime_out')->nullable();
-            
+            $table->enum("state", [0, 1, 2, 3]);
+
+            $table->foreign("department_id")->references("id")->on("departments")->onDelete("cascade");
             $table->timestamps();
         });
     }

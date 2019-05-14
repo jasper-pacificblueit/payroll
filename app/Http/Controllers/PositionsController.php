@@ -49,8 +49,9 @@ class PositionsController extends Controller
 
         $position->title = request('name');
         $position->description = request('description');
-        $position->state = request('state');
         $position->lim = request('max');
+        $position->state = request('state');
+
         $position->save();
 
         return back();
@@ -92,6 +93,9 @@ class PositionsController extends Controller
         $position->description = request('edit-description');
         $position->state = in_array(request('edit-state'), [0,1,2,3]) ? request('edit-state') : $position->state;
         $position->lim = request('edit-lim') <= 0 ? $position->lim : request('edit-lim');
+
+        if ($position->lim <= $position->count()) $position->state = '1';
+
         $position->save();
 
         return back();

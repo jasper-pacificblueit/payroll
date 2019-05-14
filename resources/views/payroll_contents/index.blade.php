@@ -34,7 +34,6 @@
 
              <div class="row">
                 <div class="col-lg-12">
-                 
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
                             <li class="{{Request::path() == 'payroll/create' ? 'active' : '' }}"><a href="/payroll/create">Create Payroll</a></li>
@@ -84,6 +83,24 @@
 
                  
 <script>
+
+        function CalculateNetPay(user_id , income , deduction){
+            var NewNetPay = income - deduction;
+         
+            document.querySelector('#TotalNetPay-'+user_id).value = NewNetPay.toFixed(2);
+            document.querySelector('#TotalNetPayDisp-'+user_id).innerHTML = currencyFormat(NewNetPay);
+            document.querySelector('#TotalNetPayDispOut-'+user_id).innerHTML = currencyFormat(NewNetPay);
+            
+
+        }
+        function confirmAction(){
+            let UserConfirmed = confirm('Are you sure you want to create this payroll?');
+
+            if(UserConfirmed){
+                
+                document.getElementById("createPayrollForm").submit()
+            }
+        }
          function currencyFormat(num) {
              return '₱ ' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
         }
@@ -101,7 +118,8 @@
             document.querySelector('#TotalIncome-'+user_id).value = NewTotalIncome.toFixed(2);
             document.querySelector('#TotalIncomeDisp-'+user_id).innerHTML = currencyFormat(NewTotalIncome);
             document.querySelector('#TotalIncomeDispOut-'+user_id).innerHTML = currencyFormat(NewTotalIncome);
-            
+
+            CalculateNetPay(user_id , NewTotalIncome , document.querySelector('#TotalDeduction-'+user_id).value);
         }
         
 
@@ -142,7 +160,7 @@
                     newNode.innerHTML = `
                         <span id="DispaddedDisc">${Description.value} <input type="text" name="addedItemDiscp[${user_id}][]"  class="DiscriptionClass-${user_id}" value="${Description.value}" hidden></span>
                         <span class="pull-right" style="margin-right:-15px;"><a onclick="removeAddedIncome(${user_id}, ${document.querySelector('#DisplayIncome-' + user_id).childElementCount})"><i class="fa fa-close"></i></a></span>
-                        <span class="pull-right">₱ ${Amount.value} <input type="text" name="addedItemAmount[${user_id}][]" class="IncomeClass-${user_id}" value="${Amount.value}" hidden> </span>
+                        <span class="pull-right">₱ ${Amount.value} <input type="text" name="addedItemAmount[${user_id}][${Description.value}]" class="IncomeClass-${user_id}" value="${Amount.value}" hidden> </span>
                         
                     `;
                     document.querySelector("#DisplayIncome-"+user_id).appendChild(newNode);
@@ -203,6 +221,10 @@
             document.querySelector('#TotalDeduction-'+user_id).value = NewTotalDeduction.toFixed(2);
             document.querySelector('#TotalDeductionDisp-'+user_id).innerHTML = currencyFormat(NewTotalDeduction);
             document.querySelector('#TotalDeductionDispOut-'+user_id).innerHTML = currencyFormat(NewTotalDeduction);
+
+            console.log('income = ' + document.querySelector('#TotalIncome-'+user_id).value);
+           
+            CalculateNetPay(user_id , document.querySelector('#TotalIncome-'+user_id).value , NewTotalDeduction);
             
         }
         function changeSaveBtnDeduction(Discription , Amount , user_id){
@@ -255,9 +277,9 @@
                     newNode.setAttribute('id', 'DispaddedDeduction-'+user_id+'-'+document.querySelector("#DisplayDeduction-"+user_id).childElementCount);
                     newNode.className = 'list-group-item';
                     newNode.innerHTML = `
-                        <span id="DispaddedDiscDeduction">${Description.value} <input type="text" name="addedDeduction[${user_id}][]"  class="DiscriptionClassDeduction-${user_id}" value="${Description.value}" hidden></span>
+                        <span id="DispaddedDiscDeduction">${Description.value} <input type="text" name="addedDeductionDiscp[${user_id}][]"  class="DiscriptionClassDeduction-${user_id}" value="${Description.value}" hidden></span>
                         <span class="pull-right" style="margin-right:-15px;"><a onclick="removeAddedDeduction(${user_id}, ${document.querySelector("#DisplayDeduction-"+user_id).childElementCount})"><i class="fa fa-close"></i></a></span>
-                        <span class="pull-right">₱ ${Amount.value} <input type="text" name="addedItemDeductionAmount[${user_id}][]" class="DeductionClass-${user_id}" value="${Amount.value}" hidden> </span>
+                        <span class="pull-right">₱ ${Amount.value} <input type="text" name="addedItemDeductionAmount[${user_id}][${Description.value}]" class="DeductionClass-${user_id}" value="${Amount.value}" hidden> </span>
                         
                     `;
                     document.querySelector("#DisplayDeduction-"+user_id).appendChild(newNode);

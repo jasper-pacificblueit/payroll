@@ -6,11 +6,20 @@ use Artisan;
 use App\Settings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class SettingsController extends Controller
 {
+
+    private function set_env($key, $value)
+    {
+        file_put_contents(app()->environmentFilePath(), str_replace(
+            $key . '=' . env($key),
+            $key . '=' . $value,
+            file_get_contents(app()->environmentFilePath())
+        ));
+    }
 
     /**
      * Display a listing of the resource.
@@ -19,11 +28,21 @@ class SettingsController extends Controller
      */
     public function index()
     {
-       return view('settings_contents.index');
+       DB::raw("use " . env("DB_DATABASE"));
+       return view('settings_contents.index')->with([
+
+            'tables' => (function () {
+                $tmp = DB::select("show tables");
+                $tbl = [];
+
+                foreach ($tmp as $v)  array_push($tbl, $v->Tables_in_payroll);
+                return $tbl;
+            })(),
+
+       ]);
     }
 
-    public function reset_test() {
-
+    public function reset() {
         Artisan::call("db:seed", [
             "--force" => true,
             "--class" => 'ApplicationReinitializer',
@@ -72,7 +91,7 @@ class SettingsController extends Controller
      */
     public function edit(Settings $settings)
     {
-        //
+        
     }
 
     /**
@@ -84,7 +103,7 @@ class SettingsController extends Controller
      */
     public function update(Request $request, Settings $settings)
     {
-        //
+
     }
 
     /**

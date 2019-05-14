@@ -57,7 +57,9 @@
                     var date = new Date(json.carbon.date);
                     var bday = new Date(this.value);
 
-                    document.querySelector('[name=age]').value = Math.floor(date.getYear() - bday.getYear());
+                    document.querySelector('[name=age]').value = Math.floor(
+                      (date.getYear() - bday.getYear()) - (date.getMonth()/bday.getMonth() - date.getDate()/bday.getDate())
+                    );  
 
                   });
 

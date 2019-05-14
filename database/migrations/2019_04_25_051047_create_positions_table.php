@@ -18,7 +18,7 @@ class CreatePositionsTable extends Migration
             $table->increments('id');
          
             $table->longText("title");
-            $table->longText("description");
+            $table->longText("description")->nullable();
             $table->integer("lim")->unsigned()->default(10);
             $table->enum("state", [0, 1, 2, 3]);
 

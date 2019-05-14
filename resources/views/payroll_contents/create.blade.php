@@ -8,7 +8,7 @@
 @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->first())
                       
                         @if (\App\PayrollDate::orderBy('id' , 'DESC')->count() > 0)
-                       
+                        <form action="/payroll" method="POST" id="createPayrollForm">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="alert alert-warning" style="display:none" id="warningNotif">
@@ -37,6 +37,8 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4>Available Employee</h4>
+                                    
+                                        {{ csrf_field() }}
                                     @php( $employeeList = \App\DateTimeRecord::distinct()->get(['user_id']))
                                     <div class="table-responsive">
                                         <table class="table table-striped table-bordered table-hover dataTables-example" >
@@ -69,9 +71,13 @@
                                          </table>
                                      </div>
                         
-                                     <input type="submit" name="" id="" class="btn btn-success pull-right" value="Next">
+                                     <input type="button" name="" id="" class="btn btn-success pull-right" value="Next" onclick="confirmAction()">
+
+                                    
                                 </div>
-                            </div>   
+                            </div> 
+                            
+                        </form>
                         @else
                         <div class="row">
                             <div class="col-lg-12">

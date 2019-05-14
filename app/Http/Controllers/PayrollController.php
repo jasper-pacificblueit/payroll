@@ -89,35 +89,78 @@ class PayrollController extends Controller
      */
     public function store(Request $request)
     { 
+        // dd($request->netpay);
 
-        $attendances = \App\DateTimeRecord::all()->where('date', '>=' , date("Y-m-d" , strtotime($request->start)) ,'AND', 'date' , '<=' , date("Y-m-d", strtotime($request->end)));
+        foreach ($request->employees as $employee) {
+                $earnings = [];      
+                $deductions = [];
+                // $jsonEarnings = json_encode($request->addedItemDeductionAmount[13]);
+                
+
+                $earnings["basic"] = $request->basic[$employee];
+                $earnings["overtime"] = $request->overtime[$employee];
+                $earnings["holiday"] = $request->holiday[$employee];
+                $earnings["additional_earnings"] = $request->addedItemAmount[$employee];
+
+                $deductions["late"] = $request->late[$employee];
+                $deductions["undertime"] = $request->undertime[$employee];
+                $deductions["statutory"] = $request->statutory[$employee];
+                $deductions["additional_deductions"] = $request->addedItemDeductionAmount[$employee];
+                
+                $encode_earnings = json_encode($earnings);
+                $encode_deductions= json_encode($deductions);
+                
+                //dd($encode_earnings , $encode_deductions);
+                
+                $payslip = new \App\Payslips;
+
+                $payslip->employee_id = $employee;
+                $payslip->start = date("Y-m-d" , strtotime($request->start));
+                $payslip->end = date("Y-m-d" , strtotime($request->end));
+                $payslip->earnings = $encode_earnings;
+                $payslip->deductions = $encode_deductions;
+                $payslip->total_income = $request->total_income[$employee];
+                $payslip->total_deduction = $request->total_deduction[$employee];
+                $payslip->net_pay = $request->netpay[$employee];
+                
+                
+                $payslip->save();
+                
+
+        
+        }
+
+        return redirect('/payroll');
+
+
+        // $attendances = \App\DateTimeRecord::all()->where('date', '>=' , date("Y-m-d" , strtotime($request->start)) ,'AND', 'date' , '<=' , date("Y-m-d", strtotime($request->end)));
         
 
       
-        if(count($attendances) > 0 && count($request->employee)){
-            $payroll = new Payroll;
-            $payroll->start = date("Y-m-d", strtotime($request->start));
-            $payroll->end = date("Y-m-d", strtotime($request->end));
-            $payroll->save();
-        }
-        else{
-            $status = 'danger';
-        }
+        // if(count($attendances) > 0 && count($request->employee)){
+        //     $payroll = new Payroll;
+        //     $payroll->start = date("Y-m-d", strtotime($request->start));
+        //     $payroll->end = date("Y-m-d", strtotime($request->end));
+        //     $payroll->save();
+        // }
+        // else{
+        //     $status = 'danger';
+        // }
       
-        $payrollDate = \App\Payroll::orderBy('id' , 'DESC')->first();
+        // $payrollDate = \App\Payroll::orderBy('id' , 'DESC')->first();
         
-        if(isset($request->selectDate)){
-            $payroll_id = $request->selectDate;
-        }
-        else{
-           if(count($payrollDate) > 0){
-             $payroll_id = $payrollDate->id;
-           }
-           else{
-             $payroll_id = NULL;
-           }
-        }
-        return view('payroll_contents.index' ,compact('payroll_id' , 'status'));
+        // if(isset($request->selectDate)){
+        //     $payroll_id = $request->selectDate;
+        // }
+        // else{
+        //    if(count($payrollDate) > 0){
+        //      $payroll_id = $payrollDate->id;
+        //    }
+        //    else{
+        //      $payroll_id = NULL;
+        //    }
+        // }
+        // return view('payroll_contents.index' ,compact('payroll_id' , 'status'));
     }
 
     /**

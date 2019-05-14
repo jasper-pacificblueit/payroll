@@ -4,7 +4,6 @@
           <div class="col-lg-12">
                 <button type="button" class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#addSchedule">Add Schedule</button>
           </div>
-
           @include('schedule_contents.modal')
       </div>
       <br>

@@ -66,7 +66,9 @@ class PayrollController extends Controller
         $start = $request->start;
         $end = $request->end;
         
-        return view('payroll_contents.viewPayrollbody' , compact('start' , 'end'));
+        
+
+        return view('payroll_contents.viewPayrollbody' , compact('start' , 'end' ));
      }
 
     public function makePayroll(Request $request)

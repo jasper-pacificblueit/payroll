@@ -356,7 +356,7 @@
                     $(".dataTables-example").DataTable().destroy();
                     document.getElementById("payrollTable").innerHTML=this.responseText;
                     $('.dataTables-example').DataTable({
-                        pageLength: 10,
+                        pageLength: 25,
                         responsive: true,
                         dom: '<"html5buttons"B>lTfgitp',
                         buttons: [

@@ -1,9 +1,12 @@
 @php( $employees = \App\Employee::all())
+<?php
+$startDate = date("Y-m-d" , strtotime($start));
+$endDate = date("Y-m-d" , strtotime($end));
+
+?>
 
 @foreach ($employees as $employee)
     <?php
-        $startDate = date("Y-m-d" , strtotime($start));
-        $endDate = date("Y-m-d" , strtotime($end));
         $EmployeeRate = App\Rate::getHourlyRate($employee->id);
         $EmployeeOvertime = $employee->rates->overtime;
         $EmployeeHoliday = $employee->rates->holiday;

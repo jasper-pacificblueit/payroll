@@ -100,7 +100,7 @@ class RateController extends Controller
      */
     public function show(Rate $rate)
     {
-        //
+        
     }
 
     /**

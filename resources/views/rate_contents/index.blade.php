@@ -138,15 +138,17 @@
         @endif
 
         @if (Request::path() == 'rates')
-        $(".ratesTable").DataTable({
-            pageLength: 10, 
-            language: {
-                paginate: {
-                    previous: '<i class="fas fa-arrow-left"></i>',
-                    next: '<i class="fas fa-arrow-right"></i>',
-                }
-            },
-       });
+            $(".ratesTable").DataTable({
+                pageLength: 10, 
+                language: {
+                    paginate: {
+                        previous: '<i class="fas fa-arrow-left"></i>',
+                        next: '<i class="fas fa-arrow-right"></i>',
+                    }
+                },
+           });
+
+           chdepartment(document.querySelector(".com"));
         @endif
 
 
@@ -176,7 +178,41 @@
 
     });
 
-   
+    @if (Request::path() == "rates")
+   function chemployee(obj) {
+        fetch ("/rates/employeelist/"+ obj.value, {
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            }
+        }).then(rep => rep.text()).then(html => {
+            $(".ratesTable").DataTable().destroy();
+            document.querySelector(".employeelist").innerHTML = html;
+            $(".ratesTable").DataTable({
+                pageLength: 10, 
+                language: {
+                    paginate: {
+                        previous: '<i class="fas fa-arrow-left"></i>',
+                        next: '<i class="fas fa-arrow-right"></i>',
+                    }
+                },
+           }).draw();
+        });
+    }
+
+    function chdepartment(obj) {
+        fetch("/selectDepartment?q=" + obj.value, {
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            }
+        }).then(rep => rep.text()).then(html => {
+            document.querySelector(".dep").innerHTML = html;
+            $(".dep").select2();
+            $(".com").select2();
+
+            chemployee(document.querySelector(".dep"));
+        });
+    }
+    @endif
     
 </script>
 @endsection

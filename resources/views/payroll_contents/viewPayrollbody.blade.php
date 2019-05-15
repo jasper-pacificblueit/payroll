@@ -2,7 +2,6 @@
 <?php
 $startDate = date("Y-m-d" , strtotime($start));
 $endDate = date("Y-m-d" , strtotime($end));
-
 ?>
 
 @foreach ($employees as $employee)

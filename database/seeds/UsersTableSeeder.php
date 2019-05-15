@@ -48,10 +48,10 @@ class UsersTableSeeder extends Seeder
             $user->employee->rates()->save(new App\Rate([
                 'employee_id' => $user->employee->id,
                 'hourly' => 50.5,
-
-                'holiday' => 50.5,
-                'overtime' => 45.7,
-                'nightdiff' => 40.6,
+                'monthly' => 15000,
+                'holiday' => 15000/26/4,
+                'overtime' => 15000/26/8*1.25,
+                'nightdiff' => 15000/26/8*.1,
             ]));
 
             // deductions
@@ -92,11 +92,11 @@ class UsersTableSeeder extends Seeder
             (new App\Contact($em->contacts))->save();
             (new App\Rate([
                 'employee_id' => $user->employee->id,
-                'hourly' => 50.5,
-                'holiday' => 50.5,
-                'overtime' => 45.7,
-                'nightdiff' => 40.6,
-
+                'monthly' => 15000,
+                'hourly' => 15000/26/8,
+                'holiday' => 15000/26/4,
+                'overtime' => 15000/26/8*1.25,
+                'nightdiff' => 15000/26/8*.1,
             ]))->save();
 
             (new App\Deduction([

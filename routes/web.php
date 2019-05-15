@@ -187,7 +187,14 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::group(["middleware" => ["permission:rate_View"]], function () {
 		Route::get("/rates", "RateController@index");
+
+		Route::get("/rates/employeelist/{id}", function ($id) {
+			return view('rate_contents.employeelist')->with([
+				'employees' => App\Employee::where("department_id", "=", $id)->get(),
+			]);
+		});
 	});
+
 
 	Route::group(["middleware" => ["permission:deduction_View"]], function () {
 		Route::get("/deductions", "RateController@deductions");

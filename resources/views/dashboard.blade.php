@@ -2,6 +2,10 @@
 
 @section('title', 'Dashboard')
 
+@php
+  use Carbon\Carbon;
+@endphp
+
 @section('content')
 <div class="wrapper wrapper-content">
 <div class="row">
@@ -9,13 +13,25 @@
     <div class="col-lg-12">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>My Profile</h5>
+          <h5>Profile</h5>
         </div>
-        <div class="ibox-content">
-          <img alt="image" class="img-responsive" src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+        <div class="ibox-content text-center no-padding border-left-right">
+          <img alt="image" class="img-responsive" src="{{ json_decode(auth()->user()->profile->image)->data }}" style="margin: auto">
+        </div>
+        <div class="ibox-content profile-content">
+            <h4>{{ App\Profile::getFullName(auth()->user()->id) }}</h4>
+            <p>
+              <i class="fas fa-map-marker-alt"></i>  {{ auth()->user()->profile->address ? auth()->user()->profile->address : "Where do you live?" }}
+            </p>
+            <h5>About me</h5>
+            <p style='word-wrap: break-word;'>
+              {{ auth()->user()->profile->about ? auth()->user()->profile->about : "Write something about yourself." }}
+            </p>
+            <h5>Details</h5>
+            <div></div>
         </div>
         <div class="ibox-footer">
-
+          
         </div>
       </div>
     </div>
@@ -24,7 +40,7 @@
     <div class="ibox float-e-margins">
       <div class="ibox-title">
           <span class="label label-success pull-right">Monthly</span>
-          <h5>Income</h5>
+          <h5>News</h5>
       </div>
       <div class="ibox-content">
           <h1 class="no-margins">40 886,200</h1>
@@ -188,18 +204,70 @@
                 </li>
                 </ul>
              </div>
+          </div>
+        </div>
       </div>
   </div>
-</div>
+  <div class="col-lg-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+          <div class="pull-right">
+              <div class="btn-group">
+                  <button type="button" class="btn btn-xs btn-white active">Today</button>
+                  <button type="button" class="btn btn-xs btn-white">Monthly</button>
+                  <button type="button" class="btn btn-xs btn-white">Annual</button>
+              </div>
+          </div>
+          <h5>News</h5>
+      </div>
+      <div class="ibox-content">
+          <div class="feed-activity-list" id="newsapi">
 
-
-
-</div>
+          </div>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 @endsection
 
 
+
+@section("scripts")
+<script>
+  function newsapi(country = 'ph', apikey = '700c63acbba14b8ba8b9744c4a7c8d99') {
+
+    fetch (`https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${apikey}`).then(rep => rep.json()).then(json => {
+
+      console.log(json);
+      var newsfeed = document.querySelector("#newsapi");
+
+      json.articles.forEach(news => {
+        console.log(news);
+
+        var div = document.createElement("div");
+
+        div.setAttribute("id", news.source.name);
+
+        div.innerHTML = `
+
+          <img src="${news.urlToImage}" onerror="
+              document.getElementById('${news.source.name}').style.display = 'none';
+          " width=300>
+
+        `;
+
+        newsfeed.appendChild(div);
+      });
+
+
+    });
+
+  }
+  newsapi();
+
+</script>
+@endsection
 
   
 

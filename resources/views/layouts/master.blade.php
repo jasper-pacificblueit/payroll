@@ -32,7 +32,7 @@
     $config = json_decode(auth()->user()->settings->settings);
 @endphp
 @endguest
-<body class="@guest @else{{ $config->skin }}@endguest">
+<body class="@guest @else{{ $config->skin }}@endguest"> 
 @guest
 @else
 @php
@@ -47,6 +47,10 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         @guest
+                            <span>
+                                <img alt="image" class="img-responsive" src="/img/a4.jpg" 
+                                    style='max-width: 75px; position: relative; left: 47px; border-radius: 100%; border: 2px; height: 66px'/>
+                            </span>
                         @else
                         <span>
                             <img alt="image" class="img-responsive" src="{{ $profile->image['data'] }}" 
@@ -92,9 +96,6 @@
 
                 {{--side menus start--}}
 
-                @guest
-
-                @else
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large" style="width: 20px"></i><span class="nav-label">Dashboard</span></a>
                 </li>
@@ -131,7 +132,6 @@
                 </li>
                 @endif
                 @endcan
-                @endguest
 
                 @guest
                 @else
@@ -202,7 +202,11 @@
                 
                 <ul class="nav navbar-top-links navbar-right text-right">
                     @guest
-
+                    <li>
+                        <a href="{{ route('login') }}">
+                            <span class="text-muted">Login</span><i class="fas fa-sign-out-alt" style="position: relative; top: 0.5px; left: 5px"></i>
+                        </a>
+                    </li>
                     @else
                     <li>
                         <a href="{{ route('logout') }}"
@@ -257,6 +261,12 @@
 
 
 @yield('scripts')
+
+<script>
+    window.addEventListener("mouseover", _ => {});
+    window.addEventListener("mousedown", _ => {});
+    window.addEventListener("mouseup", _ => {});
+</script>
 
 </body>
 </html>

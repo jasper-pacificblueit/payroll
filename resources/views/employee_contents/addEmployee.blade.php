@@ -266,7 +266,7 @@
 
         <div class="col-lg-6 col-sm-6" style="padding: 0">
           <div class="col-lg-3">
-            <label>Monthly</label>
+            <label>Salary</label>
             <input class="form-control" type="number" name="monthly_salary" step=".01" placeholder="Salary" oninput="
               fetch ('/getServerTime', {
                 method: 'get',

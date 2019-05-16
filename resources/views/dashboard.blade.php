@@ -2,6 +2,11 @@
 
 @section('title', 'Dashboard')
 
+@section("styles")
+  {!! Html::style("css/plugins/slick/slick.css") !!}
+  {!! Html::style("css/plugins/slick/slick-theme.css") !!}
+@endsection
+
 @php
   use Carbon\Carbon;
 @endphp
@@ -102,7 +107,29 @@
       </div>
     </div>
   </div>
-
+  <div class="col-lg-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+          <div class="pull-right">
+              <div class="btn-group">
+                  <button type="button" class="btn btn-xs btn-white active">Today</button>
+                  <button type="button" class="btn btn-xs btn-white">Monthly</button>
+                  <button type="button" class="btn btn-xs btn-white">Annual</button>
+              </div>
+          </div>
+          <h5><i class="far fa-newspaper"></i> News</h5>
+      </div>
+      <div class="ibox-content" style="padding-bottom: 1px">
+        <span id="newsapi" style="margin: 0">
+          <div class="no-padding text-center">
+            <h1 style="padding: 49px">No news available</h1>
+          </div>
+        </span>
+      </div>
+      <div class="ibox-footer newsapi-details">
+      </div>
+    </div>
+  </div>
   <div class="col-lg-3 col-sm-6">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
@@ -208,64 +235,83 @@
         </div>
       </div>
   </div>
-  <div class="col-lg-6">
-    <div class="ibox float-e-margins">
-      <div class="ibox-title">
-          <div class="pull-right">
-              <div class="btn-group">
-                  <button type="button" class="btn btn-xs btn-white active">Today</button>
-                  <button type="button" class="btn btn-xs btn-white">Monthly</button>
-                  <button type="button" class="btn btn-xs btn-white">Annual</button>
-              </div>
-          </div>
-          <h5>News</h5>
-      </div>
-      <div class="ibox-content">
-          <div class="feed-activity-list" id="newsapi">
-
-          </div>
-      </div>
-    </div>
-  </div>
 </div>
 </div>
 @endsection
 
-
-
 @section("scripts")
+{!! Html::script("js/plugins/slick/slick.min.js") !!}
 <script>
   function newsapi(country = 'ph', apikey = '700c63acbba14b8ba8b9744c4a7c8d99') {
+
+    var newsapiDetails = document.querySelector(".newsapi-details");
+    var articles;
 
     fetch (`https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${apikey}`).then(rep => rep.json()).then(json => {
 
       console.log(json);
       var newsfeed = document.querySelector("#newsapi");
 
+      newsfeed.innerHTML = "";
+
       json.articles.forEach(news => {
+        if (news.urlToImage == null) return;
         console.log(news);
 
         var div = document.createElement("div");
 
         div.setAttribute("id", news.source.name);
 
+        news.publishedAt = new Date(news.publishedAt);
+
+        var pub = news.publishedAt.getHours() != 0 ? `${news.publishedAt.getHours() == 1 ? 'An hour ago' : news.publishedAt.getHours() + ' hours ago'}` : 
+                  news.publishedAt.getMinutes() != 0 ? `${news.publishedAt.getMinutes() == 1 ? 'A minute ago' : news.publishedAt.getMinutes() + ' minutes ago'}` : 
+                  news.publishedAt.getSeconds() == 1 ? 'A second ago' : news.publishedAt.getSeconds() + ' seconds ago';
+
         div.innerHTML = `
+          <div class="no-padding">
+            <div class="col-lg-4 col-sm-4 col-xs-5">
+              <img src="${news.urlToImage}" class="img-responsive" height=450 style="margin: auto; height: 150px">
+            </div>
+            <div class="col-lg-8 no-padding">
+              <h3><a href="${news.url}" class="no-padding">${news.title}</a><br><small class="text-muted no-padding">${pub}</small></h3>
 
-          <img src="${news.urlToImage}" onerror="
-              document.getElementById('${news.source.name}').style.display = 'none';
-          " width=300>
-
+              <label>Description</label>
+              <p>${news.content || news.description}</p>
+            </div>
+          </div>
         `;
 
         newsfeed.appendChild(div);
+
+        articles = json.articles;
       });
 
+      $("#newsapi").on("init", function(event, slick) {
+        newsapiDetails.innerHTML = `
+          Source: <label><a href="http://${articles[slick.currentSlide].source.name}">${articles[slick.currentSlide].source.name}</a></label>
+          <span class="pull-right"><i class="fas fa-rss-square"></i> NewsAPI</span>
+        `;
+      });
 
+      $("#newsapi").slick();
+
+      $("#newsapi").on("afterChange", function(event, slick) {
+        newsapiDetails.innerHTML = `
+          Source: <label><a href="http://${articles[slick.currentSlide  ].source.name}">${articles[slick.currentSlide].source.name}</a></label>
+          <span class="pull-right"><i class="fas fa-rss-square"></i> NewsAPI</span>
+        `;
+      });
     });
 
   }
-  newsapi();
 
+
+  $(document).ready(function() {
+    
+  });
+  
+  newsapi();
 </script>
 @endsection
 

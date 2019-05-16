@@ -43,13 +43,9 @@ class ScheduleController extends Controller
         $schedule->out_am = $request->out_am;
         $schedule->in_pm = $request->in_pm;
         $schedule->out_pm = $request->out_pm;
-
         $schedule->save();
 
         return redirect('schedules');
-      
-        
-        
     }
 
     /**

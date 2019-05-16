@@ -54,7 +54,7 @@
                         @else
                         <span>
                             <img alt="image" class="img-responsive" src="{{ $profile->image['data'] }}" 
-                                style='max-width: 75px; position: relative; left: 47px; border-radius: 100%; border: 2px;'/>
+                                style='max-width: 75px; height: 66px; position: relative; left: 47px; border-radius: 100%; border: 2px;'/>
                         </span>
                         @endguest
 
@@ -64,6 +64,9 @@
                             <span class="clear">
                                 <span class="block m-t-xs">
                                     <strong class="font-bold">@guest @else{{ App\Profile::getFullName(auth()->user()->id) }}@endguest</strong>
+                                </span>
+                                <span class="no-padding">
+                                    <i class="text-muted">@guest @else{{ auth()->user()->position()->title }}@endguest</i>
                                 </span>
                                 <span class="text-muted text-xs block">
                                     <b class="caret"></b>

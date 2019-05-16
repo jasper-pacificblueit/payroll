@@ -185,31 +185,44 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::match(["put", "patch"], "/positions/{position}", "PositionsController@update");
 	});
 
+	// Rate View
 	Route::group(["middleware" => ["permission:rate_View"]], function () {
 		Route::get("/rates", "RateController@index");
 
-		Route::get("/rates/employeelist/{id}", function ($id) {
+		Route::get("/rates/employeelist/{type}/{id}", function ($type, $id) {
 			return view('rate_contents.employeelist')->with([
+				'type' => $type,
 				'employees' => App\Employee::where("department_id", "=", $id)->get(),
 			]);
 		});
 	});
 
-
+	// Deduction View
 	Route::group(["middleware" => ["permission:deduction_View"]], function () {
 		Route::get("/deductions", "RateController@deductions");
-		Route::get("/holiday", "PayrollController@holiday");
 	});
 
+	// Deduction Create
 	Route::group(["middleware" => ["permission:deduction_Create"]], function () {
 		Route::post("/addDeductions", "RateController@addDeductions");
 	});
 
+	// Earning View
 	Route::group(["middleware" => ["permission:earning_View"]], function () {
 		Route::get("/earnings", "RateController@earnings");
 	});
 
-	Route::resource("schedules", "ScheduleController");
+	Route::group(["middleware" => ["permission:schedule_View"]], function () {
+		Route::get("/schedules", "ScheduleController@index");
+	});
+
+	Route::group(["middleware" => ["permission:schedule_Create"]], function () {
+		Route::get("/selectDepartment", "EmployeeController@selectDepartment");
+	});
+
+	Route::group(["middleware" => ["permission:schedule_Create"]], function () {
+		Route::post("/schedules", "ScheduleController@store");
+	});
 
 	Route::post("/settings/app", "SettingsController@update");
 	Route::get("/settings/app", "SettingsController@index");

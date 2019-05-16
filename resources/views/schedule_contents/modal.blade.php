@@ -1,6 +1,6 @@
 <div class="modal inmodal fade" id="addSchedule" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-md">
-        <form action="/addDeductions" method="POST">
+        <form action="/schedules" method="POST">
             {{ csrf_field() }}
             <div class="modal-content">
                 <div class="modal-header no-padding">
@@ -36,7 +36,7 @@
 
                             <div class="col-lg-12">
                                 <label>Department</label>
-                                <select class="form-control" type="text" name="department"></select>
+                                <select class="form-control" type="text" name="department_id"></select>
                             </div>
                         </div>
                         <div class="col-lg-6" style="padding: 0">
@@ -52,9 +52,9 @@
                             <div class="col-lg-12">
                                 <label>PM</label>
                                 <div class="input-daterange input-group am" id="datepicker" style="width: 100%">
-                                    <input type="time" class="input form-control" name=in_am>
+                                    <input type="time" class="input form-control" name=in_pm>
                                     <span class="input-group-addon">to</span>
-                                    <input type="time" class="input form-control" name=out_am>
+                                    <input type="time" class="input form-control" name=out_pm>
                                 </div>
                             </div>
                         </div>
@@ -81,9 +81,7 @@
                 "X-CSRF-TOKEN": "{{ csrf_token() }}",
             }
         }).then(rep => rep.text()).then(text => {
-
-            document.querySelector("[name=department]").innerHTML = text;
-
+            document.querySelector("[name=department_id]").innerHTML = text;
         });
 
     }

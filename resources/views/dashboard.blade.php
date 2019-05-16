@@ -24,7 +24,7 @@
           <img alt="image" class="img-responsive" src="{{ json_decode(auth()->user()->profile->image)->data }}" style="margin: auto">
         </div>
         <div class="ibox-content profile-content">
-            <h4>{{ App\Profile::getFullName(auth()->user()->id) }}</h4>
+            <h4><i class="fas fa-dot-circle" style="color: #23c6c8"></i>&nbsp; {{ App\Profile::getFullName(auth()->user()->id) }}</h4>
             <p>
               <i class="fas fa-map-marker-alt"></i>  {{ auth()->user()->profile->address ? auth()->user()->profile->address : "Where do you live?" }}
             </p>
@@ -112,7 +112,7 @@
       <div class="ibox-title">
           <div class="pull-right">
               <div class="btn-group">
-                  <button type="button" class="btn btn-xs btn-white active">Today</button>
+                  <button type="button" class="btn btn-xs btn-white active">Headlines</button>
                   <button type="button" class="btn btn-xs btn-white">Monthly</button>
                   <button type="button" class="btn btn-xs btn-white">Annual</button>
               </div>
@@ -245,7 +245,6 @@
   function newsapi(country = 'ph', apikey = '700c63acbba14b8ba8b9744c4a7c8d99') {
 
     var newsapiDetails = document.querySelector(".newsapi-details");
-    var articles;
 
     fetch (`https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${apikey}`).then(rep => rep.json()).then(json => {
 
@@ -269,13 +268,11 @@
                   news.publishedAt.getSeconds() == 1 ? 'A second ago' : news.publishedAt.getSeconds() + ' seconds ago';
 
         div.innerHTML = `
-          <div class="no-padding">
             <div class="col-lg-4 col-sm-4 col-xs-5">
-              <img src="${news.urlToImage}" class="img-responsive" height=450 style="margin: auto; height: 150px">
+              <img src="${news.urlToImage}" class="img-responsive" height=470 style="margin: auto; height: 150px; padding-top: 10px; padding-bottom: 10px ">
             </div>
             <div class="col-lg-8 no-padding">
               <h3><a href="${news.url}" class="no-padding">${news.title}</a><br><small class="text-muted no-padding">${pub}</small></h3>
-
               <label>Description</label>
               <p>${news.content || news.description}</p>
             </div>
@@ -283,13 +280,11 @@
         `;
 
         newsfeed.appendChild(div);
-
-        articles = json.articles;
       });
 
       $("#newsapi").on("init", function(event, slick) {
         newsapiDetails.innerHTML = `
-          Source: <label><a href="http://${articles[slick.currentSlide].source.name}">${articles[slick.currentSlide].source.name}</a></label>
+          Source: <label><a href="http://${document.querySelector('.slick-current')}">${document.querySelector('.slick-current').id}</a></label>
           <span class="pull-right"><i class="fas fa-rss-square"></i> NewsAPI</span>
         `;
       });
@@ -298,7 +293,7 @@
 
       $("#newsapi").on("afterChange", function(event, slick) {
         newsapiDetails.innerHTML = `
-          Source: <label><a href="http://${articles[slick.currentSlide  ].source.name}">${articles[slick.currentSlide].source.name}</a></label>
+          Source: <label><a href="http://${document.querySelector('.slick-current').id}">${document.querySelector('.slick-current').id}</a></label>
           <span class="pull-right"><i class="fas fa-rss-square"></i> NewsAPI</span>
         `;
       });

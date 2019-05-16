@@ -1,20 +1,3 @@
-<div class="row">
-    <div class="col-lg-12" style="padding: 0">
-        <div class="col-lg-2">
-            <select class="form-control select2_demo_1 com" onchange="chdepartment(this)">
-                @foreach (App\Company::all() as $company)
-                    @if (count($company->departments) > 0)
-                        <option value="{{ $company->id }}">{{ $company->name }}</option>
-                    @endif
-                @endforeach
-            </select>
-
-        </div>
-        <div class="col-lg-2">
-            <select class="form-control select2_demo_2 dep" onchange="chemployee(this)"></select>
-        </div>
-    </div>
-</div>
 <br>
 <div class="row">
     <div class="col-lg-12">
@@ -23,12 +6,12 @@
                         <thead>
                         <tr>
                             <th>Bio ID</th>
-                            <th>Employee</th>
-                            <th>Salary</th>
-                            <th>Hourly</th>
-                            <th>Overtime</th>
-                            <th>Holiday</th>
-                            <th>Night Diff.</th>
+                            <th>Employee Name</th>
+                            <th width=150>Monthly</th>
+                            <th width=100>Hourly</th>
+                            <th width=100>Overtime</th>
+                            <th width=100>Holiday</th>
+                            <th width=150>Night Differential</th>
                             <th></th>
                         </tr>
                         </thead>

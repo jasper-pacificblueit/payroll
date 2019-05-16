@@ -50,7 +50,7 @@
                                 <div class="modal-footer">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
-                                        <button type="submit" name="createPosition" class="btn btn-primary btn-sm">Create</button>
+                                        <button type="submit" name="createPosition" class="btn btn-success btn-sm">Create</button>
                                     </div>
                                 </div>
                                 </form>
@@ -170,16 +170,17 @@
                                             @php
                                                 switch ($position->state) {
                                                 case 0:
-                                                    echo "<span class='alert-success'>Available</span>";
+                                                    echo '<span class="label label-info">Available</span>';
                                                     break;
                                                 case 1:
-                                                    echo "<span class='alert-warning'>Unavailable</span>";
+                                                    echo '<span class="label label-warning">Unavailable</span>';
                                                     break;
                                                 case 2:
-                                                    echo "<span class='alert-info'>Temporarily Unavailable</span>";
+                                                    echo '<span class="label label-success">Temporarily Unavailable</span>';
                                                     break;
                                                 default:
-                                                    echo "<span class='alert-danger'>Unknown</span>";
+                                                    echo '<span class="label label-danger">Unknown</span>';
+                                                    break;
                                                 }
                                             @endphp
                                         </td>

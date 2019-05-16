@@ -57,14 +57,49 @@
                         <div class="tab-content">
                             <div id="compensation" class="tab-pane {{ Request::path() == 'rates' ? 'active' : '' }}">
                                 <div class="panel-body">
+                                    @if (Request::path() == "rates")
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding: 0">
+                                            <div class="col-lg-2">
+                                                <select class="form-control select2_demo_1 com" onchange="chdepartment(this)">
+                                                    @foreach (App\Company::all() as $company)
+                                                        @if (count($company->departments) > 0)
+                                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
 
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <select class="form-control select2_demo_2 dep" onchange="chemployee(this)"></select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @include('rate_contents.rates')
+                                    @endif
                                 </div>
                             </div>
                             <div id="compensation" class="tab-pane {{ Request::path() == 'deductions' ? 'active' : '' }}">
                                 <div class="panel-body">
-
+                                    @if (Request::path() == "deductions")
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding: 0">
+                                            <div class="col-lg-2">
+                                                <select class="form-control select2_demo_1 com" onchange="chdepartment(this)">
+                                                    @foreach (App\Company::all() as $company)
+                                                        @if (count($company->departments) > 0)
+                                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <select class="form-control select2_demo_2 dep" onchange="chemployee(this)"></select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @include('rate_contents.deductions')
+                                    @endif
                                 </div>
                             </div>
                             <div id="compensation" class="tab-pane {{ Request::path() == 'earnings' ? 'active' : '' }}">
@@ -135,11 +170,12 @@
                 }
             },
        });
+        chdepartment(document.querySelector(".com"));
         @endif
 
         @if (Request::path() == 'rates')
             $(".ratesTable").DataTable({
-                pageLength: 10, 
+                pageLength: 10,
                 language: {
                     paginate: {
                         previous: '<i class="fas fa-arrow-left"></i>',
@@ -180,7 +216,7 @@
 
     @if (Request::path() == "rates")
    function chemployee(obj) {
-        fetch ("/rates/employeelist/"+ obj.value, {
+        fetch ("/rates/employeelist/rates/"+ obj.value, {
             headers: {
                 "X-CSRF-TOKEN": "{{ csrf_token() }}",
             }
@@ -209,6 +245,41 @@
             $(".dep").select2();
             $(".com").select2();
 
+            chemployee(document.querySelector(".dep"));
+        });
+    }
+    @endif
+
+    @if (Request::path() == "deductions")
+   function chemployee(obj) {
+        fetch ("/rates/employeelist/deductions/"+ obj.value, {
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            }
+        }).then(rep => rep.text()).then(html => {
+            $(".deductionTable").DataTable().destroy();
+            document.querySelector(".employeelist").innerHTML = html;
+            $(".deductionTable").DataTable({
+                pageLength: 10, 
+                language: {
+                    paginate: {
+                        previous: '<i class="fas fa-arrow-left"></i>',
+                        next: '<i class="fas fa-arrow-right"></i>',
+                    }
+                },
+           }).draw();
+        });
+    }
+
+    function chdepartment(obj) {
+        fetch("/selectDepartment?q=" + obj.value, {
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            }
+        }).then(rep => rep.text()).then(html => {
+            document.querySelector(".dep").innerHTML = html;
+            $(".dep").select2();
+            $(".com").select2();
             chemployee(document.querySelector(".dep"));
         });
     }

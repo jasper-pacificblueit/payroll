@@ -288,7 +288,9 @@
         `;
       });
 
-      $("#newsapi").slick();
+      $("#newsapi").slick({
+        autoplay: true,
+      });
 
       $("#newsapi").on("afterChange", function(event, slick) {
         newsapiDetails.innerHTML = `

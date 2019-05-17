@@ -122,7 +122,7 @@
       <div class="ibox-content" style="padding-bottom: 1px">
         <span id="newsapi" style="margin: 0">
           <div class="no-padding text-center">
-            <h1 style="padding: 49px">No news available</h1>
+            <h1 style="padding: 72px">No news available</h1>
           </div>
         </span>
       </div>

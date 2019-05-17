@@ -81,12 +81,12 @@ Route::group(['middleware' => ['auth']], function() {
 
 	// Company Modify
 	Route::group(['middleware' => ['permission:company_Modify']], function () {
-
+		Route::put("/company/{id}", "CompanyController@update");
 	});
 
 	// Company Delete
 	Route::group(['middleware' => ['permission:company_Delete']], function () {
-
+		Route::delete("/company/{id}", "CompanyController@destroy");
 	});
 
 	// Department View

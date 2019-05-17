@@ -16,6 +16,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::orderBy('id' , 'asc') -> paginate(5);
+
         return view('company_contents.index' , compact('companies'));
     }
 
@@ -43,7 +44,6 @@ class CompanyController extends Controller
         ]);
 
         $company = new Company();
-
         $company->name = request('name');
         $company->address = request('address');
         $company->save();
@@ -81,9 +81,17 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, $id)
     {
-        //
+        $req = json_decode($request->getContent());
+
+        $company = Company::find($id);
+
+        $company->name = $req->name == "" ? $company->name : $req->name;
+        $company->address = $req->address == "" ? $company->address : $req->address;
+        $company->save();
+
+        return json_encode($company);
     }
 
     /**
@@ -92,8 +100,12 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy($id)
     {
-        //
+        $company = Company::find($id);
+        if ($company->employees->count() > 0) return back()->with([]);
+
+        Company::destroy($company->id);
+        return redirect("/company")->with([]);
     }
 }

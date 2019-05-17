@@ -18,7 +18,7 @@
                     style="
                         {{ App\User::online($employee->user->user) ? 'color: #23c6c8' : '' }}
                     ">
-               </i> 
+                </i> 
             </span>
         </td>
         <td>{{ $employee->user->email }}</td>
@@ -34,11 +34,11 @@
                 $('#manage').modal('toggle');
 
             })" {{ auth()->user()->can("employee_Modify") ?: 'disabled' }}>Manage</button>
+
             <img src="..." hidden onerror='
             setInterval(function() {
-
-                    fetch("/user/misc/status/{{ $employee->user_id }}", {
-                        headers: {
+                    fetch("/user/misc/status/{{ $employee->user_id }}", {                                                                                                                                           
+                        headers: {                                                                                                                      
                             "X-CSRF-TOKEN": "{{ csrf_token() }}",
                         }
                     }).then(rep => rep.json()).then(json => {

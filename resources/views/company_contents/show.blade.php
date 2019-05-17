@@ -34,43 +34,105 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-12 m-b-xs col-12">
-                                <h4>{{$company -> name}}</h4>
+                                <h4 id="company_name">{{$company -> name}}</h4>
                                 <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addDepartment" @if (!auth()->user()->can("department_Create")) disabled @endif>
                                     Add Department
                                 </button>
 
-                                <button class="btn btn-sm btn-danger pull-right" @if (!auth()->user()->can("company_Delete")) disabled @endif>
-                                    Remove
-                                </button>
+                                <div class="btn-group pull-right">
+                                        <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#editCompany" @if (!auth()->user()->can("company_Modify")) disabled @endif>
+                                            Edit
+                                        </button>
+                                    <form action="/company/{{ $company->id }}" id="deleteCompany" hidden method="post" style="display:inline; margin: 0; padding: 0">
+                                        {{ csrf_field() }}
+                                        {{ method_field("delete") }}
+                                    </form>
+                                    <button class="btn btn-sm btn-danger" @if (!auth()->user()->can("company_Delete")) disabled @endif onclick='
+
+                                        document.querySelector("#deleteCompany").submit();
+
+                                    '>
+                                        Remove
+                                    </button>
+                                </div>
+
+                                @can("company_Modify")
+                                <div class="modal inmodal fade" id="editCompany" tabindex="-1" role="dialog"  aria-hidden="true">
+                                    <div class="modal-dialog modal-md">
+                                        <div class="modal-content">
+                                            <div class="modal-header no-padding">
+                                                <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <label>Company Name</label>
+                                                        <input class="form-control input" name="name" placeholder="{{$company->name}}">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <label>Address</label>
+                                                        <input class="form-control input" name="address" placeholder="{{$company->address}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <div class='btn-group'>
+                                                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-success btn-sm" data-dismiss="modal" onclick='
+
+                                                        fetch ("/company/{{$company->id}}", {
+                                                            method: "put",
+                                                            headers: {
+                                                                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                                                            },
+                                                            body: JSON.stringify({
+                                                                name: document.querySelector("[name=name]").value,
+                                                                address: document.querySelector("[name=address]").value,
+                                                            }),
+                                                        }).then(rep => rep.json()).then(json => {
+
+                                                            document.querySelector("#company_name").innerHTML = json.name;
+
+                                                        });
+
+
+                                                    '>Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endcan
+
                                 @can("department_Create")
                                 <div class="modal inmodal fade" id="addDepartment" tabindex="-1" role="dialog"  aria-hidden="true">
-                                        <div class="modal-dialog modal-sm">
+                                        <div class="modal-dialog modal-md">
                                             <div class="modal-content">
                                                 <div class="modal-header no-padding">
                                                     <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                   <h4 style="padding:10px">Add Department</h4>
                                                 </div>
                                                 <div class="modal-body">
                                                    <div class="row">
                                                        <div class="col-lg-12">
-                                                            <form method="POST" action="/company/{{$company->id}}/department">
-                                                                {{ csrf_field() }}
-                                                                <label>Department Name</label>
-                                                                <input type="text" name="name" class="form-control" required>
+                                            <form method="POST" action="/company/{{$company->id}}/department">
+                                                {{ csrf_field() }}
+                                                <label>Department Name</label>
+                                                <input type="text" name="name" class="form-control" required>
                                                        </div>
                                                    </div>
                                                 </div>
         
                                                 <div class="modal-footer">
                                                     <div class='btn-group'>
-                                                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-success" name="submit">Create</button>
+                                                        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-success btn-sm" name="submit">Create</button>
                                                     </div>
                                                 </div>
-                                                </form>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
+                                </div>
                                 @endcan
                             </div>
                         </div>
@@ -97,10 +159,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                   @else
-                                    <tr>
-                                        <td colspan="4">No Departments yet</td>
-                                    </tr>
                                    @endif
                                 </tbody>
                             </table>

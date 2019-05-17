@@ -31,7 +31,6 @@
                         <option value=0 {{ $position->state != 0 ?: 'selected' }}>Available</option>
                         <option value=1 {{ $position->state != 1 ?: 'selected' }}>Unavailable</option>
                         <option value=2 {{ $position->state != 2 ?: 'selected' }}>Temporarily Unavailable</option>
-                        <option value=4 {{ $position->state != 3 ?: 'selected' }}>Unknown</option>
                     </select>
                 </div>
                 <div class="col-lg-12">
@@ -165,16 +164,16 @@
             @php
                 switch ($position->state) {
                 case 0:
-                    echo "<span class='alert-success'>Available</span>";
+                    echo "<span class='label label-info'>Available</span>";
                     break;
                 case 1:
-                    echo "<span class='alert-warning'>Unavailable</span>";
+                    echo "<span class='label label-warning'>Unavailable</span>";
                     break;
                 case 2:
-                    echo "<span class='alert-info'>Temporarily Unavailable</span>";
+                    echo "<span class='label label-info'>Temporarily Unavailable</span>";
                     break;
                 default:
-                    echo "<span class='alert-danger'>Unknown</span>";
+                    echo "<span class='label label-danger'>Unknown</span>";
                 }
             @endphp
         </td>

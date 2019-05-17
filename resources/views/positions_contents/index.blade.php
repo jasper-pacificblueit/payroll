@@ -1,3 +1,16 @@
+@php
+
+    foreach (App\Positions::all() as $position) {
+
+        if ($position->count()/$position->lim >= 1) $position->state = '1';
+
+        $position->save();
+
+    }
+
+
+
+@endphp
 
  <div class="row">
     <div class="col-lg-12">
@@ -36,7 +49,6 @@
                                                     <option value=0 selected>Available</option>
                                                     <option value=1>Unavailable</option>
                                                     <option value=2>Temporarily Unavailable</option>
-                                                    <option value=4>Unknown</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -99,7 +111,7 @@
                 <div class="col-lg-5">
                     <label>Title</label>
                     <input type=text class="form-control" name="edit-title" placeholder="{{ $position->title }}" title={{$position->title}}
-                        {{ $position->title == "Administrator" ? 'disabled value='. $position->title .'' : "" }}>
+                        @if ($position->title == "Administrator" || $position->title == "Human Resources Manager") readonly @endif>
                 </div>
                 <div class="col-lg-2">
                     <label>Maximum</label>
@@ -111,7 +123,6 @@
                         <option value=0 {{ $position->state != 0 ?: 'selected' }}>Available</option>
                         <option value=1 {{ $position->state != 1 ?: 'selected' }}>Unavailable</option>
                         <option value=2 {{ $position->state != 2 ?: 'selected' }}>Temporarily Unavailable</option>
-                        <option value=4 {{ $position->state != 3 ?: 'selected' }}>Unknown</option>
                     </select>
                 </div>
                 <div class="col-lg-12">

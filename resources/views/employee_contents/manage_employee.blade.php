@@ -171,7 +171,13 @@
                                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
                                     }
                                 }).then(function() { 
-                                    EmployeeSelect(document.getElementById('DepartmentSelector').value);
+                                    document.querySelector('#emrow-{{ $eminfo->user_id }}').className += ' alert alert-danger';
+                                    document.querySelector('#emrow-{{ $eminfo->user_id }}').ondblclick = '';
+                                    document.querySelector('#emrow-{{ $eminfo->user_id }} #btnclick-{{ $eminfo->user_id }}').setAttribute('disabled', 'disabled');
+
+                                    setInterval(_ => {
+                                      document.querySelector('#emrow-{{ $eminfo->user_id }}').hidden = true;
+                                    }, 2000);
                                 });
                                 
                             " data-dismiss="modal">

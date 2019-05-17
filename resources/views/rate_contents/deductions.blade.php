@@ -5,8 +5,8 @@
             <table class="table table-striped table-hover deductionTable">
                     <thead>
                     <tr>
-                        <th>Bio ID</th>
-                        <th>Employee</th>
+                        <th width=100>Bio ID</th>
+                        <th width=400>Employee</th>
                         <th width=100>Late</th>
                         <th width=100>Undertime</th>
                         <th>Miscellaneous</th>

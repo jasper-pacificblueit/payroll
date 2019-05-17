@@ -265,8 +265,6 @@
                   'X-CSRF-TOKEN': '{{ csrf_token() }}',
                 },
               }).then(rep => rep.json()).then(json => {
-
-
                 document.querySelector('[name=hourly_rate]').value = (this.value/26/8).toFixed(2);
                 document.querySelector('[name=ot_rate]').value = (this.value/26/8*1.25).toFixed(2);
                 document.querySelector('[name=holiday_rate]').value = (this.value/26/8*2).toFixed(2);

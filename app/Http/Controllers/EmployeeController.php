@@ -97,6 +97,16 @@ class EmployeeController extends Controller
         $user->password = bcrypt($request->pass);
         $user->save();
 
+
+        $settings = new App\Settings();
+
+        $settings->user_id = $user->id;
+        $settings->settings = json_encode([
+            'skin' => '',
+        ]);
+
+        $settings->save();
+
         $contact->mobile = $request->mobile;
         $contact->address = $request->address;
         $contact->email = $user->email;
@@ -121,25 +131,25 @@ class EmployeeController extends Controller
             $employee->user_id = $user->id;
             $employee->bio_id = $request->bio;
 
+            $employee->save();
+
             if ($request->schedule == "custom") {
 
-                $schedule = new App\Schedule([
-                    'employee_id' => $employee->id,
-                    'type' => 'Custom',
-                    'in_am' => $request->in_am,
-                    'out_am' => $request->out_am,
-                    'in_pm' => $request->in_pm,
-                    'out_pm' => $request->out_pm,
-                    'state' => '1',
-                ]);
+                $schedule = new App\Schedule;
+
+                $schedule->employee_id = $employee->id;
+                $schedule->type = 'Custom';
+                $schedule->in_am = $request->in_am;
+                $schedule->out_am = $request->out_am;
+                $schedule->in_pm = $request->in_pm;
+                $schedule->out_pm = $request->out_pm;
+
+                $schedule->state = 1;
                 $schedule->save();
 
                 $employee->schedule_id = $schedule->id;
             } else
                 $employee->schedule_id = $request->schedule;
-
-
-            $employee->save();
 
             $rates = new App\Rate;
 

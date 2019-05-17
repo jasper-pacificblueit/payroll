@@ -184,7 +184,7 @@
     </div>
 </div>
 
-<img hidden="true" src="" onerror='
+<img hidden="true" src="..." onerror='
 
     $("#manage").on("hide.bs.modal", function (e) {
         document.querySelector("#btnclick-{{ $eminfo->user_id }}").disabled = false;

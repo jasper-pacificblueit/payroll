@@ -1,5 +1,5 @@
 
-@foreach (App\Schedule::all() as $sched)
+@foreach (App\Schedule::all()->where("department_id", "!=", "") as $sched)
 	<tr>
 		<td>{{ $sched->type }}</td>
 		<td>{{ $sched->department->name }}</td>

@@ -11,7 +11,7 @@ class UsersTableSeeder extends Seeder
         factory(App\Positions::class, 4)->create();
 
         // random employee
-        factory(App\User::class, 10)->create()->each(function ($user) {
+        factory(App\User::class, 100)->create()->each(function ($user) {
             $faker = Faker\Factory::create();
             
             // profile
@@ -41,7 +41,7 @@ class UsersTableSeeder extends Seeder
                 'user_id' => $user->id,
                 'company_id' => 1,
                 'department_id' => 
-                    $faker->randomElement(App\Department::find(1)->pluck('id')->toArray()),
+                    $faker->randomElement(App\Department::where("company_id", 1)->pluck('id')->toArray()),
             ]));
 
             // rates

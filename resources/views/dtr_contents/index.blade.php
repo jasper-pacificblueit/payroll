@@ -52,14 +52,14 @@
             <h2>Manage Attendance</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <a>Dashboard</a>
+                    Dashboard
                 </li>
                 <li>
-                    <a href="/dtr">Daily Time Records</a>
+                    Daily Time Records
                 </li>
                 
                 <li>
-                    <a href="/employee"><strong>Import Attendance</strong></a>
+                    <strong>Import Attendance</strong>
                 </li>
                
             </ol>

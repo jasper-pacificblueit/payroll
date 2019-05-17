@@ -30,7 +30,6 @@ Route::group(['middleware' => ['auth']], function() {
 			Route::get('get-employee', 'EmployeeController@getEmployee');
 			Route::get('/employee', 'EmployeeController@index')->name('employee');
 
-			Route::get("/selectDepartment", "EmployeeController@selectDepartment");
 			Route::get("/showEmployee", "EmployeeController@showEmployee");
 			Route::get('/user/misc/status/{id}', 'ProfileController@update_status');
 		});
@@ -217,13 +216,14 @@ Route::group(['middleware' => ['auth']], function() {
 	});
 
 	Route::group(["middleware" => ["permission:schedule_Create"]], function () {
-		Route::get("/selectDepartment", "EmployeeController@selectDepartment");
+		
 	});
 
 	Route::group(["middleware" => ["permission:schedule_Create"]], function () {
 		Route::post("/schedules", "ScheduleController@store");
 	});
 
+	Route::get("/selectDepartment", "EmployeeController@selectDepartment");
 	Route::post("/settings/app", "SettingsController@update");
 	Route::get("/settings/app", "SettingsController@index");
 	Route::get("/settings/user", "SettingsController@index");

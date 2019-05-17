@@ -13,10 +13,10 @@
             <h2>Company</h2>
             <ol class="breadcrumb">
                 <li class="active">
-                    <a>Dashboard</a>
+                    Dashboard
                 </li>
                 <li>
-                    <a href="/employee"><strong>View Companies</strong></a>
+                    <strong>View Companies</strong>
                 </li>
                
             </ol>

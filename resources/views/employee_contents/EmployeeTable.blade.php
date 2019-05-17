@@ -34,7 +34,7 @@
                 $('#manage').modal('toggle');
 
             })" {{ auth()->user()->can("employee_Modify") ?: 'disabled' }}>Manage</button>
-            <img src="..." style="display: none;" onerror='
+            <img src="..." hidden onerror='
             setInterval(function() {
 
                     fetch("/user/misc/status/{{ $employee->user_id }}", {
@@ -55,7 +55,7 @@
 
                     }).catch(e => e);
 
-            }, 5*60000+{{ $min += 1000 }});
+            }, 60000+{{ $min += 1000 }});
             '>
         </td>
     </tr>

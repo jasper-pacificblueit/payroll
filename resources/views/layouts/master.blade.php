@@ -23,6 +23,8 @@
     {!! Html::style('css/plugins/jasny/jasny-bootstrap.min.css') !!}
     {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
     {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
+    {!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
+
 
     @yield('styles')
 </head>
@@ -73,7 +75,7 @@
                                 </span>
                             </span>
                         </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <ul class="dropdown-menu m-t-xs">
                             <li>
                                 <a onclick="window.location.href='/profile'"><i class="fa fa-user"></i> <span class="nav-label">My Profile</span></a>
                             </li>
@@ -248,7 +250,6 @@
 {!! Html::script('js/bootstrap.min.js') !!}
 {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!}
 {!! Html::script('js/plugins/slimscroll/jquery.slimscroll.min.js') !!}
-{!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
 
 {!! Html::script('js/inspinia.js') !!}
 {!! Html::script('js/plugins/pace/pace.min.js') !!}

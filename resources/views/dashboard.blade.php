@@ -262,10 +262,9 @@
         div.setAttribute("id", news.source.name);
 
         news.publishedAt = new Date(news.publishedAt);
+        today = new Date();
 
-        var pub = news.publishedAt.getHours() != 0 ? `${news.publishedAt.getHours() == 1 ? 'An hour ago' : news.publishedAt.getHours() + ' hours ago'}` : 
-                  news.publishedAt.getMinutes() != 0 ? `${news.publishedAt.getMinutes() == 1 ? 'A minute ago' : news.publishedAt.getMinutes() + ' minutes ago'}` : 
-                  news.publishedAt.getSeconds() == 1 ? 'A second ago' : news.publishedAt.getSeconds() + ' seconds ago';
+        var pub = ((today - news.publishedAt)/1e3/3600).toFixed(0) + ` hour${((today - news.publishedAt)/1e3/3600).toFixed(0) >= 1?'s':''} ago`;
 
         div.innerHTML = `
             <div class="col-lg-4 col-sm-4 col-xs-5">

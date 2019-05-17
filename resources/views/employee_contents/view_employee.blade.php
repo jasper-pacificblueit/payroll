@@ -7,6 +7,7 @@
                         <th width=200>Date Registered</th>
                         <th>Employee Name</th>
                         <th>Email</th>
+                        <th>Schedule</th>
                         <th>Job Title</th>
                         <th id="excludedcolumn">Actions</th>
                     </tr>

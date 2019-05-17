@@ -144,12 +144,16 @@ class EmployeeController extends Controller
                 $schedule->in_pm = $request->in_pm;
                 $schedule->out_pm = $request->out_pm;
 
-                $schedule->state = 1;
+                $schedule->state = '1';
                 $schedule->save();
 
                 $employee->schedule_id = $schedule->id;
+
             } else
                 $employee->schedule_id = $request->schedule;
+
+            $employee->save();
+
 
             $rates = new App\Rate;
 

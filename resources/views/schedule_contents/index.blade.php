@@ -15,12 +15,14 @@
                                 <tr>
                                     <th>Schedule Type</th>
                                     <th>Department</th>
+                                    <th>Designated to</th>
                                     <th>Time in <small>(am)</small></th>
                                     <th>Time out <small>(am)</small></th>
                                     <th>Time in <small>(pm)</small></th>
                                     <th>Time out <small>(pm)</small></th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody id="tbody">
@@ -32,3 +34,5 @@
       </div>
   </div>
 </div>
+
+

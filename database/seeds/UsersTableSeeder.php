@@ -11,7 +11,7 @@ class UsersTableSeeder extends Seeder
         factory(App\Positions::class, 4)->create();
 
         // random employee
-        factory(App\User::class, 100)->create()->each(function ($user) {
+        factory(App\User::class, 5)->create()->each(function ($user) {
             $faker = Faker\Factory::create();
             
             // profile
@@ -74,6 +74,7 @@ class UsersTableSeeder extends Seeder
 
                 ]),
             ]));
+
         });
 
         // static employees

@@ -60,7 +60,7 @@
                                     @if (Request::path() == "rates")
                                     <div class="row">
                                         <div class="col-lg-12" style="padding: 0">
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2 col-xs-6">
                                                 <select class="form-control select2_demo_1 com" onchange="chdepartment(this)">
                                                     @foreach (App\Company::all() as $company)
                                                         @if (count($company->departments) > 0)
@@ -70,7 +70,7 @@
                                                 </select>
 
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2 col-xs-6">
                                                 <select class="form-control select2_demo_2 dep" onchange="chemployee(this)"></select>
                                             </div>
                                         </div>
@@ -84,7 +84,7 @@
                                     @if (Request::path() == "deductions")
                                     <div class="row">
                                         <div class="col-lg-12" style="padding: 0">
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2 col-xs-6">
                                                 <select class="form-control select2_demo_1 com" onchange="chdepartment(this)">
                                                     @foreach (App\Company::all() as $company)
                                                         @if (count($company->departments) > 0)
@@ -93,7 +93,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2 col-xs-6">
                                                 <select class="form-control select2_demo_2 dep" onchange="chemployee(this)"></select>
                                             </div>
                                         </div>

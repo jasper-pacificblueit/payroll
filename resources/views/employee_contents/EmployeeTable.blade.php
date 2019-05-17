@@ -22,6 +22,7 @@
             </span>
         </td>
         <td>{{ $employee->user->email }}</td>
+        <td align=center>{!! $employee->schedule == "" ? "<span class='badge badge-warning'>No Schedule</span>" : "" !!}</td>
         <td>{{ $employee->user->position()->title }}</td>
         <td id="excludedcolumn">
     		<button class="btn btn-xs btn-default" id="btnclick-{{ $employee->user_id }}" onclick="this.disabled = true; fetch('/manage/{{$employee->user_id}}', {

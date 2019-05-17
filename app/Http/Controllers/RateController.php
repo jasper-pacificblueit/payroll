@@ -6,6 +6,7 @@ use App\Rate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Deduction;
+use App\Employee;
 class RateController extends Controller
 {
     /**
@@ -121,9 +122,27 @@ class RateController extends Controller
      * @param  \App\Rate  $rate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rate $rate)
+    public function update(Request $request, $id)
     {
-        //
+        $rates = json_decode($request->getContent());
+        $emrate = Employee::find($id)->rates;
+
+        $emrate->monthly = (float)implode("", explode(",", $rates->monthly));
+        $emrate->holiday = (float)implode("", explode(",", $rates->holiday));
+        $emrate->hourly = (float)implode("", explode(",", $rates->hourly));
+        $emrate->nightdiff = (float)implode("", explode(",", $rates->nightdiff));
+        $emrate->overtime = (float)implode("", explode(",", $rates->ot));
+        $emrate->save();
+
+        return json_encode([
+
+            'monthly' => number_format($emrate->monthly, 2),
+            'holiday' => number_format($emrate->holiday, 2),
+            'hourly' => number_format($emrate->hourly, 2),
+            'nightdiff' => number_format($emrate->nightdiff, 2),
+            'overtime' => number_format($emrate->overtime, 2),
+
+        ]);
     }
 
     /**

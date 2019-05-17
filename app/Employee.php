@@ -37,7 +37,7 @@ class Employee extends Model
 	}
 
 	public function schedule() {
-		return $this->hasOne("App\Schedule", "schedule_id");
+		return $this->hasOne("App\Schedule", "id", "schedule_id");
 	}
 
 	public function positions() {

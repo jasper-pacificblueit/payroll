@@ -196,6 +196,12 @@ Route::group(['middleware' => ['auth']], function() {
 		});
 	});
 
+	Route::group(["middleware" => ["permission:rate_Modify"]], function () {
+		Route::put("/rates/modify/{id}", "RateController@update");
+
+
+	});
+
 	// Deduction View
 	Route::group(["middleware" => ["permission:deduction_View"]], function () {
 		Route::get("/deductions", "RateController@deductions");

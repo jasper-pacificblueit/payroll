@@ -220,7 +220,6 @@
             </select>
           </div>
         </div>
-      	
 
         <div class="col-lg-6" style="padding: 0">
             <div class="col-lg-12">
@@ -252,19 +251,11 @@
       <hr style="margin: 5px">
 
       <div class="row">
-      	<div class="col-lg-12" style="padding: 0px">
-          <div class="col-lg-6">
-            <h2>Rates</h2>
-          </div>
-          <div class="col-lg-6">
-            <h2 class="hidden-xs hidden-sm hidden-md">Deductions</h2>
-          </div>
-      	</div>
-      </div>
-      <div class="row">
-        <br class="hidden-lg">
 
         <div class="col-lg-6 col-sm-6" style="padding: 0">
+          <div class="col-lg-12">
+            <h2>Rates</h2>
+          </div>
           <div class="col-lg-3">
             <label>Salary</label>
             <input class="form-control" type="number" name="monthly_salary" step=".01" placeholder="Salary" oninput="
@@ -301,9 +292,19 @@
           </div>
         </div>
 
-        <div class="col-lg-6"></div>
-        <div class="col-lg-6"></div>
-        
+        <div class="col-lg-6 col-sm-6" style="padding: 0;">
+          <div class="col-lg-12">
+            <h2>Deductions</h2>
+          </div>
+          <div class="col-lg-2 col-xs-3">
+            <label title="Night Differential">Late</label>
+            <input class="form-control" type="number" name="late" placeholder="Rate" step=".01">
+          </div>
+          <div class="col-lg-2 col-xs-3">
+            <label title="Night Differential">Undertime</label>
+            <input class="form-control" type="number" name="undertime" placeholder="Rate" step=".01">
+          </div>
+        </div>
       </div>
 
       <div class="row">

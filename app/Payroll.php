@@ -23,12 +23,17 @@ class Payroll extends Model
       return $lates * $late_rate;
     }
 
-    public static function getDeductions($DeductionsRates , $Late) {
+    public static function CalculateUndertime($undertime , $undertime_rate){
+    
+      return $undertime * $undertime_rate;
+    }
+
+    public static function getDeductions($DeductionsRates , $Late , $Undertime) {
       $TotalDeductions = 0;
       foreach ($DeductionsRates->statutory as $name => $value) {
         $TotalDeductions+= $value;
       }
-      return $TotalDeductions + $Late;
+      return $TotalDeductions + $Late + $Undertime;
     }
     
     public static function NetPay($TotalEarnings , $TotalDeduction) {

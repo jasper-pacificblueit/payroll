@@ -65,4 +65,19 @@ class DateTimeRecord extends Model
 
         return $TotalLate;
     }
+
+    public static function getTotalUndertime($start , $end , $user_id){
+        $TotalUndertime = 0;
+        $attendances = DateTimeRecord::where('user_id' , '=' , $user_id)->whereBetween('date', [$start,$end])->get();
+        foreach ($attendances as $attendance) {
+            if($attendance->total_hours < 8){
+                $undertime = (8 - $attendance->total_hours);
+               
+                $TotalUndertime+= $undertime;
+
+            }
+        }
+
+        return $TotalUndertime;
+    }
 }

@@ -178,7 +178,7 @@ $endDate = date("Y-m-d" , strtotime($end));
 
                                                     <li class="list-group-item">
                                                             <strong style="color:red">Total Deduction</strong>
-                                                            <span class="pull-right" id="TotalDeductionDisp-{{$employee->user_id}}"> ₱ {{number_format($TotalDeductions , 2)}} </span><span><input type="text" id="TotalDeduction-{{$employee->user_id}}" value="{{number_format($TotalDeductions , 2)}}" hidden name="total_deduction[{{$employee->user_id}}]"></span>
+                                                            <span class="pull-right" id="TotalDeductionDisp-{{$employee->user_id}}"> ₱ {{number_format($TotalDeductions , 2)}} </span><span><input type="text" id="TotalDeduction-{{$employee->user_id}}" value="{{$TotalDeductions}}" hidden name="total_deduction[{{$employee->user_id}}]"></span>
                                                     </li>
 
                                                     <li class="list-group-item">

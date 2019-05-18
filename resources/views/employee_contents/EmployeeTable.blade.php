@@ -22,7 +22,11 @@
             </span>
         </td>
         <td>{{ $employee->user->email }}</td>
-        <td align=center>{!! $employee->schedule == "" ? "<span class='badge badge-warning'>No Schedule</span>" : "" !!}</td>
+        <td align=center>
+            <span title="{{ $employee->schedule->type }}" class="label label-info">{{ $employee->schedule->type{0} }}</span>
+            <span class='badge badge-success'>{{ $employee->schedule->in_am }} - {{ $employee->schedule->out_pm }}</span>
+            <span class='badge badge-warning'>{{ $employee->schedule->in_am }} - {{ $employee->schedule->out_pm }}</span>
+        </td>
         <td>{{ $employee->user->position()->title }}</td>
         <td id="excludedcolumn">
     		<button class="btn btn-xs btn-default" id="btnclick-{{ $employee->user_id }}" onclick="this.disabled = true; fetch('/manage/{{$employee->user_id}}', {

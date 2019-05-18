@@ -305,7 +305,7 @@
             var late_val = deduction.children[1].innerHTML;
 
             deduction.children[0].innerHTML = `<input class="form-control" placeholder="${late_desc}" id="deduction-${id}-desc">`;
-            deduction.children[1].innerHTML = `<input class="form-control" placeholder="${late_val}" id="deduction-${id}-val">`;
+            deduction.children[1].innerHTML = `<input class="form-control" type="number" step=".01" placeholder="${late_val}" id="deduction-${id}-val">`;
 
             deduction.children[2].firstElementChild.style.position = "relative";
             deduction.children[2].firstElementChild.style.top = "5px";

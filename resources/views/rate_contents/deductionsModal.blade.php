@@ -46,7 +46,7 @@
                      										var late_val = late.children[1].innerHTML;
 
                      										late.children[0].innerHTML = `<input class="form-control" placeholder="${late_desc}" id="late-desc" readonly>`;
-                     										late.children[1].innerHTML = `<input class="form-control" placeholder="${late_val}" id="late-val">`;
+                     										late.children[1].innerHTML = `<input type="number" step=".01" class="form-control" placeholder="${late_val}" id="late-val">`;
 
                      										late.children[2].firstElementChild.style.position = "relative";
                      										late.children[2].firstElementChild.style.top = "5px";
@@ -79,7 +79,7 @@
                      										var late_val = undertime.children[1].innerHTML;
 
                      										undertime.children[0].innerHTML = `<input class="form-control" placeholder="${late_desc}" id="undertime-desc" readonly>`;
-                     										undertime.children[1].innerHTML = `<input class="form-control" placeholder="${late_val}" id="undertime-val">`;
+                     										undertime.children[1].innerHTML = `<input type="number" step=".01" class="form-control" placeholder="${late_val}" id="undertime-val">`;
 
                      										undertime.children[2].firstElementChild.style.position = "relative";
                      										undertime.children[2].firstElementChild.style.top = "5px";
@@ -112,7 +112,7 @@
                      										var late_val = additional_deductions.children[1].innerHTML;
 
                      										additional_deductions.children[0].innerHTML = `<input class="form-control" placeholder="${late_desc}" id="additional_deductions-desc" readonly>`;
-                     										additional_deductions.children[1].innerHTML = `<input class="form-control" placeholder="${late_val}" id="additional_deductions-val">`;
+                     										additional_deductions.children[1].innerHTML = `<input type="number" step=".01" class="form-control" placeholder="${late_val}" id="additional_deductions-val">`;
 
                      										additional_deductions.children[2].firstElementChild.style.position = "relative";
                      										additional_deductions.children[2].firstElementChild.style.top = "5px";
@@ -170,7 +170,7 @@
                      										var late_val = {{ $name }}.children[1].innerHTML;
 
                      										{{ $name }}.children[0].innerHTML = `<input class="form-control" placeholder="${late_desc}" id="{{ $name }}-desc">`;
-                     										{{ $name }}.children[1].innerHTML = `<input class="form-control" placeholder="${late_val}" id="{{ $name }}-val">`;
+                     										{{ $name }}.children[1].innerHTML = `<input type="number" step=".01" class="form-control" placeholder="${late_val}" id="{{ $name }}-val">`;
 
                      										{{ $name }}.children[2].firstElementChild.style.position = "relative";
                      										{{ $name }}.children[2].firstElementChild.style.top = "5px";
@@ -196,7 +196,7 @@
                        					<input class="form-control input" placeholder="Deduction">
                        				</td>
                        				<td>
-                       					<input class="form-control input" placeholder="0.00" id="">
+                       					<input class="form-control input" type="number" step=".01" placeholder="0.00" id="">
                        				</td>
                        				<td>
                        					<button class="btn btn-default btn-xs" style="top: 5px; position: relative" onclick=`
@@ -238,6 +238,7 @@
 	}, 500);
 
 	$("#deduction").on("hide.bs.modal", function () {
+		adddeduction = 0;
 		clearInterval(modalInterval);
 	});
 

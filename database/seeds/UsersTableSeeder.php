@@ -36,13 +36,14 @@ class UsersTableSeeder extends Seeder
                 'email' => $user->email,
             ]));
 
+            $department_id = $faker->randomElement(App\Department::where("company_id", 1)->pluck('id')->toArray());
+
             // user's employee detail
             $user->employee()->save(new App\Employee([
                 'user_id' => $user->id,
                 'company_id' => 1,
-                'department_id' => 
-                    $faker->randomElement(App\Department::where("company_id", 1)->pluck('id')->toArray()),
-                'schedule_id' => 1 ,
+                'department_id' => $department_id,
+                'schedule_id' => $faker->randomElement(App\Department::find($department_id)->schedules->pluck('id')->toArray()),
             ]));
 
             // rates
@@ -82,6 +83,7 @@ class UsersTableSeeder extends Seeder
 
         // static employees
         foreach(DatabaseSeeder::employees() as $em) {
+            $faker = Faker\Factory::create();
 
             $user = new App\User($em->users);
 
@@ -92,6 +94,13 @@ class UsersTableSeeder extends Seeder
             $em->contacts["user_id"] = $user->id;
 
             (new App\Employee($em->employees))->save();
+
+            $employee = $user->employee;
+
+            $employee->schedule_id = $faker->randomElement($employee->departments->schedules->pluck('id')->toArray());
+
+            $employee->save();
+
             (new App\Profile($em->profiles))->save();
             (new App\Contact($em->contacts))->save();
             (new App\Rate([

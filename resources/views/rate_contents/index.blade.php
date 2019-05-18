@@ -273,7 +273,7 @@
     }
 
     var adddeduction = 0;
-    var editdeduction = 0;
+    var modalInterval;
 
     function save_deduction(id) {
         var deduction = document.querySelector("#deduction-" + id);

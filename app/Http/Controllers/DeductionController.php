@@ -73,9 +73,6 @@ class DeductionController extends Controller
         $deductions = Employee::find($id)->deductions;
         $udeductions = json_decode($request->getContent());
 
-
-        return json_encode($udeductions);
-
         $deductions->deductions = $udeductions->deductions;
         $deductions->additional_deductions = (float)$udeductions->additional_deductions;
         $deductions->late = (float)$udeductions->late;

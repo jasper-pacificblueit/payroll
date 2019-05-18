@@ -230,12 +230,16 @@
 
 <img src="..." hidden onerror='
 
-	setInterval(_ => {
+	modalInterval = setInterval(_ => {
 
-		if (adddeduction > 0)	document.querySelector("#deduction-submit").setAttribute("disabled", "disabled");
+		if (adddeduction > 0)	document.querySelector("#deduction-submit").classList.add("disabled");
+		else document.querySelector("#deduction-submit").classList.remove("disabled");
 
+	}, 500);
 
-	}, 1000);
+	$("#deduction").on("hide.bs.modal", function () {
+		clearInterval(modalInterval);
+	});
 
 	document.querySelector("#deduction-submit").addEventListener("click", event => {
 

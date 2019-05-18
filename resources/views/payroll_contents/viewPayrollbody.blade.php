@@ -32,7 +32,7 @@ $endDate = date("Y-m-d" , strtotime($end));
         
 
 
-        $TotalDeductions = App\Payroll::getDeductions($DeductionsRates);
+        $TotalDeductions = App\Payroll::getDeductions($DeductionsRates , $EmployeeLateDeductions);
         $NetPay =  App\Payroll::NetPay($TotalEarnings , $TotalDeductions);
      ?>
     
@@ -146,7 +146,7 @@ $endDate = date("Y-m-d" , strtotime($end));
                                                     <span id="DisplayDeduction-{{$employee->user_id}}">
                                                      <li class="list-group-item">
                                                         <span>Late</span>
-                                                        <span class="pull-right"> ₱ {{$EmployeeLateDeductions}}  <input class="DeductionClass-{{$employee->user_id}}" type="text" value="{{round(0 , 2)}}" hidden name="late[{{$employee->user_id}}]"></span>
+                                                        <span class="pull-right"> ₱ {{$EmployeeLateDeductions}}  <input class="DeductionClass-{{$employee->user_id}}" type="text" value="{{$EmployeeLateDeductions}}" hidden name="late[{{$employee->user_id}}]"></span>
                                                      </li>
                                                      <li class="list-group-item">
                                                         <span>Undertime</span>

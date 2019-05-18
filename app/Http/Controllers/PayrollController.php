@@ -71,6 +71,14 @@ class PayrollController extends Controller
         return view('payroll_contents.viewPayrollbody' , compact('start' , 'end' ));
      }
 
+     public function checkPayroll(Request $request){
+       $payroll_id = $request->payroll_id;
+
+        return view('payroll_contents.historyBody' , compact('payroll_id'));
+     }
+
+     
+
     public function makePayroll(Request $request)
     {
 
@@ -143,6 +151,13 @@ class PayrollController extends Controller
 
         
         }
+
+        $addPayroll = new \App\Payroll;
+
+        $addPayroll->start = date("Y-m-d" , strtotime($request->start));
+        $addPayroll->end = date("Y-m-d" , strtotime($request->end));
+        $addPayroll->save();
+
 
         return redirect('/payroll');
 

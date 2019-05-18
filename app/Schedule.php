@@ -13,5 +13,6 @@ class Schedule extends Model
     public function count() {
     	return Employee::where("schedule_id", $this->id)->count();
     }
+
 }
 

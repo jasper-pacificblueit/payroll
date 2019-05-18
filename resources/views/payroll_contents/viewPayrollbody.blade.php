@@ -12,15 +12,20 @@ $endDate = date("Y-m-d" , strtotime($end));
         
         
         $EmployeeTotalHours = App\DateTimeRecord::getTotalHours($startDate , $endDate , $employee->user_id);
+        $EmployeeTotalLate = App\DateTimeRecord::getTotalLate($employee->schedule , $startDate , $endDate , $employee->user_id);
+        $EmployeeTotalUndertime = App\DateTimeRecord::getTotalUndertime($startDate , $endDate , $employee->user_id);
         
         //Deductions
         // $EmployeeDeductions = App\Rate::getDeductions($employee->id);
         // $DeductionsRates = json_decode($EmployeeDeductions); 
         $EmployeeLate = $employee->deductions->late;
+        $EmployeeUndertime = $employee->deductions->undertime;
+        
         $EmployeeDeductions = $employee->deductions->deductions;
         $DeductionsRates = json_decode($EmployeeDeductions);
+        $EmployeeLateDeductions = App\Payroll::CalculateLate($EmployeeTotalLate , $EmployeeLate);        
+        $EmployeeUndertimeDeductions = App\Payroll::CalculateUndertime($EmployeeTotalUndertime , $EmployeeUndertime);        
         
-
         //Earnings
         $Basic = App\Payroll::getBasic($EmployeeRate , $EmployeeTotalHours);
         $Overtime = 0;
@@ -29,7 +34,9 @@ $endDate = date("Y-m-d" , strtotime($end));
 
         $TotalEarnings = App\Payroll::getEarnings($Basic , $Overtime , $Holiday);
         
-        $TotalDeductions = App\Payroll::getDeductions($DeductionsRates);
+
+
+        $TotalDeductions = App\Payroll::getDeductions($DeductionsRates , $EmployeeLateDeductions , $EmployeeUndertimeDeductions);
         $NetPay =  App\Payroll::NetPay($TotalEarnings , $TotalDeductions);
      ?>
     
@@ -78,7 +85,7 @@ $endDate = date("Y-m-d" , strtotime($end));
                                         <span>Holiday : ₱ {{number_format($EmployeeHoliday , 2)}}</span>
                                    </div>
                                    <div class="col-lg-3">
-                                        <span>Late : ₱ {{number_format($EmployeeLate , 2)}}</span>
+                                        <span>L\U : ₱ {{number_format($EmployeeLate , 2)}} \ {{number_format($EmployeeUndertime , 2)}}</span>
                                    </div>
                                   
                                  
@@ -143,11 +150,11 @@ $endDate = date("Y-m-d" , strtotime($end));
                                                     <span id="DisplayDeduction-{{$employee->user_id}}">
                                                      <li class="list-group-item">
                                                         <span>Late</span>
-                                                        <span class="pull-right"> ₱ {{number_format(0 , 2)}}  <input class="DeductionClass-{{$employee->user_id}}" type="text" value="{{round(0 , 2)}}" hidden name="late[{{$employee->user_id}}]"></span>
+                                                        <span class="pull-right"> ₱ {{$EmployeeLateDeductions}}  <input class="DeductionClass-{{$employee->user_id}}" type="text" value="{{$EmployeeLateDeductions}}" hidden name="late[{{$employee->user_id}}]"></span>
                                                      </li>
                                                      <li class="list-group-item">
                                                         <span>Undertime</span>
-                                                        <span class="pull-right"> ₱ {{number_format(0 , 2)}} <input class="DeductionClass-{{$employee->user_id}}" type="text" value="{{round(0 , 2)}}" hidden name="undertime[{{$employee->user_id}}]"></span>
+                                                        <span class="pull-right"> ₱ {{number_format($EmployeeUndertimeDeductions , 2)}} <input class="DeductionClass-{{$employee->user_id}}" type="text" value="{{$EmployeeUndertimeDeductions}}" hidden name="undertime[{{$employee->user_id}}]"></span>
                                                      </li>
 
                                                     @foreach ($DeductionsRates->statutory as $name => $deductions)

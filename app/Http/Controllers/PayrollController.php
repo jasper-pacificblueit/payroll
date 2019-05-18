@@ -72,9 +72,9 @@ class PayrollController extends Controller
      }
 
      public function checkPayroll(Request $request){
-       $payroll_id = $request->payroll_id;
-
-        return view('payroll_contents.historyBody' , compact('payroll_id'));
+      
+        $payroll = Payroll::find($request->payroll_id);
+        return view('payroll_contents.historyBody' , compact('payroll'));
      }
 
      
@@ -99,8 +99,8 @@ class PayrollController extends Controller
      */
     public function store(Request $request)
     { 
-        //  dd($request->total_deduction);
-
+        
+        // dd($request->employees);
         foreach ($request->employees as $employee) {
                 $earnings = [];      
                 $deductions = [];

@@ -225,7 +225,7 @@
             </nav>
         </div>
 
-        <br>
+       
             @yield('content')
       
         <br>

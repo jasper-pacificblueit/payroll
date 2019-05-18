@@ -1,9 +1,4 @@
-<div class="row">
-   <div class="col-lg-12">
-      {{$payroll_id}}
-   </div>
-    
-</div>
+
 
 @php( $checkPayroll = \App\PayrollDate::orderBy('id' , 'DESC')->first())
                       

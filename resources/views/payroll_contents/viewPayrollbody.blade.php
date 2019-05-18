@@ -12,14 +12,15 @@ $endDate = date("Y-m-d" , strtotime($end));
         
         
         $EmployeeTotalHours = App\DateTimeRecord::getTotalHours($startDate , $endDate , $employee->user_id);
-        
+        $EmployeeTotalLate = App\DateTimeRecord::getTotalLate($employee->schedule , $startDate , $endDate , $employee->user_id);
+
         //Deductions
         // $EmployeeDeductions = App\Rate::getDeductions($employee->id);
         // $DeductionsRates = json_decode($EmployeeDeductions); 
         $EmployeeLate = $employee->deductions->late;
         $EmployeeDeductions = $employee->deductions->deductions;
         $DeductionsRates = json_decode($EmployeeDeductions);
-        
+        $EmployeeLateDeductions = App\Payroll::CalculateLate($EmployeeTotalLate , $EmployeeLate);        
 
         //Earnings
         $Basic = App\Payroll::getBasic($EmployeeRate , $EmployeeTotalHours);
@@ -29,6 +30,8 @@ $endDate = date("Y-m-d" , strtotime($end));
 
         $TotalEarnings = App\Payroll::getEarnings($Basic , $Overtime , $Holiday);
         
+
+
         $TotalDeductions = App\Payroll::getDeductions($DeductionsRates);
         $NetPay =  App\Payroll::NetPay($TotalEarnings , $TotalDeductions);
      ?>
@@ -143,7 +146,7 @@ $endDate = date("Y-m-d" , strtotime($end));
                                                     <span id="DisplayDeduction-{{$employee->user_id}}">
                                                      <li class="list-group-item">
                                                         <span>Late</span>
-                                                        <span class="pull-right"> ₱ {{number_format(0 , 2)}}  <input class="DeductionClass-{{$employee->user_id}}" type="text" value="{{round(0 , 2)}}" hidden name="late[{{$employee->user_id}}]"></span>
+                                                        <span class="pull-right"> ₱ {{$EmployeeLateDeductions}}  <input class="DeductionClass-{{$employee->user_id}}" type="text" value="{{round(0 , 2)}}" hidden name="late[{{$employee->user_id}}]"></span>
                                                      </li>
                                                      <li class="list-group-item">
                                                         <span>Undertime</span>

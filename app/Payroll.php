@@ -18,6 +18,11 @@ class Payroll extends Model
       return $Basic;
     }	
 
+    public static function CalculateLate($lates , $late_rate){
+    
+      return $lates * $late_rate;
+    }
+
     public static function getDeductions($DeductionsRates) {
       $TotalDeductions = 0;
       foreach ($DeductionsRates->statutory as $name => $value) {

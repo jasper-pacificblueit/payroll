@@ -49,4 +49,20 @@ class DateTimeRecord extends Model
         return $totalDays;
     }
     
+
+    public static function getTotalLate($schedule , $start , $end , $user_id){
+        $TotalLate = 0;
+
+        $attendances = DateTimeRecord::where('user_id' , '=' , $user_id)->whereBetween('date', [$start,$end])->get();
+        
+        foreach ($attendances as $attendance) {
+            $in_am = strtotime($attendance->in_am);
+            $sched_in_am = strtotime($schedule->in_am);
+            if($in_am > $sched_in_am){
+                $TotalLate++;
+            }
+        }
+
+        return $TotalLate;
+    }
 }

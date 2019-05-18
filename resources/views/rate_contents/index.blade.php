@@ -99,6 +99,7 @@
                                         </div>
                                     </div>
                                     @include('rate_contents.deductions')
+                                    <span id="modal-view"></span>
                                     @endif
                                 </div>
                             </div>
@@ -269,6 +270,49 @@
                 },
            }).draw();
         });
+    }
+
+    var adddeduction = 0;
+    var editdeduction = 0;
+
+    function save_deduction(id) {
+        var deduction = document.querySelector("#deduction-" + id);
+
+        deduction.children[0].innerHTML = deduction.children[0].firstElementChild.value || "deduction #" + (id+1);
+        deduction.children[1].innerHTML = deduction.children[1].firstElementChild.value || "0.00";
+
+        adddeduction--;
+
+        deduction.children[2].firstElementChild.style.top = "auto";
+        deduction.children[2].firstElementChild.innerHTML = "Edit";
+
+        deduction.children[2].firstElementChild.onclick = '';
+
+        deduction.children[2].firstElementChild.addEventListener('click', event => {
+            if (deduction.children[2].firstElementChild.innerHTML == "Save") {
+                deduction.children[0].innerHTML = deduction.querySelector("#deduction-"+id+"-desc").value 
+                    || deduction.querySelector("#deduction-"+id+"-desc").placeholder;
+                deduction.children[1].innerHTML = deduction.querySelector("#deduction-"+id+"-val").value
+                    || deduction.querySelector("#deduction-"+id+"-val").placeholder;
+
+                deduction.children[2].firstElementChild.innerHTML = "Edit";
+                deduction.children[2].firstElementChild.style.top = "auto";
+                editdeduction--;
+                return;
+            }
+
+            var late_desc = deduction.children[0].innerHTML;
+            var late_val = deduction.children[1].innerHTML;
+
+            deduction.children[0].innerHTML = `<input class="form-control" placeholder="${late_desc}" id="deduction-${id}-desc">`;
+            deduction.children[1].innerHTML = `<input class="form-control" placeholder="${late_val}" id="deduction-${id}-val">`;
+
+            deduction.children[2].firstElementChild.style.position = "relative";
+            deduction.children[2].firstElementChild.style.top = "5px";
+            deduction.children[2].firstElementChild.innerHTML = "Save";
+            editdeduction++;
+        });
+
     }
 
     function chdepartment(obj) {

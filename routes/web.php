@@ -205,11 +205,30 @@ Route::group(['middleware' => ['auth']], function() {
 	// Deduction View
 	Route::group(["middleware" => ["permission:deduction_View"]], function () {
 		Route::get("/deductions", "RateController@deductions");
+
+		Route::get("/rates/employeelist/{type}/{id}", function ($type, $id) {
+			return view('rate_contents.employeelist')->with([
+				'type' => $type,
+				'employees' => App\Employee::where("department_id", "=", $id)->get(),
+			]);
+		});
 	});
 
 	// Deduction Create
 	Route::group(["middleware" => ["permission:deduction_Create"]], function () {
 		Route::post("/addDeductions", "RateController@addDeductions");
+	});
+
+	// Deduction Modify
+	Route::group(["middleware" => ["permission:deduction_Modify"]], function () {
+		Route::put("/deductions/{id}", "DeductionController@update");
+		Route::get("/deductions/modal/{id}", function ($id) {
+			return view("rate_contents.deductionsModal")->with([
+
+					'employee' => App\Employee::find($id),
+
+			]);
+		});
 	});
 
 	// Earning View
@@ -241,7 +260,7 @@ Route::group(['middleware' => ['auth']], function() {
  	Route::get("/editprofile", "ProfileController@edit")->name('editprofile');
 	Route::post("/editprofile", "ProfileController@update");
 	Route::get('/profile', 'ProfileController@index')->name('profile');
-  	Route::match(['put', 'update'], '/editprofile/chpasswd', 'ProfileController@chpasswd');
+  Route::match(['put', 'update'], '/editprofile/chpasswd', 'ProfileController@chpasswd');
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 

@@ -59,7 +59,6 @@
                                 style='max-width: 75px; height: 66px; position: relative; left: 47px; border-radius: 100%; border: 2px;'/>
                         </span>
                         @endguest
-
                         @guest
                         @else
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -79,7 +78,6 @@
                             <li>
                                 <a onclick="window.location.href='/profile'"><i class="fa fa-user"></i> <span class="nav-label">My Profile</span></a>
                             </li>
-
                             <li>
                                 <a onclick="window.location.href='/settings/app'"><i class="fa fa-cog"></i> <span class="nav-label">Settings</span></a>
                             </li>

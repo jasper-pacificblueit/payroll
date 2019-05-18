@@ -84,18 +84,34 @@
 	<tr>
 		<td>{{ $employee->bio_id ? $employee->bio_id : $employee->id + 1000 }}</td>
 		<td>{{ App\Profile::getFullName($employee->user_id) }}</td>
-		<td>{{ $employee->deductions->late or '0.00' }}</td>
-		<td>{{ $employee->deductions->undertime or '0.00' }}</td>
+		<td>{{ number_format($employee->deductions->late, 2) }}</td>
+		<td>{{ number_format($employee->deductions->undertime, 2) }}</td>
+		<td>{{ number_format($employee->deductions->additional_deductions, 2) }}</td>
 		<td>
 			@php 
 				$statutory = json_decode($employee->deductions->deductions)->statutory;
 			@endphp
 			@foreach ($statutory as $deduc => $val)
-				<span class="badge badge-warning">{{$deduc}}: {{$val}}</span>
+				<span class="badge badge-warning">{{$deduc}}: {{number_format($val, 2)}}</span>
 			@endforeach
 		</td>
-		<td>
-			<button class="btn btn-xs btn-success">Edit</button>
+		<td align=right>
+			<button class="btn btn-xs btn-success" onclick='
+
+				fetch ("/deductions/modal/{{ $employee->id }}", {
+					headers: {
+						"X-CSRF-TOKEN": "{{ csrf_token() }}",
+					}
+				}).then(rep => rep.text()).then(html => {
+
+					document.querySelector("#modal-view").innerHTML = html;
+
+					$("#modal-view #deduction").modal("toggle");
+
+				});
+
+
+			'>Edit</button>
 		</td>
 	</tr>
 	@endforeach

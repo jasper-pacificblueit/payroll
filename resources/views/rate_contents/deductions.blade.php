@@ -9,8 +9,9 @@
                         <th width=400>Employee</th>
                         <th width=100>Late</th>
                         <th width=100>Undertime</th>
-                        <th>Miscellaneous</th>
-                        <th></th>
+                        <th width=100>Add. Deduct</th>
+                        <th>Statutory</th>
+                        <th width=1></th>
                     </tr>
                     </thead>
                     <tbody class="employeelist"></tbody>    

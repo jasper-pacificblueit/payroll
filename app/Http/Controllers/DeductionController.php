@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Deduction;
+use App\Employee;
 use Illuminate\Http\Request;
 
 class DeductionController extends Controller
@@ -67,9 +68,22 @@ class DeductionController extends Controller
      * @param  \App\Deduction  $deduction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Deduction $deduction)
+    public function update(Request $request, $id)
     {
-        //
+        $deductions = Employee::find($id)->deductions;
+        $udeductions = json_decode($request->getContent());
+
+
+        return json_encode($udeductions);
+
+        $deductions->deductions = $udeductions->deductions;
+        $deductions->additional_deductions = (float)$udeductions->additional_deductions;
+        $deductions->late = (float)$udeductions->late;
+        $deductions->undertime = (float)$udeductions->undertime;
+
+        $deductions->save();
+
+        return json_encode([]);
     }
 
     /**

@@ -148,6 +148,8 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::post('/viewPayroll', 'PayrollController@viewPayroll');
 		Route::get("/payroll/{payroll}", "PayrollController@show");
 		Route::get("/payroll", "PayrollController@index");
+		Route::get("/checkPayroll", "PayrollController@checkPayroll");
+		
 	});
 
 	// Payroll Delete

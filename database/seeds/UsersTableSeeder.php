@@ -42,6 +42,7 @@ class UsersTableSeeder extends Seeder
                 'company_id' => 1,
                 'department_id' => 
                     $faker->randomElement(App\Department::where("company_id", 1)->pluck('id')->toArray()),
+                'schedule_id' => 1 ,
             ]));
 
             // rates
@@ -63,6 +64,8 @@ class UsersTableSeeder extends Seeder
                         'philhealth' => 54.4,
                     ],
                 ]),
+                'late' => 30.5 ,
+                'undertime' => 30.5 ,
             ]));
 
             // settings
@@ -109,6 +112,8 @@ class UsersTableSeeder extends Seeder
                         'philhealth' => 45.2,
                     ],
                 ]),
+                'late' => 30.5 ,
+                'undertime' => 30.5 ,
 
             ]))->save();
 

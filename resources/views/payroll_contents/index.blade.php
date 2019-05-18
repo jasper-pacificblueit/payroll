@@ -43,8 +43,9 @@
                         <div class="tab-content">
                             <div id="compensation" class="tab-pane {{ Request::path() == 'payroll/create' ? 'active' : '' }}">
                                 <div class="panel-body">
-                                     
-                                    @include('payroll_contents.create')
+                                  
+                                     @include('payroll_contents.create')
+                              
                                 </div>
                             </div>
                             <div id="compensation" class="tab-pane {{ Request::path() == 'payroll' ? 'active' : '' }}">
@@ -54,7 +55,7 @@
                                             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea similique dolore assumenda magnam minus quae consequatur deserunt! Illum iusto odit officia alias cumque ratione ad voluptatem iure? Omnis, quaerat excepturi.
                                         </div>
                                         @endif
-                                    @include('payroll_contents.compensation')
+                                    @include('payroll_contents.history')
                                 </div>
                             </div>
                             
@@ -83,6 +84,26 @@
 
                  
 <script>
+        function checkDate(payroll_id){
+            console.log( payroll_id);
+          
+            if (window.XMLHttpRequest) {
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+            } else {  // code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function() {
+                if (this.readyState==4 && this.status==200) {
+                document.getElementById("historyBody").innerHTML=this.responseText;
+              
+                }
+            }
+            xmlhttp.open("GET","checkPayroll?payroll_id="+payroll_id,true);
+            xmlhttp.send();
+        }
+
+        checkDate(document.getElementById('DateSelector').value);
 
         function CalculateNetPay(user_id , income , deduction){
             var NewNetPay = income - deduction;

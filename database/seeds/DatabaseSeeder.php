@@ -94,6 +94,7 @@ class DatabaseSeeder extends Seeder
                 'employees' => [
                     'company_id' => 1,
                     'department_id' => 1,
+                    'schedule_id' => 1,
                 ],
             ],
             (object)[
@@ -122,6 +123,7 @@ class DatabaseSeeder extends Seeder
                 'employees' => [
                     'company_id' => 1,
                     'department_id' => 1,
+                    'schedule_id' => 1,
                 ]
 
             ],
@@ -151,6 +153,7 @@ class DatabaseSeeder extends Seeder
                 'employees' => [
                     'company_id' => 1,
                     'department_id' => 1,
+                    'schedule_id' => 1,
                 ]
 
             ]

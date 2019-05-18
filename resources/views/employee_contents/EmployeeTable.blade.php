@@ -23,9 +23,8 @@
         </td>
         <td>{{ $employee->user->email }}</td>
         <td align=center>
-            <span title="{{ $employee->schedule->type }}" class="label label-info">{{ $employee->schedule->type{0} }}</span>
-            <span class='badge badge-success'>{{ $employee->schedule->in_am }} - {{ $employee->schedule->out_pm }}</span>
-            <span class='badge badge-warning'>{{ $employee->schedule->in_am }} - {{ $employee->schedule->out_pm }}</span>
+            <span class='badge badge-success'>{{ $employee->schedule->in_am }} - {{ $employee->schedule->out_am }}</span>
+            <span class='badge badge-info'>{{ $employee->schedule->in_pm }} - {{ $employee->schedule->out_pm }}</span>
         </td>
         <td>{{ $employee->user->position()->title }}</td>
         <td id="excludedcolumn">

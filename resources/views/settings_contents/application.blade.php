@@ -34,12 +34,15 @@
         				</tr>
         				@endforeach
         			</tbody>
-        			<tfoot></tfoot>
         		</table>
         		</div>
         	</div>
 		</div>
-		<div class="col-lg-6"></div>
+
+		<div class="col-lg-6" style="padding: 0px">
+            
+        </div>
+
 		<div class="col-lg-12">
 				<div class="col-lg-12" style="padding: 0px"><hr></div>
 				<div class="btn-group pull-right">

@@ -65,10 +65,9 @@ class PayrollController extends Controller
     public function payrollDate(Request $request){
         $start = $request->start;
         $end = $request->end;
-        
-        
+        $dep = $request->dep;
 
-        return view('payroll_contents.viewPayrollbody' , compact('start' , 'end' ));
+        return view('payroll_contents.viewPayrollbody' , compact('start' , 'end', 'dep'));
      }
 
      public function checkPayroll(Request $request){

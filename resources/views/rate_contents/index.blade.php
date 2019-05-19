@@ -60,7 +60,8 @@
                                     @if (Request::path() == "rates")
                                     <div class="row">
                                         <div class="col-lg-12" style="padding: 0">
-                                            <div class="col-lg-2 col-xs-6">
+                                            <div class="col-lg-3 col-xs-6">
+                                                <label>Select Company</label>
                                                 <select class="form-control select2_demo_1 com" onchange="chdepartment(this)">
                                                     @foreach (App\Company::all() as $company)
                                                         @if (count($company->departments) > 0)
@@ -70,7 +71,8 @@
                                                 </select>
 
                                             </div>
-                                            <div class="col-lg-2 col-xs-6">
+                                            <div class="col-lg-3 col-xs-6">
+                                                <label>Select Department</label>
                                                 <select class="form-control select2_demo_2 dep" onchange="chemployee(this)"></select>
                                             </div>
                                         </div>
@@ -84,7 +86,8 @@
                                     @if (Request::path() == "deductions")
                                     <div class="row">
                                         <div class="col-lg-12" style="padding: 0">
-                                            <div class="col-lg-2 col-xs-6">
+                                            <div class="col-lg-3 col-xs-6">
+                                                <label>Select Company</label>
                                                 <select class="form-control select2_demo_1 com" onchange="chdepartment(this)">
                                                     @foreach (App\Company::all() as $company)
                                                         @if (count($company->departments) > 0)
@@ -93,7 +96,8 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-lg-2 col-xs-6">
+                                            <div class="col-lg-3 col-xs-6">
+                                                <label>Select Department</label>
                                                 <select class="form-control select2_demo_2 dep" onchange="chemployee(this)"></select>
                                             </div>
                                         </div>
@@ -105,20 +109,42 @@
                             </div>
                             <div id="compensation" class="tab-pane {{ Request::path() == 'earnings' ? 'active' : '' }}">
                                 <div class="panel-body">
-                            
+                                    @if (Request::path() == "earnings")
+                                    <div class="row">
+                                        <div class="col-lg-12" style="padding: 0">
+                                            <div class="col-lg-3 col-xs-6">
+                                                <label>Select Company</label>
+                                                <select class="form-control select2_demo_1 com" onchange="chdepartment(this)">
+                                                    @foreach (App\Company::all() as $company)
+                                                        @if (count($company->departments) > 0)
+                                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+
+                                            </div>
+                                            <div class="col-lg-3 col-xs-6">
+                                                <label>Select Department</label>
+                                                <select class="form-control select2_demo_2 dep" onchange="chemployee(this)"></select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @include('rate_contents.earnings')
+                                    @endif
                                 </div>
                             </div>
                             <div id="compensation" class="tab-pane {{ Request::path() == 'schedules' ? 'active' : '' }}">
                                 <div class="panel-body">
-
+                                    @if (Request::path() == "schedules")
                                     @include('schedule_contents.index')
+                                    @endif
                                 </div>
                             </div>
                             <div id="compensation" class="tab-pane {{ Request::path() == 'positions' ? 'active' : '' }}">
                                 <div class="panel-body">
-
+                                    @if (Request::path() == "positions")
                                     @include('positions_contents.index')
+                                    @endif
                                 </div>
                             </div>
                             
@@ -190,7 +216,7 @@
 
 
         @if (Request::path() == "earnings")
-       $(".earningTable").DataTable({
+       $(".earningsTable").DataTable({
             pageLength: 10,
             language: {
                 paginate: {
@@ -199,6 +225,7 @@
                 }
             },
        });
+        chdepartment(document.querySelector(".com"));
        @endif
 
        @if (Request::path() == "positions")
@@ -297,7 +324,7 @@
 
                 deduction.children[2].firstElementChild.innerHTML = "Edit";
                 deduction.children[2].firstElementChild.style.top = "auto";
-                editdeduction--;
+                adddeduction--;
                 return;
             }
 
@@ -310,7 +337,7 @@
             deduction.children[2].firstElementChild.style.position = "relative";
             deduction.children[2].firstElementChild.style.top = "5px";
             deduction.children[2].firstElementChild.innerHTML = "Save";
-            editdeduction++;
+            adddeduction++;
         });
 
     }
@@ -324,6 +351,42 @@
             document.querySelector(".dep").innerHTML = html;
             $(".dep").select2();
             $(".com").select2();
+            chemployee(document.querySelector(".dep"));
+        });
+    }
+    @endif
+
+    @if (Request::path() == "earnings")
+    function chemployee(obj) {
+        fetch ("/rates/employeelist/earnings/"+ obj.value, {
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            }
+        }).then(rep => rep.text()).then(html => {
+            $(".earningsTable").DataTable().destroy();
+            document.querySelector(".employeelist").innerHTML = html;
+            $(".earningsTable").DataTable({
+                pageLength: 10, 
+                language: {
+                    paginate: {
+                        previous: '<i class="fas fa-arrow-left"></i>',
+                        next: '<i class="fas fa-arrow-right"></i>',
+                    }
+                },
+           }).draw();
+        });
+    }
+
+    function chdepartment(obj) {
+        fetch("/selectDepartment?q=" + obj.value, {
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            }
+        }).then(rep => rep.text()).then(html => {
+            document.querySelector(".dep").innerHTML = html;
+            $(".dep").select2();
+            $(".com").select2();
+
             chemployee(document.querySelector(".dep"));
         });
     }

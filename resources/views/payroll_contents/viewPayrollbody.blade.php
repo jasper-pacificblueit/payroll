@@ -1,4 +1,4 @@
-@php( $employees = \App\Employee::all())
+@php( $employees = \App\Employee::all()->where("department_id", "=", $dep))
 <?php
 $startDate = date("Y-m-d" , strtotime($start));
 $endDate = date("Y-m-d" , strtotime($end));
@@ -42,12 +42,13 @@ $endDate = date("Y-m-d" , strtotime($end));
     
     @php( $attendances = \App\DateTimeRecord::where('user_id' , $employee->user_id)->whereBetween('date' , [$startDate , $endDate])->get())
     <tr>
+        <td>{{ $employee->bio_id ? $employee->bio_id : $employee->user_id + 1000 }}</td>
         <td>{{ App\Profile::getFullName($employee->user_id) }} <input type="text" name="employees[]" value="{{$employee->user_id}}" hidden></td>
        
         <td><span id="TotalIncomeDispOut-{{$employee->user_id}}"> ₱ {{number_format($TotalEarnings , 2)}} </span></td>
         <td><span id="TotalDeductionDispOut-{{$employee->user_id}}"> ₱ {{number_format($TotalDeductions , 2)}} </span></td>
         <td><span id="TotalNetPayDispOut-{{$employee->user_id}}"> ₱ {{number_format($NetPay , 2)}} </span></td>
-        <td>
+        <td id="excludedcolumn">
             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#details-{{$employee->user_id}}">Details</button>
 
 

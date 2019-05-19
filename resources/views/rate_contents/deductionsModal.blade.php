@@ -145,36 +145,39 @@
 	                       					$statutory = json_decode($employee->deductions->deductions)->statutory;
 	                       				@endphp
 	                       				@foreach ($statutory as $name => $val)
-	                       					<tr id="{{ $name }}">
+                                            @php
+                                                if (strpos($name, ' ')) $nospace = explode(' ', $name)[0];
+
+                                            @endphp
+	                       					<tr id="{{ strpos($name, ' ') ? $nospace : $name }}">
 	                       						<td>{{ $name }}</td>
-	                       						<td id="{{ $name }}-value">{{ $val }}</td>
+	                       						<td id="{{ strpos($name, ' ') ? $nospace : $name }}-value">{{ $val }}</td>
 	                       						<td>
 	                       							<button class="btn-xs btn btn-default" onclick='
+	                       								var {{ strpos($name, ' ') ? $nospace : $name }} = document.querySelector("#{{ strpos($name, ' ') ? $nospace : $name }}");
 
-	                       								var {{ $name }} = document.querySelector("#{{ $name }}");
+                     										if ({{ strpos($name, ' ') ? $nospace : $name }}.children[2].firstElementChild.innerHTML == "Save") {
 
-                     										if ({{ $name }}.children[2].firstElementChild.innerHTML == "Save") {
+                     											{{ strpos($name, ' ') ? $nospace : $name }}.children[0].innerHTML = {{ strpos($name, ' ') ? $nospace : $name }}.querySelector("#{{ strpos($name, ' ') ? $nospace : $name }}-desc").value 
+                     												|| {{ strpos($name, ' ') ? $nospace : $name }}.querySelector("#{{ strpos($name, ' ') ? $nospace : $name }}-desc").placeholder;
+                     											{{ strpos($name, ' ') ? $nospace : $name }}.children[1].innerHTML = {{ strpos($name, ' ') ? $nospace : $name }}.querySelector("#{{ strpos($name, ' ') ? $nospace : $name }}-val").value
+                     												|| {{ strpos($name, ' ') ? $nospace : $name }}.querySelector("#{{ strpos($name, ' ') ? $nospace : $name }}-val").placeholder;
 
-                     											{{ $name }}.children[0].innerHTML = {{ $name }}.querySelector("#{{ $name }}-desc").value 
-                     												|| {{ $name }}.querySelector("#{{ $name }}-desc").placeholder;
-                     											{{ $name }}.children[1].innerHTML = {{ $name }}.querySelector("#{{ $name }}-val").value
-                     												|| {{ $name }}.querySelector("#{{ $name }}-val").placeholder;
-
-                     											{{ $name }}.children[2].firstElementChild.innerHTML = "Edit";
-                     											{{ $name }}.children[2].firstElementChild.style.top = "auto";
+                     											{{ strpos($name, ' ') ? $nospace : $name }}.children[2].firstElementChild.innerHTML = "Edit";
+                     											{{ strpos($name, ' ') ? $nospace : $name }}.children[2].firstElementChild.style.top = "auto";
                      											adddeduction--;
                      											return;
                      										}
 
-                     										var late_desc = {{ $name }}.children[0].innerHTML;
-                     										var late_val = {{ $name }}.children[1].innerHTML;
+                     										var late_desc = {{ strpos($name, ' ') ? $nospace : $name }}.children[0].innerHTML;
+                     										var late_val = {{ strpos($name, ' ') ? $nospace : $name }}.children[1].innerHTML;
 
-                     										{{ $name }}.children[0].innerHTML = `<input class="form-control" placeholder="${late_desc}" id="{{ $name }}-desc">`;
-                     										{{ $name }}.children[1].innerHTML = `<input type="number" step=".01" class="form-control" placeholder="${late_val}" id="{{ $name }}-val">`;
+                     										{{ strpos($name, ' ') ? $nospace : $name }}.children[0].innerHTML = `<input class="form-control" placeholder="${late_desc}" id="{{ strpos($name, ' ') ? $nospace : $name }}-desc">`;
+                     										{{ strpos($name, ' ') ? $nospace : $name }}.children[1].innerHTML = `<input type="number" step=".01" class="form-control" placeholder="${late_val}" id="{{ strpos($name, ' ') ? $nospace : $name }}-val">`;
 
-                     										{{ $name }}.children[2].firstElementChild.style.position = "relative";
-                     										{{ $name }}.children[2].firstElementChild.style.top = "5px";
-                     										{{ $name }}.children[2].firstElementChild.innerHTML = "Save";
+                     										{{ strpos($name, ' ') ? $nospace : $name }}.children[2].firstElementChild.style.position = "relative";
+                     										{{ strpos($name, ' ') ? $nospace : $name }}.children[2].firstElementChild.style.top = "5px";
+                     										{{ strpos($name, ' ') ? $nospace : $name }}.children[2].firstElementChild.innerHTML = "Save";
                      										adddeduction++;
 	                       							'>Edit</button>
 	                       						</td>

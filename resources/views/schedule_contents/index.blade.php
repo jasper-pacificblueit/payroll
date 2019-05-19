@@ -22,7 +22,6 @@
                                     <th>Time out <small>(pm)</small></th>
                                     <th>Status</th>
                                     <th></th>
-                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody id="tbody">

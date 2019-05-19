@@ -8,10 +8,10 @@ class UsersTableSeeder extends Seeder
 {
     protected static function dummy() {
 
-        factory(App\Positions::class, 4)->create();
+        factory(App\Positions::class, 3)->create();
 
         // random employee
-        factory(App\User::class, 5)->create()->each(function ($user) {
+        factory(App\User::class, 50)->create()->each(function ($user) {
             $faker = Faker\Factory::create();
             
             // profile
@@ -79,6 +79,16 @@ class UsersTableSeeder extends Seeder
                 ]),
             ]));
 
+            // earnings
+            $user->employee->earnings()->save(new App\Earnings([
+
+                'employee_id' => $user->employee->id,
+                'earnings' => json_encode([]),
+                'status' => '0',
+
+            ]));
+
+
         });
 
         // static employees
@@ -133,6 +143,14 @@ class UsersTableSeeder extends Seeder
                     'skin' => 'skin-1',
 
                 ]),
+            ]))->save();
+
+            (new App\Earnings([
+
+                'employee_id' => $user->employee->id,
+                'earnings' => json_encode([]),
+                'status' => '0',
+
             ]))->save();
 
 

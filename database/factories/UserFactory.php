@@ -19,8 +19,8 @@ $factory->define(App\User::class, function (Faker $faker) {
     $user = $faker->unique()->userName;
 
     return [
-    		'user' => strtolower($user),
-    		'position_id' => rand(2, 4),
+		'user' => strtolower($user),
+		'position_id' => $faker->randomElement(App\Positions::all()->pluck("id")->toArray()),
         'email' => $faker->unique()->safeEmail,
         'password' => bcrypt(strtolower($user)),
     ];

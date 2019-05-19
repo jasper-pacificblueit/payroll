@@ -61,8 +61,12 @@ class DatabaseSeeder extends Seeder
 
             UsersTableSeeder::default((object)['name' => $name, 'address' => $address], $departments);
         } else
-            if ($this->command->confirm('Do you want to continue? '))
+            if ($this->command->confirm('Do you want to continue? ')) {
                 self::default();
+
+                if ($this->command->confirm("Do you want to generate dummy data's?"))
+                    $this->command->call('db:seed', ['--class' => 'UsersTableSeeder']);
+            }
 
     }
 
@@ -71,7 +75,7 @@ class DatabaseSeeder extends Seeder
             (object)[
                 'users' => [
                     'user' => 'jasper',
-                    'position_id' => 4,
+                    'position_id' => App\Positions::all()->pluck("id")->toArray(),
                     'email' => 'example@example1.com',
                     'password' => bcrypt('jasper')
                 ],
@@ -99,7 +103,7 @@ class DatabaseSeeder extends Seeder
             (object)[
                 'users' => [
                     'user' => 'angie',
-                    'position_id' => 4,
+                    'position_id' => App\Positions::all()->pluck("id")->toArray(),
                     'email' => 'example@example2.com',
                     'password' => bcrypt('angie')
                 ],
@@ -128,7 +132,7 @@ class DatabaseSeeder extends Seeder
             (object)[
                 'users' => [
                     'user' => 'saturnino',
-                    'position_id' => 4,
+                    'position_id' => App\Positions::all()->pluck("id")->toArray(),
                     'email' => 'example@example3.com',
                     'password' => bcrypt('saturnino')
                 ],

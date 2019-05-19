@@ -47,6 +47,7 @@
 
       $("#newsapi").slick({
         autoplay: true,
+        swipe: true,
       });
 
       $("#newsapi").on("afterChange", function(event, slick) {

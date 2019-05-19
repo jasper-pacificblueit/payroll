@@ -40,6 +40,10 @@ class Employee extends Model
 		return $this->hasOne("App\Schedule", "id", "schedule_id");
 	}
 
+	public function earnings() {
+		return $this->hasOne("App\Earnings");
+	}
+
 	public function positions() {
 		return User::find($this->user_id)->position();
 	}

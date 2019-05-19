@@ -81,7 +81,7 @@
 {!! Html::script('js/plugins/daterangepicker/daterangepicker.js') !!}
 {!! Html::script('js/plugins/datapicker/bootstrap-datepicker.js') !!}
 {!! Html::script('js/plugins/iCheck/icheck.min.js') !!}
-
+{!! Html::script('js/companyDepartment.js') !!}
                  
 <script>
         function checkDate(payroll_id){
@@ -359,7 +359,7 @@
             
             
         }
-        function checkAttendance(start , end){
+        function checkAttendance(start , end, dep) {
             console.log( start , end);
             if (start.length==0) { 
                 document.getElementById("payrollTable").innerHTML="";
@@ -377,7 +377,7 @@
                     $(".dataTables-example").DataTable().destroy();
                     document.getElementById("payrollTable").innerHTML=this.responseText;
                     $('.dataTables-example').DataTable({
-                        pageLength: 25,
+                        pageLength: 10,
                         responsive: true,
                         dom: '<"html5buttons"B>lTfgitp',
                         buttons: [
@@ -396,6 +396,9 @@
                             {
                                 extend: 'excel', 
                                 title: 'ExampleFile',
+                                exportOptions: {
+                                    columns: ":not(#excludedcolumn)",
+                                }
                             },
                             {
                                 extend: 'pdf', 
@@ -430,11 +433,13 @@
                     }).draw();
                 }
             }
-            xmlhttp.open("GET","create/payrollDate?start="+start+"&end="+end,true);
+            xmlhttp.open("GET","create/payrollDate?start="+start+"&end="+end+"&dep="+dep,true);
             xmlhttp.send();
         }
-    
-        checkAttendance(document.getElementById('start').value , document.getElementById('end').value);
+
+        chcom(document.querySelector("#com"));
+        $("#com").select2();
+        
         
 </script>
 
@@ -459,11 +464,9 @@
                 autoclose: true
             });
 
-       
-
     });
-
-   
     
 </script>
+
+
 @endsection

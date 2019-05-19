@@ -26,7 +26,6 @@
 				}
 			@endphp
 		</td>
-		<td>{{ $sched->count() }}</td>
 		<td>
 			<button class="btn btn-xs btn-danger">Remove</button>
 		</td>

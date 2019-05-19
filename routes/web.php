@@ -11,6 +11,10 @@
 |
 */
 
+$ROUTE_ENABLER = 1;
+
+if ($ROUTE_ENABLER) {
+
 Route::fallback(function () {
 	return view('errors.404');
 });
@@ -273,3 +277,7 @@ Route::group(['middleware' => ['auth']], function() {
 		]);
 	});
 });
+
+
+
+}

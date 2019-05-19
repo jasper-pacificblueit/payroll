@@ -17,10 +17,12 @@ class CreateDeductionsTable extends Migration
             $table->increments('id');
             $table->integer("employee_id")->unsigned();
 
-            $table->longText("deductions");
             $table->float("late")->nullable();
             $table->float("undertime")->nullable();
             $table->longText("additional_deductions")->nullable();
+
+            $table->longText("deductions");
+
             
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });

@@ -25,7 +25,6 @@
     {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
     {!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
 
-
     @yield('styles')
 </head>
 @guest
@@ -47,7 +46,7 @@
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
-                    <div class="dropdown profile-element">
+                    <div class="dropdown profile-element" style="position: relative; top: 15px">
                         @guest
                             <span>
                                 <img alt="image" class="img-responsive" src="/img/a4.jpg" 
@@ -75,9 +74,6 @@
                             </span>
                         </a>
                         <ul class="dropdown-menu m-t-xs">
-                            <li>
-                                <a onclick="window.location.href='/profile'"><i class="fa fa-user"></i> <span class="nav-label">My Profile</span></a>
-                            </li>
                             <li>
                                 <a onclick="window.location.href='/settings/app'"><i class="fa fa-cog"></i> <span class="nav-label">Settings</span></a>
                             </li>

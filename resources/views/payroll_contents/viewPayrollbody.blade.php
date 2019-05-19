@@ -55,19 +55,20 @@ $endDate = date("Y-m-d" , strtotime($end));
             <div class="modal inmodal fade" id="details-{{$employee->user_id}}" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header" style="padding: 10px">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title">{{ App\Profile::getFullName($employee->user_id) }}</h4>
-                                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
                             </div>
                             <div class="modal-body">
                                <div class="row">
-                                   <h4>Information </h4>
+                                   <h4 style="margin-left: 11px">Information</h4>
                                    <br>
-                                   <div class="col-lg-6">
+                                   <div class="col-lg-4">
+                                        <span>Employee : <label>{{App\Profile::getFullName($employee->user_id)}}</label></span>
+                                   </div>
+                                   <div class="col-lg-4">
                                         <span>Department : {{$employee->getDepartment->name}}</span>
                                    </div>
-                                   <div class="col-lg-6">
+                                   <div class="col-lg-4">
                                         <span>Position : {{$employee->user->position()->title}}</span>
                                    </div>
                                    
@@ -108,12 +109,12 @@ $endDate = date("Y-m-d" , strtotime($end));
                                                         </li>
                                                         <li class="list-group-item">
                                                             <span>Overtime</span>
-                                                            <span class="pull-right"> ₱ {{number_format(0 , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="{{round(0 , 2)}}" hidden name="overtime[{{$employee->user_id}}]"></span>
+                                                            <span class="pull-right"> ₱ {{number_format($employee->rates->overtime , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="{{round($employee->rates->overtime , 2)}}" hidden name="overtime[{{$employee->user_id}}]"></span>
                                                                 
                                                         </li>
                                                         <li class="list-group-item">
                                                             <span>Holiday</span>
-                                                            <span class="pull-right"> ₱ {{number_format(0 , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="{{round(0 , 2)}}" hidden name="holiday[{{$employee->user_id}}]"></span>
+                                                            <span class="pull-right"> ₱ {{number_format($employee->rates->holiday, 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="{{round($employee->rates->holiday, 2)}}" hidden name="holiday[{{$employee->user_id}}]"></span>
                                                         </li>
                                                     
                                                     
@@ -135,9 +136,6 @@ $endDate = date("Y-m-d" , strtotime($end));
                                                         <strong style="color:green">Total Income</strong>
                                                         <span class="pull-right" id="TotalIncomeDisp-{{$employee->user_id}}"> ₱ {{number_format($TotalEarnings , 2)}} </span><span><input type="text" id="TotalIncome-{{$employee->user_id}}" value="{{$TotalEarnings}}" style="border:0; background:transparent;text-align:right;" hidden name="total_income[{{$employee->user_id}}]"></span>
                                                 </li>
-                                                
-                                               
-                                                    
                                                
                                             </ul>
                                             </div>
@@ -220,8 +218,8 @@ $endDate = date("Y-m-d" , strtotime($end));
                               
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-sm btn-white" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-sm btn-primary">Save changes</button>
                             </div>
                         </div>
                     </div>

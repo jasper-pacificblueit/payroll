@@ -108,7 +108,6 @@ class UsersTableSeeder extends Seeder
             $employee = $user->employee;
 
             $employee->schedule_id = $faker->randomElement($employee->departments->schedules->pluck('id')->toArray());
-
             $employee->save();
 
             (new App\Profile($em->profiles))->save();

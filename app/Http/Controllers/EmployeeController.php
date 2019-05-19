@@ -83,9 +83,6 @@ class EmployeeController extends Controller
             'out_pm' => 'required',
         ]);
 
-        if (auth()->user()->position_id == $request->position)
-            return back();
-
         $user = new App\User;
         $contact = new App\Contact;
         $profile = new App\Profile;
@@ -125,46 +122,50 @@ class EmployeeController extends Controller
         $profile->user_id = $user->id;
         $profile->save();
             
-        if ($user->position_id != 1) {
-            $employee->company_id = $request->company;
-            $employee->department_id = $request->department;
-            $employee->user_id = $user->id;
-            $employee->bio_id = $request->bio;
+        $employee->company_id = $request->company;
+        $employee->department_id = $request->department;
+        $employee->user_id = $user->id;
+        $employee->bio_id = $request->bio;
 
-            $employee->save();
+        $employee->save();
 
-            if ($request->schedule == "custom") {
+        if ($request->schedule == "custom") {
 
-                $schedule = new App\Schedule;
+            $schedule = new App\Schedule;
 
-                $schedule->employee_id = $employee->id;
-                $schedule->type = 'Custom';
-                $schedule->in_am = $request->in_am;
-                $schedule->out_am = $request->out_am;
-                $schedule->in_pm = $request->in_pm;
-                $schedule->out_pm = $request->out_pm;
+            $schedule->employee_id = $employee->id;
+            $schedule->type = 'Custom';
+            $schedule->in_am = $request->in_am;
+            $schedule->out_am = $request->out_am;
+            $schedule->in_pm = $request->in_pm;
+            $schedule->out_pm = $request->out_pm;
 
-                $schedule->state = '1';
-                $schedule->save();
+            $schedule->state = '1';
+            $schedule->save();
 
-                $employee->schedule_id = $schedule->id;
+            $employee->schedule_id = $schedule->id;
 
-            } else
-                $employee->schedule_id = $request->schedule;
+        } else
+            $employee->schedule_id = $request->schedule;
 
-            $employee->save();
+        $employee->save();
 
+        $deductions = new App\Deduction;
+        $deductions->employee_id = $employee->id;
+        $deductions->late = $request->late;
+        $deductions->undertime = $request->undertime;
+        $deductions->additional_deductions = $request->add_deductions;
+        $deductions->deductions = "";
+        $deductions->save();
 
-            $rates = new App\Rate;
-
-            $rates->monthly = $request->monthly_salary;
-            $rates->employee_id = $employee->id;
-            $rates->hourly = $request->hourly_rate;
-            $rates->holiday = $request->holiday;
-            $rates->overtime = $request->ot_rate;
-            $rates->nightdiff = $request->nightdiff_rate;
-            $rates->save();
-        }
+        $rates = new App\Rate;
+        $rates->monthly = $request->monthly_salary;
+        $rates->employee_id = $employee->id;
+        $rates->hourly = $request->hourly_rate;
+        $rates->holiday = $request->holiday;
+        $rates->overtime = $request->ot_rate;
+        $rates->nightdiff = $request->nightdiff_rate;
+        $rates->save();
 
         $perms = [];
 

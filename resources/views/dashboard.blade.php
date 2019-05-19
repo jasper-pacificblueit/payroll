@@ -40,7 +40,7 @@
 @section('content')
 <span id="dashboard-slick">
   @include("dashboard1")
-  @include("dashboard1")
+  @include("dashboard2")
 </span>
 @endsection
 

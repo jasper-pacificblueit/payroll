@@ -1,5 +1,5 @@
-<div class="wrapper wrapper-content">
-<div class="row">
+<div class="wrapper wrapper-content" style="height: 1000px">
+<div class="row dashboard1">
   <div class="col-lg-3 col-sm-6" style="padding: 0">
     <div class="col-lg-12">
       <div class="ibox float-e-margins">
@@ -93,29 +93,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-6">
-    <div class="ibox float-e-margins">
-      <div class="ibox-title">
-          <div class="pull-right">
-              <div class="btn-group">
-                  <button type="button" class="btn btn-xs btn-white active">Headlines</button>
-                  <button type="button" class="btn btn-xs btn-white">Monthly</button>
-                  <button type="button" class="btn btn-xs btn-white">Annual</button>
-              </div>
-          </div>
-          <h5><i class="far fa-newspaper"></i> News</h5>
-      </div>
-      <div class="ibox-content" style="padding-bottom: 1px">
-        <span id="newsapi" style="margin: 0">
-          <div class="no-padding text-center">
-            <h1 style="padding: 72px">No news available</h1>
-          </div>
-        </span>
-      </div>
-      <div class="ibox-footer newsapi-details">
-      </div>
-    </div>
-  </div>
+
   <div class="col-lg-3 col-sm-6">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
@@ -168,58 +146,5 @@
       </div>
   </div>
 </div>
-</div>
-<div class="row">
-  <div class="col-lg-12">
-      <div class="ibox float-e-margins">
-          <div class="ibox-title">
-              <h5>Orders</h5>
-              <div class="pull-right">
-                  <div class="btn-group">
-                      <button type="button" class="btn btn-xs btn-white active">Today</button>
-                      <button type="button" class="btn btn-xs btn-white">Monthly</button>
-                      <button type="button" class="btn btn-xs btn-white">Annual</button>
-                  </div>
-              </div>
-          </div>
-          <div class="ibox-content">
-            <div class="row">
-            <div class="col-lg-9">
-                <div class="flot-chart">
-                    <div class="flot-chart-content" id="flot-dashboard-chart"></div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-              <ul class="stat-list">
-                <li>
-                    <h2 class="no-margins">2,346</h2>
-                    <small>Total orders in period</small>
-                    <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i></div>
-                    <div class="progress progress-mini">
-                        <div style="width: 48%;" class="progress-bar"></div>
-                    </div>
-                </li>
-                <li>
-                    <h2 class="no-margins ">4,422</h2>
-                    <small>Orders in last month</small>
-                    <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i></div>
-                    <div class="progress progress-mini">
-                        <div style="width: 60%;" class="progress-bar"></div>
-                    </div>
-                </li>
-                <li>
-                    <h2 class="no-margins ">9,180</h2>
-                    <small>Monthly income from orders</small>
-                    <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i></div>
-                    <div class="progress progress-mini">
-                        <div style="width: 22%;" class="progress-bar"></div>
-                    </div>
-                </li>
-                </ul>
-             </div>
-          </div>
-        </div>
-      </div>
-  </div>
 </div>
 </div>

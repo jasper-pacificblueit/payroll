@@ -57,9 +57,9 @@
                     var date = new Date(json.carbon.date);
                     var bday = new Date(this.value);
 
-                    document.querySelector('[name=age]').value = Math.floor(
-                      (date.getYear() - bday.getYear()) - (date.getMonth()/bday.getMonth() - date.getDate()/bday.getDate())
-                    );  
+                    var age = (date.getTime() - bday.getTime())/1e3/(3600*24 * 365.25);
+
+                    document.querySelector('[name=age]').value = Math.floor(age);  
 
                   });
 
@@ -302,6 +302,15 @@
             <label title="Night Differential">Undertime</label>
             <input class="form-control" type="number" name="undertime" placeholder="Rate" step=".01">
           </div>
+          <div class="col-lg-3 col-xs-3">
+            <label title="Night Differential">Add. Deduction</label>
+            <input class="form-control" type="number" name="add_deductions" placeholder="Rate" step=".01">
+          </div>
+          <div class="col-lg-5">
+            <label>Miscellaneous</label>
+            <br>
+
+          </div>
         </div>
       </div>
 
@@ -312,7 +321,6 @@
       <hr style="margin: 5px">
       <div class="row">
           <div class="col-lg-12">
-              
               <div class="form-group text-right">
                   <div >
                       <button class="btn btn-success btn-sm" type="submit">Submit</button>

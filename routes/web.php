@@ -11,10 +11,6 @@
 |
 */
 
-$ROUTE_ENABLER = 1;
-
-if ($ROUTE_ENABLER) {
-
 Route::fallback(function () {
 	return view('errors.404');
 });
@@ -26,6 +22,7 @@ Route::middleware(['guest'])->group(function() {
 
 Route::group(['middleware' => ['auth']], function() {
 
+	try {
 	if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0 && App\Positions::where('state', '=', '0')->count() > 0) {
 
 		// Employee View
@@ -72,6 +69,7 @@ Route::group(['middleware' => ['auth']], function() {
 		});
 		
 	}
+	} catch (Exception $e) {};
 
 	// Company View
 	Route::group(['middleware' => ['permission:company_View']], function () {
@@ -278,6 +276,3 @@ Route::group(['middleware' => ['auth']], function() {
 	});
 });
 
-
-
-}

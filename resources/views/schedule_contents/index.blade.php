@@ -20,11 +20,11 @@
                                     <th>Time out <small>(am)</small></th>
                                     <th>Time in <small>(pm)</small></th>
                                     <th>Time out <small>(pm)</small></th>
-                                    <th>Status</th>
+                                    <th width=50>Status</th>
                                     <th></th>
                                 </tr>
                                 </thead>
-                                <tbody id="tbody">
+                                <tbody id="scheduleData">
                                   @include ("schedule_contents.data")
                                 </tbody>
                          </table>

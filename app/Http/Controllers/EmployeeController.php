@@ -196,7 +196,7 @@ class EmployeeController extends Controller
         return redirect()->route('employee')->withErrors(json_encode([
 
             'type' => 'success',
-            'title' => 'Registration completed!',
+            'title' => 'Registration successfull!',
             'body' => App\Profile::getFullName($user->id) . ' added as ' . $user->position()->title . '!',
 
 

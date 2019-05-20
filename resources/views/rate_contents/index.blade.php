@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Settings')
+@section("title", "Management | " . ucfirst(Request::path()))
 
 @section('styles')
 

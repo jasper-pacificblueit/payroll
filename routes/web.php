@@ -243,10 +243,11 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::group(["middleware" => ["permission:schedule_View"]], function () {
 		Route::get("/schedules", "ScheduleController@index");
+		Route::view("/schedules/data", "schedule_contents.data");
 	});
 
-	Route::group(["middleware" => ["permission:schedule_Create"]], function () {
-		
+	Route::group(["middleware" => ["permission:schedule_Modify"]], function () {
+		Route::put("/schedules/{id}", "ScheduleController@update");
 	});
 
 	Route::group(["middleware" => ["permission:schedule_Create"]], function () {

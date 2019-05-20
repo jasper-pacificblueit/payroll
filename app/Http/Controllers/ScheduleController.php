@@ -77,9 +77,37 @@ class ScheduleController extends Controller
      * @param  \App\Schedule  $schedule
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Schedule $schedule)
+    public function update(Request $request, $id)
     {
-        //
+        $json = json_decode($request->getContent());
+        $schedule = Schedule::find($id);
+
+        if ($json->in_am > $json->out_am || $json->in_am > $json->in_pm || $json->in_am > $json->out_pm ||
+            $json->out_am > $json->in_pm || $json->out_am > $json->out_pm || $json->in_pm > $json->out_pm)
+            return json_encode([
+                'type' => 'error',
+                'title' => 'Operation unsuccessful!',
+                'body' => 'A valid schedule should be input, to avoid any ambiguity in the payroll process.',
+
+                'schedule' => $schedule,
+            ]);
+
+        
+
+        $schedule->in_am = $json->in_am;
+        $schedule->out_am = $json->out_am;
+        $schedule->in_pm = $json->in_pm;
+        $schedule->out_pm = $json->out_pm;
+        $schedule->state = (string)$json->state;
+        $schedule->save();
+
+        return json_encode([
+            'type' => 'success',
+            'title' => 'Operation successful!',
+            'body' => 'You updated the schedule for \'' . $schedule->department->name . "\' beware of this!",
+
+            'schedule' => $schedule,
+        ]);
     }
 
     /**

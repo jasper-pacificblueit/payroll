@@ -49,10 +49,6 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element" style="position: relative; top: 15px">
                         @guest
-                            <span>
-                                <img alt="image" class="img-responsive" src="/img/a4.jpg" 
-                                    style='max-width: 75px; position: relative; left: 47px; border-radius: 100%; border: 2px; height: 66px'/>
-                            </span>
                         @else
                         <span>
                             <img alt="image" class="img-responsive" src="{{ $profile->image['data'] }}" 
@@ -95,7 +91,9 @@
                 </li>
 
                 {{--side menus start--}}
+                @guest
 
+                @else
                 <li class="{!! if_uri_pattern(array('/')) == 1 ? 'active' : '' !!}">
                     <a href="/"><i class="fa fa-th-large" style="width: 20px"></i><span class="nav-label">Dashboard</span></a>
                 </li>
@@ -132,6 +130,7 @@
                 </li>
                 @endif
                 @endcan
+                @endguest
 
                 @guest
                 @else
@@ -199,7 +198,7 @@
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-success" href="#"><i class="fa fa-bars"></i></a>
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-success" id="sidebar-toggler" href="#"><i class="fa fa-bars"></i></a>
                 </div>
                 
                 <ul class="nav navbar-top-links navbar-right text-right">
@@ -278,14 +277,24 @@
                 toastr.{{ $error->type }}(`{!! $error->body . "<br><span class='pull-right'>" . $serverTime . "</span>" !!}`, `{{ $error->title }}`);
             @endforeach
         @endif
+
+        @guest
+            document.querySelector("#sidebar-toggler").click();
+            document.querySelector("#sidebar-toggler").style.display = "none";
+        @else
+        @endguest
     });
 
+    @guest
+        
+    @else
     @if (!session()->get("firstLogin"))
         toastr.success("Welcome {{ App\Profile::getFullName(auth()->user()->id) }}!!" + "{!! "<br><br><span class='pull-right'>" . $serverTime . "</span>" !!}");
         @php
             session()->put("firstLogin", 1);
         @endphp
     @endif
+    @endguest
 </script>
 
 </body>

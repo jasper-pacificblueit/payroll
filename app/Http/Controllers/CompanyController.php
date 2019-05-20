@@ -44,12 +44,12 @@ class CompanyController extends Controller
         ], [
             'name.required' => json_encode([
                 'type' => 'warning',
-                'title' => 'Company name error',
+                'title' => 'Operation unsuccessful!',
                 'body' => 'A company must have a valid (non-empty) name.',
             ]),
             'address.required' => json_encode([
                 'type' => 'warning',
-                'title' => 'Company address error',
+                'title' => 'Operation unsuccessful!',
                 'body' => 'A company must have a valid location (non-empty address).',
             ]),
 
@@ -59,7 +59,7 @@ class CompanyController extends Controller
             return back()->withErrors(json_encode([
 
                 'type' => 'error',
-                'title' => 'Company already exists!',
+                'title' => 'Operation unsuccessful!',
                 'body' => 'A company must have a unique name.',
 
             ]));
@@ -127,7 +127,7 @@ class CompanyController extends Controller
         if ($company->employees->count() > 0) return back()->withErrors(json_encode([
 
             'type' => 'error',
-            'title' => 'Deletion unsuccessful!',
+            'title' => 'Operation unsuccessful!',
             'body' => 'Cannot delete a company, having an employees!',
             
         ]));

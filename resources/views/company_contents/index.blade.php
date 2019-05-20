@@ -10,13 +10,13 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
-            <h2>Company</h2>
+            <h2>Companies</h2>
             <ol class="breadcrumb">
                 <li class="active">
                     Dashboard
                 </li>
                 <li>
-                    <strong>View Companies</strong>
+                    <strong>View</strong>
                 </li>
                
             </ol>

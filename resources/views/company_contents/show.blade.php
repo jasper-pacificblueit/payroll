@@ -11,16 +11,16 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
-            <h2>Company</h2>
+            <h2>Companies</h2>
             <ol class="breadcrumb">
                 <li>
                     Dashboard
                 </li>
                 <li>
-                    View Companies
+                    {{ $company->name }} 
                 </li>
                 <li>
-                    <strong>Manage Company</strong>
+                    <strong>Departments</strong>
                 </li>
             </ol>
         </div>
@@ -34,7 +34,6 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-12 m-b-xs col-12">
-                                <h4 id="company_name">{{$company -> name}}</h4>
                                 <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addDepartment" @if (!auth()->user()->can("department_Create")) disabled @endif>
                                     Add Department
                                 </button>
@@ -112,10 +111,6 @@
 
                                                             });
                                                         });
-
-                                                        
-
-
                                                     '>Save</button>
                                                 </div>
                                             </div>

@@ -8,11 +8,11 @@
 		<td>{{ number_format($employee->rates->overtime, 2) }}</td>
 		<td>{{ number_format($employee->rates->holiday, 2) }}</td>
 		<td>{{ number_format($employee->rates->nightdiff, 2) }}</td>
-		<td>
+		<td width=1 align=right>
 				<button class="btn btn-xs btn-success" id="editbtn-{{ $employee->user_id }}" onclick='
 
 					if (document.querySelector("[name=employeeRates-{{ $employee->user_id }}] #editbtn-{{ $employee->user_id }}").innerHTML == "Edit") {
-						document.querySelector("[name=employeeRates-{{ $employee->user_id }}] #editbtn-{{ $employee->user_id }}").innerHTML = "Save";
+						document.querySelector("[name=employeeRateses-{{ $employee->user_id }}] #editbtn-{{ $employee->user_id }}").innerHTML = "Save";
 						document.querySelector("[name=employeeRates-{{ $employee->user_id }}] #editbtn-{{ $employee->user_id }}").classList.remove("btn-success");
 						document.querySelector("[name=employeeRates-{{ $employee->user_id }}] #editbtn-{{ $employee->user_id }}").classList.add("btn-warning");
 
@@ -73,7 +73,9 @@
 						});
 					}
 
-				'>Edit</button>
+				'>
+					Edit
+				</button>
 		</td>
 	</tr>
 	@endforeach

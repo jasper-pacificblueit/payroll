@@ -165,22 +165,32 @@
                         <button type="submit" class="btn btn-sm btn-success" name="submit" onclick="document.querySelector('#btnclick-{{ $eminfo->user_id }}').disabled = false;">Save</button>
                         <button class="btn btn-sm btn-danger" 
                             onclick="
-                                fetch('/employee/{{ $eminfo->user_id }}', {
-                                    method: 'delete',
-                                    headers: {
-                                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                    }
-                                }).then(function() { 
-                                    document.querySelector('#emrow-{{ $eminfo->user_id }}').className += ' alert alert-danger';
-                                    document.querySelector('#emrow-{{ $eminfo->user_id }}').ondblclick = '';
-                                    document.querySelector('#emrow-{{ $eminfo->user_id }} #btnclick-{{ $eminfo->user_id }}').setAttribute('disabled', 'disabled');
+                                swal({
+                                  title: '',
+                                  text: 'Do you want to remove {{ App\Profile::getFullName($eminfo->user_id) }}?',
+                                  type: 'warning',
+                                  showCancelButton: true,
+                                  confirmButtonClass: 'btn-danger',
+                                }, function () {
 
-                                    setInterval(_ => {
-                                      document.querySelector('#emrow-{{ $eminfo->user_id }}').hidden = true;
-                                    }, 2000);
+                                    $('#manage').modal('hide');
+                                    fetch('/employee/{{ $eminfo->user_id }}', {
+                                        method: 'delete',
+                                        headers: {
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                        }
+                                    }).then(function() { 
+                                        document.querySelector('#emrow-{{ $eminfo->user_id }}').className += ' alert alert-danger';
+                                        document.querySelector('#emrow-{{ $eminfo->user_id }}').ondblclick = '';
+                                        document.querySelector('#emrow-{{ $eminfo->user_id }} #btnclick-{{ $eminfo->user_id }}').setAttribute('disabled', 'disabled');
+
+                                        setInterval(_ => {
+                                          document.querySelector('#emrow-{{ $eminfo->user_id }}').hidden = true;
+                                        }, 2000);
+                                    });
+
                                 });
-                                
-                            " data-dismiss="modal">
+                            ">
                             Remove
                         </button>
                     </div>

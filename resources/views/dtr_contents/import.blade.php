@@ -38,8 +38,8 @@
                     <table class="table table-striped table-bordered table-hover dataTables-example" >
                         <thead>
                         <tr>
-                            <th>Employee number</th>
-                            <th>Full name</th>
+                            <th>Bio ID</th>
+                            <th>Employee</th>
                             <th>Department</th>
                             <th>Rendered Hours</th>
                             <th>Total Days</th>
@@ -245,8 +245,8 @@
                                 <table class="table">
                                         <thead>
                                         <tr>
-                                            <th>Bio number</th>
-                                            <th>Employee name</th>
+                                            <th>Bio ID</th>
+                                            <th>Employee</th>
                                             <th>Date</th>
                                             <th>Time in</th>
                                             <th>Set time out</th>
@@ -524,7 +524,7 @@ function diff_minutes(dt2, dt1)
   return Math.abs(Math.round(diff));
   
  }
-  function calchour(){
+  function calchour() {
     warningElement = document.getElementsByClassName('warningTimeOut');
     warningInElement = document.getElementsByClassName('warningTimeIn');
     warningTotalElement = document.getElementsByClassName('warningTotal');

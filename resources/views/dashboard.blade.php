@@ -53,7 +53,7 @@
 
     $("#dashboard-slick").slick({
       infinite: false,
-      arrows: false,
+      arrows: true,
       swipe: false, 
       draggable: true,
     });

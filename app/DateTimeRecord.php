@@ -10,6 +10,7 @@ class DateTimeRecord extends Model
     public function user() {
     	return $this->belongsTo('App\User');
     }
+    
     public function getProfile() {
 	  	return $this->belongsTo('App\Profile','user_id');
     }

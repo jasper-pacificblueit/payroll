@@ -5,9 +5,9 @@
                 <thead>
                     <tr>
                         <th width=200>Date Registered</th>
-                        <th>Employee Name</th>
-                        <th>Email</th>
-                        <th>Schedule</th>
+                        <th><i class="fas fa-address-card pull-right"></i>Employee Name</th>
+                        <th><i class="fas fa-at pull-right"></i>Email</th>
+                        <th><i class="fas fa-bell pull-right"></i> Schedule</th>
                         <th>Job Title</th>
                         <th id="excludedcolumn">Actions</th>
                     </tr>

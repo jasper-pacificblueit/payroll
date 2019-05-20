@@ -11,7 +11,7 @@
     <title>@yield('title')</title>
 
     {{ Html::favicon('img/placeholder.jpg') }}
-
+    {!! Html::style('css/plugins/toastr/toastr.min.css') !!}
     {!! Html::style('css/bootstrap.min.css') !!}
     {!! Html::style('font-awesome/css/font-awesome.css') !!}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -24,6 +24,7 @@
     {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
     {!! Html::style('css/plugins/codemirror/codemirror.css') !!}
     {!! Html::style('css/plugins/sweetalert/sweetalert.css') !!}
+    
 
     @yield('styles')
 </head>
@@ -143,6 +144,7 @@
 
                 @guest
                 @else
+                @if (count(App\Company::all()) > 0 && count(App\Department::all()))
                 @if (can('rate_View') || can('deduction_View') || can('earning_View') || can('schedule_View') || can('position_View'))
                 <li class="{{ in_array(Request::path(), ['rates', 'deductions', 'earnings', 'schedules', 'positions' , 'schedules']) ? 'active' : '' }}">
                         <a href="#"><i class="fa fa-tasks"></i> <span class="nav-label">Management</span> <span class="fa arrow"></span></a>
@@ -178,12 +180,13 @@
                             @endcan
                         </ul>
                 </li>
+                @endif
+                @endif
+                @endguest
 
                 <li class="{{ Request::path() == 'settings/app' || Request::path() == 'settings/user' ? 'active' : '' }} hidden-lg hidden-sm hidden-md">
                     <a href="/settings/app"><i class="fa fa-cogs" style="width: 20px"></i><span>Settings</span></a>
                 </li>
-                @endif
-                @endguest
 
                 {{--side menus end--}}
 
@@ -253,6 +256,7 @@
 {!! Html::script('js/plugins/dataTables/datatables.min.js') !!}
 {!! Html::script('js/plugins/codemirror/codemirror.js') !!}
 {!! Html::script('js/plugins/codemirror/mode/xml/xml.js') !!}
+{!! Html::script('js/plugins/toastr/toastr.min.js') !!}
 
 <!-- Jasny -->
 {!! Html::script('js/plugins/jasny/jasny-bootstrap.min.js') !!}
@@ -264,6 +268,17 @@
     window.addEventListener("mouseover", _ => {});
     window.addEventListener("mousedown", _ => {});
     window.addEventListener("mouseup", _ => {});
+
+    $(document).ready(function () {
+
+        @if (count($errors->all()) > 0)
+            @foreach ($errors->all() as $error)
+                @php($error = json_decode($error))
+                toastr.{{ $error->type }}(`{{ $error->body }}`, `{{ $error->title }}`);
+            @endforeach
+        @endif
+
+    });
 </script>
 
 </body>

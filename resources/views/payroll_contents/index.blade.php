@@ -115,12 +115,13 @@
 
         }
         function confirmAction(){
-            let UserConfirmed = confirm('Are you sure you want to create this payroll?');
-
-            if(UserConfirmed){
-                
-                document.getElementById("createPayrollForm").submit()
-            }
+            swal({
+                title: '',
+                text: 'Are you sure you want to create this payroll?',
+                showCancelButton: true,
+            }, function () {
+                document.getElementById("createPayrollForm").submit();
+            });
         }
          function currencyFormat(num) {
              return '₱ ' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')

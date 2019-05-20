@@ -75,7 +75,7 @@ class DatabaseSeeder extends Seeder
             (object)[
                 'users' => [
                     'user' => 'jasper',
-                    'position_id' => App\Positions::all()->pluck("id")->toArray()[rand(0, count(App\Positions::all()->pluck("id")->toArray()))],
+                    'position_id' => App\Positions::all()->pluck("id")->toArray()[rand(0, count(App\Positions::all()->pluck("id")->toArray()))-1],
                     'email' => 'example@example1.com',
                     'password' => bcrypt('jasper')
                 ],
@@ -103,7 +103,7 @@ class DatabaseSeeder extends Seeder
             (object)[
                 'users' => [
                     'user' => 'angie',
-                    'position_id' => App\Positions::all()->pluck("id")->toArray()[rand(0, count(App\Positions::all()->pluck("id")->toArray()))],
+                    'position_id' => App\Positions::all()->pluck("id")->toArray()[rand(0, count(App\Positions::all()->pluck("id")->toArray()))-1],
                     'email' => 'example@example2.com',
                     'password' => bcrypt('angie')
                 ],
@@ -132,7 +132,7 @@ class DatabaseSeeder extends Seeder
             (object)[
                 'users' => [
                     'user' => 'saturnino',
-                    'position_id' => App\Positions::all()->pluck("id")->toArray()[rand(0, count(App\Positions::all()->pluck("id")->toArray()))],
+                    'position_id' => App\Positions::all()->pluck("id")->toArray()[rand(0, count(App\Positions::all()->pluck("id")->toArray()))-1],
                     'email' => 'example@example3.com',
                     'password' => bcrypt('saturnino')
                 ],

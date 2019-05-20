@@ -83,6 +83,24 @@ class EmployeeController extends Controller
             'out_pm' => 'required',
         ]);
 
+        if (App\User::where("user", '=', $request->user)->count() > 0)
+            return back()->withErrors(json_encode([
+
+                'type' => 'error',
+                'title' => 'Username already used!',
+                'body' => '',
+
+            ]));
+
+        if (App\User::where("email", "=", $request->email)->count() > 0)
+            return back()->withErrors(json_encode([
+
+                'type' => 'error',
+                'title' => 'Email address already used!',
+                'body' => '',
+
+            ]));
+
         $user = new App\User;
         $contact = new App\Contact;
         $profile = new App\Profile;
@@ -175,7 +193,14 @@ class EmployeeController extends Controller
 
         $user->syncPermissions($perms);
 
-        return redirect()->route('employee');
+        return redirect()->route('employee')->withErrors(json_encode([
+
+            'type' => 'success',
+            'title' => 'Registration completed!',
+            'body' => App\Profile::getFullName($user->id) . ' added as ' . $user->position()->title . '!',
+
+
+        ]));
     }
 
     /**

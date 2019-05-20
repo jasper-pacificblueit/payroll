@@ -225,11 +225,11 @@
             <div class="col-lg-12">
               <h2>Schedules</h2>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-4">
               <label>Type</label>
               <select class="form-control" name="schedule" required onchange="chtype(this.value, this.options[this.selectedIndex].innerHTML)"></select>
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-12">
               <label>AM</label>
               <div class="input-daterange input-group am" id="datepicker">
                   <input type="time" class="input form-control" name=in_am>
@@ -237,7 +237,7 @@
                   <input type="time" class="input form-control" name=out_am>
               </div>
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-12">
               <label>PM</label>
               <div class="input-daterange input-group pm" id="datepicker">
                   <input type="time" class="form-control" name=in_pm>
@@ -304,7 +304,7 @@
           </div>
           <div class="col-lg-3 col-xs-3">
             <label title="Night Differential">Add. Deduction</label>
-            <input class="form-control" type="number" name="add_deductions" placeholder="Rate" step=".01">
+            <input class="form-control" type="number" name="add_deductions" placeholder="0.00" value="0.00" step=".01">
           </div>
           <div class="col-lg-5">
             <label>Miscellaneous</label>

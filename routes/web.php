@@ -96,6 +96,7 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::get('/company/{id}', 'CompanyController@show');
 	});
 
+
 	// Department Create
 	Route::group(['middleware' => ['permission:department_Create']], function () {
 		Route::post('/company/{company}/department' , 'DepartmentController@store');
@@ -111,59 +112,61 @@ Route::group(['middleware' => ['auth']], function() {
 
 	});
 
-	// DTR create
-	Route::group(['middleware' => ['permission:dtr_Create']], function () {
-		Route::get('/dtr/create', 'DateTimeRecordController@create');
-		Route::post('/dtr', 'DateTimeRecordController@store');
-	});
+	if (count(App\Company::all()) > 0 || count(App\Employee::all()) > 0) {
+		// DTR create
+		Route::group(['middleware' => ['permission:dtr_Create']], function () {
+			Route::get('/dtr/create', 'DateTimeRecordController@create');
+			Route::post('/dtr', 'DateTimeRecordController@store');
+		});
 
-	// DTR View
-	Route::group(['middleware' => ['permission:dtr_View']], function () {
-		Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
-		Route::get("/selectDate", "DateTimeRecordController@selectDate");
-		Route::get('/dtr/{dtr}', "DateTimeRecordController@show");
-		Route::get("/dtr-records", "DateTimeRecordController@records");
-		Route::get('/dtr', 'DateTimeRecordController@index');
-	});
+		// DTR View
+		Route::group(['middleware' => ['permission:dtr_View']], function () {
+			Route::post('/dtr/view' , 'DateTimeRecordController@viewFile');
+			Route::get("/selectDate", "DateTimeRecordController@selectDate");
+			Route::get('/dtr/{dtr}', "DateTimeRecordController@show");
+			Route::get("/dtr-records", "DateTimeRecordController@records");
+			Route::get('/dtr', 'DateTimeRecordController@index');
+		});
 
-	// DTR Modify
-	Route::group(['middleware' => ['permission:dtr_Modify']], function () {
-		Route::get("/dtr/{dtr}/edit", "DateTimeRecordController@edit");
-		Route::put("/dtr/{dtr}", "DateTimeRecordController@update");
-	});
+		// DTR Modify
+		Route::group(['middleware' => ['permission:dtr_Modify']], function () {
+			Route::get("/dtr/{dtr}/edit", "DateTimeRecordController@edit");
+			Route::put("/dtr/{dtr}", "DateTimeRecordController@update");
+		});
 
-	// DTR Delete
-	Route::group(['middleware' => ['permission:dtr_Delete']], function () {
-		Route::delete('/dtr/{dtr}', "DateTimeRecordController@destroy");
-	});
+		// DTR Delete
+		Route::group(['middleware' => ['permission:dtr_Delete']], function () {
+			Route::delete('/dtr/{dtr}', "DateTimeRecordController@destroy");
+		});
 
-	// Payroll Create
-	Route::group(["middleware" => ["permission:payroll_Create"]], function () {
-		Route::post('/payroll/makePayroll', 'PayrollController@makePayroll');
-		Route::post("/payroll", "PayrollController@store");
-	});
+		// Payroll Create
+		Route::group(["middleware" => ["permission:payroll_Create"]], function () {
+			Route::post('/payroll/makePayroll', 'PayrollController@makePayroll');
+			Route::post("/payroll", "PayrollController@store");
+		});
 
-	// Payroll View
-	Route::group(["middleware" => ["permission:payroll_View"]], function () {
-		Route::get('/payroll/create/payrollDate', 'PayrollController@payrollDate');
-		Route::get("/payroll/create", "PayrollController@create");
-		Route::post('/viewPayroll', 'PayrollController@viewPayroll');
-		Route::get("/payroll/{payroll}", "PayrollController@show");
-		Route::get("/payroll", "PayrollController@index");
-		Route::get("/checkPayroll", "PayrollController@checkPayroll");
+		// Payroll View
+		Route::group(["middleware" => ["permission:payroll_View"]], function () {
+			Route::get('/payroll/create/payrollDate', 'PayrollController@payrollDate');
+			Route::get("/payroll/create", "PayrollController@create");
+			Route::post('/viewPayroll', 'PayrollController@viewPayroll');
+			Route::get("/payroll/{payroll}", "PayrollController@show");
+			Route::get("/payroll", "PayrollController@index");
+			Route::get("/checkPayroll", "PayrollController@checkPayroll");
+			
+		});
+
+		// Payroll Delete
+		Route::group(["middleware" => ["permission:payroll_Delete"]], function () {
+			Route::delete("/payroll/{payroll}", "PayrollController@destroy");
+		});
 		
-	});
-
-	// Payroll Delete
-	Route::group(["middleware" => ["permission:payroll_Delete"]], function () {
-		Route::delete("/payroll/{payroll}", "PayrollController@destroy");
-	});
-	
-	// Payroll Modify
-	Route::group(["middleware" => ["permission:payroll_Modify"]], function () {
-		Route::get("/payroll/{payroll}/edit", "PayrollController@edit");
-		Route::match(["put", "patch"], "/payroll/{payroll}", "PayrollController@update");
-	});
+		// Payroll Modify
+		Route::group(["middleware" => ["permission:payroll_Modify"]], function () {
+			Route::get("/payroll/{payroll}/edit", "PayrollController@edit");
+			Route::match(["put", "patch"], "/payroll/{payroll}", "PayrollController@update");
+		});
+	}
 
 	// Position Create
 	Route::group(["middleware" => ["permission:position_Create"]], function () {
@@ -202,8 +205,6 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::group(["middleware" => ["permission:rate_Modify"]], function () {
 		Route::put("/rates/modify/{id}", "RateController@update");
-
-
 	});
 
 	// Deduction View

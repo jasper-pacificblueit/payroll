@@ -120,23 +120,38 @@
                 {{ 'disabled' }}
             @endif
              onclick='
-                fetch("/positions/{{ $position->id }}", {
-                    method: "delete",
-                    headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    }
-                }).then(rep => rep.text()).then(text => {
-                    $(".positionTable").DataTable().destroy();
-                    document.querySelector("#update").innerHTML = text;
-                    $(".positionTable").DataTable({
-                        pageLength: 10,
-                        language: {
-                            paginate: {
-                                previous: `<i class="fas fa-arrow-left"></i>`,
-                                next: `<i class="fas fa-arrow-right"></i>`,
-                            }
-                        },
-                   }).draw();
+                swal({
+                    title: "",
+                    text: "Do you want to remove this position?",
+                    showCancelButton: true,
+                    type: "warning",
+                }, function () {
+                    fetch("/positions/{{ $position->id }}", {
+                        method: "delete",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        }
+                    }).then(rep => rep.text()).then(text => {
+                        try {
+                            var json = JSON.parse(text);
+                            eval(`toastr.${json.type}("${json.body}", "${json.title}")`);
+                            return;
+                        } catch (error) {
+                            $(".positionTable").DataTable().destroy();
+                            document.querySelector("#update").innerHTML = text;
+                            $(".positionTable").DataTable({
+                                pageLength: 10,
+                                language: {
+                                    paginate: {
+                                        previous: `<i class="fas fa-arrow-left"></i>`,
+                                        next: `<i class="fas fa-arrow-right"></i>`,
+                                    }
+                                },
+                            }).draw();
+
+                            toastr.success("You just deleted a position beware of this.", "Operation successful!");
+                        }
+                    });
                 });
             '
              data-dismiss="modal">

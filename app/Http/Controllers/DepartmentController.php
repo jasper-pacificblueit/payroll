@@ -35,12 +35,33 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Company $company)
+    public function store(Request $request, Company $company)
     {
+
+        $request->validate([
+            'dep' => 'required',
+        ], [
+
+            'dep.required' => json_encode([
+                'type' => 'error',
+                'title' => 'Department name error',
+                'body' => 'A department must have a name.',
+            ]),
+
+        ]);
+
+        if (Department::where('name', '=', $request->dep)->count() > 0)
+            return back()->withErrors(json_encode([
+
+                'type' => 'error',
+                'title' => 'Department already exists!',
+                'body' => 'A department must have a unique name.',
+
+            ]));
 
         Department::create([
             'company_id' => $company->id,
-            'name' => ucwords(request('name'))
+            'dep' => ucwords(request('dep'))
         ]);
         
         return back();

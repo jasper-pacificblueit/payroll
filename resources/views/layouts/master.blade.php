@@ -8,9 +8,8 @@
     <meta id="_token" value="{{ csrf_token() }}">
 
 
-    <title>@yield('title')</title>
+    <title>{{ env("APP_NAME") }} | @yield('title')</title>
 
-    {{ Html::favicon('img/placeholder.jpg') }}
     {!! Html::style('css/plugins/toastr/toastr.min.css') !!}
     {!! Html::style('css/bootstrap.min.css') !!}
     {!! Html::style('font-awesome/css/font-awesome.css') !!}
@@ -38,6 +37,7 @@
 @guest
 @else
 @php
+    $serverTime = new Carbon\Carbon();
     $profile = App\Profile::where('user_id', auth()->user()->id)->first();
     $profile->image = (array)json_decode($profile->image);
 @endphp
@@ -270,15 +270,22 @@
     window.addEventListener("mouseup", _ => {});
 
     $(document).ready(function () {
-
         @if (count($errors->all()) > 0)
             @foreach ($errors->all() as $error)
-                @php($error = json_decode($error))
-                toastr.{{ $error->type }}(`{{ $error->body }}`, `{{ $error->title }}`);
+                @php
+                    $error = json_decode($error);
+                @endphp
+                toastr.{{ $error->type }}(`{!! $error->body . "<br><span class='pull-right'>" . $serverTime . "</span>" !!}`, `{{ $error->title }}`);
             @endforeach
         @endif
-
     });
+
+    @if (!session()->get("firstLogin"))
+        toastr.success("Welcome {{ App\Profile::getFullName(auth()->user()->id) }}!!" + "{!! "<br><br><span class='pull-right'>" . $serverTime . "</span>" !!}");
+        @php
+            session()->put("firstLogin", 1);
+        @endphp
+    @endif
 </script>
 
 </body>

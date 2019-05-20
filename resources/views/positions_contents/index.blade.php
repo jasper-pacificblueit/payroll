@@ -31,7 +31,7 @@
                                     <button type="button" class="close" style="padding:10px" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                 </div>
                                 <div class="modal-body">
-                                <form action="/positions" method="POST">
+                                <form action="/positions" method="POST" id="positionCreate">
                                     {{ csrf_field() }}
                                     <div class="row">
                                         <div class="col-lg-12" style='padding: 0px'>
@@ -58,14 +58,25 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                </form>
                                 <div class="modal-footer">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
-                                        <button type="submit" name="createPosition" class="btn btn-success btn-sm">Create</button>
+                                        <button type="submit" name="createPosition" class="btn btn-success btn-sm" onclick='
+
+                                            if (document.querySelector("[name=name]").value.length != 0)
+                                                swal({
+                                                    title: "",
+                                                    text: "Do you want to create a position named " + document.querySelector("[name=name]").value + "?!",
+                                                    type: "warning",
+                                                    showCancelButton: true,
+                                                }, function () {
+                                                    document.querySelector("#positionCreate").submit();
+                                                });
+                                        '>Create</button>
                                     </div>
                                 </div>
-                                </form>
+                                
                             </div>
                         </div>
                     </div>
@@ -142,23 +153,38 @@
                 {{ 'disabled' }}
             @endif
              onclick='
-                fetch("/positions/{{ $position->id }}", {
-                    method: "delete",
-                    headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    }
-                }).then(rep => rep.text()).then(text => {
-                    $(".positionTable").DataTable().destroy();
-                    document.querySelector("#update").innerHTML = text;
-                    $(".positionTable").DataTable({
-                        pageLength: 10,
-                        language: {
-                            paginate: {
-                                previous: `<i class="fas fa-arrow-left"></i>`,
-                                next: `<i class="fas fa-arrow-right"></i>`,
-                            }
-                        },
-                   }).draw();
+                swal({
+                    title: "",
+                    text: "Do you want to remove this position?",
+                    showCancelButton: true,
+                    type: "warning",
+                }, function () {
+                    fetch("/positions/{{ $position->id }}", {
+                        method: "delete",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        }
+                    }).then(rep => rep.text()).then(text => {
+                        try {
+                            var json = JSON.parse(text);
+                            eval(`toastr.${json.type}("${json.body}", "${json.title}")`);
+                            return;
+                        } catch (error) {
+                            $(".positionTable").DataTable().destroy();
+                            document.querySelector("#update").innerHTML = text;
+                            $(".positionTable").DataTable({
+                                pageLength: 10,
+                                language: {
+                                    paginate: {
+                                        previous: `<i class="fas fa-arrow-left"></i>`,
+                                        next: `<i class="fas fa-arrow-right"></i>`,
+                                    }
+                                },
+                            }).draw();
+
+                            toastr.success("You just deleted a position beware of this.", "Operation successful!");
+                        }
+                    });
                 });
             '
              data-dismiss="modal">

@@ -1,6 +1,7 @@
 @extends('layouts.head')
 
-@section('title','Login')
+@section('title', env("APP_NAME") . ' | Login')
+
 @section('content')
     <div class="middle-box text-center loginscreen animated fadeInDown">
         <div class='ibox-content' style='border-radius: 3px'>

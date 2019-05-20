@@ -1,5 +1,7 @@
 @extends("layouts.master")
 
+@section("title", "Opps, was that me?")
+
 @section("content")
 <div class="middle-box text-center animated fadeInDown">
     <h1>404</h1>

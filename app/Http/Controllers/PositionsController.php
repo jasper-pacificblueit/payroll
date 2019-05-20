@@ -40,9 +40,35 @@ class PositionsController extends Controller
             'name' => 'required',
             'state' => 'required',
             'max' => 'required',
+        ], [
+            'name.required' => json_encode([
+                'type' => 'error',
+                'title' => 'Position name error',
+                'body' => 'A position should have a name.',
+            ]),
+
+            'state.required' => json_encode([
+                'type' => 'error',
+                'title' => 'Status error',
+                'body' => 'A position should have a valid status.',
+            ]),
+
+            'max.required' => json_encode([
+                'type' => 'error',
+                'title' => 'Maximum error',
+                'body' => 'A position should have a maximum employee.',
+            ]),
+
+
         ]);
 
-        if (request('max') <= 0) return back();
+        if (request('max') <= 0) return back()->withErrors(json_encode([
+
+            'type' => 'error',
+            'title' => 'Invalid input!',
+            'body' => 'A position should have a maximum employees greater than 0.',
+
+        ]));
 
         $position = new Positions();
 
@@ -53,7 +79,11 @@ class PositionsController extends Controller
 
         $position->save();
 
-        return back();
+        return back()->withErrors(json_encode([
+            'type' => 'success',
+            'title' => 'Operation successful!',
+            'body' => 'You created a new position named "' . $position->title . '"!',
+        ]));
         
     }
 
@@ -97,7 +127,11 @@ class PositionsController extends Controller
 
         $position->save();
 
-        return back();
+        return back()->withErrors(json_encode([
+            'type' => 'success',
+            'title' => 'Operation successful!',
+            'body' => 'You modify a positions detail. beware of this.',
+        ]));
     }   
 
     /**
@@ -109,7 +143,9 @@ class PositionsController extends Controller
     public function destroy(Positions $position)
     {
         if ($position->count() > 0) return json_encode([
-            'error' => 'cannot delete non-empty position!',
+            'type' => 'error',
+            'title' => 'Invalid request!', 
+            'body' => 'A position assigned to some employees cannot be deleted.',
         ]);
 
 

@@ -41,7 +41,28 @@ class CompanyController extends Controller
         $validate = $request->validate([
             'name' => 'required',
             'address' => 'required',
+        ], [
+            'name.required' => json_encode([
+                'type' => 'warning',
+                'title' => 'Company name error',
+                'body' => 'A company must have a valid (non-empty) name.',
+            ]),
+            'address.required' => json_encode([
+                'type' => 'warning',
+                'title' => 'Company address error',
+                'body' => 'A company must have a valid location (non-empty address).',
+            ]),
+
         ]);
+
+        if (Company::where("name", '=', $request->name)->count() > 0)
+            return back()->withErrors(json_encode([
+
+                'type' => 'error',
+                'title' => 'Company already exists!',
+                'body' => 'A company must have a unique name.',
+
+            ]));
 
         $company = new Company();
         $company->name = request('name');
@@ -103,7 +124,13 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         $company = Company::find($id);
-        if ($company->employees->count() > 0) return back()->with([]);
+        if ($company->employees->count() > 0) return back()->withErrors(json_encode([
+
+            'type' => 'error',
+            'title' => 'Deletion unsuccessful!',
+            'body' => 'Cannot delete a company, having an employees!',
+            
+        ]));
 
         Company::destroy($company->id);
         return redirect("/company")->with([]);

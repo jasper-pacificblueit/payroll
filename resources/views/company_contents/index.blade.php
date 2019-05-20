@@ -40,7 +40,7 @@
                                             <div class="modal-header no-padding">
                                                 <button type="button" style="padding:10px" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                             </div>
-                                            <form method="POST" action="/company">
+                                            <form method="POST" action="/company" id="createCompany">
                                                 {{ csrf_field() }}
                                                 <div class="modal-body">
                                                    <div class="row">
@@ -54,13 +54,31 @@
                                                         </div>
                                                    </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <div class='btn-group'>
-                                                        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-success btn-sm" name="submit">Create</button>
-                                                    </div>
-                                                </div>
                                             </form>
+                                            <div class="modal-footer">
+                                                <div class='btn-group'>
+                                                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-success btn-sm" onclick='
+
+                                                        if (document.querySelector("[name=name]").value.length == 0 || document.querySelector("[name=address]").value.length == 0)
+                                                            swal({
+                                                                title: "",
+                                                                text: "Cannot create a company with insufficient details.",
+                                                            });
+                                                        else
+                                                            swal({
+                                                                title: "",
+                                                                text: `Do you want to create a company with a name "${document.querySelector("[name=name]").value}"?`,
+                                                                type: "warning",
+                                                                showCancelButton: true,
+                                                            }, function () {
+                                                                document.querySelector("#createCompany").submit();
+                                                            });
+
+
+                                                    '>Create</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

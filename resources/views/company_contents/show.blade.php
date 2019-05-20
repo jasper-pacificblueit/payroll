@@ -41,18 +41,27 @@
 
                                 <div class="btn-group pull-right">
                                         <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#editCompany" @if (!auth()->user()->can("company_Modify")) disabled @endif>
-                                            Edit
+                                            <i class="fas fa-marker"></i>
                                         </button>
                                     <form action="/company/{{ $company->id }}" id="deleteCompany" hidden method="post" style="display:inline; margin: 0; padding: 0">
                                         {{ csrf_field() }}
                                         {{ method_field("delete") }}
                                     </form>
+
                                     <button class="btn btn-sm btn-danger" @if (!auth()->user()->can("company_Delete")) disabled @endif onclick='
 
-                                        document.querySelector("#deleteCompany").submit();
+                                        swal({
+                                            title: "",
+                                            type: "warning",
+                                            text: "Do you want to delete this company?!",
+                                            showCancelButton: true,
+                                        }, function () {
+                                            document.querySelector("#deleteCompany").submit();
+                                        });
+                                        
 
                                     '>
-                                        Remove
+                                        <i class="fas fa-times"></i>
                                     </button>
                                 </div>
 
@@ -81,20 +90,30 @@
                                                     <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</button>
                                                     <button type="submit" class="btn btn-success btn-sm" data-dismiss="modal" onclick='
 
-                                                        fetch ("/company/{{$company->id}}", {
-                                                            method: "put",
-                                                            headers: {
-                                                                "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                                                            },
-                                                            body: JSON.stringify({
-                                                                name: document.querySelector("[name=name]").value,
-                                                                address: document.querySelector("[name=address]").value,
-                                                            }),
-                                                        }).then(rep => rep.json()).then(json => {
+                                                    if (document.querySelector("[name=name]").value.length > 0 || document.querySelector("[name=address]").value.length > 0)
+                                                        swal({
+                                                            title: "",
+                                                            text: "Save changes?",
+                                                            type: "",
+                                                            showCancelButton: true,
+                                                        }, function () {
+                                                            fetch ("/company/{{$company->id}}", {
+                                                                method: "put",
+                                                                headers: {
+                                                                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                                                                },
+                                                                body: JSON.stringify({
+                                                                    name: document.querySelector("[name=name]").value,
+                                                                    address: document.querySelector("[name=address]").value,
+                                                                }),
+                                                            }).then(rep => rep.json()).then(json => {
 
-                                                            document.querySelector("#company_name").innerHTML = json.name;
+                                                                document.querySelector("#company_name").innerHTML = json.name;
 
+                                                            });
                                                         });
+
+                                                        
 
 
                                                     '>Save</button>
@@ -115,21 +134,39 @@
                                                 <div class="modal-body">
                                                    <div class="row">
                                                        <div class="col-lg-12">
-                                            <form method="POST" action="/company/{{$company->id}}/department">
+                                            <form method="POST" action="/company/{{$company->id}}/department" id='departmentCreate'>
                                                 {{ csrf_field() }}
                                                 <label>Department Name</label>
-                                                <input type="text" name="name" class="form-control" required>
+                                                <input type="text" name="dep" class="form-control" required>
                                                        </div>
                                                    </div>
                                                 </div>
-        
+                                            </form>
                                                 <div class="modal-footer">
                                                     <div class='btn-group'>
                                                         <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-success btn-sm" name="submit">Create</button>
+                                                        <button type="submit" class="btn btn-success btn-sm" name="submit" onclick="
+
+                                                            if (document.querySelector('[name=dep]').value.length == 0)
+                                                                swal({
+                                                                    title: '',
+                                                                    text: 'Cannot create a department with empty name.',
+                                                                });
+                                                            else
+                                                                swal({
+                                                                    title: '',
+                                                                    text: 'Do you want to create a department with a name \''+ document.querySelector('[name=dep]').value +'\'',
+                                                                    showCancelButton: true,
+                                                                    type: 'warning',
+                                                                }, function () {
+                                                                    document.querySelector('#departmentCreate').submit();
+                                                                });
+
+
+                                                        ">Create</button>
                                                     </div>
                                                 </div>
-                                            </form>
+                                            
                                         </div>
                                     </div>
                                 </div>

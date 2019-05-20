@@ -195,6 +195,7 @@ $endDate = date("Y-m-d" , strtotime($end));
                                
                                <hr>
                                <div class="row">
+                                <div class="col-lg-12">
                                     <h4>Attendance</h4>
                                     <br>
                                     <div class="col-lg-3">
@@ -210,9 +211,7 @@ $endDate = date("Y-m-d" , strtotime($end));
                                          <span>Late :</span>
                                     </div>
                                     
-                                    
-                                  
-                                    
+                                </div>
                                 </div>
                                 
                               

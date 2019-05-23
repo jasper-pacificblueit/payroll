@@ -147,7 +147,6 @@
 	                       				@foreach ($statutory as $name => $val)
                                             @php
                                                 if (strpos($name, ' ')) $nospace = explode(' ', $name)[0];
-
                                             @endphp
 	                       					<tr id="{{ strpos($name, ' ') ? $nospace : $name }}">
 	                       						<td>{{ $name }}</td>

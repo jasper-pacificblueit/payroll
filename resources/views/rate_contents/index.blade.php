@@ -305,7 +305,7 @@
     function save_deduction(id) {
         var deduction = document.querySelector("#deduction-" + id);
 
-        deduction.children[0].innerHTML = deduction.children[0].firstElementChild.value || "deduction #" + (id+1);
+        deduction.children[0].innerHTML = deduction.children[0].firstElementChild.value || "deduction" + (id+1);
         deduction.children[1].innerHTML = deduction.children[1].firstElementChild.value || "0.00";
 
         adddeduction--;

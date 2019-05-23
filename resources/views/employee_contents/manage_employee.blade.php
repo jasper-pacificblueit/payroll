@@ -162,8 +162,8 @@
                 <div class="modal-footer">
                     <div class='btn-group'>
                         <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" id='close'>Close</button>
-                        <button type="submit" class="btn btn-sm btn-success" name="submit" onclick="document.querySelector('#btnclick-{{ $eminfo->user_id }}').disabled = false;">Save</button>
-                        <button class="btn btn-sm btn-danger" 
+                        <button type="button" class="btn btn-sm btn-success" name="submit" onclick="document.querySelector('#btnclick-{{ $eminfo->user_id }}').disabled = false;">Save</button>
+                        <a class="btn btn-sm btn-danger" 
                             onclick="
                                 swal({
                                   title: '',
@@ -171,28 +171,28 @@
                                   type: 'warning',
                                   showCancelButton: true,
                                   confirmButtonClass: 'btn-danger',
-                                }, function () {
+                                }, function (procd) {
+                                    if (procd) {
+                                      $('#manage').modal('hide');
+                                      fetch('/employee/{{ $eminfo->user_id }}', {
+                                          method: 'delete',
+                                          headers: {
+                                              'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                          }
+                                      }).then(function() { 
+                                          document.querySelector('#emrow-{{ $eminfo->user_id }}').className += ' alert alert-danger';
+                                          document.querySelector('#emrow-{{ $eminfo->user_id }}').ondblclick = '';
+                                          document.querySelector('#emrow-{{ $eminfo->user_id }} #btnclick-{{ $eminfo->user_id }}').setAttribute('disabled', 'disabled');
 
-                                    $('#manage').modal('hide');
-                                    fetch('/employee/{{ $eminfo->user_id }}', {
-                                        method: 'delete',
-                                        headers: {
-                                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                        }
-                                    }).then(function() { 
-                                        document.querySelector('#emrow-{{ $eminfo->user_id }}').className += ' alert alert-danger';
-                                        document.querySelector('#emrow-{{ $eminfo->user_id }}').ondblclick = '';
-                                        document.querySelector('#emrow-{{ $eminfo->user_id }} #btnclick-{{ $eminfo->user_id }}').setAttribute('disabled', 'disabled');
-
-                                        setInterval(_ => {
-                                          document.querySelector('#emrow-{{ $eminfo->user_id }}').hidden = true;
-                                        }, 2000);
-                                    });
-
+                                          setInterval(_ => {
+                                            document.querySelector('#emrow-{{ $eminfo->user_id }}').hidden = true;
+                                          }, 2000);
+                                      });
+                                    }
                                 });
                             ">
                             Remove
-                        </button>
+                        </a>
                     </div>
                 </div>
             </form>

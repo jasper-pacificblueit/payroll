@@ -41,7 +41,7 @@
 
             <img src="..." hidden onerror='
             setInterval(function() {
-                    fetch("/user/misc/status/{{ $employee->user_id }}", {                                                                                                                                           
+                    fetch("/user/misc/status/{{ $employee->user_id }}", {                                
                         headers: {                                                                                                                      
                             "X-CSRF-TOKEN": "{{ csrf_token() }}",
                         }

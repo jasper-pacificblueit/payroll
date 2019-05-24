@@ -50,7 +50,6 @@
 						console.log(json);
 						eval(`toastr.${json.type}("${json.body}<br><br><span class=pull-right>{{ new Carbon\Carbon() }}</span>", "${json.title}")`);
 
-
 						schedule.children[3].innerHTML = json.schedule.in_am;
 						schedule.children[4].innerHTML = json.schedule.out_am;
 						schedule.children[5].innerHTML = json.schedule.in_pm;
@@ -79,22 +78,52 @@
 					`;
 
 				schedule.children[7].innerHTML = `
-
 					<select class="form-control">
 						<option value="0" @if($sched->state == 0) selected @endif>Available</option>
 						<option value="1" @if($sched->state == 1) selected @endif>Unavailable</option>
 						<option value="2" @if($sched->state == 2) selected @endif>Temporarily unavailable</option>
 					</select>
-
 				`;
-
 
 				schedule.children[8].firstElementChild.innerHTML = "Save";
 
-
 			'>Edit</button>
 
-			<button class="btn btn-xs btn-danger" @if (App\Employee::where("schedule_id", "=", $sched->id)->count() > 0) disabled @endif><i class="fas fa-trash"></i></button>
+			<button class="btn btn-xs btn-danger" @if (App\Employee::where("schedule_id", "=", $sched->id)->count() > 0) disabled @endif onclick='
+
+				swal({
+					title: "",
+					text: "Are you sure you want to delete this schedule?",
+					type: "warning",
+					showCancelButton: true,
+				}, function (req_conf) {
+					if (req_conf) {
+						fetch ("/schedules/{{$sched->id}}", {
+							method: "delete",
+							headers: {
+								"X-CSRF-TOKEN": "{{ csrf_token() }}",
+							},
+						}).then(rep => rep.json()).then(json => {
+
+							eval(`toastr.${json.type}("${json.body}<br><br><span class=pull-right>{{ new Carbon\Carbon() }}</span>", "${json.title}");`);
+
+							fetch("/schedules/data", {
+								method: "get",
+								headers: {
+									"X-CSRF-TOKEN": "{{ csrf_token() }}",
+								},
+							}).then(rep => rep.text()).then(html => {
+
+								console.log(html);
+
+								document.querySelector("#scheduleData").innerHTML = html;
+							});
+
+						});
+					}
+				});
+
+			'><i class="fas fa-trash"></i></button>
 		</td>
 	</tr>
 @endforeach

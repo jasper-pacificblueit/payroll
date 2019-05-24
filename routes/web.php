@@ -23,6 +23,7 @@ Route::middleware(['guest'])->group(function() {
 Route::group(['middleware' => ['auth']], function() {
 
 	try {
+
 	if (count(App\Company::all()) > 0 && count(App\Department::all()) > 0 && App\Positions::where('state', '=', '0')->count() > 0) {
 
 		// Employee View
@@ -69,7 +70,6 @@ Route::group(['middleware' => ['auth']], function() {
 		});
 		
 	}
-	} catch (Exception $e) {};
 
 	// Company View
 	Route::group(['middleware' => ['permission:company_View']], function () {
@@ -168,6 +168,8 @@ Route::group(['middleware' => ['auth']], function() {
 		});
 	}
 
+	} catch (Exception $e) {};
+
 	// Position Create
 	Route::group(["middleware" => ["permission:position_Create"]], function () {
 		Route::get("/positions/create", "PositionsController@create");
@@ -250,6 +252,10 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::put("/schedules/{id}", "ScheduleController@update");
 	});
 
+	Route::group(["middleware" => ["permission:schedule_Delete"]], function () {
+		Route::delete("/schedules/{id}", "ScheduleController@destroy");
+	});
+
 	Route::group(["middleware" => ["permission:schedule_Create"]], function () {
 		Route::post("/schedules", "ScheduleController@store");
 	});
@@ -276,5 +282,6 @@ Route::group(['middleware' => ['auth']], function() {
 			"timestamp" => strtotime((new DateTime())->format("Y-m-d H:i:s")),
 		]);
 	});
+
 });
 

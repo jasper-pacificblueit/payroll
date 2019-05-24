@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Schedule;
+use App\Employee;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -82,8 +83,8 @@ class ScheduleController extends Controller
         $json = json_decode($request->getContent());
         $schedule = Schedule::find($id);
 
-        if ($json->in_am > $json->out_am || $json->in_am > $json->in_pm || $json->in_am > $json->out_pm ||
-            $json->out_am > $json->in_pm || $json->out_am > $json->out_pm || $json->in_pm > $json->out_pm)
+        if ($json->in_am >= $json->out_am || $json->in_am >= $json->in_pm || $json->in_am >= $json->out_pm ||
+            $json->out_am >= $json->in_pm || $json->out_am >= $json->out_pm || $json->in_pm >= $json->out_pm)
             return json_encode([
                 'type' => 'error',
                 'title' => 'Operation unsuccessful!',
@@ -106,7 +107,7 @@ class ScheduleController extends Controller
             'title' => 'Operation successful!',
             'body' => 'You updated the schedule for \'' . $schedule->department->name . "\' beware of this!",
 
-            'schedule' => $schedule,
+            'schedule' => Schedule::find($id),
         ]);
     }
 
@@ -116,8 +117,25 @@ class ScheduleController extends Controller
      * @param  \App\Schedule  $schedule
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Schedule $schedule)
+    public function destroy($id)
     {
-        //
+        if (Employee::where("schedule_id", "=", $id)->count() > 0)
+            return json_encode([
+
+                'type' => 'error',
+                'title' => 'Operation unsuccessful!',
+                'body' => 'A schedule cannot be deleted when someone is assigned to it.',
+
+            ]);
+
+        Schedule::destroy($id);
+
+        return json_encode([
+
+            'type' => 'success',
+            'title' => 'Operation successful!',
+            'body' => 'You just deleted a schedule! take a note of this!',
+
+        ]);
     }
 }

@@ -9,4 +9,6 @@ class Payslips extends Model
      public function getEmployee() {
         return $this->belongsTo('App\Employee' , 'employee_id');
     }
+   
+    
 }

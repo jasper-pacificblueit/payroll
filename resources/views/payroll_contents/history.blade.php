@@ -12,7 +12,8 @@
                     @foreach ($payrollDates as $payrollDate)
                         <option value="{{$payrollDate->id}}">{{date("M d" , strtotime($payrollDate->start))}} - {{date("M d Y" , strtotime($payrollDate->end))}}</option>
                     @endforeach
-                    <option value="2">1</option>
+                    <option value="2">2</option>
+                  
                 </select>
           
             

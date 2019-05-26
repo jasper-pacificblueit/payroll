@@ -20,9 +20,9 @@
                         $end = date("m/d/Y" , strtotime($checkPayroll->end));
                     ?>
                     <div class="input-daterange input-group" id="datepicker">
-                        <input type="text" class="input-sm form-control" name="start" value="{{$start}}" id="start" onchange="checkAttendance(this.value , document.getElementById('end').value)">
+                        <input type="text" class="input-sm form-control" name="start" value="{{$start}}" id="start" onchange="checkAttendance(this.value , document.getElementById('end').value, document.querySelector('#dep').value)">
                         <span class="input-group-addon">to</span>
-                        <input type="text" class="input-sm form-control" name="end"  value="{{$end}}" id="end" onchange="checkAttendance(document.getElementById('start').value , this.value)">
+                        <input type="text" class="input-sm form-control" name="end"  value="{{$end}}" id="end" onchange="checkAttendance(document.getElementById('start').value , this.value, document.querySelector('#dep').value)">
                     </div>
                 </div>
                 <div class="col-lg-6 pull-right">

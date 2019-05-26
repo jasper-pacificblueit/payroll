@@ -361,7 +361,7 @@
             
         }
         function checkAttendance(start , end, dep) {
-            console.log( start , end);
+            console.log( start , end, dep);
             if (start.length==0) { 
                 document.getElementById("payrollTable").innerHTML="";
              

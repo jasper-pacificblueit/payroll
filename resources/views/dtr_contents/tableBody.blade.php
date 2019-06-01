@@ -33,37 +33,31 @@
                 <div class="col-lg-12">
                     @php( $attendances = \App\DateTimeRecord::where('user_id' , $employee->user_id)->whereBetween('date' , [$data->start , $data->end])->get())
                     <ul class="list-group clear-list m-t">
-                        <li class="list-group-item fist-item">
-                            <span class="pull-right">
-                                10:16 am
-                            </span>
-                            <span class="label label-info">2</span> Sign a contract
+                            <li class="list-group-item fist-item">
+                                <span class="pull-right label label-default"  style="font-size:13px;width:200px;">Date</span>
+                             
+                                <span class="label label-primary" style="font-size:13px;width:200px;">Time in</span> 
+                                <span class="label label-danger" style="font-size:13px; width:200px;">Time out</span> 
+                                <span class="label label-success" style="font-size:13px; width:200px;">Total Hours</span> 
+
+                            </li>
+                        @foreach ($attendances as $attendance)
+                            <li class="list-group-item">
+                                <span class="pull-right label label-default" style="font-size:13px; width:200px;">
+                                {{date("M d Y" , strtotime($attendance->date))}}
+                                </span>
+                                <span class="label label-primary" style="font-size:13px; width:200px;">{{$attendance->in_am}}</span> 
+                                
+                                <span class="label label-danger" style="font-size:13px; width:200px;">{{$attendance->out_am}}</span> 
+                                
+                                <span class="label label-primary" style="font-size:13px; width:200px;">{{$attendance->in_pm}}</span> 
+                            
+                                <span class="label label-danger" style="font-size:13px; width:200px;">{{$attendance->out_pm}}</span> 
+                                <span class="label label-success" style="font-size:13px; width:200px;">{{$attendance->total_hours}}</span> 
+                                
+                            </li>
+                        @endforeach
                         
-                        </li>
-                        <li class="list-group-item">
-                            <span class="pull-right">
-                                10:16 am
-                            </span>
-                            <span class="label label-info">2</span> Sign a contract
-                        </li>
-                        <li class="list-group-item">
-                            <span class="pull-right">
-                                08:22 pm
-                            </span>
-                            <span class="label label-primary">3</span> Open new shop
-                        </li>
-                        <li class="list-group-item">
-                            <span class="pull-right">
-                                11:06 pm
-                            </span>
-                            <span class="label label-default">4</span> Call back to Sylvia
-                        </li>
-                        <li class="list-group-item">
-                            <span class="pull-right">
-                                12:00 am
-                            </span>
-                            <span class="label label-primary">5</span> Write a letter to Sandra
-                        </li>
                     </ul>
                 </div>
                     

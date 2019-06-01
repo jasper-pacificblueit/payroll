@@ -139,8 +139,10 @@
                                                 <thead>
                                                 <tr>
                                                    <th>{{$csv_info->period}}</th>
-                                                   <th>Time in</th>
-                                                   <th>Time out</th>
+                                                   <th>Time in <small>(am)</small></th>
+                                                   <th>Time out <small>(am)</small></th>
+                                                   <th>Time in <small>(pm)</small></th>
+                                                   <th>Time out <small>(pm)</small></th>
                                                    <th>Rendered Hours</th>
                                                     
                                                 </tr>
@@ -167,6 +169,13 @@
                                                                     $diff = "<b style='color:orange;'>Warning</b>";
                                                                     $out = '--';
                                                                 }
+                                                                else if(empty($attendance->am['in']) && empty($attendance->am['out'])){
+                                                                    $pm_in = strtotime($attendance->pm['in']);
+                                                                    $pm_out = strtotime($attendance->pm['out']);
+                                                                    $diff = round(abs($pm_in - $pm_out) / 3600, 1);
+                                                                    $in = $attendance->pm['in'];
+                                                                    $out = $attendance->pm['out'];
+                                                                }
                                                                 else if(empty($attendance->am['out'])){
                                                                     $am_in = strtotime($attendance->am['in']);
                                                                     $pm_out = strtotime($attendance->pm['out']);
@@ -184,6 +193,7 @@
                                                                     $in = $attendance->am['in'];
                                                                     $out = $attendance->am['out'];
                                                                 }
+                                                                
 
                                                             ?>
                                                             
@@ -194,10 +204,11 @@
                                                                 <input type="time" name="in[{{$employee->bio_id}}][]" value="{{$in}}" hidden>
                                                                 <input type="time" name="out[{{$employee->bio_id}}][]" value="{{$out}}" hidden>
                                                                 
-                                                                
-                                                                
-                                                                <td>{{$in}}</td>
-                                                                <td>{{$out}}</td>
+                                                                <td>{{$attendance->am['in']}}</td>
+                                                                <td>{{$attendance->am['out']}}</td>
+                                                                <td>{{$attendance->pm['in']}}</td>
+                                                                <td>{{$attendance->pm['out']}}</td>
+                                                                                                    
                                                                 <td><?php echo $diff; ?></td>
                                                                 <input type="number" name="totalHours[{{$employee->bio_id}}][]" value="{{$diff}}" hidden>
                                                                

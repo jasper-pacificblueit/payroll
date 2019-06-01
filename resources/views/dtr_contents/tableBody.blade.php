@@ -3,7 +3,7 @@
     
     <tr>
         @php( $attendances = \App\DateTimeRecord::where('user_id' , $employee->user_id)->whereBetween('date' , [$data->start , $data->end])->get())
-        <td>{{App\Profile::getFullName($employee->user_id)}}</td>
+        <td>{{$employee->user_id}} {{App\Profile::getFullName($employee->user_id)}}</td>
         <?php $dayCount = 0; $totalHrs = 0;?>
         @foreach ($attendances as $attendance)
             <?php
@@ -26,15 +26,40 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h3>{{$employee->getProfile->lname}}</h3>
+                <label class="pull-left">Attendance Details - <a href="#">{{$employee->getProfile->lname}}, {{$employee->getProfile->fname}}</a></label>
             </div>
             <div class="modal-body">
               <div class="row">
-                @php( $attendances = \App\DateTimeRecord::where('user_id' , $employee->user_id)->whereBetween('date' , [$data->start , $data->end])->get())
+                <div class="col-lg-12">
+                    @php( $attendances = \App\DateTimeRecord::where('user_id' , $employee->user_id)->whereBetween('date' , [$data->start , $data->end])->get())
+                    <ul class="list-group clear-list m-t">
+                            <li class="list-group-item fist-item">
+                                <span class="pull-right label label-default"  style="font-size:13px;width:200px;">Date</span>
+                             
+                                <span class="label label-primary" style="font-size:13px;width:200px;">Time in</span> 
+                                <span class="label label-danger" style="font-size:13px; width:200px;">Time out</span> 
+                                <span class="label label-success" style="font-size:13px; width:200px;">Total Hours</span> 
 
-                    @foreach ($attendances as $attendance)
-                        <span>{{$attendance->total_hours}} ---- {{$attendance->date}}</span><br>
-                    @endforeach
+                            </li>
+                        @foreach ($attendances as $attendance)
+                            <li class="list-group-item">
+                                <span class="pull-right label label-default" style="font-size:13px; width:200px;">
+                                {{date("M d Y" , strtotime($attendance->date))}}
+                                </span>
+                                <span class="label label-primary" style="font-size:13px; width:200px;">{{$attendance->in_am}}</span> 
+                                
+                                <span class="label label-danger" style="font-size:13px; width:200px;">{{$attendance->out_am}}</span> 
+                                
+                                <span class="label label-primary" style="font-size:13px; width:200px;">{{$attendance->in_pm}}</span> 
+                            
+                                <span class="label label-danger" style="font-size:13px; width:200px;">{{$attendance->out_pm}}</span> 
+                                <span class="label label-success" style="font-size:13px; width:200px;">{{$attendance->total_hours}}</span> 
+                                
+                            </li>
+                        @endforeach
+                        
+                    </ul>
+                </div>
                     
               </div>
             </div>

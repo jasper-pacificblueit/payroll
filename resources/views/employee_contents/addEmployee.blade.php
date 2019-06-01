@@ -292,6 +292,22 @@
 
         <div class="col-lg-6 col-sm-6" style="padding: 0;">
           <div class="col-lg-12">
+            <h2>Statutory</h2>
+          </div>
+          <div class="col-lg-2 col-xs-3">
+            <label title="Night Differential">SSS</label>
+            <input class="form-control" type="number" name="sss" placeholder="Rate" step=".01" required>
+          </div>
+          <div class="col-lg-2 col-xs-3">
+            <label title="Night Differential">Pag-ibig</label>
+            <input class="form-control" type="number" name="pagibig" placeholder="Rate" step=".01" required>
+          </div>
+          <div class="col-lg-3 col-xs-3">
+            <label title="Night Differential">PhilHealth</label>
+            <input class="form-control" type="number" name="philhealth" placeholder="0.00" value="0.00" step=".01" required>
+          </div>
+
+          <div class="col-lg-12">
             <h2>Deductions</h2>
           </div>
           <div class="col-lg-2 col-xs-3">
@@ -304,13 +320,12 @@
           </div>
           <div class="col-lg-3 col-xs-3">
             <label title="Night Differential">Add. Deduction</label>
-            <input class="form-control" type="number" name="add_deductions" placeholder="0.00" value="0.00" step=".01">
+            <input class="form-control" type="number" name="add_deductions" placeholder="0.00" step=".01">
           </div>
-          <div class="col-lg-5">
-            <label>Miscellaneous</label>
-            <br>
+         
+          
 
-          </div>
+         
         </div>
       </div>
 

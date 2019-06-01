@@ -54,6 +54,9 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+
+       
+
         $request->validate([
             'user' => 'required',
             'pass' => 'required',
@@ -173,7 +176,15 @@ class EmployeeController extends Controller
         $deductions->late = $request->late;
         $deductions->undertime = $request->undertime;
         $deductions->additional_deductions = $request->add_deductions;
-        $deductions->deductions = "";
+        $statutory = json_encode([
+            'statutory' => [
+                'sss' => $request->sss,
+                'pagibig' => $request->pagibig,
+                'philhealth' => $request->philhealth,
+            ],
+        ]);
+
+        $deductions->deductions = $statutory;
         $deductions->save();
 
         $rates = new App\Rate;

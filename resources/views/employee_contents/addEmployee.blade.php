@@ -94,7 +94,7 @@
         <div class="col-lg-6" style='padding: 0'>
           <div class="col-lg-2">
             <label>Bio. ID</label>
-            <input type="text" name="bio" class="form-control">
+            <input type="text" name="bio" class="form-control" placeholder="(nullable)">
           </div>
           <div class="col-lg-5">
                 <label>Username</label>

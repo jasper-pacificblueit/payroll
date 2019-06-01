@@ -92,15 +92,27 @@ class DateTimeRecordController extends Controller
        $empCount = 0;
        //dd($request->warningTimeOut , $request->warningTotal , $days);
        
-       $checkAttendance = App\PayrollDate::where('start', '=' , $request->payrollDate1, 'AND' , 'end' , '=' , $request->payrollDate2)->get();
-
+       $checkAttendance = App\PayrollDate::where('start', '>=' , $request->payrollDate1, 'AND' , 'end' , '<=' , $request->payrollDate2)->get();
+      
        $empCount = 0;
     
       
       //dd($request->totalHours , $days);
-       if(!count($checkAttendance) > 0){
-
+        if(!count($checkAttendance) > 0){
+            $result = 'success';
+           
+        }
+        else{
             
+            $deleteDate = App\PayrollDate::where('start', '>=' , $request->payrollDate1, 'AND' , 'end' , '<=' , $request->payrollDate2)->delete();
+            $deleteRecord = App\DateTimeRecord::where('date', '>=' , $request->payrollDate1, 'AND' , 'date' , '<=' , $request->payrollDate2)->delete();
+         
+            
+            $result = 'warning';
+            
+        }
+
+
             foreach($csv_info['employees'] as $employee){
                 
                 $dayCount = 0;
@@ -170,14 +182,9 @@ class DateTimeRecordController extends Controller
 
             $date = App\PayrollDate::orderBy('id' , 'desc')->first();
 
-            return redirect('dtr-records');
+            return redirect('dtr-records?result=' . $result);
       
-       }
-       else{
-
-           $result = 'danger';
-           return view('dtr_contents.index' , compact('result'));
-       }
+      
         
     }
 

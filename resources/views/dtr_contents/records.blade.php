@@ -12,9 +12,9 @@
       
         
     </div>
-    <div class="col-lg-1 pull-right">
+    {{-- <div class="col-lg-1 pull-right">
         <button class="btn btn-default btn-md pull-right"><i class="fa fa-trash"></i></button>
-    </div>
+    </div> --}}
     
 </div>
 

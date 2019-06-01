@@ -90,6 +90,19 @@
                                         </div>
                                         <div id="tab-2" class="tab-pane {{ Request::path() == 'dtr-records' ? 'active' : '' }} ">
                                             <div class="panel-body">
+
+                                                  @if (isset($_GET['result']))
+                                                    @if ($_GET['result']=='success')
+                                                        <div class="alert alert-success">
+                                                                <a class="alert-link" href="#">Attendance imported successfully!</a>.
+                                                        </div>
+                                                    @else
+                                                        <div class="alert alert-warning">
+                                                                <a class="alert-link" href="#">Employee's attendance has been override! </a>
+                                                        </div>
+                                                        
+                                                    @endif
+                                                @endif
                                                 @include('dtr_contents.records')
                                             </div>
                                         </div>

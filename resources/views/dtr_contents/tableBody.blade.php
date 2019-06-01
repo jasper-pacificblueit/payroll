@@ -1,9 +1,12 @@
+
+
 @php( $employees = \App\DateTimeRecord::with('getProfile')->distinct()->get(['user_id']))
 @foreach ($employees as $employee)
     
     <tr>
+       
         @php( $attendances = \App\DateTimeRecord::where('user_id' , $employee->user_id)->whereBetween('date' , [$data->start , $data->end])->get())
-        <td>{{$employee->user_id}} {{App\Profile::getFullName($employee->user_id)}}</td>
+        <td> {{App\Profile::getFullName($employee->user_id)}}</td>
         <?php $dayCount = 0; $totalHrs = 0;?>
         @foreach ($attendances as $attendance)
             <?php

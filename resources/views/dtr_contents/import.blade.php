@@ -74,6 +74,13 @@
                                                                 $diff = "<b style='color:orange;'>W</b>";
                                                                 $Warning++;
                                                         }
+                                                        else if(empty($attendance->am['in']) && empty($attendance->am['out'])){
+                                                                    $pm_in = strtotime($attendance->pm['in']);
+                                                                    $pm_out = strtotime($attendance->pm['out']);
+                                                                    $diff = round(abs($pm_in - $pm_out) / 3600, 1);
+                                                                    $in = $attendance->pm['in'];
+                                                                    $out = $attendance->pm['out'];
+                                                        }
                                                         else if(empty($attendance->am['out'])){
                                                                 $am_in = strtotime($attendance->am['in']);
                                                                 $pm_out = strtotime($attendance->pm['out']);
@@ -157,7 +164,10 @@
                                                               
                                                                 <td>{{date("M d Y" , strtotime($days[$dayCount]))}}</td>
                                                                 <td>--</td>
-                                                                <td>--</td>   
+                                                                <td>--</td>  
+                                                                <td>--</td>  
+                                                                <td>--</td>  
+                                                                
                                                                 <td><b style="color:red">Absent</b></td>
                                                                
                                                                 

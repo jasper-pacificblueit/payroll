@@ -14,7 +14,6 @@ class Department extends Model
 
 	public function getEmployee() {
 		return Employee::where('department_id', $this->id)->get();
-
 	}
 
 	public function dateTimeRecords() {

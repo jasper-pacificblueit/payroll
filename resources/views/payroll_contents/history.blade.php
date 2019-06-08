@@ -20,7 +20,7 @@
             </div>
          
             <div class="col-sm-3 pull-right">
-                <h4 class="pull-right"><button class="btn btn-danger btn-md"><i class="fa fa-trash"></i> Delete</button></h4>
+                <h4 class="pull-right"><button class="btn btn-primary btn-md" onclick="printAllElement()">Print All</button></h4>
                 <br>
                 <br>
                 <br>

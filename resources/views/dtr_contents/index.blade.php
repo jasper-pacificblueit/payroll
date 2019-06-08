@@ -123,6 +123,8 @@
 {!! Html::script('js/plugins/select2/select2.full.min.js') !!}
 
 <script>
+       
+
         function DateSelect(str){
             if (str.length==0) { 
                 try {

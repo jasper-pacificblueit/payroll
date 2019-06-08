@@ -84,6 +84,30 @@
 {!! Html::script('js/companyDepartment.js') !!}
                  
 <script>
+        
+        function printElem(payslip_id){
+            var printBody = document.querySelector(`.payslipBody-${payslip_id}`)
+            var newWin= window.open("");
+            newWin.document.write(printBody.outerHTML);
+            
+            newWin.print();
+            newWin.close();
+            
+           
+
+        }
+
+        function printAllElement(){
+            var allPayslip = document.querySelectorAll('.payslipBody');
+            var newWin= window.open("");
+            allPayslip.forEach(element => {
+                newWin.document.write(element.outerHTML);
+                
+            });
+            newWin.print();
+            newWin.close();
+            
+        }
         function checkDate(payroll_id){
             console.log( payroll_id);
           

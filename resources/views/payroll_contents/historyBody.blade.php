@@ -6,7 +6,6 @@
     {{-- employee_id is equal to user_id LOL :D --}}
 
     <?php
-
         $employee = $payslip->getEmployee;
         $EmployeeRate = App\Rate::getHourlyRate($employee->id);
         $EmployeeOvertime = $employee->rates->overtime;
@@ -16,13 +15,12 @@
 
         $EmployeeEarnings = $payslip->earnings;
         $EmployeeEarningsDecoded = json_decode($EmployeeEarnings);
-
-        
    ?>
 
     
 
     <tr>
+      
       
         <td>{{\App\Profile::getFullName($payslip->employee_id)}}</td>
         <td>{{$payslip->getEmployee->getDepartment->name}}</td>
@@ -35,15 +33,14 @@
             <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#payslip-{{$payslip->id}}">
                 View Payslip
             </button>
-
             <div class="modal inmodal fade" id="payslip-{{$payslip->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                         <div class="modal-header" style="padding:10px;">
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                          
+                            
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body payslipBody-{{$payslip->id}} payslipBody">
                             <div class="row">
                                 <h4 style="margin-left: 11px">Information</h4>
                                
@@ -59,6 +56,7 @@
                                 
                             </div>
                             <hr>
+
                             <div class="row">
                                 
                                 <div class="col-lg-3">
@@ -78,78 +76,17 @@
                                 
                             </div>
                             <hr>
-                            <div class="row">
-                                 
-                                <div class="col-lg-6">
-                                     <h4>Income</h4>
-                                     <div class="row">
-                                         <div class="col-lg-12">
-                                             <ul class="list-group" id="ulIncome">
-                                                 
-                                                @foreach ($EmployeeEarningsDecoded as $name => $value)
-                                                    <li class="list-group-item">
-                                                        <span>{{ucfirst($name)}}</span>
-                                                        <span class="pull-right">₱ {{number_format($value , 2)}}</span>
-                                                    </li>
-                                                @endforeach
-                                                    
-                                                   
-                                               
-                                             
-                                       
-                                             <li class="list-group-item">
-                                                     <strong style="color:green">Total Income</strong>
-                                                     <span class="pull-right">₱ {{number_format($payslip->total_income , 2)}}</span>
-                                           
-                                             </li>
-                                            
-                                         </ul>
-                                         </div>
-                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                     <h4>Deductions</h4>
-                                     <div class="row">
-                                         <div class="col-lg-12">
-                                             <ul class="list-group">
-                                                 
-                                                @foreach ($EmployeeEarningsDecoded as $name => $value)
-                                                    <li class="list-group-item">
-                                                        <span>{{ucfirst($name)}}</span>
-                                                        <span class="pull-right">₱ {{number_format($value , 2)}}</span>
-                                                    </li>
-                                                @endforeach
-                                             
-
-                                                 <li class="list-group-item">
-                                                         <strong style="color:red">Total Deduction</strong>
-                                                          <span class="pull-right">₱ {{number_format($payslip->total_deduction , 2)}}</span>
-                                                 </li>
-
-                                                 <li class="list-group-item">
-                                                         <strong style="color:green">Net Pay</strong>
-                                                         <span class="pull-right">₱ {{number_format($payslip->net_pay , 2)}}</span>
-                                                 </li>
-                                             
-                                         </ul>
-                                         
-                                         </div>
-                                     </div>
-                                </div>
-                                 
-                            </div>
-
                           
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="printPayslip-btn-{{$payslip->id}} btn btn-primary" onclick="printElem({{$payslip->id}})">Print</button>
                         </div>
                     </div>
                 </div>
             </div>
-
         </td>
+      
     </tr>
-
+   
 @endforeach

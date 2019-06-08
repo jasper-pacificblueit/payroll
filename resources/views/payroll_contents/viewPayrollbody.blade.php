@@ -12,7 +12,10 @@ $endDate = date("Y-m-d" , strtotime($end));
         
         
         $EmployeeTotalHours = App\DateTimeRecord::getTotalHours($startDate , $endDate , $employee->user_id);
+    
+        
         $EmployeeTotalLate = App\DateTimeRecord::getTotalLate($employee->schedule , $startDate , $endDate , $employee->user_id);
+        $EmployeeTotalOvertime = App\DateTimeRecord::getOvertime($employee->schedule , $startDate , $endDate , $employee->user_id);
         $EmployeeTotalUndertime = App\DateTimeRecord::getTotalUndertime($startDate , $endDate , $employee->user_id);
         
         //Deductions
@@ -28,7 +31,7 @@ $endDate = date("Y-m-d" , strtotime($end));
         
         //Earnings
         $Basic = App\Payroll::getBasic($EmployeeRate , $EmployeeTotalHours);
-        $Overtime = 0;
+        $Overtime = App\Payroll::getOvertime($EmployeeOvertime , $EmployeeTotalOvertime);
         $Holiday = 0;
 
 
@@ -42,8 +45,9 @@ $endDate = date("Y-m-d" , strtotime($end));
     
     @php( $attendances = \App\DateTimeRecord::where('user_id' , $employee->user_id)->whereBetween('date' , [$startDate , $endDate])->get())
     <tr>
+
         <td>{{ $employee->bio_id ? $employee->bio_id : $employee->user_id + 1000 }}</td>
-        <td>{{ App\Profile::getFullName($employee->user_id) }} <input type="text" name="employees[]" value="{{$employee->user_id}}" hidden></td>
+        <td>{{ App\Profile::getFullName($employee->user_id) }} <input type="text" name="employees[]" value="{{$employee->id}}" hidden></td>
        
         <td><span id="TotalIncomeDispOut-{{$employee->user_id}}"> ₱ {{number_format($TotalEarnings , 2)}} </span></td>
         <td><span id="TotalDeductionDispOut-{{$employee->user_id}}"> ₱ {{number_format($TotalDeductions , 2)}} </span></td>
@@ -105,21 +109,21 @@ $endDate = date("Y-m-d" , strtotime($end));
                                                     <span id="DisplayIncome-{{$employee->user_id}}">
                                                         <li class="list-group-item">
                                                             <span>Basic</span>
-                                                            <span class="pull-right"> ₱ {{number_format($Basic , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="{{round($Basic , 2)}}" hidden name="basic[{{$employee->user_id}}]"></span>
+                                                            <span class="pull-right"> ₱ {{number_format($Basic , 2)}} <input class="IncomeClass-{{$employee->id}}" type="text" value="{{round($Basic , 2)}}" hidden name="basic[{{$employee->id}}]"></span>
                                                         </li>
                                                         <li class="list-group-item">
                                                             <span>Overtime</span>
-                                                            <span class="pull-right"> ₱ {{number_format($employee->rates->overtime , 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="{{round($employee->rates->overtime , 2)}}" hidden name="overtime[{{$employee->user_id}}]"></span>
+                                                            <span class="pull-right"> ₱ {{number_format($Overtime , 2)}} <input class="IncomeClass-{{$employee->id}}" type="text" value="{{round($Overtime , 2)}}" hidden name="overtime[{{$employee->id}}]"></span>
                                                                 
                                                         </li>
                                                         <li class="list-group-item">
                                                             <span>Holiday</span>
-                                                            <span class="pull-right"> ₱ {{number_format($employee->rates->holiday, 2)}} <input class="IncomeClass-{{$employee->user_id}}" type="text" value="{{round($employee->rates->holiday, 2)}}" hidden name="holiday[{{$employee->user_id}}]"></span>
+                                                            <span class="pull-right"> ₱ {{number_format($employee->rates->holiday, 2)}} <input class="IncomeClass-{{$employee->id}}" type="text" value="{{round($employee->rates->holiday, 2)}}" hidden name="holiday[{{$employee->id}}]"></span>
                                                         </li>
                                                     
                                                     
                                                     </span>
-                                                    <span id='income-{{$employee->user_id}}'>
+                                                    <span id='income-{{$employee->id}}'>
                                                     </span>
                                                 
                                                 {{-- <div id="addIncomeItem">
@@ -129,12 +133,12 @@ $endDate = date("Y-m-d" , strtotime($end));
                                                     </li>
                                                 </div> --}}
                                                 <li class="list-group-item">
-                                                <span><input type="button" class="btn btn-default btn-xs" onclick="addIncome({{$employee->user_id}})" id="addIncomeBtn-{{ $employee->user_id }}" value="Add Income"></span>
+                                                <span><input type="button" class="btn btn-default btn-xs" onclick="addIncome({{$employee->id}})" id="addIncomeBtn-{{ $employee->id }}" value="Add Income"></span>
                                                     <span class="pull-right"></span>
                                                 </li>
                                                 <li class="list-group-item">
                                                         <strong style="color:green">Total Income</strong>
-                                                        <span class="pull-right" id="TotalIncomeDisp-{{$employee->user_id}}"> ₱ {{number_format($TotalEarnings , 2)}} </span><span><input type="text" id="TotalIncome-{{$employee->user_id}}" value="{{$TotalEarnings}}" style="border:0; background:transparent;text-align:right;" hidden name="total_income[{{$employee->user_id}}]"></span>
+                                                        <span class="pull-right" id="TotalIncomeDisp-{{$employee->id}}"> ₱ {{number_format($TotalEarnings , 2)}} </span><span><input type="text" id="TotalIncome-{{$employee->id}}" value="{{$TotalEarnings}}" style="border:0; background:transparent;text-align:right;" hidden name="total_income[{{$employee->id}}]"></span>
                                                 </li>
                                                
                                             </ul>
@@ -146,14 +150,14 @@ $endDate = date("Y-m-d" , strtotime($end));
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <ul class="list-group">
-                                                    <span id="DisplayDeduction-{{$employee->user_id}}">
+                                                    <span id="DisplayDeduction-{{$employee->id}}">
                                                      <li class="list-group-item">
                                                         <span>Late</span>
-                                                        <span class="pull-right"> ₱ {{$EmployeeLateDeductions}}  <input class="DeductionClass-{{$employee->user_id}}" type="text" value="{{$EmployeeLateDeductions}}" hidden name="late[{{$employee->user_id}}]"></span>
+                                                        <span class="pull-right"> ₱ {{$EmployeeLateDeductions}}  <input class="DeductionClass-{{$employee->id}}" type="text" value="{{$EmployeeLateDeductions}}" hidden name="late[{{$employee->id}}]"></span>
                                                      </li>
                                                      <li class="list-group-item">
                                                         <span>Undertime</span>
-                                                        <span class="pull-right"> ₱ {{number_format($EmployeeUndertimeDeductions , 2)}} <input class="DeductionClass-{{$employee->user_id}}" type="text" value="{{$EmployeeUndertimeDeductions}}" hidden name="undertime[{{$employee->user_id}}]"></span>
+                                                        <span class="pull-right"> ₱ {{number_format($EmployeeUndertimeDeductions , 2)}} <input class="DeductionClass-{{$employee->id}}" type="text" value="{{$EmployeeUndertimeDeductions}}" hidden name="undertime[{{$employee->id}}]"></span>
                                                      </li>
 
                                                     @foreach ($DeductionsRates->statutory as $name => $deductions)
@@ -161,28 +165,28 @@ $endDate = date("Y-m-d" , strtotime($end));
                                                             <span>{{$name}}</span>
                                                             <span class="pull-right"> ₱ {{$deductions}} </span>
                                                         </li>
-                                                        <input class="DeductionClass-{{$employee->user_id}}" type="text" value="{{round($deductions , 2)}}" hidden name="statutory[{{$employee->user_id}}][{{$name}}]">
+                                                        <input class="DeductionClass-{{$employee->id}}" type="text" value="{{round($deductions , 2)}}" hidden name="statutory[{{$employee->id}}][{{$name}}]">
                                                     @endforeach
                                                     
 
                                                     </span>
-                                                    <span id="deduction-{{$employee->user_id}}">
+                                                    <span id="deduction-{{$employee->id}}">
 
                                                     </span>
                                                     <li class="list-group-item">
-                                                        <input type="button" class="btn btn-default btn-xs" onclick="addDeduction({{$employee->user_id}})" id="addDeductionBtn-{{ $employee->user_id }}" value="Add Deductions"></span>
+                                                        <input type="button" class="btn btn-default btn-xs" onclick="addDeduction({{$employee->id}})" id="addDeductionBtn-{{ $employee->id }}" value="Add Deductions"></span>
                                                         <span class="pull-right"></span>
                                                     </li>
                                                 
 
                                                     <li class="list-group-item">
                                                             <strong style="color:red">Total Deduction</strong>
-                                                            <span class="pull-right" id="TotalDeductionDisp-{{$employee->user_id}}"> ₱ {{number_format($TotalDeductions , 2)}} </span><span><input type="text" id="TotalDeduction-{{$employee->user_id}}" value="{{$TotalDeductions}}" hidden name="total_deduction[{{$employee->user_id}}]"></span>
+                                                            <span class="pull-right" id="TotalDeductionDisp-{{$employee->id}}"> ₱ {{number_format($TotalDeductions , 2)}} </span><span><input type="text" id="TotalDeduction-{{$employee->id}}" value="{{$TotalDeductions}}" hidden name="total_deduction[{{$employee->id}}]"></span>
                                                     </li>
 
                                                     <li class="list-group-item">
                                                             <strong style="color:green">Net Pay</strong>
-                                                            <span class="pull-right" id="TotalNetPayDisp-{{$employee->user_id}}"> ₱ {{number_format($NetPay , 2)}} </span><span><input type="text" id="TotalNetPay-{{$employee->user_id}}" value="{{$NetPay}}" hidden name="netpay[{{$employee->user_id}}]"></span>
+                                                            <span class="pull-right" id="TotalNetPayDisp-{{$employee->id}}"> ₱ {{number_format($NetPay , 2)}} </span><span><input type="text" id="TotalNetPay-{{$employee->id}}" value="{{$NetPay}}" hidden name="netpay[{{$employee->id}}]"></span>
                                                     </li>
                                                 
                                             </ul>

@@ -13,6 +13,14 @@ class Payroll extends Model
       return $rate * $totalhours;
     }	
 
+    
+    public static function getOvertime($rate , $totalhours) {
+        
+      return $rate * $totalhours;
+    }	
+
+    
+
     public static function getEarnings($Basic , $Overtime , $Holiday) {
         
       return $Basic;

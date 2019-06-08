@@ -99,7 +99,6 @@ class PayrollController extends Controller
     public function store(Request $request)
     { 
         
-        // dd($request->employees);
         foreach ($request->employees as $employee) {
                 $earnings = [];      
                 $deductions = [];

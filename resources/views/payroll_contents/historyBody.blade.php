@@ -21,8 +21,8 @@
 
     <tr>
       
-      
-        <td>{{\App\Profile::getFullName($payslip->employee_id)}}</td>
+        
+        <td>{{\App\Profile::getFullName($payslip->getEmployee->user_id)}}</td>
         <td>{{$payslip->getEmployee->getDepartment->name}}</td>
         <td>{{$payslip->getEmployee->positions()->title}}</td>
         
@@ -42,8 +42,9 @@
                         </div>
                         <div class="modal-body payslipBody-{{$payslip->id}} payslipBody">
                             <div class="row">
-                                <h4 style="margin-left: 11px">Information</h4>
-                               
+                                
+                                <h4>Payslip <a href="#" class="pull-right">{{date("M d Y" , strtotime($payroll->start))}} - {{date("M d Y" , strtotime($payroll->end))}}</a></h4>
+                                <br><br>
                                 <div class="col-lg-4">
                                      <span>Employee : <label>{{App\Profile::getFullName($payslip->employee_id)}}</label></span>
                                 </div>
@@ -76,7 +77,66 @@
                                 
                             </div>
                             <hr>
-                          
+                            <div class="row">
+                                 
+                                    <div class="col-lg-6">
+                                         <h4>Income</h4>
+                                         <div class="row">
+                                             <div class="col-lg-12">
+                                                 <ul class="list-group" id="ulIncome">
+                                                     
+                                                    @foreach ($EmployeeEarningsDecoded as $name => $value)
+                                                        <li class="list-group-item">
+                                                            <span>{{ucfirst($name)}}</span>
+                                                            <span class="pull-right">₱ {{number_format($value , 2)}}</span>
+                                                        </li>
+                                                    @endforeach
+                                                        
+                                                       
+                                                   
+                                                 
+                                           
+                                                 <li class="list-group-item">
+                                                         <strong style="color:green">Total Income</strong>
+                                                         <span class="pull-right">₱ {{number_format($payslip->total_income , 2)}}</span>
+                                               
+                                                 </li>
+                                                
+                                             </ul>
+                                             </div>
+                                         </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                         <h4>Deductions</h4>
+                                         <div class="row">
+                                             <div class="col-lg-12">
+                                                 <ul class="list-group">
+                                                     
+                                                    @foreach ($EmployeeEarningsDecoded as $name => $value)
+                                                        <li class="list-group-item">
+                                                            <span>{{ucfirst($name)}}</span>
+                                                            <span class="pull-right">₱ {{number_format($value , 2)}}</span>
+                                                        </li>
+                                                    @endforeach
+                                                 
+    
+                                                     <li class="list-group-item">
+                                                             <strong style="color:red">Total Deduction</strong>
+                                                              <span class="pull-right">₱ {{number_format($payslip->total_deduction , 2)}}</span>
+                                                     </li>
+    
+                                                     <li class="list-group-item">
+                                                             <strong style="color:green">Net Pay</strong>
+                                                             <span class="pull-right">₱ {{number_format($payslip->net_pay , 2)}}</span>
+                                                     </li>
+                                                 
+                                             </ul>
+                                             
+                                             </div>
+                                         </div>
+                                    </div>
+                                     
+                                </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>

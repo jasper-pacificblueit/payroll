@@ -19,6 +19,13 @@ class Profile extends Model
     $user = Profile::where('user_id', $id)->first();
 
   	return sprintf('%s %s', $user->fname, $user->lname);
-  }	
+  }
+  
+  public static function getDepartment($id) {
+    
+    $user = Profile::where('user_id', $id)->first();
 
+  	return sprintf('%s %s', $user->fname, $user->lname);
+  }
+  
 }

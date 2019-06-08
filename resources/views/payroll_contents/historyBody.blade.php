@@ -15,6 +15,11 @@
 
         $EmployeeEarnings = $payslip->earnings;
         $EmployeeEarningsDecoded = json_decode($EmployeeEarnings);
+
+        $EmployeDeductions = $payslip->deductions;
+        $EmployeDeductionsDecoded = json_decode($EmployeDeductions);
+
+        
    ?>
 
     
@@ -46,7 +51,7 @@
                                 <h4>Payslip <a href="#" class="pull-right">{{date("M d Y" , strtotime($payroll->start))}} - {{date("M d Y" , strtotime($payroll->end))}}</a></h4>
                                 <br><br>
                                 <div class="col-lg-4">
-                                     <span>Employee : <label>{{App\Profile::getFullName($payslip->employee_id)}}</label></span>
+                                     <span>Employee : <label>{{App\Profile::getFullName($payslip->getEmployee->user_id)}}</label></span>
                                 </div>
                                 <div class="col-lg-4">
                                      <span>Department : {{$payslip->getEmployee->getDepartment->name}}</span>
@@ -85,13 +90,42 @@
                                              <div class="col-lg-12">
                                                  <ul class="list-group" id="ulIncome">
                                                      
-                                                    @foreach ($EmployeeEarningsDecoded as $name => $value)
+                                                    {{-- @foreach ($EmployeeEarningsDecoded as $name => $value)
                                                         <li class="list-group-item">
                                                             <span>{{ucfirst($name)}}</span>
                                                             <span class="pull-right">₱ {{number_format($value , 2)}}</span>
                                                         </li>
-                                                    @endforeach
-                                                        
+                                                    @endforeach --}}
+                                                      <li class="list-group-item">
+                                                            <span>Basic</span>
+                                                            <span class="pull-right">₱ {{number_format($EmployeeEarningsDecoded->basic , 2)}}</span>
+                                                      </li>
+
+                                                      <li class="list-group-item">
+                                                            <span>Overtime</span>
+                                                            <span class="pull-right">₱ {{number_format($EmployeeEarningsDecoded->overtime , 2)}}</span>
+                                                      </li>
+
+                                                      <li class="list-group-item">
+                                                            <span>Holiday</span>
+                                                            <span class="pull-right">₱ {{number_format($EmployeeEarningsDecoded->holiday , 2)}}</span>
+                                                      </li>
+                                                      <?php
+                                                        $additional = $EmployeeEarningsDecoded->additional_earnings;
+                                                      ?>
+
+                                                      @if (count($additional) > 0)
+
+                                                       @foreach ($additional as $item =>$value)
+                                                            <li class="list-group-item">
+                                                                <span>{{ucfirst($item)}}</span>
+                                                                <span class="pull-right">₱ {{number_format($value , 2)}}</span>
+                                                            </li>
+                                                       @endforeach
+                                                       
+
+                                                      @endif
+                                                      
                                                        
                                                    
                                                  
@@ -112,17 +146,44 @@
                                              <div class="col-lg-12">
                                                  <ul class="list-group">
                                                      
-                                                    @foreach ($EmployeeEarningsDecoded as $name => $value)
+                                                    <li class="list-group-item">
+                                                            <span>Late</span>
+                                                            <span class="pull-right">₱ {{number_format($EmployeDeductionsDecoded->late , 2)}}</span>
+                                                    </li>
+                                                    
+                                                    <li class="list-group-item">
+                                                            <span>Undertime</span>
+                                                            <span class="pull-right">₱ {{number_format($EmployeDeductionsDecoded->undertime , 2)}}</span>
+                                                    </li>
+                                                  
+                                                    
+                                                    @foreach ($EmployeDeductionsDecoded->statutory as $name => $value)
                                                         <li class="list-group-item">
                                                             <span>{{ucfirst($name)}}</span>
                                                             <span class="pull-right">₱ {{number_format($value , 2)}}</span>
                                                         </li>
                                                     @endforeach
-                                                 
-    
+
+                                                   
+
+                                                    <?php
+                                                        $additionalDeduc = $EmployeeEarningsDecoded->additional_earnings;
+                                                    ?>
+
+                                                    @if (count($additionalDeduc) > 0)
+
+                                                    @foreach ($additional as $item =>$value)
+                                                            <li class="list-group-item">
+                                                                <span>{{ucfirst($item)}}</span>
+                                                                <span class="pull-right">₱ {{number_format($value , 2)}}</span>
+                                                            </li>
+                                                    @endforeach
+                                                    
+
+                                                    @endif
                                                      <li class="list-group-item">
                                                              <strong style="color:red">Total Deduction</strong>
-                                                              <span class="pull-right">₱ {{number_format($payslip->total_deduction , 2)}}</span>
+                                                             <span class="pull-right">₱ {{number_format($payslip->total_deduction , 2)}}</span>
                                                      </li>
     
                                                      <li class="list-group-item">

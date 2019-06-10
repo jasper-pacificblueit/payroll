@@ -5,6 +5,7 @@
         <div class="col-lg-6" style="padding: 0px">
         	<div class="col-lg-12">
         		<h2 style='margin-top: 0px'>Migrations</h2>
+                <p>• You can double click a row to save its data into a json.</p>
         		<br>
         		<div class="table-responsive">
         		@php
@@ -40,7 +41,8 @@
 		</div>
 
 		<div class="col-lg-6" style="padding: 0px">
-            
+
+
         </div>
 
 		<div class="col-lg-12">
@@ -48,14 +50,24 @@
 				<div class="btn-group pull-right">
 					<a class="btn btn-group btn-sm  btn-danger" onclick='
 
-						fetch ("/settings/app/reset", {
-							method: "post",
-							headers: {
-								"X-CSRF-TOKEN": "{{ csrf_token() }}",
-							}
-						}).then(rep => rep.text()).then(text => {
-							console.log(text);
-						});
+                        swal({
+                            title: "Reset database?",
+                            text: "Resetting the database will delete all the payrolls data and employees.",
+                            showCancelButton: true,
+                            type: "warning",
+                        }, function () {
+                            toastr.error("Please wait after awhile you will be redirected to the dashboard.<br><br><span class=pull-right>System message</span>", "Payroll is now resetting.");
+
+                            fetch ("/settings/app/reset", {
+                                method: "post",
+                                headers: {
+                                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                                }
+                            });
+
+                            window.location.href = "/";
+                        });
+						
 
 					'>Reset</a>
 					<input class="btn btn-group  btn-sm btn-danger" type="submit" name="submit" value="Save">

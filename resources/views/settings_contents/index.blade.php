@@ -3,7 +3,28 @@
 @section('title', 'Settings')
 
 @section('styles')
+<style>
+    .theme-slide img {
+        max-height: 200px;
+        max-width: 300px;
+        border-radius: 25px;
+        padding: 5px;
+        float: left;
+    }
+
+    .theme-slide p button {
+        vertical-align: bottom;
+    }
+
+    .slick-slide {
+        outline: none;
+    }
+
+</style>
+
 {!! Html::style('css/plugins/dataTables/datatables.min.css') !!}
+{!! Html::style("css/plugins/slick/slick.css") !!}
+{!! Html::style("css/plugins/slick/slick-theme.css") !!}
 @endsection
 
 @section('content')
@@ -16,9 +37,6 @@
                 </li>
                 <li class="{{ Request::path() == 'settings/app' || Request::path() == 'settings' ?: "hidden" }}">
                     <strong>Application Settings</strong>
-                </li>
-                <li class="{{ Request::path() == 'settings/user' ?: "hidden" }}">
-                    <strong>User Settings</strong>
                 </li>
             </ol>
         </div>
@@ -33,19 +51,11 @@
                             <li class="{{Request::path() == 'settings/app' || Request::path() == 'settings' ? 'active' : '' }}">
                             	<a href="/settings/app">Application Settings</a>
                             </li>
-                            <li class="{{Request::path() == 'settings/user' ? 'active' : '' }}">
-                            	<a href="/settings/user">User Settings</a>
-                            </li>
                         </ul>
                         <div class="tab-content">
                             <div id="compensation" class="tab-pane {{ Request::path() == 'settings/app' || Request::path() == "settings" ? 'active' : '' }}">
                                 <div class="panel-body">
                                     @include('settings_contents.application')
-                                </div>
-                            </div>
-                            <div id="compensation" class="tab-pane {{ Request::path() == 'settings/user' ? 'active' : '' }}">
-                                <div class="panel-body">
-                                    @include('settings_contents.user')
                                 </div>
                             </div>
                         </div>
@@ -59,6 +69,7 @@
 @endsection
 
 @section('scripts')
+{!! Html::script("js/plugins/slick/slick.min.js") !!}
 <script>
     
     $(document).ready(function(){
@@ -72,6 +83,8 @@
                 }
             },
        });
+
+        $(".theme-slide").slick();
 
     });
     

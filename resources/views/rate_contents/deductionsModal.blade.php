@@ -129,7 +129,10 @@
                      	
                      	<div class="col-lg-12">
                      		<hr>
-                     		<label>Statutory</label>
+                            <label>Statutory</label><br>
+                            
+                            To remove an Statutory just name it <label>REMOVE</label>.
+                     		
                      		<div class="col-lg-12" style="padding: 0">
                        		<div class="table-responsive" style="height: 150px; width: 100%; margin-bottom: 5px">
 	                       		<table class="table table-striped table-hover table-bordered">

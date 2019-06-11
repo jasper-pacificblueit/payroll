@@ -83,7 +83,10 @@ class UsersTableSeeder extends Seeder
             $user->employee->earnings()->save(new App\Earnings([
 
                 'employee_id' => $user->employee->id,
-                'earnings' => json_encode([]),
+                'earnings' => json_encode([
+                    'temp' => 0,
+                    'temp1' => 0,
+                ]),
                 'status' => '0',
 
             ]));
@@ -147,7 +150,10 @@ class UsersTableSeeder extends Seeder
             (new App\Earnings([
 
                 'employee_id' => $user->employee->id,
-                'earnings' => json_encode([]),
+                'earnings' => json_encode([
+                    'temp' => 0,
+                    'temp1' => 0,
+                ]),
                 'status' => '0',
 
             ]))->save();

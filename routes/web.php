@@ -241,6 +241,31 @@ Route::group(['middleware' => ['auth']], function() {
 	// Earning View
 	Route::group(["middleware" => ["permission:earning_View"]], function () {
 		Route::get("/earnings", "RateController@earnings");
+		Route::get("/earnings/modal/{id}", function($id) {
+
+			return view("rate_contents.earningsModal")->with([
+
+				'employee' => App\Employee::find($id),
+
+			]);
+
+		});
+
+	});
+
+	// Earning Modify Create
+	Route::group(["middleware" => ["permission:earning_Create", "permission:earning_Modify"]], function () {
+		Route::post("/earnings/{id}", function ($id) {
+
+			$earnings = App\Employee::find($id)->earnings;
+			$json = json_decode(request()->getContent());
+
+			$earnings->status = $json->status;
+			$earnings->earnings = json_encode($json->earnings);
+			$earnings->save();
+
+			return json_encode($json);
+		});
 	});
 
 	Route::group(["middleware" => ["permission:schedule_View"]], function () {

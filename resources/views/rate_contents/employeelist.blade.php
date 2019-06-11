@@ -119,10 +119,14 @@
 
 @if ($type == "earnings")
 	@foreach($employees as $employee)
-	<tr>
+	<tr id="employee-{{ $employee->id }}">
 		<td>{{ $employee->bio_id ? $employee->bio_id : $employee->id + 1000 }}</td>
 		<td>{{ App\Profile::getFullName($employee->user_id) }}</td>
-		<td>{{ $employee->earnings }}</td>
+		<td>
+			@foreach(json_decode($employee->earnings->earnings) as $name => $value)
+				<span class="badge badge-info" title={{ $name }}>{{ $name }}: {{ number_format($value, 2) }}</span>
+			@endforeach
+		</td>
 		<td>
 		@php
 			switch ($employee->earnings->status) {
@@ -130,12 +134,25 @@
 			case '1': echo '<span class="badge badge-warning">Inactive</span>'; break;
 			default: echo '<span class="badge badge-danger>Unknown</span>';
 			}
-
-
 		@endphp
 		</td>
 		<td>
-			<button class="btn btn-xs btn-success">Edit</button>
+			<button class="btn btn-xs btn-success" onclick='
+
+				fetch ("/earnings/modal/{{ $employee->id }}", {
+					headers: {
+						"X-CSRF-TOKEN": "{{ csrf_token() }}",
+					}
+				}).then(rep => rep.text()).then(html => {
+
+					document.querySelector("#modal-view").innerHTML = html;
+
+					$("#modal-view #earning").modal("toggle");
+
+				});
+
+
+			'>Edit</button>
 		</td>
 	</tr>
 	@endforeach

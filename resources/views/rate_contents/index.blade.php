@@ -130,6 +130,7 @@
                                         </div>
                                     </div>
                                     @include('rate_contents.earnings')
+                                    <span id="modal-view"></span>
                                     @endif
                                 </div>
                             </div>
@@ -216,16 +217,16 @@
 
 
         @if (Request::path() == "earnings")
-       $(".earningsTable").DataTable({
-            pageLength: 10,
-            language: {
-                paginate: {
-                    previous: '<i class="fas fa-arrow-left"></i>',
-                    next: '<i class="fas fa-arrow-right"></i>',
-                }
-            },
-       });
-        chdepartment(document.querySelector(".com"));
+           $(".earningsTable").DataTable({
+                pageLength: 10,
+                language: {
+                    paginate: {
+                        previous: '<i class="fas fa-arrow-left"></i>',
+                        next: '<i class="fas fa-arrow-right"></i>',
+                    }
+                },
+           });
+           chdepartment(document.querySelector(".com"));
        @endif
 
        @if (Request::path() == "positions")
@@ -390,6 +391,49 @@
             chemployee(document.querySelector(".dep"));
         });
     }
+
+    function save_earnings(earning_n) {
+
+        var earning = document.querySelector("#earning tbody#misc").children[earning_n];
+
+        if (earning.children[2].firstElementChild.innerHTML == "Save") {
+
+            earning.children[0].innerHTML = earning.children[2].firstElementChild.value.replace(/ /g,"") || "earning" + earning_n;
+            earning.children[1].innerHTML = earning.children[1].firstElementChild.value.replace(/ /g,"") || 0;
+            earning.children[2].firstElementChild.innerHTML = "Edit";
+
+            earning.children[2].firstElementChild.onclick = function () {
+
+                var earning = document.querySelector("#earning tbody#misc").children[earning_n];
+
+                if (this.innerHTML == "Save") {
+
+                    earning.children[0].innerHTML = 
+                        earning.children[0].firstElementChild.value.replace(/ /g,"") || earning.children[0].firstElementChild.placeholder;
+                    earning.children[1].innerHTML = 
+                        earning.children[1].firstElementChild.value.replace(/ /g,"") || earning.children[1].firstElementChild.placeholder;
+
+                    this.innerHTML = "Edit";
+                    return;
+                };
+
+                earning.children[0].innerHTML = `
+                    <input class="form-control" name="name" placeholder=${earning.children[0].innerHTML}>
+                `;
+                earning.children[1].innerHTML = `
+                    <input class="form-control" name="value" placeholder=${earning.children[1].innerHTML}>
+                `;
+                earning.children[2].firstElementChild.innerHTML = "Save";
+
+
+            };
+
+            return;
+        }
+
+
+    }
+
     @endif
     
 </script>

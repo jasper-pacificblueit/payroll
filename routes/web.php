@@ -286,7 +286,7 @@ Route::group(['middleware' => ['auth']], function() {
 	});
 
 	Route::get("/selectDepartment", "EmployeeController@selectDepartment");
-	Route::post("/settings/app", "SettingsController@update");
+	Route::post("/settings/app/{id}", "SettingsController@update");
 	Route::get("/settings/app", "SettingsController@index");
 	Route::get("/settings/user", "SettingsController@index");
 	Route::post("/settings/app/reset", "SettingsController@reset");

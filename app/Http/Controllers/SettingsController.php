@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Artisan;
 use App\Settings;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
@@ -69,7 +70,7 @@ class SettingsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -101,9 +102,53 @@ class SettingsController extends Controller
      * @param  \App\Settings  $settings
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Settings $settings)
+    public function update(Request $request, $id)
     {
+        $user = User::findOrFail($id);
+        $settings = Settings::where("user_id", "=", $id)->first();
+        $settings->settings = json_encode([
+            'skin' => request('skin'),
+        ]); 
 
+
+        if (password_verify(request('current'), auth()->user()->password)) {
+
+            if (request('new') == request('renew')) {
+
+                $user->password = bcrypt(request('new'));
+
+            } else
+                return back()->withErrors(json_encode([
+
+                    'type' => 'error',
+                    'title' => 'Mismatch password',
+                    'body' => 'The retyped password doesn\'t match with the new password!',
+
+                ]));
+
+
+
+        } else if (request('current') != '') {
+            return back()->withErrors(json_encode([
+
+                'type' => 'error',
+                'title' => 'Invalid password',
+                'body' => 'The current password inputted is invalid!',
+
+            ]));
+        }
+
+        $user->save();
+        $settings->save();
+
+        return back()->withErrors(json_encode([
+
+            'type' => 'success',
+            'title' => 'Updated settings',
+            'body' => 'Some settings we\'re modified please take note of this!',
+
+
+        ]));
     }
 
     /**

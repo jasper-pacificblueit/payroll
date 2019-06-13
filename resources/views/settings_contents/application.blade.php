@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-    <form method="post" action="/settings/app">
+    <form method="post" action="/settings/app/{{ auth()->user()->id }}">
     	{{ csrf_field() }}
         <div class="col-lg-6" style="padding: 0px">
         	<div class="col-lg-12">
@@ -41,8 +41,54 @@
 		</div>
 
 		<div class="col-lg-6" style="padding: 0px">
+            <div class="col-lg-12">
+                <h2 style="margin-top: 0px">Users Configuration</h2>
+                <a href="/editprofile">(NOTE) If you want to edit your profile information just click this statement.</a>
+                <div class="col-lg-12" style="padding: 0px">
+                    <h3 class="text-muted">Change User password</h3>
+                    <label for="current" style="width: 305px">Current password: </label>
+                    <input style="margin-top: 1px" name="current" type="password" id="current" placeholder="Password">
+                    <br>
+                    <label for="new" style="width: 305px">New password: </label>
+                    <input style="margin-top: 1px" name="new" type="password" id="new" placeholder="Password">
+                    <br>
+                    <label for="new" style="width: 305px">Retype new password: </label>
+                    <input style="margin-top: 1px" name="renew" type="password" id="new" placeholder="Password">
+                </div>
+                <input type="text" name="skin" id="skin" hidden value="">
+                <div class="col-lg-12" style="padding: 0px">
+                    <br>
+                    <br>
+                    <h3>UI Theme</h3>
+                    <div id="theme-slider" style="visibility: hidden">
+                        <div id="default">
+                            <h4>Style #1</h4>
+                            <img src="/img/default.png">
+                            <br>
+                            <a class="btn btn-success" onclick="applyStyle('default')">Apply</a>
+                        </div>
+                        <div id="skin-1">
+                            <h4>Style #2<h4>
+                            <img src="/img/skin-1.png">
+                            <br>
+                            <a class="btn btn-success" onclick="applyStyle('skin-1')">Apply</a>
+                        </div>
+                        <div id="skin-2">
+                            <h4>Style #3</h4>
+                            <img src="/img/skin-2.png">
+                            <br>
+                            <a class="btn btn-success" onclick="applyStyle('skin-2')">Apply</a>
+                        </div>
+                        <div id="skin-3">
+                            <h4>Style #4</h4>
+                            <img src="/img/skin-3.png">
+                            <br>
+                            <a class="btn btn-success" onclick="applyStyle('skin-3')">Apply</a>
+                        </div>
+                    </div>
 
-
+                </div>
+            </div>
         </div>
 
 		<div class="col-lg-12">

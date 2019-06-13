@@ -2,21 +2,27 @@
 
 @section('title', 'Settings')
 
+@php
+
+    $settings = App\Settings::where("user_id", "=", auth()->user()->id)->first();
+
+    $settings = json_decode($settings->settings);
+
+@endphp
+
 @section('styles')
 <style>
-    .theme-slide img {
+    #theme-slider div img {
         max-height: 200px;
         max-width: 300px;
         border-radius: 25px;
+        border: solid #23c6c8;
         padding: 5px;
-        float: left;
+        margin: auto;
     }
 
-    .theme-slide p button {
-        vertical-align: bottom;
-    }
-
-    .slick-slide {
+    .slick-slider {
+        text-align: center;
         outline: none;
     }
 
@@ -49,7 +55,7 @@
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
                             <li class="{{Request::path() == 'settings/app' || Request::path() == 'settings' ? 'active' : '' }}">
-                            	<a href="/settings/app">Application Settings</a>
+                            	<a href="/settings/app">Settings</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -84,9 +90,42 @@
             },
        });
 
-        $(".theme-slide").slick();
+       $("#theme-slider").slick({
+            initialSlide: 
+            @php
+                if ($settings->skin == "") echo 0;
+                else if ($settings->skin == "skin-1") echo 1;
+                else if ($settings->skin == "skin-2") echo 2;
+                else if ($settings->skin == "skin-2") echo 3;
+                else echo 1;
+            @endphp,
+       });
+
+       document.querySelector("#theme-slider div#{{ $settings->skin == "" ? "default" : $settings->skin }} h4").innerHTML += " <span class='badge badge-success'>Applied</span>";
+
+       document.querySelector("#theme-slider div#{{ $settings->skin == "" ? "default" : $settings->skin }} a").classList.add("disabled");
+
+       document.querySelector("#theme-slider").style.visibility = "visible";
 
     });
+
+    prevApplied = "{{ $settings->skin == "" ? "default" : $settings->skin }}";
+
+    function applyStyle(style) {
+        document.querySelector(`#theme-slider div#${prevApplied} h4`).children[0].remove();
+        document.querySelector(`#theme-slider div#${prevApplied} a`).classList.remove("disabled");
+
+        document.querySelector(`#theme-slider div#${style} h4`).innerHTML += " <span class='badge badge-success'>Applied</span>";
+        document.querySelector(`#theme-slider div#${style} a`).classList.add("disabled");
+
+        document.body.classList.remove(prevApplied);
+        document.body.classList.add(style);
+
+        document.querySelector("input[name=skin]").value = style;
+
+
+        prevApplied = style;
+    }
     
 </script>
 @endsection

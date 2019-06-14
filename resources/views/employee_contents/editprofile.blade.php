@@ -110,7 +110,7 @@
                 </div>
                 	
                 	{{-- Preview --}}
-                	<div class='col-lg-3 col-xl-3'>
+                	<div class='col-lg-4 col-xl-3'>
   <div class="ibox float-e-margins">
 	    <div class="ibox-title">
 	        <h5>User Information (Preview)</h5>

@@ -38,26 +38,52 @@
 @endphp
 
 @section('content')
-<span id="dashboard-slick">
   @include("dashboard1")
-  @include("dashboard2")
-</span>
 @endsection
 
 @section("scripts")
+{!! Html::script("js/plugins/chartJs/Chart.min.js") !!}
 {!! Html::script("js/plugins/slick/slick.min.js") !!}
 <script>
 
   $(document).ready(function() {
-    newsapi();
 
-    $("#dashboard-slick").slick({
-      infinite: false,
-      arrows: true,
-      swipe: false, 
-      draggable: true,
-    });
+    // var conf = {
+    //   type: "pie",
+    //   data: {
+    //     datasets: [{
+    //       data: [
+    //         10,
+    //         45,
+    //         64,
+    //         34
+    //       ],
+
+    //       backgroundColor: [
+          
+
+    //       ]
+
+
+    //     }],
+    //     options: {
+    //       responsive: true,
+    //     }
+    //   },
+
+    // };
+
+    // var ctx = document.querySelector('canvas#chart-area').getContext("2d");
+
+
+
+    // window.employeeChart = new Chart(ctx, conf);
+
+
+
+    newsapi();
   });
+
   
   
 </script>

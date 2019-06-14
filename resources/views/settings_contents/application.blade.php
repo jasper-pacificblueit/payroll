@@ -47,13 +47,13 @@
                 <div class="col-lg-12" style="padding: 0px">
                     <h3 class="text-muted">Change User password</h3>
                     <label for="current" style="width: 305px">Current password: </label>
-                    <input style="margin-top: 1px" name="current" type="password" id="current" placeholder="Password">
+                    <input class="form-control" style="margin-top: 1px" name="current" type="password" id="current" placeholder="Password">
                     <br>
                     <label for="new" style="width: 305px">New password: </label>
-                    <input style="margin-top: 1px" name="new" type="password" id="new" placeholder="Password">
+                    <input class="form-control" style="margin-top: 1px" name="new" type="password" id="new" placeholder="Password">
                     <br>
                     <label for="new" style="width: 305px">Retype new password: </label>
-                    <input style="margin-top: 1px" name="renew" type="password" id="new" placeholder="Password">
+                    <input class="form-control" style="margin-top: 1px" name="renew" type="password" id="new" placeholder="Password">
                 </div>
                 <input type="text" name="skin" id="skin" hidden value="">
                 <div class="col-lg-12" style="padding: 0px">

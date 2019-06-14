@@ -40,7 +40,7 @@
 
       $("#newsapi").on("init", function(event, slick) {
         newsapiDetails.innerHTML = `
-          Source: <label><a href="http://${document.querySelector('.dashboard2 .slick-current')}">${document.querySelector('.dashboard2 .slick-current').id}</a></label>
+          Source: <label><a href="http://${document.querySelector('.dashboard1 .slick-current')}">${document.querySelector('.dashboard1 .slick-current').id}</a></label>
           <span class="pull-right"><i class="fas fa-rss-square"></i> NewsAPI</span>
         `;
       });
@@ -53,7 +53,7 @@
       $("#newsapi").on("afterChange", function(event, slick) {
         try {
         newsapiDetails.innerHTML = `
-          Source: <label><a href="http://${document.querySelector('.dashboard2 .slick-current').id}">${document.querySelector('.dashboard2 .slick-current').id}</a></label>
+          Source: <label><a href="http://${document.querySelector('.dashboard1 .slick-current').id}">${document.querySelector('.dashboard1 .slick-current').id}</a></label>
           <span class="pull-right"><i class="fas fa-rss-square"></i> NewsAPI</span>
         `;
         } catch (error) {};

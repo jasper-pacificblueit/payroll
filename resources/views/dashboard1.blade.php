@@ -28,13 +28,13 @@
   <div class="col-lg-3 col-sm-6">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
-          <span class="label label-success pull-right">Monthly</span>
+          <span class="label label-success pull-right">count</span>
           <h5>Employees</h5>
       </div>
       <div class="ibox-content">
-          <h1 class="no-margins">40 886,200</h1>
-          <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-          <small>Total income</small>
+        
+        <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+        <small>Total income</small>
       </div>
     </div>
         <div class="ibox float-e-margins">
@@ -50,7 +50,7 @@
     </div>
         <div class="ibox float-e-margins">
       <div class="ibox-title">
-          <span class="label label-success pull-right">Monthly</span>
+          <span class="label label-success pull-right">count</span>
           <h5>Employees</h5>
       </div>
       <div class="ibox-content">
@@ -72,7 +72,7 @@
     <div class="ibox float-e-margins">
       <div class="ibox-title">
           <span class="label label-success pull-right">{{ date("F", strtotime(request("date"))) }}</span>
-          <h5>Attendance</h5>
+          <h5><i class="fa fa-clock-o" aria-hidden="true"></i> Attendance</h5>
       </div>
       <div class="ibox-content">
          <div class="table-responsive" style="max-height: 380px">
@@ -162,13 +162,6 @@
   <div class="col-lg-6">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
-          <div class="pull-right">
-              <div class="btn-group">
-                  <button type="button" class="btn btn-xs btn-white active">Headlines</button>
-                  <button type="button" class="btn btn-xs btn-white">Monthly</button>
-                  <button type="button" class="btn btn-xs btn-white">Annual</button>
-              </div>
-          </div>
           <h5><i class="far fa-newspaper"></i> News</h5>
       </div>
       <div class="ibox-content" style="padding-bottom: 1px">
@@ -183,11 +176,12 @@
     </div>
   </div>
   
+  @if (auth()->user()->position()->title == "Administrator" || auth()->user()->position()->title == "Human Resource Manager")
   <div class="col-lg-6 col-sm-6">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
-          <span class="label label-success pull-right">Monthly</span>
-          <h5>Employees Statistics</h5>
+          <span class="label label-success pull-right">Employee count</span>
+          <h5><i class="far fa-chart-bar"></i> Positions Statistics</h5>
       </div>
       <div class="ibox-content">
         <div class="row">
@@ -201,6 +195,7 @@
       </div>
     </div>
   </div>
+  @endif
 
   <div class="col-lg-3 col-sm-6">
       <div class="ibox float-e-margins">

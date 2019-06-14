@@ -48,36 +48,40 @@
 
   $(document).ready(function() {
 
-    // var conf = {
-    //   type: "pie",
-    //   data: {
-    //     datasets: [{
-    //       data: [
-    //         10,
-    //         45,
-    //         64,
-    //         34
-    //       ],
+    var ctx = document.querySelector('canvas#chart-area').getContext("2d");
+    var positions = [], employeeCount = [], backgroundColors = [];
 
-    //       backgroundColor: [
-          
+    function rand() {
+      return Math.floor(Math.random()*1000%255);
+    }
 
-    //       ]
+    @foreach (App\Positions::all() as $position)
 
+      positions[positions.length] = "{{ $position->title }}";
+      employeeCount[employeeCount.length] = {!! $position->count() !!};
 
-    //     }],
-    //     options: {
-    //       responsive: true,
-    //     }
-    //   },
+      backgroundColors[backgroundColors.length] = `rgba(${rand()}, ${rand()}, ${rand()}, .4)`;
 
-    // };
-
-    // var ctx = document.querySelector('canvas#chart-area').getContext("2d");
+    @endforeach
 
 
+    var conf = {
+      type: "pie",
+      data: {
+        datasets: [{
+          backgroundColor: backgroundColors,
+          data: employeeCount,
+        }],
+        labels: positions,
+        options: {
+          responsive: true,
+        },
+      },
 
-    // window.employeeChart = new Chart(ctx, conf);
+    };
+
+
+    window.employeeChart = new Chart(ctx, conf);
 
 
 

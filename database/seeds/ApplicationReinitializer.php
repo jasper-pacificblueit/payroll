@@ -28,18 +28,18 @@ class ApplicationReinitializer extends Seeder
             'email' => 'admin@example.com',
 
             'gender' => 1,
-            'fname' => 'Ching',
-            'lname' => 'Chong',
-            'mname' => 'Chang',
+            'fname' => 'Admin',
+            'lname' => 'Admin',
+            'mname' => 'Admin',
             'age' => 99,
             'image' => [
                 'data' => '/img/landing/avatar_anonymous.png',
                 'path' => '/img/landing/avatar_anonymous.png',
             ],
-            'birthdate' => '1999-07-26',
+            'birthdate' => '2019-06-15',
 
-            'mobile' => '09182639024',
-            'address' => 'San Rafael St., Sto. Domingo, Albay',
+            'mobile' => '',
+            'address' => '',
 
             // positions
             'title' => 'Administrator',

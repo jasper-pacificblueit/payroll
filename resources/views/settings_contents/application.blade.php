@@ -104,7 +104,7 @@
                         }, function () {
                             toastr.error("Please wait after awhile you will be redirected to the dashboard.<br><br><span class=pull-right>System message</span>", "Payroll is now resetting.");
 
-                            fetch ("/settings/app/reset", {
+                            fetch ("/settings/reset", {
                                 method: "post",
                                 headers: {
                                     "X-CSRF-TOKEN": "{{ csrf_token() }}",
@@ -114,7 +114,6 @@
                             window.location.href = "/";
                         });
 						
-
 					'>Reset</a>
 					<input class="btn btn-group  btn-sm btn-danger" type="submit" name="submit" value="Save">
 				</div>

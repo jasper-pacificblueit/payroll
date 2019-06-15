@@ -68,11 +68,12 @@
 
 
     var conf = {
-      type: "pie",
+      type: "line",
       data: {
         datasets: [{
-          backgroundColor: backgroundColors,
+          backgroundColor: `rgba(${rand()}, ${rand()}, ${rand()}, .4)`,
           data: employeeCount,
+          label: 'Total Employees',
         }],
         labels: positions,
         options: {

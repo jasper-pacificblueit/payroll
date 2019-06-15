@@ -38,7 +38,6 @@
 
                 }).then(rep => {console.log(rep); return rep.text(); }).then(txt => {
                     $('#manage #close').click();
-                    EmployeeSelect(document.querySelector('#DepartmentSelector').value);
                 });
 
 
@@ -162,7 +161,7 @@
                 <div class="modal-footer">
                     <div class='btn-group'>
                         <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" id='close'>Close</button>
-                        <button type="button" class="btn btn-sm btn-success" name="submit" onclick="document.querySelector('#btnclick-{{ $eminfo->user_id }}').disabled = false;">Save</button>
+                        <button type="submit" class="btn btn-sm btn-success" name="submit" onclick="document.querySelector('#btnclick-{{ $eminfo->user_id }}').disabled = false;">Save</button>
                         <a class="btn btn-sm btn-danger" 
                             onclick="
                                 swal({

@@ -288,8 +288,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get("/selectDepartment", "EmployeeController@selectDepartment");
 	Route::post("/settings/app/{id}", "SettingsController@update");
 	Route::get("/settings/app", "SettingsController@index");
-	Route::get("/settings/user", "SettingsController@index");
-	Route::post("/settings/app/reset", "SettingsController@reset");
+	Route::post("/settings/reset", "SettingsController@reset");
 	
 	// public
 	Route::get('/', 'HomeController@index')->name('dashboard');
@@ -297,7 +296,7 @@ Route::group(['middleware' => ['auth']], function() {
  	Route::get("/editprofile", "ProfileController@edit")->name('editprofile');
 	Route::post("/editprofile", "ProfileController@update");
 	Route::get('/profile', 'ProfileController@index')->name('profile');
-  Route::match(['put', 'update'], '/editprofile/chpasswd', 'ProfileController@chpasswd');
+ 	Route::match(['put', 'update'], '/editprofile/chpasswd', 'ProfileController@chpasswd');
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 

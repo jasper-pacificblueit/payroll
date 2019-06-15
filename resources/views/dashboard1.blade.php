@@ -19,7 +19,18 @@
               {{ auth()->user()->profile->about ? auth()->user()->profile->about : "Write something about yourself." }}
             </p>
             <h5>Details</h5>
-            <div></div>
+            <div class="row">
+              <div class="col-lg-12" style="padding: 0px; overflow: hidden;">
+                <div class="col-lg-3"><strong>Birthdate</strong></div>
+                <div class="col-lg-9" style="padding-left: 25px">{{ auth()->user()->profile->birthdate }}</div>
+                <div class="col-lg-3"><strong>Email</strong></div>
+                <div class="col-lg-9" style="padding-left: 25px">{{ auth()->user()->contacts[0]->email }}</div>
+                <div class="col-lg-3"><strong>Mobile</strong></div>
+                <div class="col-lg-9" style="padding-left: 25px">{{ auth()->user()->contacts[0]->mobile ? auth()->user()->contacts[0]->mobile : "No contact number" }}</div>
+                <div class="col-lg-3"><strong>Gender</strong></div>
+                <div class="col-lg-9" style="padding-left: 25px">{{ auth()->user()->profile->gender ? "Male" : "Female"}}</div>
+              </div>
+            </div>
         </div>
       </div>
     </div>
@@ -29,7 +40,7 @@
     <div class="ibox float-e-margins">
       <div class="ibox-title">
           <span class="label label-success pull-right">count</span>
-          <h5>Employees</h5>
+          <h5><i class="fas fa-users"></i> Employees</h5>
       </div>
       <div class="ibox-content">
         
@@ -37,7 +48,7 @@
         <small>Total income</small>
       </div>
     </div>
-        <div class="ibox float-e-margins">
+    <div class="ibox float-e-margins">
       <div class="ibox-title">
           <span class="label label-success pull-right">Monthly</span>
           <h5>Netpay</h5>
@@ -48,10 +59,19 @@
           <small>Total income</small>
       </div>
     </div>
-        <div class="ibox float-e-margins">
+    <div class="ibox float-e-margins">
       <div class="ibox-title">
-          <span class="label label-success pull-right">count</span>
-          <h5>Employees</h5>
+          <h5>Companies</h5>
+      </div>
+      <div class="ibox-content">
+          <h1 class="no-margins">40 886,200</h1>
+          <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+          <small>Total income</small>
+      </div>
+    </div>
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+          <h5>Companies</h5>
       </div>
       <div class="ibox-content">
           <h1 class="no-margins">40 886,200</h1>
@@ -61,7 +81,7 @@
     </div>
   </div>
 
-    <div class="col-lg-6 col-sm-6 @if (auth()->user()->position()->title == "Administrator" || auth()->user()->position()->title == "Human Resource Manager") hidden @endif">
+    <div class="col-lg-6 col-sm-6 @if (auth()->user()->position()->title == "Administrator") hidden @endif">
     @php
       $date = "01-2019";
 
@@ -161,11 +181,10 @@
 
   @can ("employee_View")
   @can ("position_View")
-  <div class="col-lg-6 col-sm-6">
+  <div class="col-lg-6 col-sm-6" style="clear: left;">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
-          <span class="label label-success pull-right">Employee count</span>
-          <h5><i class="far fa-chart-bar"></i> Positions Statistics</h5>
+        <h5><i class="far fa-chart-bar"></i> Position Statistics</h5>
       </div>
       <div class="ibox-content">
         <div class="row">
@@ -181,6 +200,24 @@
   </div>
   @endcan
   @endcan
+
+  <div class="col-lg-6 col-sm-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5><i class="far fa-chart-bar"></i> Position Statistics</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="row">
+          <div class="col-lg-12">
+            <canvas id="chart-area"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="ibox-footer">
+
+      </div>
+    </div>
+  </div>
 
   <div class="col-lg-6" style="clear: left;">
     <div class="ibox float-e-margins">

@@ -7,7 +7,7 @@
   {!! Html::style("css/plugins/slick/slick-theme.css") !!}
 
   <style>
-    #dashboard-slick .slick-slide {
+    .slick-slide {
       outline: none;
     }
 
@@ -48,6 +48,8 @@
 
   $(document).ready(function() {
 
+    @can ("employee_View")
+    @can ("position_View")
     var ctx = document.querySelector('canvas#chart-area').getContext("2d");
     var positions = [], employeeCount = [], backgroundColors = [];
 
@@ -82,6 +84,8 @@
 
 
     window.employeeChart = new Chart(ctx, conf);
+    @endcan
+    @endcan
 
 
 

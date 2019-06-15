@@ -159,24 +159,8 @@
     </div>
   </div>
 
-  <div class="col-lg-6">
-    <div class="ibox float-e-margins">
-      <div class="ibox-title">
-          <h5><i class="far fa-newspaper"></i> News</h5>
-      </div>
-      <div class="ibox-content" style="padding-bottom: 1px">
-        <span id="newsapi" style="margin: 0">
-          <div class="no-padding text-center">
-            <h1 style="padding: 72px">No news available</h1>
-          </div>
-        </span>
-      </div>
-      <div class="ibox-footer newsapi-details">
-      </div>
-    </div>
-  </div>
-  
-  @if (auth()->user()->position()->title == "Administrator" || auth()->user()->position()->title == "Human Resource Manager")
+  @can ("employee_View")
+  @can ("position_View")
   <div class="col-lg-6 col-sm-6">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
@@ -195,8 +179,26 @@
       </div>
     </div>
   </div>
-  @endif
+  @endcan
+  @endcan
 
+  <div class="col-lg-6" style="clear: left;">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+          <h5><i class="far fa-newspaper"></i> News</h5>
+      </div>
+      <div class="ibox-content" style="padding-bottom: 1px">
+        <span id="newsapi" style="margin: 0">
+          <div class="no-padding text-center">
+            <h1 style="padding: 72px">No news available</h1>
+          </div>
+        </span>
+      </div>
+      <div class="ibox-footer newsapi-details">
+      </div>
+    </div>
+  </div>
+  
   <div class="col-lg-3 col-sm-6">
       <div class="ibox float-e-margins">
           <div class="ibox-title">

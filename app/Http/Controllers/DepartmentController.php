@@ -61,7 +61,7 @@ class DepartmentController extends Controller
 
         Department::create([
             'company_id' => $company->id,
-            'dep' => ucwords(request('dep'))
+            'name' => ucwords(request('dep'))
         ]);
         
         return back();

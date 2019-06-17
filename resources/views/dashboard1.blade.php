@@ -36,50 +36,88 @@
     </div>
   </div>
 
+  @can ("employee_View")
   <div class="col-lg-3 col-sm-6">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
-          <span class="label label-success pull-right">count</span>
-          <h5><i class="fas fa-users"></i> Employees</h5>
+          <h5><i class="fas fa-users"></i> Employees Activity</h5>
       </div>
       <div class="ibox-content">
-        
-        <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-        <small>Total income</small>
+        <div class="row">
+          <div class="col-lg-12">
+            <canvas id="chart-area-total-employees"></canvas>
+          </div>
+        </div>
       </div>
     </div>
     <div class="ibox float-e-margins">
       <div class="ibox-title">
-          <span class="label label-success pull-right">Monthly</span>
-          <h5>Netpay</h5>
+          <h5><i class="fa fa-id-card"></i> Total Departments</h5>
       </div>
       <div class="ibox-content">
-          <h1 class="no-margins">40 886,200</h1>
-          <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-          <small>Total income</small>
+          <h1 class="no-margins">{{ App\Department::all()->count() }}</h1>
       </div>
     </div>
     <div class="ibox float-e-margins">
       <div class="ibox-title">
-          <h5>Companies</h5>
+          <h5><i class="fas fa-building"></i> Total Companies</h5>
       </div>
       <div class="ibox-content">
-          <h1 class="no-margins">40 886,200</h1>
-          <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-          <small>Total income</small>
-      </div>
-    </div>
-    <div class="ibox float-e-margins">
-      <div class="ibox-title">
-          <h5>Companies</h5>
-      </div>
-      <div class="ibox-content">
-          <h1 class="no-margins">40 886,200</h1>
-          <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-          <small>Total income</small>
+          <h1 class="no-margins">{{ App\Company::all()->count() }}</h1>
       </div>
     </div>
   </div>
+  @endcan
+
+  @if (auth()->user()->position()->title != "Administrator" && auth()->user()->position()->title != "Human Resources Manager")
+  <div class="col-lg-3 col-sm-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <span class="label label-success pull-right">Monthly</span>
+        <h5><i class="fas fa-weight"></i> Rates</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="row">
+          <div class="col-lg-12">
+            <label>Monthly Salary: {{ number_format(auth()->user()->employee->rates->monthly, 2) }}</label>
+          </div>
+          <div class="col-lg-12">
+            <canvas id="chart-area-rates"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+          <span class="label label-danger pull-right">Monthly</span>
+          <h5><i class="fa fa-download" aria-hidden="true"></i> Deductions</h5>
+      </div>
+      <div class="ibox-content">
+          <div class="row">
+            <div class="col-lg-12">
+              <canvas id="chart-area-deductions"></canvas>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  @endif
+
+  @can ("company_View")
+  <div class="col-lg-6 col-sm-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5><i class="far fa-chart-bar"></i> Companies Statistics</h5>
+      </div>
+      <div class="ibox-content" style="height: 480px; overflow: scroll;">
+        <div id="companyStats"></div>
+      </div>
+      <div class="ibox-footer">
+
+      </div>
+    </div>
+  </div>
+  @endcan
 
     <div class="col-lg-6 col-sm-6 @if (auth()->user()->position()->title == "Administrator") hidden @endif">
     @php
@@ -112,22 +150,21 @@
               @endphp
               @foreach ($dtr as $att)
               @php
-                $in = strtotime($att["in_am"]) + strtotime($att["in_pm"]) ;
-                $out = strtotime($att["out_am"]) + strtotime($att["out_pm"]);
-
-                $condi = ($out - $in) / 3600 <= 0 || ($out - $in) / 3600 >= 24;
+                $res = strtotime($att["out_pm"] ? $att["out_pm"] : $att["out_am"])-strtotime($att["in_am"] ? $att["in_am"] : ($att["out_am"] ? $att["out_am"] : $att["in_pm"]));
+                
+                $condi = $res/3600 <= 0 || $res/3600 >= 24;
               @endphp
                 <tr data-toggle="tooltip" data-placement="bottom" title="{{ (new Carbon\Carbon($att["date"]))->toFormattedDateString() }}"
                 @if ($condi)
                  class="alert alert-danger"
                 @else
-                  @php($totalhours += ($out - $in) / 3600)
+                  @php($totalhours += $res / 3600)
                 @endif >
                   <td>{{ $att["in_am"] }}</td>
                   <td>{{ $att["out_am"] }}</td>
                   <td>{{ $att["in_pm"] }}</td>
                   <td>{{ $att["out_pm"] }}</td>
-                  <td>{{ number_format(($out - $in) / 3600, 2) }}</td>
+                  <td>{{ number_format(($res) / 3600, 2) }}</td>
                 </tr>
               @endforeach
             </tbody>
@@ -179,6 +216,42 @@
     </div>
   </div>
 
+  @if (auth()->user()->position()->title == "Human Resources Manager")
+  <div class="col-lg-3 col-sm-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <span class="label label-success pull-right">Monthly</span>
+        <h5><i class="fas fa-weight"></i> Rates</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="row">
+          <div class="col-lg-12">
+            <label>Monthly Salary: {{ number_format(auth()->user()->employee->rates->monthly, 2) }}</label>
+          </div>
+          <div class="col-lg-12">
+            <canvas id="chart-area-rates"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+          <span class="label label-danger pull-right">Monthly</span>
+          <h5><i class="fa fa-download" aria-hidden="true"></i> Deductions</h5>
+      </div>
+      <div class="ibox-content">
+          <div class="row">
+            <div class="col-lg-12">
+              <canvas id="chart-area-deductions"></canvas>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  @endif
+
   @can ("employee_View")
   @can ("position_View")
   <div class="col-lg-6 col-sm-6" style="clear: left;">
@@ -201,25 +274,7 @@
   @endcan
   @endcan
 
-  <div class="col-lg-6 col-sm-6">
-    <div class="ibox float-e-margins">
-      <div class="ibox-title">
-        <h5><i class="far fa-chart-bar"></i> Position Statistics</h5>
-      </div>
-      <div class="ibox-content">
-        <div class="row">
-          <div class="col-lg-12">
-            <canvas id="chart-area"></canvas>
-          </div>
-        </div>
-      </div>
-      <div class="ibox-footer">
-
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-6" style="clear: left;">
+  <div class="col-lg-6">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
           <h5><i class="far fa-newspaper"></i> News</h5>
@@ -236,7 +291,7 @@
     </div>
   </div>
   
-  <div class="col-lg-3 col-sm-6">
+  <div class="col-lg-3 col-sm-6" style="clear: left;">
       <div class="ibox float-e-margins">
           <div class="ibox-title">
               <span class="label label-info pull-right">Annual</span>
@@ -275,5 +330,24 @@
       </div>
   </div>
 </div>
+
+@if (auth()->user()->position()->title != "Administrator")
+<div class="col-lg-3 col-sm-6">
+  <div class="ibox float-e-margins">
+      <div class="ibox-title">
+          <span class="label label-success pull-right">Monthly</span>
+          <h5><i class="fas fa-money"></i> Earnings</h5>
+      </div>
+      <div class="ibox-content">
+          <div class="row">
+            <div class="col-lg-12">
+              <canvas id="chart-area-earnings"></canvas>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>
+@endif
+
 </div>
 </div>

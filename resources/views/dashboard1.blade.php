@@ -335,7 +335,7 @@
 <div class="col-lg-3 col-sm-6">
   <div class="ibox float-e-margins">
       <div class="ibox-title">
-          <span class="label label-success pull-right">Monthly</span>
+          <span class="label label-{{ auth()->user()->employee->earnings->status ? "success" : "danger" }} pull-right">{{ auth()->user()->employee->earnings->status ? "Active" : "Inactive" }}</span>
           <h5><i class="fas fa-money"></i> Earnings</h5>
       </div>
       <div class="ibox-content">

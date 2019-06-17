@@ -274,7 +274,7 @@
   @endcan
   @endcan
 
-  <div class="col-lg-6">
+  <div class="col-lg-6 pull-right">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
           <h5><i class="far fa-newspaper"></i> News</h5>

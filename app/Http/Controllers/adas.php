@@ -282,6 +282,7 @@ class DateTimeRecordController extends Controller
 
         
         // traverses every dtr info in the standard spreadsheet file.
+       
         foreach ($data as $d) {
             for ($i = 2, $em = 0; $i < count($d); $i += $days+10) {
                 // employee detail [row]
@@ -329,45 +330,89 @@ class DateTimeRecordController extends Controller
               
             }
 
-
-            //Dae ko nalalaog su mga attendance ninda
-            
             //  employee attendance [row]
-          
+            $i = 2;
+            echo "<Table border='1'>";
+           
             foreach (array_slice($d, $i+9, $days) as $att) {
-                
                 for ($j = 0, $uindex = $em; $j < count($att); $j += 15, ++$uindex) {
-                    $val = implode('', array_slice($att, $j+1, 13));
-
-                    if ($val == "" || $val == "Absence" || $val == "absence") {
-                        array_push($csv_info['employees'][$uindex]->attendance, (object)[
-                            'ddww' => $att[$j],
-                            'absent' => true,
-                        ]);
-                        continue;
-                    }
-
-                    array_push($csv_info["employees"][$uindex]->attendance, (object)[
-                        'ddww' => $att[$j],
-                        'absent' => false,
-
-                        'am' => [
-                            'in' => $att[$j+1],
-                            'out' => $att[$j+3],
-                        ],
-
-                        'pm' => [
-                            'in' => $att[$j+6],
-                            'out' => $att[$j+8],
-                        ],
-
-                        'over' => [
-                            'in' => $att[$j+10],
-                            'out' => $att[$j+12],
-                        ],
-                    ]);
-
+                    echo $csv_info["employees"][$uindex]->name;
                 }
+                // echo "<tr>";
+                
+                // $j = 0;
+                // foreach($att as $a){
+                //     $val = implode('', array_slice($att, $j+1, 13));
+                //     $em++;
+                    
+                //     echo $csv_info["employees"][$em]->name;
+                    
+                //     // if ($val == "" || $val == "Absence" || $val == "absence") {
+
+                //     //     array_push($csv_info["employees"][$uindex]->attendance, (object)[
+                //     //         'ddww' => $att[$j],
+                //     //         'absent' => true,
+    
+    
+                //     //     ]);
+
+                      
+                //     // }
+                //     // else{
+                //     //     echo "<td>".$att[$j]."</td>";
+                //     //     array_push($csv_info["employees"][$uindex]->attendance, (object)[
+                //     //         'ddww' => $att[$j],
+                //     //         'absent' => false,
+    
+    
+                //     //     ]);
+                //     // }
+                  
+                    
+                   
+                  
+                    
+                    
+                //     $j++;
+                    
+                // }
+              
+               
+                // echo "</tr>";               
+               // for ($j = 0, $uindex = $em; $j < count($att); $j += 15, ++$uindex) {
+                    
+                //     $val = implode('', array_slice($att, $j+1, 13));
+
+                    // if ($val == "" || $val == "Absence" || $val == "absence") {
+                    //     array_push($csv_info['employees'][$uindex]->attendance, (object)[
+                    //         'ddww' => $att[$j],
+                    //         'absent' => true,
+                    //     ]);
+                    //     continue;
+                    // }
+
+                    // array_push($csv_info["employees"][$uindex]->attendance, (object)[
+                    //     'ddww' => $att[$j],
+                    //     'absent' => false,
+
+                    //     'am' => [
+                    //         'in' => $att[$j+1],
+                    //         'out' => $att[$j+3],
+                    //     ],
+
+                    //     'pm' => [
+                    //         'in' => $att[$j+6],
+                    //         'out' => $att[$j+8],
+                    //     ],
+
+                    //     'over' => [
+                    //         'in' => $att[$j+10],
+                    //         'out' => $att[$j+12],
+                    //     ],
+                    // ]);
+
+                // }
+              
             }
 
             $employees = [];
@@ -378,14 +423,15 @@ class DateTimeRecordController extends Controller
                     array_push($employees, $csv_info["employees"][$j]);
     
             $csv_info["employees"] = $employees;
-    
+
+          
+        
         }
-
-        // dd($csv_info);
-
+        echo "</table>";
+        dd($csv_info);
     
-        return view('dtr_contents.index')
-          ->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
+        // return view('dtr_contents.index')
+        //   ->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
     }
 
   

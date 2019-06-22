@@ -41,7 +41,7 @@ class Payroll extends Model
       foreach ($DeductionsRates->statutory as $name => $value) {
         $TotalDeductions+= $value;
       }
-      return $TotalDeductions + $Late + $Undertime;
+      return $TotalDeductions + $Late;
     }
     
     public static function NetPay($TotalEarnings , $TotalDeduction) {

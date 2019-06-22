@@ -157,7 +157,7 @@ $endDate = date("Y-m-d" , strtotime($end));
                                                      </li>
                                                      <li class="list-group-item">
                                                         <span>Undertime</span>
-                                                        <span class="pull-right"> ₱ {{number_format($EmployeeUndertimeDeductions , 2)}} <input class="DeductionClass-{{$employee->id}}" type="text" value="{{$EmployeeUndertimeDeductions}}" hidden name="undertime[{{$employee->id}}]"></span>
+                                                        <span class="pull-right"> ₱ {{number_format($EmployeeUndertimeDeductions , 2)}} <input class="DeductionClass-{{$employee->id}}" type="text" value="0" hidden name="undertime[{{$employee->id}}]"></span>
                                                      </li>
 
                                                     @foreach ($DeductionsRates->statutory as $name => $deductions)

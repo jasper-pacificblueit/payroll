@@ -154,7 +154,7 @@
             var IncomeClass = document.getElementsByClassName('IncomeClass-' + user_id);
             var NewTotalIncome = 0;
             for(var i = 0; i < IncomeClass.length; i++) {
-            
+                
                var value= IncomeClass[i].value;
                console.log(parseFloat(value));
                NewTotalIncome += parseFloat(value);
@@ -257,9 +257,10 @@
             var NewTotalDeduction = 0;
             console.log(DeductionClass.length);
             for(var i = 0; i < DeductionClass.length; i++) {
-            
+                
                var value= DeductionClass[i].value;
-               console.log(parseFloat(value));
+               
+               console.log(parseFloat("deductions = " + value));
                NewTotalDeduction += parseFloat(value);
 
             }

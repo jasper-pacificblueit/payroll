@@ -243,19 +243,21 @@ class DateTimeRecordController extends Controller
         $start = $request->start;
         $end = $request->end;
         
-        $data = Excel::toArray(new DateTimeRecord, $request->file('upload-file'))[0];
+        $getDate = Excel::toArray(new DateTimeRecord, $request->file('upload-file'))[0];
         
-        // return view('dtr_contents.index')->with(compact('data'));
-        
+        $data = Excel::toArray(new DateTimeRecord, $request->file('upload-file'));
+
         $csv_info = [
 
-            'period' => $data[1][3],
-            'printed' => $data[1][18],
+            'period' => $getDate[1][3],
+            'printed' => $getDate[1][18],
             'employees' => [],
 
         ];
-
+        
+      
         $period = new DateTime($csv_info['printed']);
+      
 
         $is_leap;
         $days;
@@ -276,103 +278,152 @@ class DateTimeRecordController extends Controller
         default:
             $days = 31; 
         }
+     
 
+        
         // traverses every dtr info in the standard spreadsheet file.
-        for ($i = 2, $em = 0; $i < count($data); $i += $days+10) {
-            // employee detail [row]
-            foreach (array_slice($data, $i, 5) as $k => $ems) {
-                for ($j = 0, $uindex = $em; $j < count($ems); $j += 15) {
-                    switch ($k) {
-                    case 0:
-                        array_push($csv_info["employees"], new Employee([
-                            'dep' => $ems[$j+1],
-                            'name' => $ems[$j+9],
-                        ]));
-                        break;
-                    case 1:
-                        $csv_info["employees"][$uindex]->date = $ems[$j+1];
-                        $csv_info["employees"][$uindex]->bio_id = $ems[$j+9];
-
-                        ++$uindex;
-                        break;
-                    case 4:
-                        $csv_info["employees"][$uindex]->absence = $ems[$j];
-                        $csv_info['employees'][$uindex]->leave = $ems[$j+1];
-                        $csv_info['employees'][$uindex]->btrip = $ems[$j+2];
-                        $csv_info['employees'][$uindex]->io_pp = $ems[$j+4];
-                        $csv_info['employees'][$uindex]->over = [
-                            'regular' => $ems[$j+5],
-                            'special' => $ems[$j+7],
-                        ];
-
-                        $csv_info['employees'][$uindex]->tardiness = [
-                            'ts' => $ems[$j+8],
-                            'mm' => $ems[$j+9],
-                        ];
-
-                        $csv_info['employees'][$uindex]->early_leave = [
-                            'ts' => $ems[$j+11],
-                            'mm' => $ems[$j+13],
-                        ];
-
-                        ++$uindex;
-                        break;
+       
+        foreach ($data as $d) {
+            for ($i = 2, $em = 0; $i < count($d); $i += $days+10) {
+                // employee detail [row]
+                foreach (array_slice($d, $i, 5) as $k => $ems) {
+                    for ($j = 0, $uindex = $em; $j < count($ems); $j += 15) {
+                        switch ($k) {
+                        case 0:
+                            array_push($csv_info["employees"], new Employee([
+                                'dep' => $ems[$j+1],
+                                'name' => $ems[$j+9],
+                            ]));
+                            break;
+                        case 1:
+                            $csv_info["employees"][$uindex]->date = $ems[$j+1];
+                            $csv_info["employees"][$uindex]->bio_id = $ems[$j+9];
+    
+                            ++$uindex;
+                            break;
+                        case 4:
+                            $csv_info["employees"][$uindex]->absence = $ems[$j];
+                            $csv_info['employees'][$uindex]->leave = $ems[$j+1];
+                            $csv_info['employees'][$uindex]->btrip = $ems[$j+2];
+                            $csv_info['employees'][$uindex]->io_pp = $ems[$j+4];
+                            $csv_info['employees'][$uindex]->over = [
+                                'regular' => $ems[$j+5],
+                                'special' => $ems[$j+7],
+                            ];
+    
+                            $csv_info['employees'][$uindex]->tardiness = [
+                                'ts' => $ems[$j+8],
+                                'mm' => $ems[$j+9],
+                            ];
+    
+                            $csv_info['employees'][$uindex]->early_leave = [
+                                'ts' => $ems[$j+11],
+                                'mm' => $ems[$j+13],
+                            ];
+    
+                            ++$uindex;
+                            break;
+                        }
                     }
                 }
+    
+              
             }
 
-            // employee attendance [row]
-            foreach (array_slice($data, $i+9, $days) as $att) {
-
-                for ($j = 0, $uindex = $em; $j < count($att); $j += 15, ++$uindex) {
+            //  employee attendance [row]
+            $i = 2;
+            echo "<Table border='1'>";
+            
+            foreach (array_slice($d, $i+9, $days) as $att) {
+                echo "<tr>";
+                $emp = 0;
+                $j = 0;
+                foreach($att as $a){
                     $val = implode('', array_slice($att, $j+1, 13));
-
+                   
                     if ($val == "" || $val == "Absence" || $val == "absence") {
-                        array_push($csv_info['employees'][$uindex]->attendance, (object)[
+
+                        array_push($csv_info["employees"][$emp]->attendance, (object)[
                             'ddww' => $att[$j],
                             'absent' => true,
+    
+    
                         ]);
-                        continue;
+
+                      
                     }
-
-                    array_push($csv_info["employees"][$uindex]->attendance, (object)[
-                        'ddww' => $att[$j],
-                        'absent' => false,
-
-                        'am' => [
-                            'in' => $att[$j+1],
-                            'out' => $att[$j+3],
-                        ],
-
-                        'pm' => [
-                            'in' => $att[$j+6],
-                            'out' => $att[$j+8],
-                        ],
-
-                        'over' => [
-                            'in' => $att[$j+10],
-                            'out' => $att[$j+12],
-                        ],
-                    ]);
-
+                    else{
+                        echo "<td>".$att[$j]."</td>";
+                        array_push($csv_info["employees"][$emp]->attendance, (object)[
+                            'ddww' => $att[$j],
+                            'absent' => false,
+    
+    
+                        ]);
+                    }
+                  
+                    
+                    
+                  
+                    
+                    
+                    $j++;
+                    
                 }
+               
+                echo "</tr>";               
+               // for ($j = 0, $uindex = $em; $j < count($att); $j += 15, ++$uindex) {
+                    
+                //     $val = implode('', array_slice($att, $j+1, 13));
+
+                    // if ($val == "" || $val == "Absence" || $val == "absence") {
+                    //     array_push($csv_info['employees'][$uindex]->attendance, (object)[
+                    //         'ddww' => $att[$j],
+                    //         'absent' => true,
+                    //     ]);
+                    //     continue;
+                    // }
+
+                    // array_push($csv_info["employees"][$uindex]->attendance, (object)[
+                    //     'ddww' => $att[$j],
+                    //     'absent' => false,
+
+                    //     'am' => [
+                    //         'in' => $att[$j+1],
+                    //         'out' => $att[$j+3],
+                    //     ],
+
+                    //     'pm' => [
+                    //         'in' => $att[$j+6],
+                    //         'out' => $att[$j+8],
+                    //     ],
+
+                    //     'over' => [
+                    //         'in' => $att[$j+10],
+                    //         'out' => $att[$j+12],
+                    //     ],
+                    // ]);
+
+                // }
             }
 
-            $em = $uindex;
-        }
-
-        $employees = [];
+            $employees = [];
      
-        // [cleanup] remove any null employee records.
-        for ($j = 0; $j < count($csv_info["employees"]); ++$j)
-            if ($csv_info["employees"][$j]->name != "")
-                array_push($employees, $csv_info["employees"][$j]);
+            // [cleanup] remove any null employee records.
+            for ($j = 0; $j < count($csv_info["employees"]); ++$j)
+                if ($csv_info["employees"][$j]->name != "")
+                    array_push($employees, $csv_info["employees"][$j]);
+    
+            $csv_info["employees"] = $employees;
 
-        $csv_info["employees"] = $employees;
-
-
-        return view('dtr_contents.index')
-          ->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
+          
+        
+        }
+        echo "</table>";
+        dd($csv_info);
+    
+        // return view('dtr_contents.index')
+        //   ->with(['csv_info' => (object)$csv_info , 'start' => $start , 'end' => $end]);
     }
 
   

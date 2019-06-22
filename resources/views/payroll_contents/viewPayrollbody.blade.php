@@ -12,7 +12,8 @@ $endDate = date("Y-m-d" , strtotime($end));
         
         
         $EmployeeTotalHours = App\DateTimeRecord::getTotalHours($startDate , $endDate , $employee->user_id);
-    
+        $EmployeeTotalDays = App\DateTimeRecord::getTotalDays($startDate , $endDate , $employee->user_id);
+        
         
         $EmployeeTotalLate = App\DateTimeRecord::getTotalLate($employee->schedule , $startDate , $endDate , $employee->user_id);
         $EmployeeTotalOvertime = App\DateTimeRecord::getOvertime($employee->schedule , $startDate , $endDate , $employee->user_id);
@@ -206,7 +207,7 @@ $endDate = date("Y-m-d" , strtotime($end));
                                          <span>Total Hours : {{$EmployeeTotalHours}}</span>
                                     </div>
                                     <div class="col-lg-3">
-                                         <span>Total Days :</span>
+                                         <span>Total Days : {{$EmployeeTotalDays}}</span>
                                     </div>
                                     <div class="col-lg-3">
                                          <span>Undertime :</span>

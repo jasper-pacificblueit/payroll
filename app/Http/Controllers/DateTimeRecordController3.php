@@ -113,7 +113,7 @@ class DateTimeRecordController extends Controller
         }
 
 
-            foreach($csv_info['employees'] as $employee){
+            foreach($csv_info['employees'] as $employee) {
                 
                 $dayCount = 0;
                 $count = 0;

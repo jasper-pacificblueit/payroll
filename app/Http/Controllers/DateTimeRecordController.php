@@ -164,7 +164,13 @@ class DateTimeRecordController extends Controller
                     
                 }
                 
-                $updateBioID = App\Employee::where('user_id' , '=', $request->UserID[$employee['bio_id']][0])->first();
+                
+                try {
+
+                    $updateBioID = App\Employee::where('user_id' , '=', $request->UserID[$employee['bio_id']][0])->first();
+                }catch(\Exception $e){
+                    return redirect('dtr?result=fail');
+                }
                 $updateBioID->bio_id = $employee['bio_id'];
                 $updateBioID->save();
             }

@@ -77,21 +77,31 @@
                                                         else if(empty($attendance->am['in']) && empty($attendance->am['out'])){
                                                                     $pm_in = strtotime($attendance->pm['in']);
                                                                     $pm_out = strtotime($attendance->pm['out']);
-                                                                    $diff = round(abs($pm_in - $pm_out) / 3600, 1);
+                                                                    $diff = round(abs($pm_in - $pm_out) / 3600, 1)-1;
                                                                     $in = $attendance->pm['in'];
                                                                     $out = $attendance->pm['out'];
+                                                                    if($diff > 8){
+                                                                        $diff = 8;
+                                                                    }
+                                                                    
                                                         }
                                                         else if(empty($attendance->am['out'])){
                                                                 $am_in = strtotime($attendance->am['in']);
                                                                 $pm_out = strtotime($attendance->pm['out']);
-                                                                $diff = round(abs($am_in - $pm_out) / 3600 , 1);
+                                                                $diff = round(abs($am_in - $pm_out) / 3600 , 1)-1;
+                                                                if($diff > 8){
+                                                                        $diff = 8;
+                                                                }
                                                         }
                                                             
                                                         
                                                         else if(empty($attendance->pm['out'])){
                                                                 $am_in = strtotime($attendance->am['in']);
                                                                 $am_out = strtotime($attendance->am['out']);
-                                                                $diff = round(abs($am_in - $am_out) / 3600 , 1);
+                                                                $diff = round(abs($am_in - $am_out) / 3600 , 1)-1;
+                                                                if($diff > 8){
+                                                                        $diff = 8;
+                                                                }
                                                         }
                                                         $totalDays++;
                                                     ?>
@@ -151,6 +161,8 @@
                                                    <th>Time in <small>(pm)</small></th>
                                                    <th>Time out <small>(pm)</small></th>
                                                    <th>Rendered Hours</th>
+                                                   <th>Add-ons</th>
+                                                   
                                                     
                                                 </tr>
                                                 </thead>
@@ -174,34 +186,44 @@
                                                             @else
 
                                                             <?php
-                                                                            
+                                                                $warning = false;
                                                                 if(empty($attendance->am['out']) && empty($attendance->pm['out'])){
                                                                     $diff = "<b style='color:orange;'>Warning</b>";
                                                                     $out = '--';
+                                                                    $warning = true;
                                                                 }
                                                                 else if(empty($attendance->am['in']) && empty($attendance->am['out'])){
                                                                     $pm_in = strtotime($attendance->pm['in']);
                                                                     $pm_out = strtotime($attendance->pm['out']);
-                                                                    $diff = round(abs($pm_in - $pm_out) / 3600, 1);
+                                                                    $diff = round(abs($pm_in - $pm_out) / 3600, 1)-1;
                                                                     $in = $attendance->pm['in'];
                                                                     $out = $attendance->pm['out'];
+                                                                    if($diff > 8){
+                                                                        $diff = 8;
+                                                                    }
+
                                                                 }
                                                                 else if(empty($attendance->am['out'])){
                                                                     $am_in = strtotime($attendance->am['in']);
                                                                     $pm_out = strtotime($attendance->pm['out']);
-                                                                    $diff = round(abs($am_in - $pm_out) / 3600, 1);
+                                                                    $diff = round(abs($am_in - $pm_out) / 3600, 1)-1;
                                                                     $in = $attendance->am['in'];
                                                                     $out = $attendance->pm['out'];
-                                                                    
+                                                                    if($diff > 8){
+                                                                        $diff = 8;
+                                                                    }
                                                                 }
                                                                 
                                                             
                                                                 else if(empty($attendance->pm['out'])){
                                                                     $am_in = strtotime($attendance->am['in']);
                                                                     $am_out = strtotime($attendance->am['out']);
-                                                                    $diff = round(abs($am_in - $am_out) / 3600 , 1);
+                                                                    $diff = round(abs($am_in - $am_out) / 3600 , 1)-1;
                                                                     $in = $attendance->am['in'];
                                                                     $out = $attendance->am['out'];
+                                                                    if($diff > 8){
+                                                                        $diff = 8;
+                                                                    }
                                                                 }
                                                                 
 
@@ -219,8 +241,18 @@
                                                                 <td>{{$attendance->pm['in']}}</td>
                                                                 <td>{{$attendance->pm['out']}}</td>
                                                                                                     
-                                                                <td><?php echo $diff; ?></td>
-                                                                <input type="number" name="totalHours[{{$employee->bio_id}}][]" value="{{$diff}}" hidden>
+                                                                @if($warning)
+                                                                    <td><?php echo $diff;?></td>
+                                                                    <td>&nbsp;</td>
+                                                                @else
+                                                                    <td><input type="text" name="totalHours[{{$employee->bio_id}}][]" value="{{$diff}}" class="form-control" style="background:transparent; border: 0;border-bottom:solid 1px #CCC;width:50px"></td>
+                                                                    <td>
+                                                                        <button class="badge badge-success" style="border:0;">SH</button>&nbsp;
+                                                                        <button class="badge badge-danger" style="border:0;">SL</button>&nbsp;
+                                                                        <button class="badge badge-warning" style="border:0;">RH</button>&nbsp;
+                                                                        
+                                                                    </td>
+                                                                @endif
                                                                
                                                             @endif
                                                             
@@ -331,6 +363,7 @@
                                                               <div class="input-group clockpicker" data-autoclose="true">
                                                                     <span class="input-group-addon">
                                                                         <i class="far fa-clock"></i>
+                                                                      
                                                                     </span> 
                                                                     <input type="time" class="warningTimeOut form-control" onchange="calchour()" name="warningTimeOut[{{$employee->bio_id}}][]" id="out" value="18:00" required>
                                                                        
@@ -347,7 +380,7 @@
                                                     @foreach ($employee->attendance as $attendance)
                                                         @if (empty($attendance->am['out']) && empty($attendance->pm['out']))
                                                             @if (!empty($attendance->am['in']) || !empty($attendance->pm['in']))
-                                                                <input type="text" name="warningTotal[{{$employee->bio_id}}][]" class="warningTotal form-control" style="background:transparent;border:0;" readonly>
+                                                                <input type="text" name="warningTotal[{{$employee->bio_id}}][]" class="warningTotal form-control" style="background:transparent;border:0;border-bottom:solid 1px #CCC">
                                                                 <br>
                                                             @endif
                                                         @endif
@@ -418,6 +451,12 @@
            
             <div class="row">
                 <div class="col-sm-12 m-b-xs">
+                    @if (isset($_GET['result']))
+                    <div class="alert alert-danger">
+                            Please set all employees details. 
+                    </div>
+                    @endif
+
                     <h4>Import Attendance</h4>
                     <form method="POST" action="/dtr/view" enctype="multipart/form-data">
                         {{ csrf_field() }}
@@ -505,7 +544,7 @@
                                                 <tr>
                                                     <td>{{ App\Profile::getFullName($employee->user_id) }}</td>
                                                     <td>{{$employee->getDepartment->name}}</td>
-                                                    <td>{{ $employee->positions()->title }}</td>
+                                                    <td>{{$employee->positions()->title }}</td>
                                                     <td>{{$EmployeeTotalHours}}</td>
                                                     <td>{{$EmployeeTotalDays}}</td>
                                                 </tr>
@@ -522,7 +561,7 @@
                         <h4>No recent file uploaded</h4>
                         <br>
                         <div class="alert alert-warning">
-                                How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>.
+                                Please import your attendance file. 
                         </div>
                     </div>
                 @endif

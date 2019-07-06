@@ -242,15 +242,17 @@
                                                                 <td>{{$attendance->pm['out']}}</td>
                                                                                                     
                                                                 @if($warning)
-                                                                    <td><?php echo $diff;?></td>
+                                                                    <td><?php echo $diff; ?></td>
                                                                     <td>&nbsp;</td>
                                                                 @else
-                                                                    <td><input type="text" name="totalHours[{{$employee->bio_id}}][]" value="{{$diff}}" class="form-control" style="background:transparent; border: 0;border-bottom:solid 1px #CCC;width:50px"></td>
+                                                            <td><input type="text" id="totalHours-{{$employee->bio_id}}-{{ $dayCount }}" name="totalHours[{{$employee->bio_id}}][]" value="{{$diff}}" class="form-control" style="background:transparent; border: 0;border-bottom:solid 1px #CCC;width:50px"></td>
                                                                     <td>
-                                                                        <button class="badge badge-success" style="border:0;">SH</button>&nbsp;
-                                                                        <button class="badge badge-danger" style="border:0;">SL</button>&nbsp;
-                                                                        <button class="badge badge-warning" style="border:0;">RH</button>&nbsp;
-                                                                        
+                                                                        <div class="btn-group" id="totalHours-{{$employee->bio_id}}-{{ $dayCount }}-btn">
+                                                                            <a class="btn btn-md btn-primary" style="border:0;" onclick="addOns('sh', 'totalHours-{{$employee->bio_id}}-{{ $dayCount }}', this)">SH</a>&nbsp;
+                                                                            <a class="btn btn-md btn-primary" style="border:0;" onclick="addOns('sl', 'totalHours-{{$employee->bio_id}}-{{ $dayCount }}', this)">SL</a>&nbsp;
+                                                                            <a class="btn btn-md btn-primary" style="border:0;" onclick="addOns('rh', 'totalHours-{{$employee->bio_id}}-{{ $dayCount }}', this)">RH</a>&nbsp;
+                                                                            <a class="btn btn-md btn-primary" style="border:0;" onclick="addOns('vh', 'totalHours-{{$employee->bio_id}}-{{ $dayCount }}', this)">VH</a>&nbsp;
+                                                                        </div>
                                                                     </td>
                                                                 @endif
                                                                
@@ -574,7 +576,43 @@
 
 <script>
 
+function addOns(type, date_id , btn) {
+    var originalVal = document.querySelector(`#${date_id}`).value;
 
+    btn.classList.remove("btn-primary");
+    btn.classList.add("btn-success");
+
+    let newVal;
+
+    Array.from(document.querySelector(`#${date_id}-btn`).children).forEach(v => {
+        v.classList.add("disabled");
+    });
+
+    switch (type) {
+    case 'sh':
+        newVal = parseFloat(originalVal) * 1.3;
+        document.querySelector(`#${date_id}`).value = newVal;
+        
+        break;
+    case 'sl':
+        newVal = parseFloat(originalVal) + 8;
+        document.querySelector(`#${date_id}`).value = newVal;
+        
+        break;
+    case 'rh':
+        newVal = parseFloat(originalVal) + 8;
+        document.querySelector(`#${date_id}`).value = newVal;
+
+        break;
+    case 'vh':
+        newVal = parseFloat(originalVal) + 8;
+        document.querySelector(`#${date_id}`).value = newVal;
+
+        break;
+    default:
+        
+    }
+}
 
 function diff_minutes(dt2, dt1) 
  {

@@ -1,6 +1,7 @@
 
 @foreach (App\Schedule::all() as $sched)
 	<tr id="schedule-{{ $sched->id }}">
+		
 		<td>{{ $sched->type }}</td>
 		<td data-toggle="tooltip" data-placement="bottom" title="{!! $sched->department->company->name !!}">{!! $sched->department ? $sched->department->name : "<span class='badge badge-warning'>Created for user</span>" !!}</td>
 		<td>{!! $sched->employee_id == null ? "<span class='badge badge-success'>Everyone</span>" : App\Profile::getFullName(App\Employee::find($sched->employee_id)->user_id) !!}</td>
